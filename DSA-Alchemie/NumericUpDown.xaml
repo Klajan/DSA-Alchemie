@@ -1,0 +1,44 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DSA_Alchemie"
+             xmlns:Properties="clr-namespace:DSA_Alchemie.Properties" x:Name="userControl" x:Class="DSA_Alchemie.NumericUpDown"
+             mc:Ignorable="d" Height="20" Width="60">
+    <UserControl.Resources>
+        <local:BoolInverterConverter x:Key="BoolInverterConverter"/>
+        <local:VisibilityToColumnConverter x:Key="VisibilityToColumnConverter"/>
+        <local:VisibilityToWidthConverter x:Key="VisibilityToWidthConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:FieldModifier="public" x:Name="ButtonColumn" MaxWidth="30" Width="{Binding ButtonVisibility, BindsDirectlyToSource=True, Converter={StaticResource VisibilityToColumnConverter}, ElementName=userControl}" MinWidth="{Binding ButtonVisibility, Converter={StaticResource VisibilityToWidthConverter}, ElementName=userControl, FallbackValue=10}" />
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="textBox" Grid.Column="1" TextWrapping="NoWrap" Text="0" VerticalContentAlignment="Center" VerticalScrollBarVisibility="Disabled"
+                 TextChanged="TextBox_TextChanged"
+                 CommandManager.PreviewExecuted="textBox_PreviewExecuted"
+                 IsReadOnly="{Binding IsReadOnly, ElementName=userControl, FallbackValue=False, Mode=OneWay}"/>
+        <Grid x:FieldModifier="public" x:Name="ButtonGrid" Grid.Column="0" Visibility="{Binding ButtonVisibility, BindsDirectlyToSource=True, ElementName=userControl, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" FontFamily="Segoe UI Symbol" Focusable="False" Click="ButtonUp_Click" ClickMode="Press" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, ElementName=userControl, FallbackValue=True}">
+                <Path Stretch="Uniform" Fill="Black" Data="M 0 6 L 12 6 L 6 0 Z">
+                    <Path.Effect>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="2"/>
+                    </Path.Effect>
+                </Path>
+            </Button>
+            <Button Grid.Row="1" HorizontalContentAlignment="Stretch" Focusable="False" Click="ButtonDown_Click" ClickMode="Press" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, ElementName=userControl, FallbackValue=True}">
+                <Path Stretch="Uniform" Fill="Black" Data="M 0 0 L 6 6 L 12 0 Z">
+                    <Path.Effect>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="2"/>
+                    </Path.Effect>
+                </Path>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
