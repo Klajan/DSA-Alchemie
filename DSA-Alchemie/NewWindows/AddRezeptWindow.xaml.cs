@@ -22,6 +22,7 @@ namespace DSA_Alchemie
         public AddRezeptWindow()
         {
             InitializeComponent();
+            var testgit = 0;
         }
     }
 }
