@@ -24,39 +24,47 @@ namespace DSA_Alchemie
         }
         public void AddRezept(Rezept R)
         {
-            RezeptDict.Add(R.Name, R);
+            try
+            {
+                RezeptDict.Add(R.Name, R);
+            }
+            catch(ArgumentException e)
+            {
+                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
+            }
         }
         public void CreateDictionary()
         {
-            GroupDict.Add(allKey, null);
-            Groups.Add(allKey);
+            RezeptDict.Add(allKey, new Rezept(null, allKey, 0, (0, 0)));
             foreach(KeyValuePair<string, Rezept> re in RezeptDict)
             {
-                if (!GroupDict.ContainsKey(re.Value.Group))
+                if (!Groups.Contains(re.Value.Gruppe))
                 {
-                    GroupDict.Add(re.Value.Group, null);
-                    Groups.Add(re.Value.Group);
+                    GroupDict.Add(re.Value.Gruppe, null);
+                    Groups.Add(re.Value.Gruppe);
                 }
             }
-            var tmpDict = new Dictionary<string, List<string>>(GroupDict);
-            foreach(KeyValuePair<string, List<string>> gr in GroupDict)
+            Groups.Remove(allKey);
+            Groups.Sort();
+            Groups.Insert(0, allKey);
+            RezeptDict.Remove(allKey);
+            foreach(string gr in Groups)
             {
                 var list = new List<string>();
                 foreach(KeyValuePair<string, Rezept> re in RezeptDict)
                 {
-                    if(gr.Key == allKey)
+                    if(gr == allKey)
                     {
                         list.Add(re.Value.Name);
                     }
-                    else if(re.Value.Group == gr.Key)
+                    else if(re.Value.Gruppe == gr)
                     {
                         list.Add(re.Value.Name);
                     }
                 }
                 list.Sort();
-                tmpDict[gr.Key] = list;
+                GroupDict[gr] = list;
             }
-            GroupDict = new Dictionary<string, List<string>>(tmpDict);
         }
     }
 }

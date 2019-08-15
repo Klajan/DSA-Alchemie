@@ -87,6 +87,8 @@ namespace DSA_Alchemie
         {
             if(null == rezepte_combo_rezept.SelectedItem) { return; }
             app_.CurrentRezept = app_.Data.RezeptDict[rezepte_combo_rezept.SelectedItem.ToString()];
+            bool same = (app_.Trank != null) ? app_.Trank.IsSameBase(app_.CurrentRezept) : false;
+            if (!same) { app_.Trank = new Trank(app_.CurrentRezept, App.rnd); }
             brauen_txtBox_quality.Text = "";
         }
 
@@ -112,6 +114,7 @@ namespace DSA_Alchemie
         private void AddRezeptCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var win = app_.OpenAddRezeptWindow();
+            AttachRezepte(app_.Data);
         }
     }
 }

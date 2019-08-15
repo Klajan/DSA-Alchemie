@@ -25,20 +25,20 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" FontFamily="Segoe UI Symbol" Focusable="False" Click="ButtonUp_Click" ClickMode="Press" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, ElementName=userControl, FallbackValue=True}">
-                <Path Stretch="Uniform" Fill="Black" Data="M 0 6 L 12 6 L 6 0 Z">
+            <RepeatButton Grid.Row="0" HorizontalContentAlignment="Stretch" FontFamily="Segoe UI Symbol" Focusable="False" Click="ButtonUp_Click" ClickMode="Press" Delay="500" Interval="25" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, ElementName=userControl, FallbackValue=True}">
+                <Path Stretch="Uniform" Fill="Black" Data="M 0 6 L 12 6 L 6 0 Z" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Path.Effect>
-                        <DropShadowEffect ShadowDepth="1" BlurRadius="2"/>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="1" Direction="270"/>
                     </Path.Effect>
                 </Path>
-            </Button>
-            <Button Grid.Row="1" HorizontalContentAlignment="Stretch" Focusable="False" Click="ButtonDown_Click" ClickMode="Press" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, ElementName=userControl, FallbackValue=True}">
-                <Path Stretch="Uniform" Fill="Black" Data="M 0 0 L 6 6 L 12 0 Z">
+            </RepeatButton>
+            <RepeatButton Grid.Row="1" HorizontalContentAlignment="Stretch" Focusable="False" Click="ButtonDown_Click" ClickMode="Press" Delay="500" Interval="25" IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, ElementName=userControl, FallbackValue=True}">
+                <Path Stretch="Uniform" Fill="Black" Data="M 0 0 L 6 6 L 12 0 Z" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Path.Effect>
-                        <DropShadowEffect ShadowDepth="1" BlurRadius="2"/>
+                        <DropShadowEffect ShadowDepth="1" BlurRadius="1" Direction="90"/>
                     </Path.Effect>
                 </Path>
-            </Button>
+            </RepeatButton>
         </Grid>
     </Grid>
 </UserControl>

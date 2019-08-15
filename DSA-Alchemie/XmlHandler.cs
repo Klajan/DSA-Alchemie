@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +16,22 @@ namespace DSA_Alchemie
 {
     public class XmlHandler
     {
+        private static Regex xmlRegex;
         static public Mutex mutex = new Mutex();
         static private string normalizeS(string input)
         {
             return Regex.Replace(Regex.Replace(input, @"\r\n?|\n", ""), @"\s+", " ").Trim();
+        }
+        static private XmlSchema getSchema()
+        {
+            void ValidationCallBack(object sender, ValidationEventArgs args)
+            {
+                return;
+            }
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "DSA_Alchemie.data.data.xsd";
+            Stream stream = assembly.GetManifestResourceStream(resourceName);
+            return XmlSchema.Read(stream, ValidationCallBack);
         }
         static public void ImportXmlData(string filename, ref Database db)
         {
@@ -25,25 +39,36 @@ namespace DSA_Alchemie
             XPathDocument doc;
             try
             {
+                    //DSA_Alchemie.Database
                 XmlReaderSettings readerSettings = new XmlReaderSettings();
                 XmlSchemaSet schemaSet = new XmlSchemaSet();
-                schemaSet.Add("", $"data/{filename}.xsd");
+                schemaSet.Add(getSchema());
                 readerSettings.ValidationType = ValidationType.Schema;
                 //schemaSet.Compile();
                 readerSettings.Schemas = schemaSet;
-                XmlReader reader = XmlReader.Create($"data/{filename}.xml", readerSettings);
+                XmlReader reader = XmlReader.Create(filename, readerSettings);
                 //XmlDocument doc = new XmlDocument();
                 doc = new XPathDocument(reader);
             }
             catch(XmlException e)
             {
+                
+                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
                 System.Windows.MessageBox.Show(e.Message, "XmlException");
                 mutex.ReleaseMutex();
                 return;
             }
             catch(XmlSchemaException e)
             {
+                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
                 System.Windows.MessageBox.Show(e.Message + "\nZeile " + e.LineNumber + ", Position " + e.LinePosition, "XmlSchemaException");
+                mutex.ReleaseMutex();
+                return;
+            }
+            catch(FileNotFoundException e)
+            {
+                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
+                System.Windows.MessageBox.Show(e.Message, "File not Found");
                 mutex.ReleaseMutex();
                 return;
             }
@@ -79,7 +104,16 @@ namespace DSA_Alchemie
                 {
                     rezept.Wirkung[c] = (tmp != null) ? XmlHandler.normalizeS(tmp.SelectSingleNode(c.ToString()).Value) : "";
                 }
-                db.AddRezept(rezept);
+                try
+                {
+                    db.AddRezept(rezept);
+                }
+                catch (ArgumentException e)
+                {
+                    System.Windows.MessageBox.Show(e.Message, "Duplicate Key");
+                    mutex.ReleaseMutex();
+                    return;
+                }
             }
             mutex.ReleaseMutex();
         }

@@ -1,0 +1,93 @@
+﻿<Window x:Class="DSA_Alchemie.window.InputRezeptWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DSA_Alchemie.window"
+        xmlns:base="clr-namespace:DSA_Alchemie"
+        mc:Ignorable="d"
+        Title="Rezept hinzufügen" Height="450" Width="329.739" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:InputRezeptWindow.Exit_RoutedCommand}"
+                    Executed="ExitCommand_Executed"
+                    CanExecute="ExitCommand_CanExecute" />
+        <CommandBinding Command="{x:Static local:InputRezeptWindow.WirkungInput_RoutedCommand}"
+                    Executed="WirkungInputCommand_Executed"
+                    CanExecute="WirkungInputCommand_CanExecute" />
+    </Window.CommandBindings>
+    <Grid>
+        <StackPanel>
+            <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="5">
+                <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                    <TextBlock TextWrapping="NoWrap" Text="Name:"/>
+                </Border>
+                <TextBox x:FieldModifier="private" x:Name="nameIN" Height="25" TextWrapping="Wrap" Text="" Width="130" ToolTip="Name MUSS Einzigartig sein!"/>
+                <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                    <TextBlock TextWrapping="NoWrap" Text="Gruppe:"/>
+                </Border>
+                <TextBox x:FieldModifier="private" x:Name="gruppeIN" Height="25" TextWrapping="Wrap" Text="" Width="130"/>
+                <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                    <TextBlock TextWrapping="NoWrap" Text="Labor:"/>
+                </Border>
+                <ComboBox x:FieldModifier="private" x:Name="laborIN" Height="25" Width="130">
+                    <ComboBoxItem Content="Archaisches Labor"/>
+                    <ComboBoxItem Content="Hexenküche"/>
+                    <ComboBoxItem Content="Alchimistenlabor"/>
+                </ComboBox>
+                <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                    <TextBlock TextWrapping="NoWrap" Text="Probe:"/>
+                </Border>
+                <base:NumericUpDown x:FieldModifier="private" x:Name="propeIN_B" Height="25" Width="65" IncreaseFunc="IncreaseFunc" DecreaseFunc="DecreaseFunc" ToolTip="Aufschlag für Analyse Probe"/>
+                <base:NumericUpDown x:FieldModifier="private" x:Name="propeIN_A" Height="25" Width="65" IncreaseFunc="IncreaseFunc" DecreaseFunc="DecreaseFunc" ToolTip="Aufschlag für Brauen Probe"/>
+            </WrapPanel>
+            <StackPanel Margin="5" VerticalAlignment="Top" HorizontalAlignment="Left" Width="200">
+                <Expander Header="Mehr" VerticalAlignment="Top" HorizontalAlignment="Left" Width="202" Background="LightGray" IsExpanded="False">
+                    <Grid Background="White">
+                        <WrapPanel Width="200">
+
+                            <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                                <TextBlock TextWrapping="NoWrap" Text="Wirkung:"/>
+                            </Border>
+                            <CheckBox x:FieldModifier="private" x:Name="isValid" Content="" Height="25" VerticalContentAlignment="Center" IsEnabled="False" Margin="6,0,0,0"/>
+                            <Button Height="25" Width="60" Content="Eintragen" Command="{x:Static local:InputRezeptWindow.WirkungInput_RoutedCommand}" Margin="6,0,0,0">
+                            </Button>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                                <TextBlock TextWrapping="NoWrap" Text="Verbreitung:"/>
+                            </Border>
+                            <TextBox x:FieldModifier="private" x:Name="verbrIN" Height="25" TextWrapping="Wrap" Text="" Width="130"/>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                                <TextBlock TextWrapping="NoWrap" Text="Beschaffung:"/>
+                            </Border>
+                            <TextBox x:FieldModifier="private" x:Name="beschIN_T" Height="25" TextWrapping="Wrap" Text="" Width="90"/>
+                            <base:NumericUpDown x:FieldModifier="private" x:Name="beschIN_V" Height="25" Width="40" IncreaseFunc="IncreaseFunc" DecreaseFunc="DecreaseFunc" ToolTip="Verbreitung der Zutarten"/>
+
+                            <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                                <TextBlock TextWrapping="NoWrap" Text="Haltbarkeit:"/>
+                            </Border>
+                            <TextBox x:FieldModifier="private" x:Name="haltbIN" Height="25" TextWrapping="Wrap" Text="" Width="130"/>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                                <TextBlock TextWrapping="NoWrap" Text="Preis:"/>
+                            </Border>
+                            <TextBox x:FieldModifier="private" x:Name="preisIN" Height="25" TextWrapping="Wrap" Text="" Width="130"/>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                                <TextBlock TextWrapping="NoWrap" Text="Merkmale:"/>
+                            </Border>
+                            <TextBox x:FieldModifier="private" x:Name="merkmIN" Height="25" TextWrapping="Wrap" Text="" Width="130"/>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="25" Width="70">
+                                <TextBlock TextWrapping="NoWrap" Text="Seite:"/>
+                            </Border>
+                            <base:NumericUpDown x:FieldModifier="private" x:Name="seiteIN" Height="25" Width="130" Min="-1" Value="-1" ButtonVisibility="Collapsed"/>
+                            <Border BorderBrush="Black" BorderThickness="1" Height="50" Width="70">
+                                <TextBlock TextWrapping="NoWrap" Text="Zutaten:"/>
+                            </Border>
+                            <Viewbox Height="50" Width="130">
+                                <TextBox x:FieldModifier="private" x:Name="zutatenIN" MinHeight="50" MinWidth="130" MaxWidth="390" MaxHeight="150" TextWrapping="Wrap" Text="" />
+                            </Viewbox>
+                        </WrapPanel>
+                    </Grid>
+                </Expander>
+                <Button Content="Fertig" HorizontalAlignment="Center" VerticalAlignment="Top" Width="75" Margin="0,5" Command="{x:Static local:InputRezeptWindow.Exit_RoutedCommand}" ToolTip="Fertigstellen? &#x0a;Leere Felder werden übersprungen."/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

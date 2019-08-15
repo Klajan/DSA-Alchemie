@@ -73,11 +73,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="NewWindows\AddRezeptWindow.xaml.cs">
-      <DependentUpon>AddRezeptWindow.xaml</DependentUpon>
+    <Compile Include="windows\InputRezeptWindow.xaml.cs">
+      <DependentUpon>InputRezeptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Dice.cs" />
     <Compile Include="MainWindow_Additionals.cs" />
+    <Compile Include="windows\InputWirkungWindow.xaml.cs">
+      <DependentUpon>InputWirkungWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
@@ -85,7 +88,7 @@
     <Compile Include="Rezept.cs" />
     <Compile Include="Trank.cs" />
     <Compile Include="XmlHandler.cs" />
-    <Page Include="NewWindows\AddRezeptWindow.xaml">
+    <Page Include="windows\InputRezeptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -103,6 +106,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="windows\InputWirkungWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="NumericUpDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,10 +141,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="data\data.xsd">
+    <EmbeddedResource Include="data\data.xsd">
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

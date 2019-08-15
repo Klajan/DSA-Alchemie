@@ -16,6 +16,7 @@ namespace DSA_Alchemie
     /// </summary>
     public partial class App : Application, INotifyPropertyChanged
     {
+        public static List<Tuple<Exception, Type>> Exceptions = new List<Tuple<Exception, Type>>();
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChange(string propertyname)
         {
@@ -61,7 +62,7 @@ namespace DSA_Alchemie
             progress.Show();
             progress.Activate();*/
             //Task xmlImport = new Task(XmlHandler.ImportXmlData("data", ref data_));
-            var xmlImport = Task.Run(() => XmlHandler.ImportXmlData("data", ref data_));
+            var xmlImport = Task.Run(() => XmlHandler.ImportXmlData($"data/data.xml", ref data_));
             //XmlHandler.ImportXmlData("data", ref data_);
             main = new MainWindow(this);
             MainWindow = main;
@@ -72,12 +73,19 @@ namespace DSA_Alchemie
             data_.CreateDictionary();
             main.AttachRezepte(data_);
         }
-        public Rezept OpenAddRezeptWindow()
+        public bool OpenAddRezeptWindow()
         {
-            Window window = new AddRezeptWindow();
-            window.DataContext = main;
-            window.Show();
-            return null;
+            window.InputRezeptWindow popup = new window.InputRezeptWindow();
+            popup.DataContext = main;
+            popup.ShowDialog();
+            var rezept = popup.NewRezept;
+            if (rezept != null)
+            {
+                data_.AddRezept(rezept);
+                data_.CreateDictionary();
+                return true;
+            }
+            return false;
         }
     }
 }

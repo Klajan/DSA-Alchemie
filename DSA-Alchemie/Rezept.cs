@@ -10,7 +10,7 @@ namespace DSA_Alchemie
     {
         protected readonly bool isValid;
         public string Name { private set; get; }
-        public string Group { private set; get; }
+        public string Gruppe { private set; get; }
         /// <summary>
         /// Item1:  Numeric Identifier <para/>
         /// Item2:  Display Name
@@ -25,7 +25,7 @@ namespace DSA_Alchemie
         public string Haltbarkeit { set; get; }
         /// <summary>
         /// Item1:  Preis der Zutaten als string <para/>
-        /// Item2: Verbreitung der Zutaten als int
+        /// Item2:  Verbreitung der Zutaten als int
         /// </summary>
         public Tuple<string, int> Beschaffung { set; get; }
         public string Preis { set; get; }
@@ -41,7 +41,7 @@ namespace DSA_Alchemie
         public Rezept() { isValid = false; }
         public Rezept(string name, string group, int labor, (int brauen, int analyse) probe)
         {
-            this.Name = name; this.Group = group; this.Mods = probe.ToTuple<int, int>();
+            this.Name = name; this.Gruppe = group; this.Mods = probe.ToTuple<int, int>();
             switch (labor)
             {
                 case 0:
@@ -63,7 +63,7 @@ namespace DSA_Alchemie
         public Rezept(Rezept prevRezept)
         {
             this.Name = prevRezept.Name;
-            this.Group = prevRezept.Group;
+            this.Gruppe = prevRezept.Gruppe;
             this.Labor = prevRezept.Labor;
             this.Mods = prevRezept.Mods;
             this.Verbreitung = prevRezept.Verbreitung;
