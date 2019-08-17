@@ -19,15 +19,15 @@ namespace DSA_Alchemie.window
     /// </summary>
     public partial class InputRezeptWindow : Window
     {
-        public dataClasses.Rezept NewRezept { private set; get; }
+        public common.Rezept NewRezept { private set; get; }
         private string[] wirkung = null;
         public InputRezeptWindow()
         {
             InitializeComponent();
         }
-        public InputRezeptWindow(dataClasses.Rezept rezept)
+        public InputRezeptWindow(common.Rezept rezept)
         {
-            NewRezept = new dataClasses.Rezept(rezept);
+            NewRezept = new common.Rezept(rezept);
             Set();
             InitializeComponent();
         }
@@ -64,7 +64,7 @@ namespace DSA_Alchemie.window
                 NewRezept = null;
                 return false;
             }
-            NewRezept = new dataClasses.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex, (propeIN_B.Value, propeIN_A.Value));
+            NewRezept = new common.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex, (propeIN_B.Value, propeIN_A.Value));
             NewRezept.Verbreitung = verbrIN.Text.Length != 0 ? verbrIN.Text : null;
             NewRezept.Haltbarkeit = haltbIN.Text.Length != 0 ? haltbIN.Text : null;
             NewRezept.Merkmale = merkmIN.Text.Length != 0 ? merkmIN.Text : null;

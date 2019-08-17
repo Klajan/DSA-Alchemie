@@ -29,11 +29,11 @@ namespace DSA_Alchemie
                 return;
             }
             var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "DSA_Alchemie.data.data.xsd";
+            var resourceName = "DSA_Alchemie.resources.data.data.xsd";
             Stream stream = assembly.GetManifestResourceStream(resourceName);
             return XmlSchema.Read(stream, ValidationCallBack);
         }
-        static public void ImportXmlData(string filename, ref dataClasses.Database db)
+        static public void ImportXmlData(string filename, ref Database db)
         {
             mutex.WaitOne();
             XPathDocument doc;
@@ -81,7 +81,7 @@ namespace DSA_Alchemie
                 var labor = navIT.Current.SelectSingleNode("labor").ValueAsInt;
                 var tmp = navIT.Current.SelectSingleNode("probe");
                 var probe = (tmp.SelectSingleNode("brauen").ValueAsInt, tmp.SelectSingleNode("analyse").ValueAsInt);
-                var rezept = new dataClasses.Rezept(name, gruppe, labor, probe);
+                var rezept = new common.Rezept(name, gruppe, labor, probe);
                 tmp = navIT.Current.SelectSingleNode("beschaffung");
                 rezept.Beschaffung = (tmp != null) ?
                     Tuple.Create(XmlHandler.normalizeS(tmp.SelectSingleNode("kosten").Value), tmp.SelectSingleNode("seltenheit").ValueAsInt) : 

@@ -3,15 +3,15 @@
   <rezept>
     <name>Heiltrank</name>
     <gruppe>Spagyrik</gruppe>
-    <beschaffung>
-      <kosten>5 D</kosten>
-      <seltenheit>14</seltenheit>
-    </beschaffung>
     <labor>0</labor>
     <probe>
       <brauen>2</brauen>
       <analyse>1</analyse>
     </probe>
+    <beschaffung>
+      <kosten>5 D</kosten>
+      <seltenheit>14</seltenheit>
+    </beschaffung>
     <verbreitung>7</verbreitung>
     <merkmale>klare Flüssigkeit mit erfrischendem Geruch</merkmale>
     <haltbarkeit>1W6+20 Monate</haltbarkeit>
@@ -47,15 +47,15 @@
   <rezept>
     <name>Beschwörungskerzen</name>
     <gruppe>Magika</gruppe>
-    <beschaffung>
-      <kosten>25 S</kosten>
-      <seltenheit>10</seltenheit>
-    </beschaffung>
     <labor>0</labor>
     <probe>
       <brauen>3</brauen>
       <analyse>0</analyse>
     </probe>
+    <beschaffung>
+      <kosten>25 S</kosten>
+      <seltenheit>10</seltenheit>
+    </beschaffung>
     <verbreitung>6</verbreitung>
     <merkmale>grünliches Wachs, latenter Geruch der Niederhöllen</merkmale>
     <haltbarkeit>nahezu unbegrenzt</haltbarkeit>
@@ -89,16 +89,16 @@
   </rezept>
   <rezept>
     <name>Zauberkreide</name>
-    <gruppe>Magica</gruppe>
-    <beschaffung>
-      <kosten>25 S</kosten>
-      <seltenheit>13</seltenheit>
-    </beschaffung>
+    <gruppe>Magika</gruppe>
     <labor>0</labor>
     <probe>
       <brauen>2</brauen>
       <analyse>1</analyse>
     </probe>
+    <beschaffung>
+      <kosten>25 S</kosten>
+      <seltenheit>13</seltenheit>
+    </beschaffung>
     <verbreitung>7</verbreitung>
     <haltbarkeit>nahezu unbegrenzt</haltbarkeit>
     <preis>etwa 5 Dukaten.</preis>

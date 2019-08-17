@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
 
-namespace DSA_Alchemie.dataClasses
+namespace DSA_Alchemie
 {
     public class Database
     {
         public List<string> Groups { private set; get; }
         public Dictionary<string, List<string>> GroupDict { private set; get; }
-        public Dictionary<string, Rezept> RezeptDict { private set; get; }
+        public Dictionary<string, common.Rezept> RezeptDict { private set; get; }
         private readonly string allKey = "Alle";
 
         public Database()
         {
             Groups = new List<string>();
             GroupDict = new Dictionary<string, List<string>>();
-            RezeptDict = new Dictionary<string, Rezept>();
+            RezeptDict = new Dictionary<string, common.Rezept>();
         }
-        public void AddRezept(Rezept R)
+        public void AddRezept(common.Rezept R)
         {
             try
             {
@@ -35,8 +35,8 @@ namespace DSA_Alchemie.dataClasses
         }
         public void CreateDictionary()
         {
-            RezeptDict.Add(allKey, new Rezept(null, allKey, 0, (0, 0)));
-            foreach(KeyValuePair<string, Rezept> re in RezeptDict)
+            RezeptDict.Add(allKey, new common.Rezept(null, allKey, 0, (0, 0)));
+            foreach(KeyValuePair<string, common.Rezept> re in RezeptDict)
             {
                 if (!Groups.Contains(re.Value.Gruppe))
                 {
@@ -51,7 +51,7 @@ namespace DSA_Alchemie.dataClasses
             foreach(string gr in Groups)
             {
                 var list = new List<string>();
-                foreach(KeyValuePair<string, Rezept> re in RezeptDict)
+                foreach(KeyValuePair<string, common.Rezept> re in RezeptDict)
                 {
                     if(gr == allKey)
                     {

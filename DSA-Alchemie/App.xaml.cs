@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel;
-using DSA_Alchemie.dataClasses;
+using DSA_Alchemie.common;
 
 namespace DSA_Alchemie
 {
@@ -42,22 +42,22 @@ namespace DSA_Alchemie
 
         private MainWindow main;
 
-        private dataClasses.Database data_ = new dataClasses.Database();
-        public dataClasses.Database Data { get { return data_; } }
-        private dataClasses.Character character_ = new Character();
+        private Database data_ = new Database();
+        public Database Data { get { return data_; } }
+        private common.Character character_ = new Character();
         public Character Character
         {
             get => character_;
             set { character_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Character")); }
         }
-        private dataClasses.Rezept currentRezept_;
-        public dataClasses.Rezept CurrentRezept
+        private common.Rezept currentRezept_;
+        public common.Rezept CurrentRezept
         {
             get { return currentRezept_; }
             set { currentRezept_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentRezept")); }
         }
-        private dataClasses.Trank trank_;
-        public dataClasses.Trank Trank
+        private common.Trank trank_;
+        public common.Trank Trank
         {
             get { return trank_; }
             set { trank_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Trank")); }
@@ -71,9 +71,9 @@ namespace DSA_Alchemie
             progress.Show();
             progress.Activate();*/
             //Task xmlImport = new Task(XmlHandler.ImportXmlData("data", ref data_));
-            var xmlImport = Task.Run(() => XmlHandler.ImportXmlData($"data/data.xml", ref data_));
+            var xmlImport = Task.Run(() => XmlHandler.ImportXmlData($"resources/data/data.xml", ref data_));
             //XmlHandler.ImportXmlData("data", ref data_);
-            main = new MainWindow(this);
+            main = new MainWindow();
             MainWindow = main;
             main.Activate();
             main.Show();

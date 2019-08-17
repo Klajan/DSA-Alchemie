@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace DSA_Alchemie.dataClasses
+namespace DSA_Alchemie.common
 {
     public class Trank : Rezept
     {
@@ -21,7 +21,7 @@ namespace DSA_Alchemie.dataClasses
                 if ("MABCDEF".Contains(char.ToUpper(value)))
                 {
                     quality_ = char.ToUpper(value);
-                    currentWirkung = Wirkung.ContainsKey(value) ? Wirkung[quality_] : String.Empty;
+                    currentWirkung = Wirkung.ContainsKey(quality_) ? Wirkung[quality_] : String.Empty;
                     currentMerkmale = Merkmale;
                 }
                 else

@@ -73,13 +73,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="dataClasses\Character.cs" />
-    <Compile Include="dataClasses\Rezept.cs" />
-    <Compile Include="dataClasses\Trank.cs" />
+    <Compile Include="common\Character.cs" />
+    <Compile Include="common\Rezept.cs" />
+    <Compile Include="common\Trank.cs" />
     <Compile Include="windows\InputRezeptWindow.xaml.cs">
       <DependentUpon>InputRezeptWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Dice.cs" />
+    <Compile Include="common\Dice.cs" />
     <Compile Include="MainWindow_Additionals.cs" />
     <Compile Include="windows\InputWirkungWindow.xaml.cs">
       <DependentUpon>InputWirkungWindow.xaml</DependentUpon>
@@ -102,7 +102,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Basic_Classes.cs" />
-    <Compile Include="dataClasses\Database.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -142,7 +142,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="data\data.xsd">
+    <EmbeddedResource Include="resources\data\data.xsd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -154,8 +154,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\data.xml">
+    <Content Include="resources\data\data.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CustomToolNamespace>data</CustomToolNamespace>
     </Content>
   </ItemGroup>
   <ItemGroup>
