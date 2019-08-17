@@ -17,24 +17,24 @@
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="rezept">
           <xs:complexType>
-            <xs:sequence>
+            <xs:all minOccurs="0">
               <xs:element minOccurs="1" name="name" type="xs:string" />
               <xs:element minOccurs="1" name="gruppe" type="xs:string" />
-              <xs:element minOccurs="0" name="beschaffung">
-                <xs:complexType>
-                  <xs:sequence>
-                    <xs:element name="kosten" type="xs:string" />
-                    <xs:element name="seltenheit" type="rareInt" />
-                  </xs:sequence>
-                </xs:complexType>
-              </xs:element>
-              
               <xs:element minOccurs="1" name="labor" type="labID" />
               <xs:element minOccurs="1" name="probe">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="brauen" type="xs:integer" />
                     <xs:element name="analyse" type="xs:integer" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              
+              <xs:element minOccurs="0" name="beschaffung">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="kosten" type="xs:string" />
+                    <xs:element name="seltenheit" type="rareInt" />
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
@@ -57,7 +57,7 @@
                 </xs:complexType>
               </xs:element>
               <xs:element minOccurs="0" name="seite" type="xs:integer" />
-            </xs:sequence>
+            </xs:all>
           </xs:complexType>
         </xs:element>
       </xs:sequence>

@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="dataClasses\Character.cs" />
+    <Compile Include="dataClasses\Rezept.cs" />
+    <Compile Include="dataClasses\Trank.cs" />
     <Compile Include="windows\InputRezeptWindow.xaml.cs">
       <DependentUpon>InputRezeptWindow.xaml</DependentUpon>
     </Compile>
@@ -85,8 +88,6 @@
     <Compile Include="NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Rezept.cs" />
-    <Compile Include="Trank.cs" />
     <Compile Include="XmlHandler.cs" />
     <Page Include="windows\InputRezeptWindow.xaml">
       <SubType>Designer</SubType>
@@ -101,7 +102,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Basic_Classes.cs" />
-    <Compile Include="Database.cs" />
+    <Compile Include="dataClasses\Database.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -169,5 +170,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

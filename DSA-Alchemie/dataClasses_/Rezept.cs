@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DSA_Alchemie
+namespace DSA_Alchemie.dataClasses
 {
     public class Rezept : NotifyPropertyChanged
     {
+        private static UInt64 lastID = 0; 
+        public readonly UInt64 ID;
         protected readonly bool isValid;
         public string Name { private set; get; }
         public string Gruppe { private set; get; }
@@ -41,6 +43,7 @@ namespace DSA_Alchemie
         public Rezept() { isValid = false; }
         public Rezept(string name, string group, int labor, (int brauen, int analyse) probe)
         {
+            ID = lastID++;
             this.Name = name; this.Gruppe = group; this.Mods = probe.ToTuple<int, int>();
             switch (labor)
             {
@@ -62,6 +65,7 @@ namespace DSA_Alchemie
         }
         public Rezept(Rezept prevRezept)
         {
+            this.ID = prevRezept.ID;
             this.Name = prevRezept.Name;
             this.Gruppe = prevRezept.Gruppe;
             this.Labor = prevRezept.Labor;

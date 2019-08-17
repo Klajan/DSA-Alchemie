@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel;
+using DSA_Alchemie.dataClasses;
 
 namespace DSA_Alchemie
 {
@@ -41,21 +42,29 @@ namespace DSA_Alchemie
 
         private MainWindow main;
 
-        private Database data_ = new Database();
-        public Database Data { get { return data_; } }
-        private Rezept currentRezept_;
-        public Rezept CurrentRezept
+        private dataClasses.Database data_ = new dataClasses.Database();
+        public dataClasses.Database Data { get { return data_; } }
+        private dataClasses.Character character_ = new Character();
+        public Character Character
+        {
+            get => character_;
+            set { character_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Character")); }
+        }
+        private dataClasses.Rezept currentRezept_;
+        public dataClasses.Rezept CurrentRezept
         {
             get { return currentRezept_; }
             set { currentRezept_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentRezept")); }
         }
-        private Trank trank_;
-        public Trank Trank
+        private dataClasses.Trank trank_;
+        public dataClasses.Trank Trank
         {
             get { return trank_; }
             set { trank_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Trank")); }
         }
+
         
+
         public App()
         {
             /*Window progress = new Window();

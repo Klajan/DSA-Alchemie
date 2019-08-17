@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
 
-namespace DSA_Alchemie
+namespace DSA_Alchemie.dataClasses
 {
     public class Database
     {

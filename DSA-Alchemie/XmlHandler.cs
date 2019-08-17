@@ -33,7 +33,7 @@ namespace DSA_Alchemie
             Stream stream = assembly.GetManifestResourceStream(resourceName);
             return XmlSchema.Read(stream, ValidationCallBack);
         }
-        static public void ImportXmlData(string filename, ref Database db)
+        static public void ImportXmlData(string filename, ref dataClasses.Database db)
         {
             mutex.WaitOne();
             XPathDocument doc;
@@ -81,28 +81,31 @@ namespace DSA_Alchemie
                 var labor = navIT.Current.SelectSingleNode("labor").ValueAsInt;
                 var tmp = navIT.Current.SelectSingleNode("probe");
                 var probe = (tmp.SelectSingleNode("brauen").ValueAsInt, tmp.SelectSingleNode("analyse").ValueAsInt);
-                var rezept = new Rezept(name, gruppe, labor, probe);
+                var rezept = new dataClasses.Rezept(name, gruppe, labor, probe);
                 tmp = navIT.Current.SelectSingleNode("beschaffung");
                 rezept.Beschaffung = (tmp != null) ?
                     Tuple.Create(XmlHandler.normalizeS(tmp.SelectSingleNode("kosten").Value), tmp.SelectSingleNode("seltenheit").ValueAsInt) : 
                     Tuple.Create("0", 0);
                 tmp = navIT.Current.SelectSingleNode("preis");
-                rezept.Preis = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : "";
+                rezept.Preis = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : null;
                 tmp = navIT.Current.SelectSingleNode("haltbarkeit");
-                rezept.Haltbarkeit = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : "";
+                rezept.Haltbarkeit = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : null;
                 tmp = navIT.Current.SelectSingleNode("verbreitung");
-                rezept.Verbreitung = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : "";
+                rezept.Verbreitung = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : null;
                 tmp = navIT.Current.SelectSingleNode("seite");
                 rezept.Seite = (tmp != null) ? tmp.ValueAsInt : -1;
                 tmp = navIT.Current.SelectSingleNode("rezeptur");
-                rezept.Zutaten = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : "";
+                rezept.Zutaten = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : null;
                 tmp = navIT.Current.SelectSingleNode("merkmale");
-                rezept.Merkmale = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : "";
+                rezept.Merkmale = (tmp != null) ? XmlHandler.normalizeS(tmp.Value) : null;
                 tmp = navIT.Current.SelectSingleNode("wirkung");
-                char[] arr = { 'M', 'A', 'B', 'C', 'D', 'E', 'F'};
-                foreach(char c in arr)
+                if (tmp != null)
                 {
-                    rezept.Wirkung[c] = (tmp != null) ? XmlHandler.normalizeS(tmp.SelectSingleNode(c.ToString()).Value) : "";
+                    char[] arr = { 'M', 'A', 'B', 'C', 'D', 'E', 'F' };
+                    foreach (char c in arr)
+                    {
+                        rezept.Wirkung[c] = (tmp != null) ? XmlHandler.normalizeS(tmp.SelectSingleNode(c.ToString()).Value) : null;
+                    }
                 }
                 try
                 {

@@ -11,11 +11,11 @@ namespace DSA_Alchemie
     {
         public readonly int Min;
         public readonly int Max;
-        private readonly Random rnd;
+        private static readonly Random rnd = new Random();
 
-        public Dice(int min, int max, ref Random rnd)
+        public Dice(int min, int max)
         {
-            this.Min = min; this.Max = max; this.rnd = rnd;
+            this.Min = min; this.Max = max;
         }
         
         public int Roll()
@@ -31,7 +31,7 @@ namespace DSA_Alchemie
         private List<int> diceList_;
         public List<int> DiceList
         {
-            get { return diceList_; }
+            get => diceList_;
             set { diceList_ = value; RaisePropertyChange("DiceList"); }
         }
 
@@ -41,6 +41,13 @@ namespace DSA_Alchemie
             this.Name = name; this.Dice = dice; this.Ammount = ammount;
             DiceList = new List<int>(ammount);
             for (int i = 0; i < ammount; i++) { DiceList.Add(0); }
+        }
+        public DiceContainer(DiceContainer prev)
+        {
+            this.Name = prev.Name;
+            this.Dice = prev.Dice;
+            this.Ammount = prev.Ammount;
+            this.DiceList = prev.DiceList;
         }
 
         public void Roll()

@@ -8,20 +8,6 @@ using System.Globalization;
 
 namespace DSA_Alchemie
 {
-    public class Character : NotifyPropertyChanged
-    {
-        int MU_; int KL_; int FF_; int IN_; int labor_; int laborQuality_;
-        public int MU { get { return MU_; } set { MU_ = Math.Max(value, 1); } }
-        public int KL { get { return KL_; } set { KL_ = Math.Max(value, 1); } }
-        public int FF { get { return FF_; } set { FF_ = Math.Max(value, 1); } }
-        public int IN { get { return IN_; } set { IN_ = Math.Max(value, 1); } }
-        public int alch { set; get; }
-        public int koch { set; get; }
-        public int labor { get { return labor_; } set { labor_ = Math.Max(Math.Min(value, 2), 0); } }
-        public int laborQuality { get { return laborQuality_; } set { laborQuality_ = Math.Max(Math.Min(value, +3), -7); } }
-        public (bool AllegorischeAnalyse, bool ChymischeHochzeit, bool MandriconsBindung) schalenzauber { set; get; }
-        public Character() { MU = 10; KL = 10; IN = 10; FF = 10; alch = 0; koch = 0; schalenzauber = (false, false, false); }
-    }
     public class Helper
     {
         public static int CalcLaborMod(int requLab, int currentLab)

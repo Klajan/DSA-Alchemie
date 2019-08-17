@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DSA_Alchemie"
+        xmlns:localData="clr-namespace:DSA_Alchemie.dataClasses"
         xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Generic="clr-namespace:System.Collections.Generic;assembly=mscorlib" x:Name="AlchemieMain" x:Class="DSA_Alchemie.MainWindow"
         mc:Ignorable="d"
         Title="DSA Alchemie" Height="520" Width="800" SizeToContent="WidthAndHeight" SnapsToDevicePixels="False" ResizeMode="CanMinimize" WindowStartupLocation="CenterOwner">
@@ -12,7 +13,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <local:AstralAufladenConverter x:Key="AstralAufladenConverter"/>
         <local:AstralAufladenConverter x:Key="aspCalcandStringConverter"/>
-        <local:Trank x:Key="Substitution"/>
+        <localData:Trank x:Key="Substitution"/>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static local:MainWindow.AddRezept_RoutedCommand}"
@@ -121,24 +122,24 @@
                     <WrapPanel HorizontalAlignment="Left" Height="270" VerticalAlignment="Top" Margin="5" Width="314">
                         <StackPanel HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="36" Background="#7FABABAB" Margin="5,0,0,0">
                             <TextBlock TextWrapping="Wrap" Text="MU" Height="20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" RenderTransformOrigin="9.587,5.712"/>
-                            <local:NumericUpDown x:Name="MUbox" Height="20" FontSize="14" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Min="1" Max="99" BorderBrush="#7FABABAB" HorizontalAlignment="Center" Width="36"/>
+                            <local:NumericUpDown x:Name="MUbox" Height="20" FontSize="14" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Min="1" Max="99" BorderBrush="#7FABABAB" HorizontalAlignment="Center" Width="36" Value="{Binding Path=App.Character.MU, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="36" Background="#7FABABAB" Margin="5,0,0,0">
                             <TextBlock TextWrapping="Wrap" Text="KL" Height="20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <local:NumericUpDown x:Name="KLbox" Height="20" FontSize="14" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center"/>
+                            <local:NumericUpDown x:Name="KLbox" Height="20" FontSize="14" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center" Value="{Binding Path=App.Character.KL, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="36" Background="#7FABABAB" Margin="5,0,0,0">
                             <TextBlock TextWrapping="Wrap" Text="IN" Height="20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <local:NumericUpDown x:Name="INbox" Height="20" FontSize="14" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center"/>
+                            <local:NumericUpDown x:Name="INbox" Height="20" FontSize="14" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center" Value="{Binding Path=App.Character.IN, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
                         </StackPanel>
                         <StackPanel HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="36" Background="#7FABABAB" Margin="5,0,0,0">
                             <TextBlock TextWrapping="Wrap" Text="FF" Height="20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                            <local:NumericUpDown x:Name="FFbox" Height="20"  FontSize="14" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center"/>
+                            <local:NumericUpDown x:Name="FFbox" Height="20"  FontSize="14" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center" Value="{Binding Path=App.Character.FF, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
                         </StackPanel>
                         <StackPanel Height="48" Width="262">
                             <WrapPanel Height="24" Margin="0" Width="262" HorizontalAlignment="Right">
                                 <RadioButton x:Name="Radio_Alchemie" GroupName="Talent" Content="Alchemie" FontSize="14" FontWeight="Bold" IsChecked="True" Height="20" Width="80" VerticalContentAlignment="Center" Margin="0,2,4,0"/>
-                                <local:NumericUpDown x:Name="txtBox_AlchemieTaW" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" FontSize="14" Margin="0,2,4,0" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1"/>
+                                <local:NumericUpDown x:Name="txtBox_AlchemieTaW" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" FontSize="14" Margin="0,2,4,0" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Value="{Binding Path=App.Character.Alchemie, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
                                 <CheckBox x:Name="MHchkAlch" Content="MH" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Margin="0,2,4,0">
                                     <CheckBox.RenderTransform>
                                         <TransformGroup>
@@ -153,7 +154,7 @@
                             </WrapPanel>
                             <WrapPanel Height="24" Margin="0,0,0.4,0">
                                 <RadioButton x:Name="Radio_Kochen" GroupName="Talent" Content="Kochen" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="20" Width="80" VerticalContentAlignment="Center" Margin="0,2,4,0"/>
-                                <local:NumericUpDown x:Name="txtBox_KochenTaW" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" FontSize="14" Margin="0,2,4,0" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1"/>
+                                <local:NumericUpDown x:Name="txtBox_KochenTaW" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" FontSize="14" Margin="0,2,4,0" IncreaseFunc="numericIncrease1" DecreaseFunc="numericDecrease1" Value="{Binding Path=App.Character.Kochen, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
                                 <CheckBox x:Name="MHchkKoch" Content="MH" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Margin="0,2,4,0">
                                     <CheckBox.RenderTransform>
                                         <TransformGroup>
@@ -172,7 +173,7 @@
                                 <SolidColorBrush Color="Black"/>
                             </GroupBox.BorderBrush>
                             <StackPanel HorizontalAlignment="Left" Height="73" Margin="0,0,-2.4,-12.2" VerticalAlignment="Top" Width="260">
-                                <CheckBox x:Name="chkBox_AllgAnalyse" Content="Allegorische Analyse" Height="18" RenderTransformOrigin="0.5,0.5">
+                                <CheckBox x:Name="chkBox_AllgAnalyse" Content="Allegorische Analyse" Height="18" RenderTransformOrigin="0.5,0.5" IsChecked="{Binding Path=App.Character.AllegorischeAnalyse, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=false}">
                                     <CheckBox.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -182,7 +183,7 @@
                                         </TransformGroup>
                                     </CheckBox.RenderTransform>
                                 </CheckBox>
-                                <CheckBox x:Name="chkBox_ChymHoch" Content="Chymische Hochzeit" Height="18" RenderTransformOrigin="0.5,0.5">
+                                <CheckBox x:Name="chkBox_ChymHoch" Content="Chymische Hochzeit" Height="18" RenderTransformOrigin="0.5,0.5" IsChecked="{Binding Path=App.Character.ChymischeHochzeit, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=false}">
                                     <CheckBox.ToolTip>
                                         <TextBlock MaxWidth="250" TextWrapping="Wrap" Text="Mit der Chymischen Hochzeit sind Talentproben zur Herstellung von Elixieren um 1 Punkt erleichtert und die Qualitätszahl um 2 Punkte erhöht. Außerdem spart man beim Astralen Aufladen die Hälfte der AsP."/>
                                     </CheckBox.ToolTip>
@@ -195,7 +196,7 @@
                                         </TransformGroup>
                                     </CheckBox.RenderTransform>
                                 </CheckBox>
-                                <CheckBox x:Name="chkBox_MandBind" Content="Mandricons Bindung" Height="18" RenderTransformOrigin="0.5,0.5">
+                                <CheckBox x:Name="chkBox_MandBind" Content="Mandricons Bindung" Height="18" RenderTransformOrigin="0.5,0.5" IsChecked="{Binding Path=App.Character.MandriconsBindung, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=false}">
                                     <CheckBox.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -209,7 +210,7 @@
                         </GroupBox>
                         <StackPanel Height="40" Width="147">
                             <TextBlock TextWrapping="Wrap" Text="Laborstufe"/>
-                            <ComboBox x:Name="LaborStufe" IsReadOnly="True" IsSynchronizedWithCurrentItem="True">
+                            <ComboBox x:Name="LaborStufe" IsReadOnly="True" IsSynchronizedWithCurrentItem="True" SelectedIndex="{Binding App.Character.Labor, ElementName=AlchemieMain, FallbackValue=0, Mode=OneWayToSource}">
                                 <ComboBoxItem Content="Archaisches Labor" IsSelected="True"/>
                                 <ComboBoxItem Content="Hexenküche"/>
                                 <ComboBoxItem Content="Alchimistenlabor"/>
@@ -217,7 +218,7 @@
                         </StackPanel>
                         <StackPanel Height="40" Width="147">
                             <TextBlock TextWrapping="Wrap" Text="Laborausrüstung"/>
-                            <ComboBox x:Name="LaborQuality" IsReadOnly="True" ItemsSource="{x:Static local:App.LabQualityList}" DisplayMemberPath="Item2" SelectedIndex="1"/>
+                            <ComboBox x:Name="LaborQuality" IsReadOnly="True" ItemsSource="{x:Static local:App.LabQualityList}" DisplayMemberPath="Item2" SelectedIndex="1" SelectedValue="{Binding App.Character.LaborQuality, ElementName=AlchemieMain, FallbackValue=0, Mode=OneWayToSource}" IsSynchronizedWithCurrentItem="True" SelectedValuePath="Item1"/>
                         </StackPanel>
                     </WrapPanel>
                 </Grid>

@@ -24,22 +24,22 @@ namespace DSA_Alchemie
     public partial class MainWindow : Window
     {
         //private ref App application;
-        Character character = new Character();
+        dataClasses.Character character = new dataClasses.Character();
         public ObservableCollection<string> groups;
         public ObservableCollection<string> rezepte;
         //public ObservableCollection<KeyValuePair<string, List<string>>> RezeptCollection = new ObservableCollection<KeyValuePair<string, List<string>>>();
-        Trank trank = new Trank();
+        dataClasses.Trank trank = new dataClasses.Trank();
         readonly App app_;
         public App App { get { return app_; } }
         private void PullStats()
         {
-            character.MU = MUbox.Value;
+            /*character.MU = MUbox.Value;
             character.KL = KLbox.Value;
             character.IN = INbox.Value;
             character.FF = FFbox.Value;
             character.alch = txtBox_AlchemieTaW.Value;
             character.koch = txtBox_KochenTaW.Value;
-            character.schalenzauber = (chkBox_AllgAnalyse.IsChecked.Value, chkBox_ChymHoch.IsChecked.Value, chkBox_MandBind.IsChecked.Value);
+            character.schalenzauber = (chkBox_AllgAnalyse.IsChecked.Value, chkBox_ChymHoch.IsChecked.Value, chkBox_MandBind.IsChecked.Value);*/
         }
         public MainWindow(App parent)
         {
@@ -52,7 +52,7 @@ namespace DSA_Alchemie
             XmlHandler.mutex.ReleaseMutex();
         }
 
-        public void AttachRezepte(Database data)
+        public void AttachRezepte(dataClasses.Database data)
         {
             groups = new ObservableCollection<string>(data.Groups);
             rezepte = new ObservableCollection<string>(data.GroupDict["Alle"]);
@@ -63,13 +63,20 @@ namespace DSA_Alchemie
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (null == rezepte_combo_rezept.SelectedItem) { return; }
-            var rez = app_.Data.RezeptDict[rezepte_combo_rezept.SelectedItem.ToString()];
-            bool same = (app_.Trank != null) ? app_.Trank.IsSameBase(rez) : false;
-            if (!same) { app_.Trank = new Trank(rez, App.rnd); }
+            if(app_.Trank != null)
+            {
+                if (!app_.Trank.IsSameBase(app_.CurrentRezept))
+                {
+                    app_.Trank = new dataClasses.Trank(app_.CurrentRezept, app_.Trank.RollEign, app_.Trank.RollQual);
+                }
+            }
+            else
+            {
+                app_.Trank = new dataClasses.Trank(app_.CurrentRezept);
+            }
             app_.Trank.RNG = !ManDice.IsChecked;
-            PullStats();
             int mod = ((Tuple<int, string>)brauen_combo_substi.SelectedItem).Item1 + ((Tuple<int, string>)LaborQuality.SelectedItem).Item1;
-            var quality = app_.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), ref character);
+            var quality = app_.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), app_.Character);
             brauen_txtBox_quality.Text = quality.ToString();
         }
 
@@ -88,7 +95,7 @@ namespace DSA_Alchemie
             if(null == rezepte_combo_rezept.SelectedItem) { return; }
             app_.CurrentRezept = app_.Data.RezeptDict[rezepte_combo_rezept.SelectedItem.ToString()];
             bool same = (app_.Trank != null) ? app_.Trank.IsSameBase(app_.CurrentRezept) : false;
-            if (!same) { app_.Trank = new Trank(app_.CurrentRezept, App.rnd); }
+            if (!same) { app_.Trank = new dataClasses.Trank(app_.CurrentRezept); }
             brauen_txtBox_quality.Text = "";
         }
 
@@ -98,10 +105,19 @@ namespace DSA_Alchemie
             TextBox origin = sender as TextBox;
             e.Handled = true;
             var match = qualRegex.Match(origin.Text);
-            app_.Trank.Quality = match.Success ? match.Value[0] : 'm';
             if (app_.CurrentRezept == null) return;
-            brauen_txt_wirkung.Text = match.Success ? app_.CurrentRezept.Wirkung[match.Value.ToUpper()[0]] : "";
-            brauen_txt_merkmale.Text = match.Success ? app_.CurrentRezept.Merkmale : "";
+            if (app_.Trank != null)
+            {
+                if (match.Success && !app_.Trank.IsSameBase(app_.CurrentRezept))
+                {
+                    app_.Trank = new dataClasses.Trank(app_.CurrentRezept, app_.Trank.RollEign, app_.Trank.RollQual);
+                }
+            }
+            else
+            {
+                app_.Trank = new dataClasses.Trank(app_.CurrentRezept);
+            }
+            app_.Trank.Quality = match.Success ? match.Value[0] : '-';
             origin.TextChanged -= BrauenQuality_TextChanged;
             origin.Text = match.Value.ToUpper();
             origin.TextChanged += BrauenQuality_TextChanged;
