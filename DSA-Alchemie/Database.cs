@@ -11,60 +11,52 @@ namespace DSA_Alchemie
 {
     public class Database
     {
-        public List<string> Groups { private set; get; }
-        public Dictionary<string, List<string>> GroupDict { private set; get; }
-        public Dictionary<string, common.Rezept> RezeptDict { private set; get; }
-        private readonly string allKey = "Alle";
+        public List<string> Gruppen { private set; get; }
+        public Dictionary<string, List<string>> RezepteGruppen { private set; get; }
+        public Dictionary<string, common.Rezept> Rezepte { private set; get; }
+        private readonly static string allKey = "Alle";
 
         public Database()
         {
-            Groups = new List<string>();
-            GroupDict = new Dictionary<string, List<string>>();
-            RezeptDict = new Dictionary<string, common.Rezept>();
+            Gruppen = new List<string>();
+            RezepteGruppen = new Dictionary<string, List<string>>();
+            Rezepte = new Dictionary<string, common.Rezept>();
         }
-        public void AddRezept(common.Rezept R)
+        public Database(List<common.Rezept> rezepte)
+        {
+            RezepteGruppen = new Dictionary<string, List<string>>();
+            Rezepte = rezepte.ToDictionary((common.Rezept x) => x.Name, (common.Rezept x) => x);
+            Gruppen = Rezepte.Values.Select(x => x.Gruppe).Distinct().ToList();
+            foreach(var gruppe in Gruppen)
+            {
+                RezepteGruppen.Add(gruppe, Rezepte.Values.Where(x => x.Gruppe == gruppe).Select(x => x.Name).ToList());
+            }
+            Gruppen.Insert(0, allKey);
+            RezepteGruppen.Add(allKey, Rezepte.Values.Select(x => x.Name).ToList());
+        }
+        public void AddRezept(common.Rezept rezept)
         {
             try
             {
-                RezeptDict.Add(R.Name, R);
+                Rezepte.Add(rezept.Name, rezept);
             }
             catch(ArgumentException e)
             {
                 App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
+                return;
+            }
+            if(RezepteGruppen.ContainsKey(rezept.Gruppe))
+            {
+                RezepteGruppen[rezept.Gruppe].Add(rezept.Name);
+            } else
+            {
+                Gruppen.Add(rezept.Gruppe);
+                RezepteGruppen.Add(rezept.Gruppe, new List<string> { rezept.Name });
             }
         }
-        public void CreateDictionary()
+        public List<common.Rezept> GetList()
         {
-            RezeptDict.Add(allKey, new common.Rezept(null, allKey, 0, (0, 0)));
-            foreach(KeyValuePair<string, common.Rezept> re in RezeptDict)
-            {
-                if (!Groups.Contains(re.Value.Gruppe))
-                {
-                    GroupDict.Add(re.Value.Gruppe, null);
-                    Groups.Add(re.Value.Gruppe);
-                }
-            }
-            Groups.Remove(allKey);
-            Groups.Sort();
-            Groups.Insert(0, allKey);
-            RezeptDict.Remove(allKey);
-            foreach(string gr in Groups)
-            {
-                var list = new List<string>();
-                foreach(KeyValuePair<string, common.Rezept> re in RezeptDict)
-                {
-                    if(gr == allKey)
-                    {
-                        list.Add(re.Value.Name);
-                    }
-                    else if(re.Value.Gruppe == gr)
-                    {
-                        list.Add(re.Value.Name);
-                    }
-                }
-                list.Sort();
-                GroupDict[gr] = list;
-            }
+            return Rezepte.Values.ToList();
         }
     }
 }

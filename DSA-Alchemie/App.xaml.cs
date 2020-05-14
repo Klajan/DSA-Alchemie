@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel;
 using DSA_Alchemie.common;
+using DSA_Alchemie.FileHandling;
 
 namespace DSA_Alchemie
 {
@@ -42,8 +43,8 @@ namespace DSA_Alchemie
 
         private MainWindow main;
 
-        private Database data_ = new Database();
-        public Database Data { get { return data_; } }
+        private Database rezepte_ = new Database();
+        public Database Rezepte { get { return rezepte_; } }
         private common.Character character_ = new Character();
         public Character Character
         {
@@ -63,24 +64,33 @@ namespace DSA_Alchemie
             set { trank_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Trank")); }
         }
 
+        private void Initialize()
+        {
+            var rezepte = XmlHandler.ImportRezepteXml(
+                EmbeddedHandling.GetEmbeddedRecourceStream("DSA_Alchemie.resources.data.rezepte.xml"),
+                EmbeddedHandling.GetEmbeddedRecourceStream("DSA_Alchemie.resources.data.rezepte.xsd")
+                );
+            rezepte_ = new Database(rezepte);
+        }
+
         
 
         public App()
         {
-            /*Window progress = new Window();
-            progress.Show();
-            progress.Activate();*/
-            //Task xmlImport = new Task(XmlHandler.ImportXmlData("data", ref data_));
-            var xmlImport = Task.Run(() => XmlHandler.ImportXmlData($"resources/data/data.xml", ref data_));
-            //XmlHandler.ImportXmlData("data", ref data_);
             main = new MainWindow();
             MainWindow = main;
             main.Activate();
             main.Show();
-            xmlImport.Wait();
-            xmlImport.Dispose();
-            data_.CreateDictionary();
-            main.AttachRezepte(data_);
+            var initTask = Task.Run(Initialize);
+            var uiTask = initTask.ContinueWith(delegate {
+                Application.Current.Dispatcher.BeginInvoke(
+                    System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate {
+                        main.AttachRezepte(rezepte_);
+#if DEBUG
+                        XmlHandler.ExportRezepteToXml(rezepte_.GetList(), $"resources/data/export.xml");
+#endif
+                    }));
+            });
         }
         public bool OpenAddRezeptWindow()
         {
@@ -90,8 +100,7 @@ namespace DSA_Alchemie
             var rezept = popup.NewRezept;
             if (rezept != null)
             {
-                data_.AddRezept(rezept);
-                data_.CreateDictionary();
+                rezepte_.AddRezept(rezept);
                 return true;
             }
             return false;

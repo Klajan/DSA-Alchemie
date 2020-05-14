@@ -1,26 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:simpleType name="labID">
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" >
+  <xs:simpleType name="laborID">
     <xs:restriction base="xs:byte">
       <xs:minInclusive value="0" />
       <xs:maxInclusive value="2" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="rareInt">
+  <xs:simpleType name="laborTXT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="archaisches Labor" />
+      <xs:enumeration value="Hexenküche" />
+      <xs:enumeration value="Alchimistenlabor" />
+      <xs:enumeration value="0" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="verfügbarkeit">
     <xs:restriction base="xs:byte">
       <xs:minInclusive value="1" />
       <xs:maxInclusive value="20" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:element name="Alchemie">
+  <xs:simpleType name="verbreitung">
+    <xs:restriction base="xs:byte">
+      <xs:minInclusive value="1" />
+      <xs:maxInclusive value="7" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="rezepte">
     <xs:complexType>
       <xs:sequence>
         <xs:element maxOccurs="unbounded" name="rezept">
           <xs:complexType>
-            <xs:all minOccurs="0">
-              <xs:element minOccurs="1" name="name" type="xs:string" />
+            <xs:all minOccurs="1">
+              <xs:element minOccurs="0" name="name" type="xs:string" />
               <xs:element minOccurs="1" name="gruppe" type="xs:string" />
-              <xs:element minOccurs="1" name="labor" type="labID" />
+              <xs:element minOccurs="1" name="labor" type="laborTXT" />
               <xs:element minOccurs="1" name="probe">
                 <xs:complexType>
                   <xs:sequence>
@@ -30,15 +46,17 @@
                 </xs:complexType>
               </xs:element>
               
+
+              <xs:element minOccurs="0" name="beschreibung" />
               <xs:element minOccurs="0" name="beschaffung">
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element name="kosten" type="xs:string" />
-                    <xs:element name="seltenheit" type="rareInt" />
+                    <xs:element name="seltenheit" type="verfügbarkeit" />
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element minOccurs="0" name="verbreitung" type="xs:integer" />
+              <xs:element minOccurs="0" name="verbreitung" type="verbreitung" />
               <xs:element minOccurs="0" name ="merkmale" type="xs:string" />
               <xs:element minOccurs="0" name="haltbarkeit" type="xs:string" />
               <xs:element minOccurs="0" name="preis" type="xs:string" />
@@ -57,7 +75,9 @@
                 </xs:complexType>
               </xs:element>
               <xs:element minOccurs="0" name="seite" type="xs:integer" />
+              <xs:element minOccurs="0" name="meisterhinweise" type="xs:string" />
             </xs:all>
+            <xs:attribute name="name" type="xs:string" use="required"/>
           </xs:complexType>
         </xs:element>
       </xs:sequence>

@@ -25,20 +25,18 @@ namespace DSA_Alchemie
     {
         public ObservableCollection<string> groups;
         public ObservableCollection<string> rezepte;
-        readonly App app_;
-        public App App { get { return app_; } }
+        private readonly App CurrentApp_;
+        public  App CurrentApp { get { return CurrentApp_; } }
         public MainWindow()
         {
-            app_ = Application.Current as App;
+            CurrentApp_ = Application.Current as App;
             InitializeComponent();
-            XmlHandler.mutex.WaitOne();
-            XmlHandler.mutex.ReleaseMutex();
         }
 
         public void AttachRezepte(Database data)
         {
-            groups = new ObservableCollection<string>(data.Groups);
-            rezepte = new ObservableCollection<string>(data.GroupDict["Alle"]);
+            groups = new ObservableCollection<string>(data.Gruppen);
+            rezepte = new ObservableCollection<string>(data.RezepteGruppen["Alle"]);
             rezepte_combo_group.ItemsSource = groups;
             rezepte_combo_rezept.ItemsSource = rezepte;
         }
@@ -46,26 +44,26 @@ namespace DSA_Alchemie
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (null == rezepte_combo_rezept.SelectedItem) { return; }
-            if(app_.Trank != null)
+            if(CurrentApp.Trank != null)
             {
-                if (!app_.Trank.IsSameBase(app_.CurrentRezept))
+                if (!CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept))
                 {
-                    app_.Trank = new common.Trank(app_.CurrentRezept, app_.Trank.RollEign, app_.Trank.RollQual);
+                    CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept, CurrentApp.Trank.RollEign, CurrentApp.Trank.RollQual);
                 }
             }
             else
             {
-                app_.Trank = new common.Trank(app_.CurrentRezept);
+                CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept);
             }
-            app_.Trank.RNG = !ManDice.IsChecked;
+            CurrentApp.Trank.RNG = !ManDice.IsChecked;
             int mod = ((Tuple<int, string>)brauen_combo_substi.SelectedItem).Item1 + ((Tuple<int, string>)LaborQuality.SelectedItem).Item1;
-            var quality = app_.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), app_.Character);
+            var quality = CurrentApp.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), CurrentApp.Character);
             brauen_txtBox_quality.Text = quality.ToString();
         }
 
         private void ComboBoxRezepteGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var grouped = app_.Data.GroupDict[rezepte_combo_group.SelectedItem.ToString()];
+            var grouped = CurrentApp.Rezepte.RezepteGruppen[rezepte_combo_group.SelectedItem.ToString()];
             rezepte.Clear();
             foreach(string st in grouped)
             {
@@ -76,31 +74,31 @@ namespace DSA_Alchemie
         private void ComboBoxRezepteRezept_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(null == rezepte_combo_rezept.SelectedItem) { return; }
-            app_.CurrentRezept = app_.Data.RezeptDict[rezepte_combo_rezept.SelectedItem.ToString()];
-            bool same = (app_.Trank != null) ? app_.Trank.IsSameBase(app_.CurrentRezept) : false;
-            if (!same) { app_.Trank = new common.Trank(app_.CurrentRezept); }
+            CurrentApp.CurrentRezept = CurrentApp.Rezepte.Rezepte[rezepte_combo_rezept.SelectedItem.ToString()];
+            bool same = (CurrentApp.Trank != null) ? CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept) : false;
+            if (!same) { CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept); }
             brauen_txtBox_quality.Text = "";
         }
 
-        Regex qualRegex = new Regex("(?i)[MABCDEF]");
+        private readonly Regex qualRegex = new Regex("(?i)[MABCDEF]");
         private void BrauenQuality_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox origin = sender as TextBox;
             e.Handled = true;
             var match = qualRegex.Match(origin.Text);
-            if (app_.CurrentRezept == null) return;
-            if (app_.Trank != null)
+            if (CurrentApp.CurrentRezept == null) return;
+            if (CurrentApp.Trank != null)
             {
-                if (match.Success && !app_.Trank.IsSameBase(app_.CurrentRezept))
+                if (match.Success && !CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept))
                 {
-                    app_.Trank = new common.Trank(app_.CurrentRezept, app_.Trank.RollEign, app_.Trank.RollQual);
+                    CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept, CurrentApp.Trank.RollEign, CurrentApp.Trank.RollQual);
                 }
             }
             else
             {
-                app_.Trank = new common.Trank(app_.CurrentRezept);
+                CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept);
             }
-            app_.Trank.Quality = match.Success ? match.Value[0] : '-';
+            CurrentApp.Trank.Quality = match.Success ? match.Value[0] : '-';
             origin.TextChanged -= BrauenQuality_TextChanged;
             origin.Text = match.Value.ToUpper();
             origin.TextChanged += BrauenQuality_TextChanged;
@@ -112,8 +110,13 @@ namespace DSA_Alchemie
         }
         private void AddRezeptCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            app_.OpenAddRezeptWindow();
-            AttachRezepte(app_.Data);
+            CurrentApp.OpenAddRezeptWindow();
+            AttachRezepte(CurrentApp.Rezepte);
+        }
+
+        private void Brauen_input_rckHalten_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

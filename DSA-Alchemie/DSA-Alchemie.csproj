@@ -74,6 +74,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="common\Character.cs" />
+    <Compile Include="filehandling\ResourceReader.cs" />
+    <Compile Include="logging\Logger.cs" />
     <Compile Include="common\Rezept.cs" />
     <Compile Include="common\Trank.cs" />
     <Compile Include="windows\InputRezeptWindow.xaml.cs">
@@ -142,8 +144,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="resources\data\data.xsd">
+    <EmbeddedResource Include="resources\data\rezepte.xsd">
       <SubType>Designer</SubType>
+      <CustomToolNamespace>data</CustomToolNamespace>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -154,10 +157,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="resources\data\data.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <CustomToolNamespace>data</CustomToolNamespace>
-    </Content>
+    <EmbeddedResource Include="resources\data\rezepte.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -173,4 +173,8 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
 </Project>

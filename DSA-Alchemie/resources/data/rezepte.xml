@@ -1,0 +1,1256 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<rezepte xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://rezepte.dsa rezepte.xsd">
+  <!--
+  <rezept name="">
+    <gruppe></gruppe>
+    <beschaffung>
+      <kosten></kosten>
+      <seltenheit></seltenheit>
+    </beschaffung>
+    <rezeptur></rezeptur>
+    <beschreibung></beschreibung>
+    <labor></labor>
+    <probe>
+      <brauen></brauen>
+      <analyse></analyse>
+    </probe>
+    <wirkung>
+      <M></M>
+      <A></A>
+      <B></B>
+      <C></C>
+      <D></D>
+      <E></E>
+      <F></F>
+    </wirkung>
+    <verbreitung></verbreitung>
+    <merkmale></merkmale>
+    <haltbarkeit></haltbarkeit>
+    <preis></preis>
+    <seite></seite>
+    <meisterhinweise></meisterhinweise>
+  </rezept>
+  -->
+  <rezept name="Charismaelixier">
+    <name>Charismaelixier</name>
+    <gruppe>Virtutica</gruppe>
+    <beschaffung>
+      <kosten>23 D</kosten>
+      <seltenheit>9</seltenheit>
+    </beschaffung>
+    <rezeptur>
+      2 Skrupel Diamantstaub, 5
+      Unzen Gratenfelser Schwefelquell,
+      7 Unzen geraspeltes Süßholz,
+      1 Schössling Finage, 2 Beeren
+      Schönaug, 1 Unze Baldrian, 1
+      Schlangenzunge
+    </rezeptur>
+    <beschreibung>
+      »Im Tsa-Mond beim Lichte des Aves
+      herzustellen. Zerschlag den Diamanten
+      und leg die Splitter ins Schwefelwasser,
+      welches sich in obsidianenem
+      Kelche befindet. Das Süßholz und den
+      getruckneten Finage-Schößling zerreib gemeinsam
+      und unter Zugabe von etwas Schwefelwasser
+      in einem glesernen Mörser. Schönaug und
+      Balderian zerdrück in einer Schale aus Alabaster unter
+      Beigabe von Schwefelwasser. Stelle nun alle drei Gefeße an die
+      Ecken eines Trigramma, welches zum Lichte des Aves offen ist, und
+      lasse sie dort sieben Stunden stehen. Lege itzo die Schlangenzunge in
+      eine Schale aus Silber in der Mitten des Trigramma und gib die drei
+      anderen Theile bei. Rührs um, wobei ein bleuliches Glosen entstehet,
+      und lass’s bis zur nechsten Nacht dorten stehen. Itzo destilliers
+      in der Retorten ab, wobei die ersten Tropfen, siebenundzwanzig an
+      der Zahl, das gewünschte Elixir sind, welches drei Monde lang seine
+      Wirkung erhelt, dich schön in Aussehen, Mimik und Sprache zu
+      machen wie den großen Levthan vor seinem Sturz.«
+      —Pheredonios Melenaar, Die Macht der Elemente,
+      Zorgan, ca. 700 BF
+    </beschreibung>
+    <labor>Hexenküche</labor>
+    <probe>
+      <brauen>5</brauen>
+      <analyse>4</analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 4, 14, 18, 23, 36, 39, 40; man hat auch schon von gespaltenen
+        Zungen und glasigen Schlangenaugen gehört.
+      </M>
+      <A>
+        1 CH-Punkt für 1 SR mit leicht triebhaftem Verhalten
+        (KL–1 für 1 Stunde)
+      </A>
+      <B>
+        2 CH-Punkte für 2 SR
+      </B>
+      <C>
+        3 CH-Punkte für 3 SR
+      </C>
+      <D>
+        7 CH-Punkte für 7 SR
+      </D>
+      <E>
+        Das CH des Anwenders steigt für einen Tag um 2 Punkte.
+      </E>
+      <F>
+        Der Anwender aalt sich einen Tag lang in seiner Schönheit
+        und Überzeugungskraft (CH +5), ist jedoch ansonsten
+        für nichts zu gebrauchen (alle anderen geistigen Eigenschaften
+        –2).
+      </F>
+    </wirkung>
+    <verbreitung>5</verbreitung>
+    <merkmale>klare, hellblaue Flüssigkeit, riecht nach Baldrian</merkmale>
+    <haltbarkeit>W6+9 Wochen</haltbarkeit>
+    <preis>etwa 45 Dukaten</preis>
+    <seite>39</seite>
+    <meisterhinweise>
+      Ab einer Qualität von D wird für die Wirkungsdauer
+      der Nachteil Widerwärtiges Aussehen zu Unansehnlich,
+      dieser zu einem normalen Aussehen abgemildert;
+      normales Aussehen wird zum Vorteil Gutaussehend
+      und jener steigert sich zu einem Herausragenden
+      Aussehen (jedoch ist nur eine
+      Steigerung möglich). Bei Qualität M
+      ist die Wirkung nicht nur umgekehrt,
+      sondern bringt gar zwei Absenkungen
+      mit sich. Auf Katzen hat der
+      Anwender übrigens eine überaus
+      anziehende Wirkung.
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Fingerfertigkeitselixier">
+    <gruppe>Virtutica</gruppe>
+    <beschaffung>
+      <kosten>15 D</kosten>
+      <seltenheit>8</seltenheit>
+    </beschaffung>
+    <rezeptur>
+      5 Unzen reiner Alkohol, 1
+      Skrupel grob zerhauener Topas, 1 Büschel
+      Haare vom Mengbiller Affen, 5 Unzen
+      Zwiedestillat, eine rechte Vorderpfote vom Feh,
+      1 Bund Atmon, 1 Schössling Finage
+    </rezeptur>
+    <beschreibung>
+      »Im Firunmond beim Lichte der Simia herzustellen. Gieß den
+      Alcohol vorsichtig über die Splitter des Topaz, laß es stehen für
+      drei Stunden, gib hinzu die Haare vom Aff, welche du selbige drei
+      Stunden gekocht im Zwiedestillat. Rühr um. Dreimal nach links.
+      Mit der Pfote vom Feh. So ists wohlgetan. Laß nun wieder stehn
+      eine Stund ohne jegliches Licht. Derweil zermahl in messingnem
+      Mörser Atmon und Finage zu einem Brei und kratz alles aus, was
+      du nur findest. Hinein in die Retort. Gib nun die gallig Brüh noch
+      kochend hinzu und dann VIEL Hitze im Ofen. Warte nun, bis
+      die Farbe wird von rot auf gelb, und nimm sodann die Hitze weg.
+      Warte nochmals eine Stund. Es bleibet auf dem Grunde wohl eine
+      halbe Unze bernsteinfarbener Flüssigkeit, welche ist ein Elixier,
+      das der Fingerfertigkeit höchst förderlich. Dunkel gestellet oder in
+      geschlossenem Gefeß aufbewahrt, helt es sich wohl 3 Viertel Jahr.«
+      —Pheredonios Melenaar, Die Macht der Elemente,
+      Zorgan, ca. 700 BF
+    </beschreibung>
+    <labor>archaisches Labor</labor>
+    <probe>
+      <brauen>6</brauen>
+      <analyse>5</analyse>
+    </probe>
+    <wirkung>
+      <M>1, 2, 3, 4, 8, 9, 18, 23, 27, 29</M>
+      <A>
+        1 FF-Punkt für 1 SR, aber erhöhte Schreckhaftigkeit (MU–1
+        für 1 Stunde)
+      </A>
+      <B>
+        1 FF-Punkt für 1 SR, aber erhöhte Schreckhaftigkeit (MU–1
+        für 1 Stunde)
+      </B>
+      <C>
+        1 FF-Punkt für 1 SR, aber erhöhte Schreckhaftigkeit (MU–1
+        für 1 Stunde)
+      </C>
+      <D>
+        7 FF-Punkte für 7 SR
+      </D>
+      <E>
+        Ein wahres Wundermittel: Schlösser wären überhaupt kein
+        Problem mehr (FF +15 für 1 SR), wenn nur die Dietriche
+        nicht so fürchterlich schwer wären (KK –7 für 3 SR).
+      </E>
+      <F>
+        Auch bekannt als Kleptomanicum: Die erhöhte FF (+7 für
+        7 Stunden) will doch ach so gerne demonstriert werden – an
+        fremder Leute Börsen, den Miederschnüren erhabener Damen
+        (für den Wirkungszeitraum Nachteil Kleptomanie 7).
+      </F>
+    </wirkung>
+    <verbreitung>4</verbreitung>
+    <merkmale>bernsteinfarbene, undurchsichtige Flüssigkeit, geruchlos</merkmale>
+    <haltbarkeit>W3+7 Monate</haltbarkeit>
+    <preis>um 30 Dukaten</preis>
+    <seite>39</seite>
+    <meisterhinweise>
+      Nimmt ein Anwender binnen zweier Tage
+      nach einem Genuss von Fingerfertigkeitselixier auf Atmon-
+      Basis ein solches ein zweites Mal ein, so bleibt der Trank bis
+      auf FF –1 für eine Stunde wirkungslos. Bestimmte alternative
+      Rezepturen versuchen die starken Nebenwirkungen bei Qualität
+      E zu umgehen (was allgemein natürlich bei allen Alchimika
+      gilt).
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Gewandtheitselixier">
+    <gruppe>Virtutica</gruppe>
+    <beschaffung>
+      <kosten>25 D</kosten>
+      <seltenheit>6</seltenheit>
+    </beschaffung>
+    <rezeptur>
+      2 Skrupel Smaragdstaub, 10 Unzen Zwiedestillat,
+      3 Kolben Mibelrohr, 1 Schössling Finage, 7 Haare eines Einhornschweifs,
+      12 lebende Fliegen, 1/2 Unze Gelbes Feuerkraut,
+      1 Unze reiner Alkohol
+    </rezeptur>
+    <beschreibung>
+      »Im Phex-Mond beim Lichte des Simia herzustellen. Zerhau den
+      Emerald zu grünlichem Staube, welchen du dem Zwiedestillathe
+      beifügest, das sich in silberner Kanne befindet. Derweil es dorten
+      sprudelt und zischt, zerdrück das Mibelrohr und den Schößling des
+      Finage in einer güldnen Schale, bis dass kein Safft mehr herausquillt,
+      gib selbigen zum Destillathe. Fülle nun eine Retort mit den
+      Haaren und den thunlichst quicklebendig Fliegen. Das trucken
+      Feuerkraut zerreib und thues bei. Stell itzo den Feuerofen mit der
+      Retort inmitten eines Octagramma, offen gen Simia. Gib nun das
+      Destillath in die Retort (und acht darauf, dass die Fliegen drinne
+      bleiben) und machs heiß, bis es rötlich brodelt. Dann laß wieder
+      kalt werden. Wenn du das Gebreu itzo wieder erhitzt, dann sei die
+      Farbe von klarem Gelb. Nun destilliers weiter, bis dass du siebenunddreißig
+      Tropfen gefangen hast, welche du in Alcohole verdünnest
+      und so das Elixir der Hohen Geschicklichkeit erhelst. Es mag
+      dir wohl ein Jahr lang von Nutzen sein.«
+      —Pheredonios Melenaar, Die Macht der Elemente,
+      Zorgan, ca. 700 BF
+    </beschreibung>
+    <labor>Hexenküche</labor>
+    <probe>
+      <brauen>6</brauen>
+      <analyse>7</analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 2, 3, 4, 8, 9, 15, 18, 23, 27, 30, 38
+      </M>
+      <A>
+        1, 2, 3, 4, 8, 9, 15, 18, 23, 27, 30, 38
+      </A>
+      <B>
+        2 GE-Punkte für 2 SR
+      </B>
+      <C>
+        3 GE-Punkte für 3 SR
+      </C>
+      <D>
+        7 GE-Punkte für 7 SR
+      </D>
+      <E>
+        Ein potentes Gebräu, das die GE für zwölf Stunden um 3
+        Punkte steigert.
+      </E>
+      <F>
+        Wer bereit ist, für einen halben Tag nach Ablauf der Wirkung
+        mit zitternden Gliedern daniederzuliegen (GE –7, FF
+        und KK je –2), nur um sich kurzfristig der Gewandtheit einer
+        Katze zu erfreuen (GE +12 für 3 SR), der mag dieses Mittel
+        wohl schätzen.
+      </F>
+    </wirkung>
+    <verbreitung>5</verbreitung>
+    <merkmale>
+      klare, gelbe Flüssigkeit, stark alkoholisch
+    </merkmale>
+    <haltbarkeit>W3+10 Monate</haltbarkeit>
+    <preis>um 50 Dukaten</preis>
+    <seite>40</seite>
+    <meisterhinweise>
+      Zu häufige Anwendung (mehr als einmal
+      pro Monat) führt mit einer Wahrscheinlichkeit von 11 bis 20
+      auf dem W20 zur Mibelsucht (eine Krankheit der 8. Stufe).
+      Die Einnahme von Mibel-Absud zeigt beim Abhängigen weder
+      positive noch negative Wirkungen (Gewandtheitselixier
+      bringt lediglich halbierte Wirkungen mit sich), bei Entzug –
+      mindestens jeden zweiten Tag muss der Abhängige bspw. einen
+      Tee aus Mibelrohr trinken – tritt allerdings eine völlige
+      Apathie ein (KL, IN, GE, FF je –3, völlige Unlust, irgendetwas
+      zu tun). Siehe auch ZBA 251.
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Intuitionselixier">
+    <gruppe>Virtutica</gruppe>
+    <beschaffung>
+      <kosten>18 D</kosten>
+      <seltenheit>9</seltenheit>
+    </beschaffung>
+    <rezeptur>
+      1 Schössling Finage, 1 Knoblauchzehe, die Augen
+      einer Fledermaus, 5 Skrupel Rabenkot, 7 Haare eines Blinden,
+      1 Skrupel Aquamarin, 3 Unzen Wasser eines stillen Teichs im
+      Wald, 6 Tropfen von einem Stalaktiten tröpfelndes Wasser
+    </rezeptur>
+    <beschreibung>
+      »Bei Rahjas Mond stell es her, wenn Horas scheint, damit es seine
+      Wirkung entfalte. Zerreibe Finage, Knoblauch, Augen, Kot und
+      Haare zu einer Paste. Den Aquamarin zermahl zu grobem Staub.
+      Sodann erhitze das Teichwasser, bis es warm ist, und mische es in
+      die Paste, rühr auch den Staub ein. Erhitze alles in der Retorte
+      und fang die ersten 30 Tropfen auf, die von lichtgrüner Farbe sind.
+      Schließlich gib die Tropfen Wasser des Muqarnas zu und du bekommst
+      ein El’Iksir von bitterem Geschmack, das dir Eingebung
+      und Erleuchtung verleiht. Es hält sich wohl für 18 Monde.«
+      —Dunchaban ibn Nastraddon, Aus Dunchabans Labor,
+      Khunchom, 992 BF
+    </beschreibung>
+    <labor>Hexenküche</labor>
+    <probe>
+      <brauen>2</brauen>
+      <analyse>5</analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 4, 11, 13, 19, 22, 24, 28, 31, 32
+      </M>
+      <A>
+        1 IN-Punkt für 1 SR, jedoch leichte Trübung des Geistes
+        (KL –1 für eine Stunde)
+      </A>
+      <B>
+        2 IN-Punkte für 2 SR
+      </B>
+      <C>
+        3 IN-Punkte für 3 SR
+      </C>
+      <D>
+        7 IN-Punkte für 7 SR
+      </D>
+      <E>
+        Der Anwender hat für einen Tag vielerlei zutreffende Einblicke
+        und Vorahnungen (IN +3).
+      </E>
+      <F>
+        Ungeahnte Einsichten und Ahnungen überkommen den
+        Nutzer (IN +9 für 2 Stunden), die ihn anschließend für die
+        folgenden 12 Stunden in tiefe Lethargie sinken lassen (alle Eigenschaften
+        –4).
+      </F>
+    </wirkung>
+    <verbreitung>4</verbreitung>
+    <merkmale>
+      lichtgrüne, durchsichtige Flüssigkeit, bitterer Geschmack
+    </merkmale>
+    <haltbarkeit>W6+14 Monat(e)</haltbarkeit>
+    <preis>um 35 Dukaten</preis>
+  </rezept>
+  <rezept name="Klugheitselixier">
+    <gruppe>
+      Virtutica
+    </gruppe>
+    <beschaffung>
+      <kosten>
+        23 D
+      </kosten>
+      <seltenheit>
+        9
+      </seltenheit>
+    </beschaffung>
+    <rezeptur>
+      1 Skrupel Saphirstaub, 1 Unze Brabaker Vitriol, die
+      Augen einer Smaragdschlange, 3 Unzen Salzlake von Unau,
+      1 Schössling Finage, 7 Ilmenblatt, 7 Eulenfedern, 2 Unzen
+      Quellwasser
+    </rezeptur>
+    <beschreibung>
+      »Im Hesinde-Mond beim Lichte des Nandus herzustellen. Zerhau
+      den Saphir so lange, bis dass seine Farbe noch zu erahnen ist
+      und löse ihn nun im Vitriole. Truckne die Schlangenaugen und
+      tue dasselbe mit ihnen, wie du mit dem Saphir verfahren, jedoch
+      nimm die Salzlake. Den Finage- Schößling verreib gut in einem
+      güldenen Mörser und auch das Ilmenblatt hier also. Von den Federn
+      nimm nur das Geest, nicht den Stamm, und gib es itzo in die
+      Salzlake. Daraufhin nimm die Paste aus Finage und Ilmenblatt
+      und löse sie mit dem Quellwasser. Gib nun Wasser, Lake und Vitriol
+      in just jener Reihenfolge in einem glesernen Gefeß beisammen,
+      welchselbiges du mit Eis kühlest. Es erhebet sich ein gelblichgrüner
+      Dampff, welchen du davonziehen läßt. Was nun bleibet, das destillier
+      und fang nur die ersten 49 Tropfen auf. Dies ist das Elixier der
+      Klugheit, welches du im folgenden Jahre verbrauchen solltest.«
+      —Pheredonios Melenaar, Die Macht der Elemente,
+      Zorgan, ca. 700 BF
+    </beschreibung>
+    <labor>Hexenküche</labor>
+    <probe>
+      <brauen>
+        3
+      </brauen>
+      <analyse>
+        5
+      </analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 2, 3, 4, 9, 10, 11, 14, 15, 18, 19, 22, 28, 32, 37
+      </M>
+      <A>
+        1 KL-Punkt für 1 SR, dabei wenig entschlussfreudig und
+        zaudernd (MU–1 für 1 Stunde)
+      </A>
+      <B>
+        2 KL-Punkte für 2 SR
+      </B>
+      <C>
+        3 KL-Punkte für 3 SR
+      </C>
+      <D>
+        7 KL-Punkte für 7 SR
+      </D>
+      <E>
+        Gesteigertes Denkvermögen von 2 Punkten für 1 Tag.
+      </E>
+      <F>
+        Die Klugheit steigt einen Tag lang um 5 Punkte, jedoch
+        ist der Anwender so mit seinen neuen Gedanken beschäftigt,
+        dass er in wichtigen Situationen abgelenkt ist – alle Talente
+        und Zauberfertigkeiten, die keine Klugheit erfordern, sinken
+        vorübergehend um 3 Punkte.
+      </F>
+    </wirkung>
+    <verbreitung>
+      4
+    </verbreitung>
+    <merkmale>
+      zitronengelbe, klare Flüssigkeit, leicht salziger Geschmack
+    </merkmale>
+    <haltbarkeit>
+      W3+10 Monate
+    </haltbarkeit>
+    <preis>
+      um 45 Dukaten
+    </preis>
+    <seite>
+      41
+    </seite>
+    <meisterhinweise>
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Konstitutionselixier">
+    <gruppe>
+      Virtutica
+    </gruppe>
+    <beschaffung>
+      <kosten>
+        20 D
+      </kosten>
+      <seltenheit>
+        7
+      </seltenheit>
+    </beschaffung>
+    <rezeptur>
+      1 Schössling Finage, 2 verschiedene Büschel Unkraut
+      von einer Tempelmauer, 6 Unzen Unauer Salzlake, das
+      Leder der Sohle einer Bärentatze, 3 Unzen Blut eines Ochsen
+      oder Zwergen, 2 Skrupel Onyxsplitter, 1 Moosballen Olginwurz,
+      der Magensaft eines Khoramswühlers
+    </rezeptur>
+    <beschreibung>
+      »Das Elixier, das die Widerstandsfaehigkeit erhoehet, bereitet des
+      Nachts, wenn das sich rundende oder volle Mal der Mada stehet im
+      Sternenbild des Gehoerns. Trockenet den Finage und beides wilde
+      Kraut ueber der Hitze des Ofens und stoszet beides in einem Moerser
+      von Granit mit einem Stoeszel von selbigem zu groben Staube.
+      Dann nehmet eine stehlerne Schale und gebet hinein die saltzene
+      Lake und den Staub und lasset es ziehen den dritten Teil einer
+      Stunde, dann seiet es ab und behaltet nur das Fluessige. Derweil
+      aber bestreichet das Leder vom Baeren mit dem Blute des Zwergen
+      und wickelt darin ein die Splitter vom Onyx. Dann schlaget darauf
+      mit einem schweren Stoeszel so lange, bis die Splitter seien Staub,
+      vermischet mit dem Blute. Kratzet die Masse ab vom Leder und
+      gebet sie zur Lake zur rechten Zeit, wenn es scheumet mit roten
+      Blasen, ist es recht getan. Dann gebet es in die Retorte, wobei Ihr
+      die ersten 49 Tropfen wegschuettet und nur die zweiten und dritten
+      49 behaltet. Dann presset gut aus die Olginwurtzel und gebet den
+      Saft zum Destillath in einen Kolben, um den zeichnet ein Pentagramma.
+      Dann erhitzet den Kolben, bis gruener Rauch aufsteiget.
+      Dann machet rasch und fuellet die Substantz mit der Saeure vom
+      Wuehlermagen in eine Phiole von Stahl, worin das Elixier thunlichst
+      aufbewahret werden soll. Solange es ist gruen wie die Reseda,
+      zeiget es Wirkung, doch wird es grau, ist es verdorben, das ist der
+      Fall nach zweien Jahren.
+      —Paramanthus von Havena, Lexikon der Alchimie, Band III,
+      um 540 BF, Abschrift aus der Kaiser-Reto-Zeit
+    </beschreibung>
+    <labor>Hexenküche</labor>
+    <probe>
+      <brauen>
+6
+      </brauen>
+      <analyse>
+3
+      </analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 2, 3, 4, 5, 13, 14, 15, 18, 19, 21, 25, 27, 33, 34
+      </M>
+      <A>
+        1 KO-Punkt für 1 SR, Regeneration von 1W6 Punkten AU, anschließend
+        leichte Schwächeerscheinungen (KO–1 für 1 Stunde)
+      </A>
+      <B>
+        2 KO-Punkte und AU +5 für 2 SR
+      </B>
+      <C>
+        3 KO-Punkte und AU +10 für 3 SR
+      </C>
+      <D>
+        7 KO-Punkte und AU +20 für 7 SR
+      </D>
+      <E>
+        Der Anwender strotzt nur so von Lebenskraft und Durchhaltevermögen
+        (KO +4, AU verdoppelt für einen halben Tag).
+      </E>
+      <F>
+        Für drei Stunden prallt an der körperlichen Widerstandskraft
+        des Anwenders alles ab und er ist durch nichts zu ermüden (KO
+        +9, AU verdreifacht), allerdings nimmt er Erschöpfung und
+        Überanstrengung auch bei einer AU von 0 nicht mehr wahr
+        und die Auswirkungen fallen nach Ablauf der Wirkungszeit
+        voll auf ihn zurück, was ihn durchaus tot zusammenbrechen
+        lassen kann (pro Punkt Überanstrengung fallen 2 SP an).
+      </F>
+    </wirkung>
+    <verbreitung>
+      5
+    </verbreitung>
+    <merkmale>
+      resedagrüne, stark schlierige Flüssigkeit, stark galliger
+      Geruch
+    </merkmale>
+    <haltbarkeit>
+      2W6+17 Monate
+    </haltbarkeit>
+    <preis>
+      um 40 Dukaten
+    </preis>
+    <seite>
+41
+    </seite>
+    <meisterhinweise>
+      Ob der Herkunft seiner Zutaten ist diese
+      – obgleich die bekannteste – Variante vor allem in den tulamidischen
+      Lande zu finden. In anderen Regionen wird die
+      Olginwurz durch ähnlich wirkende Kräuter wie beispielsweise
+      Belmart substituiert, während der Magensaft des Khoramswühlers
+      durch den von ähnlich zähen Tieren ersetzt wird.
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Kraftelixier">
+    <gruppe>
+      Virtutica
+    </gruppe>
+    <beschaffung>
+      <kosten>
+        25 D
+      </kosten>
+      <seltenheit>
+        7
+      </seltenheit>
+    </beschaffung>
+    <rezeptur>
+      2 Skrupel Rubinstaub, 5 Unzen reiner Alkohol, 10
+      Unzen Trollspucke, 5 Tropfen Drachenblut, 1 Horuschenkern,
+      7 Beeren Quinja, 1 Schössling Finage, 2 Stierklötze
+    </rezeptur>
+    <beschreibung>
+      »Im Ingerimm-Mond beim Lichte des Kor herzustellen. Zerschlag
+      den Rubin zu feinen Splittern, welche du in den Alcohol einlegest,
+      als seien es Beeren im Weingeist. Hierzu nimm ein Gefeß von eherner
+      Beschaffenheit, welches in doppeltem Pentagramma unter dem
+      Lichte des Kor steht. Lasse nun über einen silbernen Spatel den
+      Trollgeifer und das Drachenbluth (in just jener Reihenfolge!) in
+      das Gefeß treufeln und warte bis es aufscheumt wie gallig Bluth.
+      Den Schaum schöpf ab, denn er ist zu nichts nutze, denn zum Vergifften
+      von Kakerlaken. Itzo der Horuschenkern, die Quiniabeeren
+      und die Finage flugs hinzu und das ganze gut warm dorten drei
+      Tage stehen gelassen. Sieh nun nach, ob du nun noch Schaum findest
+      und schöpf ihn wiederum ab. Gib nun die Klötze des Bullen
+      hierbei und lass abermals drei Tage stehen. Nun aber heiz es auf,
+      bis dass gelblicher, beißender Dampff aufsteiget und noch heiß in
+      einen Colben filtriert und umgefüllet, welchen du so lange hitzig
+      machst, bis dass er keine Farb mehr hat. Das klare Elixir, was
+      du erhelst, vermag dir wohl sieben Monde lang übermenschliche
+      Kraft verschaffen.«
+      —Pheredonios Melenaar, Die Macht der Elemente,
+      Zorgan, ca. 300 BF
+    </beschreibung>
+    <labor>archaisches Labor</labor>
+    <probe>
+      <brauen>
+7
+      </brauen>
+      <analyse>
+3
+      </analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 2, 3, 4, 12, 13, 14, 18, 19, 21, 33, 34
+      </M>
+      <A>
+        1 KK-Punkt für 1 SR, peinliches Imponiergehabe (CH–1
+        für 1 Stunde)
+      </A>
+      <B>
+        2 KK-Punkte für 2 SR
+      </B>
+      <C>
+        3 KK-Punkte für 3 SR
+      </C>
+      <D>
+        7 KK-Punkte für 7 Spielrunden
+      </D>
+      <E>
+        Ein Tag lang KK +3, und alles ohne Nebenwirkungen –
+        wenn man von dem ab und zu auftretenden Blutrausch einmal
+        absieht: In jedem Kampf besteht eine 20 %-Chance (17 bis 20
+        auf W20), dass der Anwender wild um sich schlägt – siehe den
+        Nachteil Blutrausch (WdH 261), jedoch mit nur jeweils 2 statt
+        5 Punkten.
+      </E>
+      <F>
+        Wie E, jedoch KK +5 und zudem KO +2, allerdings folgt
+        auf diesen Tag der wunderbaren Kraft ein Tag erbärmlicher
+        Schwäche (KK –5).
+      </F>
+    </wirkung>
+    <verbreitung>
+6
+    </verbreitung>
+    <merkmale>
+      klare, leicht ölige Flüssigkeit, rauchiger Geschmack
+    </merkmale>
+    <haltbarkeit>
+      W2+5 Monate
+    </haltbarkeit>
+    <preis>
+      um 50 Dukaten
+    </preis>
+    <seite>
+42
+    </seite>
+    <meisterhinweise>
+      Das Drachenblut wird häufig durch Blut
+      von Bären, Elefanten oder Hornechsen sinnvoll substituiert.
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Mutelixier">
+    <gruppe>
+      Virtutica
+    </gruppe>
+    <beschaffung>
+      <kosten>
+        20 D
+      </kosten>
+      <seltenheit>
+        8
+      </seltenheit>
+    </beschaffung>
+    <rezeptur>
+      1 Skrupel Granatstaub, 5 Unzen reiner Alkohol, 3
+      Unzen frisches Löwinnenblut, 1 Schössling Finage, 2 Büschel
+      Basiliskum
+    </rezeptur>
+    <beschreibung>
+      »Im Rondra-Mond beim Lichte des Ucuri herzustellen. Zerstampf
+      den Granat wohl, so dass jedoch sein Feuer erhalten bleibt. Mische
+      den Staub mit dem Alcohol und dem Bluthe, auf dass eine Mixthur
+      von wohlroter Farbe entstehet. Zerreibe nun den Schößling des
+      Finage mit einer silbernen Reibe und zerstoß das getrucknete Basiliscum
+      in einem Mörser aus Messing. Gib nun beides zu dem roten
+      Breie, misch es gut unter und stell es in ein Pentagramma, das dem
+      Lichte des Ucuri zugewandt ist, und laß es dorten für eine Nacht
+      stehen, so trennt sich das Feste von dem Flüssigen, welchletzteres
+      du vorsichtig abschöpfst. Dies ist das gewünschte Elixier, welches
+      dir den Mut einer Löwin verschafft. Es helt sich wohl zwei Jahr.«
+      —Pheredonios Melenaar, Die Macht der Elemente,
+      Zorgan, ca. 700 BF
+    </beschreibung>
+    <labor>archaisches Labor</labor>
+    <probe>
+      <brauen>
+1
+      </brauen>
+      <analyse>
+1
+      </analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 4, 18, 22, 36, 37
+      </M>
+      <A>
+        1 MU-Punkt für 1 SR und unbedachtes Verhalten (IN–1
+        für 1 Stunde)
+      </A>
+      <B>
+        2 MU-Punkte für 2 SR
+      </B>
+      <C>
+        3 MU-Punkte für 3 SR
+      </C>
+      <D>
+        7 MU-Punkte für 7 SR
+      </D>
+      <E>
+        Euphorie (3 MU-Punkte für einen Tag, alle vorhandenen
+        Ängste aus Nachteilen sind halbiert.)
+      </E>
+      <F>
+        5 MU-Punkte für 1 Tag und halbierte Ängste aus Nachteilen
+        – und am nächsten Tag starke Depressionen: Der Mut
+        sinkt für einen Tag um 7 Punkte.
+      </F>
+    </wirkung>
+    <verbreitung>
+6
+    </verbreitung>
+    <merkmale>
+      weinrote, undurchsichtige Flüssigkeit, blutiger
+      Geruch, extrem scharfer Geschmack
+    </merkmale>
+    <haltbarkeit>
+      W6+20 Monate
+    </haltbarkeit>
+    <preis>
+      um 40 Dukaten
+    </preis>
+    <seite>
+42
+    </seite>
+    <meisterhinweise>
+      Das Basiliskum überdeckt den schlechten,
+      scharfen Geschmack des Elixiers; wird auf die Zugabe verzichtet
+      (was keinen Einfluss auf die Alchimie-Probe hat), muss der
+      beim Schlucken aufkommende Brechreiz mit einer Probe auf
+      Selbstbeherrschung +3 unterdrückt werden, anderenfalls gibt
+      der Anwender seinen Mageninhalt von sich (und das Elixier
+      zeigt keine weitere Wirkung).
+      Weniger verbreitet, aber durchaus bekannt sind Elixiere, die
+      bestimmte Ängste mindern, etwa Höhenangst oder die Furcht
+      vor dunklen Höhlen. Gelegentlich wirken diese wie eine Droge,
+      indem sie den Geist des Anwenders benebeln oder ihn in
+      Apathie versetzen.
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Respondarum">
+    <gruppe>
+      Virtutica
+    </gruppe>
+    <beschaffung>
+      <kosten>
+        30 D
+      </kosten>
+      <seltenheit>
+        7
+      </seltenheit>
+    </beschaffung>
+    <rezeptur>
+      1 Skrupel Saat der Praiosblume, 5 Karat Blaubasalt-
+      Staub, ein Büschel Haare eines freilaufenden Betrügers, 1 Flux
+      Quecksilber, 1 Schank reines Quellwasser, 1/2 Flux Öl der Bosparanienfrucht
+      vom Tempelhain
+    </rezeptur>
+    <beschreibung>
+      »Gelingen mag das Gebräu nur, wenn Du reinen Herzens bist.
+      Daher büße jede Lüge, die Deinem Munde in diesem Jahr entfleuchte,
+      bevor Du beginnest. Setze eine Pfanne auf den Ofen und
+      röste die zerstoßenen Kerne in reichlich Öl, bis sie schwarz sind.
+      Die Kerne sind PRAios’ erstes Geschenk. Am nächsten Tag gib den
+      Staub vom Basaltgestein in das flüssige Quecksilber und lass es verdampfen.
+      Übrig bleibt PRAios’ zweites Geschenk. Am dritten Tage
+      dann gebe das Wasser in die Retorte, gib die Haare und des Herrn
+      Geschenke hinein und fach das Feuer an, dass es hitzig lodere. Vom
+      Destillat nimm nur den ersten und jeden weiteren zwölften Tropfen,
+      doch nur, wenn sie golden schimmern, und sprich ein jedes Mal
+      das Dankgebet an Sankta Horasiane.«
+      —Rezeptbuch des Praios-Tempels von Kuslik, neuzeitlich
+    </beschreibung>
+    <labor>Alchimistenlabor</labor>
+    <probe>
+      <brauen>
+5
+      </brauen>
+      <analyse>
+4
+      </analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 3, 4, 14, 38
+      </M>
+      <A>
+        Das Opfer spürt eine leichte Geistesverwirrung, wenn es zu
+        Lügen beabsichtigt (TaW Überreden –1 für 1 Stunde).
+      </A>
+      <B>
+        desgleichen, –3 für 3 Stunden
+      </B>
+      <C>
+        desgleichen, –7 für 7 Stunden
+      </C>
+      <D>
+        Das Opfer muss für eine Stunde die Wahrheit sagen, hat
+        aber die Wahl zu schweigen, wenn es gefragt wird.
+      </D>
+      <E>
+        Desgleichen, das Opfer hat keine Wahl zu schweigen.
+      </E>
+      <F>
+        Desgleichen, das Opfer bekommt zudem die Gabe eines feinen
+        Gespürs, ob jemand anderes die Unwahrheit sagt (TaW
+        Menschenkenntnis +12) und den göttergefälligen Drang, diese
+        Verfehlungen ans Licht zu bringen.
+      </F>
+    </wirkung>
+    <verbreitung>
+5
+    </verbreitung>
+    <merkmale>
+      ölige, goldene Flüssigkeit
+    </merkmale>
+    <haltbarkeit>
+      2W6 Monate
+    </haltbarkeit>
+    <preis>
+      etwa 60 D
+    </preis>
+    <seite>
+43
+    </seite>
+    <meisterhinweise>
+      Ein Elixier der Alchimie der Sonne, daher
+      kommt es ohne die Verwendung des RESPONDAMI aus.
+      In Magierkreisen existieren Varianten der Rezeptur ohne die
+      praiosgefälligen Gebete, doch solche Modifikationen stellen
+      allerhöchstens eine mögliche Substitution dar.
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Scharfsinn-Elixier">
+    <gruppe>
+      Virtutica
+    </gruppe>
+    <beschaffung>
+      <kosten>
+        15 D
+      </kosten>
+      <seltenheit>
+        10
+      </seltenheit>
+    </beschaffung>
+    <rezeptur>
+      eine Schlangenzunge, die Augen eines Falken, 1/2
+      Schank Blut einer Fledermaus, eine zusätzliche Alraune, 1 Libellengras-
+      Frucht, 1 Karat Opalstaub, 1/2 Schank Gratenfelser
+      Schwefelquell, 1 Flux morgendlicher Bergnebel; ADLERAUGE
+    </rezeptur>
+    <beschreibung>
+      »Vermische beim Lichte der vollen Mada die Essenz der Fledermaus
+      mit dem Schwefelquell und stelle es kalt, so dass es beinahe
+      gefriert. Stelle auch die Phiole mit dem Nebelwasser ins Eis und
+      rühre vorsichtig die Flüssigkeiten zusammen, auf dass sie sich gut
+      vermischen, was Du am Verfärben des Gelben ins Braune erkennen
+      kannst. Heize dann den Kessel an, dass sich Blasen bilden.
+      Gib nun das Libellengras und die Alraun hinein und warte, bis
+      die Wurzel zerfällt. Während Du den ADLERAUGE rezitierst,
+      rühre die Schlangenzung, die Falkenaug und den Staub vom Opal
+      hinein, eines nach dem anderen und rühre die Flüssigkeit nach jeder
+      Substanz gut um. Mit dem ersten Tageslicht ist das Werk vollbracht,
+      solange musst Du rühren.«
+      —Die Macht der Elemente, ergänzte Fassung,
+      Abschrift von 1031 BF
+    </beschreibung>
+    <labor>archaisches Labor</labor>
+    <probe>
+      <brauen>
+4
+      </brauen>
+      <analyse>
+3
+      </analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 2, 5, 9, 13, 21
+      </M>
+      <A>
+        TaW Sinnenschärfe +3 für eine Probe
+      </A>
+      <B>
+        +2 für 1 SR
+      </B>
+      <C>
+        +3 für 3 SR
+      </C>
+      <D>
+        +7 für 7 SR
+      </D>
+      <E>
+        +15 für 1 Stunde
+      </E>
+      <F>
+        Desgleichen für 1 Tag; allerdings ist anschließend einer der
+        Sinne für einen Tag komplett ausgeschaltet (auswürfeln).
+      </F>
+    </wirkung>
+    <verbreitung>
+6
+    </verbreitung>
+    <merkmale>
+      dickflüssig, rotbraun, salziger Geschmack
+    </merkmale>
+    <haltbarkeit>
+      1W3+1 Monate
+    </haltbarkeit>
+    <preis>
+      etwa 30 Dukaten
+    </preis>
+    <seite>
+43
+    </seite>
+    <meisterhinweise>
+      Da Eis nicht immer zu beschaffen ist, experimentieren
+      Magier mit elementarer Zauberei oder verwenden
+      den Schalenzauber Feuer und Eis (WdZ 116).
+      Waldmenschenschamanen lagern die Flüssigkeiten in tiefen
+      Erdlöchern oder in gut verschlossenen Gefäßen unter Wasser.
+      Eine gleichwertige Substitution des ADLERAUGE ist ein Mirakel
+      zur Steigerung der Sinnenschärfe.
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Willenstrunk">
+    <gruppe>
+      Virtutica
+    </gruppe>
+    <beschaffung>
+      <kosten>
+        25 D
+      </kosten>
+      <seltenheit>
+        6
+      </seltenheit>
+    </beschaffung>
+    <rezeptur>
+      1 lebende Blaubauchkröte, 3 Unzen Granit, 1 Alraune,
+      20 Unzen Unauer Salzlake, 49 Haare eines Zwergenbartes,
+      1 Büschel Thonnys, 2 Unzen Quecksilber; ABVENENUM,
+      PSYCHOSTABILIS
+    </rezeptur>
+    <beschreibung>
+      »Ein schwierig Ding zu machen. Primo setz die Kröt in ein Pentagramma,
+      in welches du den Braggu herabrufst. Stirbt die Kröt
+      schwachen Herzens oder ferbt sie sich grünlich vor Angst, so ist al44
+      les vergebens, und du musst dir eine neue besorgen. Bleibt sie aber
+      heile, dann mach sie tot und zieh ihr die Haut ab und wirf den
+      Unschlitt weg (oder besser noch, verbrenn ihn). Leg nun die Haut,
+      den Granit und die Alraun in die Salzlake und biete sie dem Licht
+      der aufgehenden Sonne dar. An diesem Tage nun muss das Werk
+      auch vollendet sein. Web ein Netz aus sieben mal sieben der Haare
+      und flicht darein das Thonnys und hengs in die Lake, auf dasz es
+      ganz bedecket sei. Itzo laß das Flüssig Silber Tropfen für Tropfen
+      hineinfallen und sprich über alles den PSYCHOSTABILIS und
+      den ABVENENUM. Wenn alles nun zu einer breunlichen eklen
+      Masse zerfellt – so hast du wohl getan. Rührs nun dreimal siebenmal
+      um und gibs einer schwarzen Katz zu fressen. Was sie bis
+      zum Abend wiedergibt, das tu in die Retort und destilliers ab. Man
+      kennts als Willenstrunck, der wohl zwei Jahr lang wirkt.«
+      —Pheredonios Melenaar, Die Macht der Elemente, Zorgan, ca.
+      700 BF, bearbeitete Fassung
+    </beschreibung>
+    <labor>Alchimistenlabor</labor>
+    <probe>
+      <brauen>
+6
+      </brauen>
+      <analyse>
+6
+      </analyse>
+    </probe>
+    <wirkung>
+      <M>
+        1, 3, 18, 19, 22, 27, 28, 36, 37
+      </M>
+      <A>
+        Der MU steigt für 1 SR um 1 Punkt, die KL sinkt um denselben
+        Betrag.
+      </A>
+      <B>
+        MU und KL steigen für 1 SR jeweils um 1 Punkt.
+      </B>
+      <C>
+        Desgleichen, jedoch steigt auch die MR um 1 Punkt und der
+        Charakter beginnt, unvorsichtig zu werden.
+      </C>
+      <D>
+        Desgleichen, die Magieresistenz steigt für 7 SR um 3 Punkte.
+      </D>
+      <E>
+        desgleichen, jedoch 1 Stunde und 7 Punkte
+      </E>
+      <F>
+        Der Charakter wird für einen Tag nahezu immun gegen
+        alle Zauber, die in ihre Zauberprobe die MR einbeziehen (MR
+        +21), sowie für alle direkten Effekte, gleich ob positiv oder negativ
+        (also auch heilende, stärkende oder unsichtbar machende
+        Zauber), nicht aber gegen Sekundäreffekte (wie die Flammengewalt
+        eines ihn einäschernden IGNIFAXIUS); betroffen sind
+        in erster Linie also vor allem die Merkmale Eigenschaften,
+        Einfluss, Form, Heilung, Hellsicht, Herrschaft, Schaden und
+        Verständigung. Außerdem mag in 10 % aller Fälle eine Abhängigkeit
+        von diesem teuren Elixier auftreten (ja, dieses Gefühl
+        von Macht ist schon faszinierend ...).
+      </F>
+    </wirkung>
+    <verbreitung>
+5
+    </verbreitung>
+    <merkmale>
+      durchsichtige, grüne Flüssigkeit, stark galliger Geschmack
+    </merkmale>
+    <haltbarkeit>
+      2W6+17 Monate
+    </haltbarkeit>
+    <preis>
+      um 50 Dukaten
+    </preis>
+    <seite>
+44
+    </seite>
+    <meisterhinweise>
+      Die beiden verwendeten Zaubersprüche
+      werden bisweilen durch verschiedene Mittelchen ersetzt, z.B.
+      gegen vor Vergiftungen schützende Pflanzen und als stark magieresistent
+      angesehene Tiere. Abhängigkeit von Willenstrunk
+      ist eine Krankheit der 10. Stufe, die sich darin äußert, dass der
+      Betroffene ohne das Mittel nur noch eine halbierte Klugheit
+      hat und sein ganzes Trachten dann auf die Erlangung des Elixiers
+      gerichtet ist. Eine Einnahme des Trunks hebt die negativen
+      Wirkungen für zwei Tage auf, bringt jedoch keine der
+      anderen Effekte A bis F mit sich.
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Zielwasser">
+    <gruppe>Virtutica</gruppe>
+    <beschaffung>
+      <kosten>18 D</kosten>
+      <seltenheit>10</seltenheit>
+    </beschaffung>
+    <rezeptur>
+      5 Unzen Angbarer Blutstein, 1 zusätzliche Alraune,
+      1 Schössling Finage, 3 Halme Kairan, 20 Unzen Brabaker Vitriol,
+      1 Auge vom Bergadler; ADLERAUGE
+    </rezeptur>
+    <beschreibung>
+      »Den Blutstein zerschlag zuvörderst in einem Mörser aus gehertetem
+      Messinge und gib das Pulver in ein glesernes Gefeß, in welchem
+      das Vitriol dem Madalichte zugewandt harrt. Dorten laß es
+      drei Tage stehen, derweil du die Alraun fein passierst und dasselbige
+      auch mit dem Finage anstellest. Die Cairanhalme zerspalt siebenfach,
+      auf dass du ein und zwanzig feine Stebchen erhelst. Stell diese
+      nun in das Gefeß mit dem Vitriole und füg dorten inmitten die
+      Past aus Alraun und Finag ein worobendrauf du das Auge legest, so
+      dass es dich anblicket. Sprich nun von oben herab einen Adlers Aug
+      und Luxens Ohr und tritt schnell beiseiten, denn aus den Stebchen
+      trachten dich Finger silbrigen Lichts zu ergreifen. So diese wieder
+      verschwunden sind, tritt wieder hinzu und rühr kreftig um. Hier
+      wird sich nun das Klare vom Semigen trennen. Wart noch einen
+      Tag, und gieß das Klare vörsichtig ab, denn es ist das Elixir der
+      Sichren Pfeile, welches sich wohl ein drittel Jahr lang bewahrt.«
+      —Pheredonios Melenaar, Die Macht der Elemente,
+      Zorgan, ca. 700 BF
+    </beschreibung>
+    <labor>archaisches Labor</labor>
+    <probe>
+      <brauen>6</brauen>
+      <analyse>4</analyse>
+    </probe>
+    <wirkung>
+      <M>1, 3, 4, 10, 12, 18, 22, 23, 29, 30</M>
+      <A>
+        Für einen Schuss steigt der Fernkampfwert des Anwenders
+        um 1 Punkt.
+      </A>
+      <B>Der Fernkampfwert des Anwenders steigt für 1 SR um 1 Punkt.</B>
+      <C>desgleichen, jedoch 3 Punkte</C>
+      <D>
+        Der Fernkampfwert steigt um 7 Punkte, jedoch ist der Charakter
+        ansonsten nur noch zu langsamen Bewegungen fähig
+        (AT/PA –5, INI –3, GE –3, GS halbiert).
+      </D>
+      <E>
+        Der Fernkampfwert steigt um 15 Punkte, jedoch ist der Anwender
+        für 1 SR auf nichts anderes als das Schießen konzentriert
+        und nimmt seine Umgebung kaum mehr wahr.
+      </E>
+      <F>
+        Desgleichen, zudem kann der Schütze auch schneller Pfeile
+        abfeuern (wie die Sonderfertigkeit Schnellladen, WdS 95),
+        jedoch sinkt danach das entsprechende Talent für eine Woche
+        um 7 Punkte.
+      </F>
+    </wirkung>
+    <verbreitung>6</verbreitung>
+    <merkmale>klare Flüssigkeit</merkmale>
+    <haltbarkeit>W6+12 Wochen</haltbarkeit>
+    <preis>um 35 Dukaten</preis>
+    <seite>44</seite>
+    <meisterhinweise>
+      Eine optimierende Substitution des ADLERAUGE
+      ist der FALKENAUGE, ansonsten gestaltet sich
+      eine Ersetzung aber als schwierig. Zwar wird mit Klauen von
+      Riesenalken, Pfeilen vom 1. Firun sowie Katzenpfoten experimentiert,
+      bislang aber nur wenig erfolgreich (lediglich eine
+      mögliche Substitution).
+    </meisterhinweise>
+  </rezept>
+  <rezept name="Heiltrank">
+    <name>Heiltrank</name>
+    <gruppe>Spagyrik</gruppe>
+    <labor>archaisches Labor</labor>
+    <probe>
+      <brauen>2</brauen>
+      <analyse>1</analyse>
+    </probe>
+    <beschaffung>
+      <kosten>5 D</kosten>
+      <seltenheit>14</seltenheit>
+    </beschaffung>
+    <verbreitung>7</verbreitung>
+    <merkmale>klare Flüssigkeit mit erfrischendem Geruch</merkmale>
+    <haltbarkeit>1W6+20 Monate</haltbarkeit>
+    <preis>ab 10 Dukaten; bis zu 2 / LeP</preis>
+    <rezeptur>
+      der Schwanz einer beliebigen Eidechse, 1 Skrupel
+      Gold, 1 Arganwurzel oder 1 Bund Wirselkraut, 10 Unzen
+      Morgentau
+    </rezeptur>
+    <wirkung>
+      <M>
+        1, 3, 5, 18, 19, 21, 22, 24, Gebräu erzeugt 2W6 SP bei heftigem
+        Erbrechen
+      </M>
+      <A>
+        Der Anwender regeneriert augenblicklich 1W6 LeP, erleidet
+        jedoch eine leichte Sinnestrübung (KL, GE –1 für 1 Stunde).
+      </A>
+      <B>augenblickliche Regeneration von 1W6+2 LeP</B>
+      <C>2W6+4 LP</C>
+      <D>3W6+6 LP</D>
+      <E>Alle LP</E>
+      <F>
+        Der Trank bringt 3W6+25 LeP zurück, auch über das Maximum
+        hinaus, neutralisiert jedoch die Wirkung aller anderen
+        alchimistisch-magischen Tränke, Gifte und Elixiere für eine
+        Woche (also auch alle weiteren Heiltränke, die innerhalb der
+        nächsten Woche genossen werden).
+      </F>
+    </wirkung>
+    <seite>56</seite>
+  </rezept>
+  <rezept name="Beschwörungskerzen">
+    <name>Beschwörungskerzen</name>
+    <gruppe>Magika</gruppe>
+    <labor>archaisches Labor</labor>
+    <probe>
+      <brauen>3</brauen>
+      <analyse>0</analyse>
+    </probe>
+    <beschaffung>
+      <kosten>25 S</kosten>
+      <seltenheit>10</seltenheit>
+    </beschaffung>
+    <verbreitung>6</verbreitung>
+    <merkmale>grünliches Wachs, latenter Geruch der Niederhöllen</merkmale>
+    <haltbarkeit>nahezu unbegrenzt</haltbarkeit>
+    <preis>ab 5 Dukaten, je nach dämonischem Material</preis>
+    <rezeptur>
+      12 Unzen Wachs aus den Knochen schwarzer Rinder,
+      1 Alraune, mindestens 1 Skrupel Material dämonischer
+      Herkunft, etwa 3 Unzen Asche aus verbrannter Haut einer
+      schwarzen Schlange, ein Büschel eigene Haare
+    </rezeptur>
+    <wirkung>
+      <M>
+        1, 3, 4, 12, 13, 14, 16, 17, 22, der Beschwörer ist durch den
+        Gestank der entzündeten Kerzen so abgelenkt, dass er einen
+        Malus von 3 Punkten auf die Zauberprobe eines Spruchs mit
+        dem Merkmal Beschwörung erhält.
+      </M>
+      <A>Der Rauch wirkt anziehend auf Mindergeister.</A>
+      <B>Beschwörungsprobe –1</B>
+      <C>Beherrschungsprobe bei Dämonen und Geistern –1</C>
+      <D>Beschwörungs- und Beherrschungsprobe jeweils –1</D>
+      <E>Beschwörungs- und Beherrschungsprobe jeweils –2</E>
+      <F>
+        Beschwörungs- und Beherrschungsprobe jeweils –3, jedoch
+        steigt auch die Wahrscheinlichkeit, bei einer misslungenen Beschwörung
+        versehentlich einen Dämonen aus der nächsthöheren
+        Gruppe zu beschwören, auf 50 %.
+      </F>
+    </wirkung>
+    <seite>71</seite>
+  </rezept>
+  <rezept name="Zauberkreide">
+    <name>Zauberkreide</name>
+    <gruppe>Magika</gruppe>
+    <labor>archaisches Labor</labor>
+    <probe>
+      <brauen>2</brauen>
+      <analyse>1</analyse>
+    </probe>
+    <beschaffung>
+      <kosten>25 S</kosten>
+      <seltenheit>13</seltenheit>
+    </beschaffung>
+    <verbreitung>7</verbreitung>
+    <haltbarkeit>nahezu unbegrenzt</haltbarkeit>
+    <preis>etwa 5 Dukaten.</preis>
+    <rezeptur>
+      6 Unzen Olporter Kreidepulver, 1 Alraune, 1 Hahnenkamm,
+      2 Unzen getrocknetes Ochsenblut
+    </rezeptur>
+    <wirkung>
+      <M>
+        1, 3, 4, 40, bei einem mit misslungener Kreide gezeichneten
+        Beschwörungszirkel sind sowohl alle Beschwörungs- als auch
+        alle Beherrschungsproben gegenüber der gerufenen Wesenheit
+        um 3 Punkte erschwert, selbiges gilt für die Proben bei Austreibungen
+        (PENTAGRAMMA, GEISTERBANN ...).
+      </M>
+      <A>Beschwörungsprobe –1</A>
+      <B>Exorzismusprobe –1</B>
+      <C>Beschwörungsprobe und Exorzismusprobe je –1</C>
+      <D>Beschwörungs-, Beherrschungs- und Exorzismusprobe je –1</D>
+      <E>
+        Beschwörungsprobe und Exorzismusprobe je –2, Beherrschungsprobe
+        –1
+      </E>
+      <F>
+        Beschwörungsprobe und Exorzismusprobe je –3, Beherrschungsprobe
+        –2, jedoch steigt auch die Wahrscheinlichkeit, bei
+        einer misslungenen Beschwörung versehentlich einen Dämonen
+        aus der nächsthöheren Gruppe zu beschwören, auf 50 %.
+      </F>
+    </wirkung>
+    <seite>74</seite>
+  </rezept>
+</rezepte>

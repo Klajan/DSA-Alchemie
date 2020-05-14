@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DSA_Alchemie.window"
         xmlns:base="clr-namespace:DSA_Alchemie"
         mc:Ignorable="d"
-        Title="Rezept hinzufügen" Height="450" Width="329.739" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="Rezept hinzufügen" Height="450" Width="329.739" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static local:InputRezeptWindow.Exit_RoutedCommand}"
                     Executed="ExitCommand_Executed"

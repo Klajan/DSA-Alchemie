@@ -57,7 +57,7 @@ namespace DSA_Alchemie.common
             return ID == rezept.ID;
         }
 
-        private int Probe(int TaW, int mod, (int, int, int) stats)
+        private int TalentProbe(int TaW, int mod, (int, int, int) stats)
         {
             if (RNG) RollEign.Roll();
             int c1 = 0, c20 = 0;
@@ -74,8 +74,8 @@ namespace DSA_Alchemie.common
         {
             if (!isValid) return '?';
             int chym = (character.ChymischeHochzeit) ? -1 : 0;
-            int totalMod = mod + base.Mods.Item1 + qualmod.rckHalten + Helper.CalcLaborMod(Labor.Item1, character.Labor) + chym;
-            int rest = Probe(character.Alchemie, totalMod, (character.MU, character.KL, character.FF));
+            int totalMod = mod + base.Probe.Item1 + qualmod.rckHalten + Helper.CalcLaborMod(Labor.Item1, character.Labor) + chym;
+            int rest = TalentProbe(character.Alchemie, totalMod, (character.MU, character.KL, character.FF));
             if (rest < 0)
             {
                 Quality = 'M';

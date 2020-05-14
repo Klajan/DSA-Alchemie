@@ -45,11 +45,11 @@ namespace DSA_Alchemie.window
             nameIN.Text = NewRezept.Name;
             gruppeIN.Text = NewRezept.Gruppe;
             laborIN.SelectedIndex = NewRezept.Labor.Item1;
-            propeIN_B.Value = NewRezept.Mods.Item1; propeIN_A.Value = NewRezept.Mods.Item2;
+            propeIN_B.Value = NewRezept.Probe.Item1; propeIN_A.Value = NewRezept.Probe.Item2;
             verbrIN.Text = NewRezept.Verbreitung ?? String.Empty;
             haltbIN.Text = NewRezept.Haltbarkeit ?? String.Empty;
             merkmIN.Text = NewRezept.Merkmale != null ? NewRezept.Haltbarkeit : string.Empty;
-            zutatenIN.Text = NewRezept.Zutaten ?? String.Empty;
+            zutatenIN.Text = NewRezept.Rezeptur ?? String.Empty;
             seiteIN.Value = NewRezept.Seite;
             beschIN_T.Text = NewRezept.Beschaffung != null ? NewRezept.Beschaffung.Item1 : String.Empty;
             beschIN_V.Value = NewRezept.Beschaffung != null ? NewRezept.Beschaffung.Item2 : 0;
@@ -64,11 +64,11 @@ namespace DSA_Alchemie.window
                 NewRezept = null;
                 return false;
             }
-            NewRezept = new common.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex, (propeIN_B.Value, propeIN_A.Value));
+            NewRezept = new common.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(), (propeIN_B.Value, propeIN_A.Value));
             NewRezept.Verbreitung = verbrIN.Text.Length != 0 ? verbrIN.Text : null;
             NewRezept.Haltbarkeit = haltbIN.Text.Length != 0 ? haltbIN.Text : null;
             NewRezept.Merkmale = merkmIN.Text.Length != 0 ? merkmIN.Text : null;
-            NewRezept.Zutaten = zutatenIN.Text.Length != 0 ? zutatenIN.Text : null;
+            NewRezept.Rezeptur = zutatenIN.Text.Length != 0 ? zutatenIN.Text : null;
             NewRezept.Seite = seiteIN.Value;
             NewRezept.Beschaffung = beschIN_T.Text.Length != 0 ? Tuple.Create<string, int>(beschIN_T.Text, beschIN_V.Value) : null;
             NewRezept.Preis = preisIN.Text.Length != 0 ? preisIN.Text : null;

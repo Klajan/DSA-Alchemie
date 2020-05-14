@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DSA_Alchemie.window"
         mc:Ignorable="d"
-        Title="Wirkung" Height="399.6" Width="257.6" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        Title="Wirkung" Height="399.6" Width="257.6" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static local:InputWirkungWindow.Exit_RoutedCommand}" CanExecute="Exit_CanExecute" Executed="Exit_Executed" />
     </Window.CommandBindings>

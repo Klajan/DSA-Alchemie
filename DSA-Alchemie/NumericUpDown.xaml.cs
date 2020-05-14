@@ -69,13 +69,31 @@ namespace DSA_Alchemie
         }
         public static readonly DependencyProperty ValueProperty =
             DependencyProperty.Register("Value", typeof(int), typeof(NumericUpDown), new PropertyMetadata(0, ValuePropertyChangedCallback_));
-        public int Max { set; get; } = Int32.MaxValue;
-        public int Min { set; get; } = Int32.MinValue;
+        private static void MinMaxPropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        {
+            NumericUpDown s = sender as NumericUpDown;
+            s.Value = Math.Max(s.Min, Math.Min(s.Max, s.Value));
+            if (s != null) { s.OnChanged(e); }
+        }
+        public int Max
+        {
+            get { return (int)this.GetValue(MaxProperty); }
+            set { this.SetValue(MaxProperty, value); }
+        }
+        public static readonly DependencyProperty MaxProperty =
+            DependencyProperty.Register("Max", typeof(int), typeof(NumericUpDown), new PropertyMetadata(Int32.MaxValue, MinMaxPropertyChangedCallback_));
+        public int Min
+        {
+            get { return (int)this.GetValue(MinProperty); }
+            set { this.SetValue(MinProperty, value); }
+        }
+        public static readonly DependencyProperty MinProperty =
+            DependencyProperty.Register("Min", typeof(int), typeof(NumericUpDown), new PropertyMetadata(Int32.MinValue, MinMaxPropertyChangedCallback_));
         public Func<int, int> IncreaseFunc { set; get; }
         public Func<int, int> DecreaseFunc { set; get; }
         public bool AllowCopyPaste = true;
-        Regex regexFull = new Regex("([-]?[0-9]+)");
-        Regex regexQuick = new Regex("^[-+]");
+        private readonly Regex regexFull = new Regex("([-]?[0-9]+)");
+        private readonly Regex regexQuick = new Regex("^[-+]");
         bool success = false;
         public NumericUpDown()
         {
@@ -119,23 +137,23 @@ namespace DSA_Alchemie
             e.Handled = true;
             long value;
             string text = origin.Text;
-            var match1 = regexFull.Match(text);
-            var match2 = regexQuick.Match(text);
             origin.TextChanged -= TextBox_TextChanged;
-            if (match1.Success)
-            {
-                Int64.TryParse(match1.Value, out value);
-                textBox.Text = value_.ToString();
-                origin.TextChanged += TextBox_TextChanged;
-                Value = (int)Math.Max(Math.Min(value, Max), Min);
-            }
+            var matchQuick = regexQuick.Match(text);
+            if (matchQuick.Success && text.Length == 1) { origin.Text = matchQuick.Value; }
+            else if (text.Length == 0) { origin.Text = ""; }
             else
             {
-                if (match2.Success && text.Length == 1) { origin.Text = match2.Value; }
-                else if (text.Length == 0) { origin.Text = ""; }
+                var matchFull = regexFull.Match(text);
+                if (matchFull.Success)
+                {
+                    Int64.TryParse(matchFull.Value, out value);
+                    textBox.Text = value_.ToString();
+                    origin.TextChanged += TextBox_TextChanged;
+                    Value = (int)Math.Max(Math.Min(value, Max), Min);
+                }
                 else { origin.Text = value_.ToString(); }
-                origin.TextChanged += TextBox_TextChanged;
             }
+            origin.TextChanged += TextBox_TextChanged;
         }
     }
     class VisibilityToColumnConverter : IValueConverter
