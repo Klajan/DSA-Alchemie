@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DSA_Alchemie.common
+namespace Alchemie.common
 {
     public class Character : NotifyPropertyChanged
     {

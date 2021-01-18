@@ -6,15 +6,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
+using Alchemie.common;
 
-namespace DSA_Alchemie
+namespace Alchemie
 {
     public class Database
     {
         public List<string> Gruppen { private set; get; }
         public Dictionary<string, List<string>> RezepteGruppen { private set; get; }
         public Dictionary<string, common.Rezept> Rezepte { private set; get; }
-        private readonly static string allKey = "Alle";
+        private const string allKey = "Alle";
 
         public Database()
         {
@@ -53,10 +54,18 @@ namespace DSA_Alchemie
                 Gruppen.Add(rezept.Gruppe);
                 RezepteGruppen.Add(rezept.Gruppe, new List<string> { rezept.Name });
             }
+            RezepteGruppen[allKey].Add(rezept.Name);
         }
         public List<common.Rezept> GetList()
         {
             return Rezepte.Values.ToList();
+        }
+        public Rezept this[string key]
+        {
+            get
+            {
+                return Rezepte.ContainsKey(key) ? Rezepte[key] : null;
+            }
         }
     }
 }

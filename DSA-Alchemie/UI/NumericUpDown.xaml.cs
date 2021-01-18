@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Globalization;
 
-namespace DSA_Alchemie
+namespace Alchemie.UI
 {
     /// <summary>
     /// Interaktionslogik für NumericUpDown.xaml
@@ -62,7 +62,9 @@ namespace DSA_Alchemie
             if (s != null) { s.OnChanged(e); }
         }
         private int value_;
+#pragma warning disable CA1721 // Eigenschaftennamen dürfen nicht mit Get-Methoden übereinstimmen
         public int Value
+#pragma warning restore CA1721 // Eigenschaftennamen dürfen nicht mit Get-Methoden übereinstimmen
         {
             get { return (int)this.GetValue(ValueProperty); }
             set { this.SetValue(ValueProperty, value); }
@@ -89,8 +91,8 @@ namespace DSA_Alchemie
         }
         public static readonly DependencyProperty MinProperty =
             DependencyProperty.Register("Min", typeof(int), typeof(NumericUpDown), new PropertyMetadata(Int32.MinValue, MinMaxPropertyChangedCallback_));
-        public Func<int, int> IncreaseFunc { set; get; }
-        public Func<int, int> DecreaseFunc { set; get; }
+        public Func<int, int> IncreaseFunc { set; get; } = (value) => value + 1;
+        public Func<int, int> DecreaseFunc { set; get; } = (value) => value - 1;
         public bool AllowCopyPaste = true;
         private readonly Regex regexFull = new Regex("([-]?[0-9]+)");
         private readonly Regex regexQuick = new Regex("^[-+]");
@@ -146,7 +148,7 @@ namespace DSA_Alchemie
                 var matchFull = regexFull.Match(text);
                 if (matchFull.Success)
                 {
-                    Int64.TryParse(matchFull.Value, out value);
+                    value = Int64.Parse(matchFull.Value);
                     textBox.Text = value_.ToString();
                     origin.TextChanged += TextBox_TextChanged;
                     Value = (int)Math.Max(Math.Min(value, Max), Min);
@@ -156,7 +158,8 @@ namespace DSA_Alchemie
             origin.TextChanged += TextBox_TextChanged;
         }
     }
-    class VisibilityToColumnConverter : IValueConverter
+
+    internal class VisibilityToColumnConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)
         {
@@ -168,7 +171,7 @@ namespace DSA_Alchemie
             throw new NotImplementedException();
         }
     }
-    class VisibilityToWidthConverter : IValueConverter
+    internal class VisibilityToWidthConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)
         {
@@ -179,5 +182,11 @@ namespace DSA_Alchemie
         {
             throw new NotImplementedException();
         }
+    }
+
+    internal class BoolInverterConverter : IValueConverter
+    {
+        public object Convert(object value, Type type, object paramater, CultureInfo culture) { return !(bool)value; }
+        public object ConvertBack(object value, Type type, object paramater, CultureInfo culture) { return !(bool)value; }
     }
 }

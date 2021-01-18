@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.ComponentModel;
 
-namespace DSA_Alchemie.logging
+namespace Alchemie.logging
 {
     public interface ILogger
     {

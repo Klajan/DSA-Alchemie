@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Globalization;
 
-namespace DSA_Alchemie
+namespace Alchemie
 {
-    public class Helper
+    public static class Helper
     {
         public static int CalcLaborMod(int requLab, int currentLab)
         {

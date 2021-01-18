@@ -56,7 +56,7 @@
                   </xs:sequence>
                 </xs:complexType>
               </xs:element>
-              <xs:element minOccurs="0" name="verbreitung" type="verbreitung" />
+              <xs:element minOccurs="0" name="verbreitung" type="xs:string" />
               <xs:element minOccurs="0" name ="merkmale" type="xs:string" />
               <xs:element minOccurs="0" name="haltbarkeit" type="xs:string" />
               <xs:element minOccurs="0" name="preis" type="xs:string" />

@@ -1,9 +1,10 @@
-﻿<Window x:Class="DSA_Alchemie.window.InputWirkungWindow"
+﻿<Window x:Class="Alchemie.UI.Windows.InputWirkungWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:DSA_Alchemie.window"
+        xmlns:local="clr-namespace:Alchemie.UI.Windows"
+        xmlns:UI="clr-namespace:Alchemie.UI"
         mc:Ignorable="d"
         Title="Wirkung" Height="399.6" Width="257.6" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>

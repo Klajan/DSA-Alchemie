@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="Alchemie.UI.RezeptView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Alchemie.UI"
+             xmlns:viewmodels="clr-namespace:Alchemie.UI.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewmodels:RezeptViewModel x:Name="RezeptViewModel" />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="25"/>
+                <RowDefinition MinHeight="25"/>
+                <RowDefinition MinHeight="25"/>
+                <RowDefinition MinHeight="25"/>
+                <RowDefinition MinHeight="25"/>
+                <RowDefinition MinHeight="25"/>
+                <RowDefinition MinHeight="25"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Grid.Row="0" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" Text="Labor:" FontWeight="Bold" Margin="2" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="1" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" Text="Probe:" FontWeight="Bold" Margin="2" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="2" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" Text="Beschaffung" FontWeight="Bold" Margin="2" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="3" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" Text="Preis:" FontWeight="Bold" Margin="2" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="4" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" Text="Verbreitung:" FontWeight="Bold" Margin="2" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="5" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" Text="Haltbarkeit:" FontWeight="Bold" Margin="2" VerticalAlignment="Center"/>
+            </Border>
+            <Border Grid.Column="0" Grid.Row="6" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" Text="Merkmale:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2.2,4.2,-0.8,3.8" Width="77" FontWeight="Bold"/>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="0" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock  TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Text="{Binding Labor.Name}"/>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock  TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+                        <TextBlock.Text>
+                            <MultiBinding Mode="OneWay" StringFormat="{}{0:+#;-#;0} / {1:+#;-#;0}">
+                                <Binding Path="Probe.BrauenMod"/>
+                                <Binding Path="Probe.AnalyseMod"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="2" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+                        <TextBlock.Text>
+                            <MultiBinding Mode="OneWay" StringFormat="{}{0} / {1:0}">
+                                <Binding Path="Beschaffung.Preis"/>
+                                <Binding Path="Beschaffung.Verbreitung"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="3" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Text="{Binding Preis}"/>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="4" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Text="{Binding Verbreitung}"/>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="5" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2" Text="{Binding Haltbarkeit}"/>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Column="1" Grid.Row="6" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Merkmale}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        <Grid Grid.Column="1" Margin="5">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock TextWrapping="Wrap" Margin="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Rezeptur}"/>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock TextWrapping="Wrap" Margin="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Beschreibung}"/>
+                </ScrollViewer>
+            </Border>
+            <Border Grid.Row="2" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <TextBlock TextWrapping="Wrap" Margin="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Meisterhinweise}"/>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

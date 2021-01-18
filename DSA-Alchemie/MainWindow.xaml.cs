@@ -15,8 +15,9 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 using System.Threading;
+using Alchemie.UI.ViewModels;
 
-namespace DSA_Alchemie
+namespace Alchemie
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
@@ -27,6 +28,7 @@ namespace DSA_Alchemie
         public ObservableCollection<string> rezepte;
         private readonly App CurrentApp_;
         public  App CurrentApp { get { return CurrentApp_; } }
+        RezeptViewModel _rezeptModel = new RezeptViewModel();
         public MainWindow()
         {
             CurrentApp_ = Application.Current as App;
@@ -39,6 +41,7 @@ namespace DSA_Alchemie
             rezepte = new ObservableCollection<string>(data.RezepteGruppen["Alle"]);
             rezepte_combo_group.ItemsSource = groups;
             rezepte_combo_rezept.ItemsSource = rezepte;
+            RezeptView.DataContext = _rezeptModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -48,16 +51,17 @@ namespace DSA_Alchemie
             {
                 if (!CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept))
                 {
-                    CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept, CurrentApp.Trank.RollEign, CurrentApp.Trank.RollQual);
+                    CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept, CurrentApp.Trank.EigenschaftDice.ToList(), CurrentApp.Trank.QualityDice.ToList());
                 }
             }
             else
             {
                 CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept);
+                trankViewModel_.Trank = CurrentApp.Trank;
             }
             CurrentApp.Trank.RNG = !ManDice.IsChecked;
             int mod = ((Tuple<int, string>)brauen_combo_substi.SelectedItem).Item1 + ((Tuple<int, string>)LaborQuality.SelectedItem).Item1;
-            var quality = CurrentApp.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), CurrentApp.Character);
+            var quality = trankViewModel_.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), CurrentApp.Character);
             brauen_txtBox_quality.Text = quality.ToString();
         }
 
@@ -74,9 +78,12 @@ namespace DSA_Alchemie
         private void ComboBoxRezepteRezept_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(null == rezepte_combo_rezept.SelectedItem) { return; }
-            CurrentApp.CurrentRezept = CurrentApp.Rezepte.Rezepte[rezepte_combo_rezept.SelectedItem.ToString()];
-            bool same = (CurrentApp.Trank != null) ? CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept) : false;
-            if (!same) { CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept); }
+            CurrentApp.CurrentRezept = CurrentApp.Rezepte[rezepte_combo_rezept.SelectedItem.ToString()];
+            if (!((CurrentApp.Trank != null) && CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept))) {
+                CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept);
+                 _rezeptModel.Rezept = CurrentApp.Rezepte[rezepte_combo_rezept.SelectedItem.ToString()];
+                trankViewModel_.Trank = CurrentApp.Trank;
+            }
             brauen_txtBox_quality.Text = "";
         }
 
@@ -91,14 +98,14 @@ namespace DSA_Alchemie
             {
                 if (match.Success && !CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept))
                 {
-                    CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept, CurrentApp.Trank.RollEign, CurrentApp.Trank.RollQual);
+                    CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept, CurrentApp.Trank.EigenschaftDice.ToList(), CurrentApp.Trank.QualityDice.ToList());
                 }
             }
             else
             {
                 CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept);
             }
-            CurrentApp.Trank.Quality = match.Success ? match.Value[0] : '-';
+            trankViewModel_.Quality = match.Success ? match.Value[0] : '-';
             origin.TextChanged -= BrauenQuality_TextChanged;
             origin.Text = match.Value.ToUpper();
             origin.TextChanged += BrauenQuality_TextChanged;

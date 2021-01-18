@@ -8,10 +8,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel;
-using DSA_Alchemie.common;
-using DSA_Alchemie.FileHandling;
+using Alchemie.common;
+using Alchemie.FileHandling;
+using System.IO.Compression;
 
-namespace DSA_Alchemie
+namespace Alchemie
 {
     /// <summary>
     /// Interaktionslogik für "App.xaml"
@@ -24,7 +25,7 @@ namespace DSA_Alchemie
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
-        public static Tuple<Int32, string>[] SubstitutionList = new Tuple<int, string>[]
+        public static readonly Tuple<Int32, string>[] SubstitutionList = new Tuple<int, string>[]
         {
             Tuple.Create(-3, "(-3) Optimierende Substitution" ),
             Tuple.Create(0, "(+0) Gleichwertige Substitution"),
@@ -32,14 +33,14 @@ namespace DSA_Alchemie
             Tuple.Create(+3, "(+6) Mögliche Substitution"),
             Tuple.Create(+99, "Unsinnige Substitution")
         };
-        public static Tuple<Int32, string>[] LabQualityList = new Tuple<int, string>[]
+        public static readonly Tuple<Int32, string>[] LabQualityList = new Tuple<int, string>[]
         {
             Tuple.Create(+3, "(+3) Fehlende/beschädigte Gerätschaften"),
             Tuple.Create(0, "(+0) Normales Labor"),
             Tuple.Create(-3, "(-3) Hochwertiges Labor"),
             Tuple.Create(-7, "(-7) Außergewöhnlich hochwertiges Labor")
         };
-        public static Random rnd = new Random();
+        public static readonly Random rnd = new Random();
 
         private MainWindow main;
 
@@ -49,27 +50,30 @@ namespace DSA_Alchemie
         public Character Character
         {
             get => character_;
-            set { character_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Character")); }
+            set { character_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Character))); }
         }
         private common.Rezept currentRezept_;
         public common.Rezept CurrentRezept
         {
             get { return currentRezept_; }
-            set { currentRezept_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CurrentRezept")); }
+            set { currentRezept_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentRezept))); }
         }
         private common.Trank trank_;
         public common.Trank Trank
         {
             get { return trank_; }
-            set { trank_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Trank")); }
+            set { trank_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Trank))); }
         }
 
         private void Initialize()
         {
-            var rezepte = XmlHandler.ImportRezepteXml(
-                EmbeddedHandling.GetEmbeddedRecourceStream("DSA_Alchemie.resources.data.rezepte.xml"),
-                EmbeddedHandling.GetEmbeddedRecourceStream("DSA_Alchemie.resources.data.rezepte.xsd")
-                );
+            List<Rezept> rezepte = null;
+            using (System.IO.Stream xml = EmbeddedHandling.GetEmbeddedRecourceStream("Alchemie.resources.data.rezepte.xml.deflate"),
+                xsd = EmbeddedHandling.GetEmbeddedRecourceStream("Alchemie.resources.data.rezepte.xsd.deflate"))
+            { using (System.IO.Stream xmlstream = new DeflateStream(xml, CompressionMode.Decompress), xsdstream = new DeflateStream(xsd, CompressionMode.Decompress)) {
+                    rezepte = XmlHandler.ImportRezepteXml(xmlstream, xsdstream);
+                }
+            }
             rezepte_ = new Database(rezepte);
         }
 
@@ -82,8 +86,9 @@ namespace DSA_Alchemie
             main.Activate();
             main.Show();
             var initTask = Task.Run(Initialize);
-            var uiTask = initTask.ContinueWith(delegate {
-                Application.Current.Dispatcher.BeginInvoke(
+            var uiTask = initTask.ContinueWith(delegate
+            {
+                Current.Dispatcher.BeginInvoke(
                     System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate {
                         main.AttachRezepte(rezepte_);
 #if DEBUG
@@ -94,7 +99,7 @@ namespace DSA_Alchemie
         }
         public bool OpenAddRezeptWindow()
         {
-            window.InputRezeptWindow popup = new window.InputRezeptWindow();
+            UI.Windows.InputRezeptWindow popup = new UI.Windows.InputRezeptWindow();
             popup.DataContext = main;
             popup.ShowDialog();
             var rezept = popup.NewRezept;

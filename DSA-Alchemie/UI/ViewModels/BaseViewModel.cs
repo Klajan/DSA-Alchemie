@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
-namespace Alchemie
+namespace Alchemie.UI.ViewModels
 {
-    abstract public class NotifyPropertyChanged : INotifyPropertyChanged
+    abstract public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChange(string propertyname)

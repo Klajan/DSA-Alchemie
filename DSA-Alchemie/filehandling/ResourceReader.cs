@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 
-namespace DSA_Alchemie.FileHandling
+namespace Alchemie.FileHandling
 {
     class EmbeddedHandling
     {

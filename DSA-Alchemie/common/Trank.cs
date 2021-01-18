@@ -5,10 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-namespace DSA_Alchemie.common
+namespace Alchemie.common
 {
-    public class Trank : Rezept
+    public class Trank : Rezept, INotifyPropertyChanged
     {
+        private static readonly Dice D20 = new Dice(1, 20);
+        private static readonly Dice D6 = new Dice(1, 6);
+        #region Construction
+        public Trank()
+        {
+            EigenschaftDice = new ExtendedObserableCollection<int>(new int[3]);
+            QualityDice = new ExtendedObserableCollection<int>(new int[2]);
+        }
+        public Trank(Rezept rezept) : base(rezept)
+        {
+            EigenschaftDice = new ExtendedObserableCollection<int>(new int[3]);
+            QualityDice = new ExtendedObserableCollection<int>(new int[2]);
+        }
+        public Trank(Rezept rezept, List<int> rollEign, List<int> rollQual) : base(rezept)
+        {
+            EigenschaftDice = new ExtendedObserableCollection<int>(rollEign);
+            QualityDice = new ExtendedObserableCollection<int>(rollQual);
+        }
+        #endregion
+
         private char quality_;
         private string currentWirkung;
         private string currentMerkmale;
@@ -21,7 +41,7 @@ namespace DSA_Alchemie.common
                 if ("MABCDEF".Contains(char.ToUpper(value)))
                 {
                     quality_ = char.ToUpper(value);
-                    currentWirkung = Wirkung.ContainsKey(quality_) ? Wirkung[quality_] : String.Empty;
+                    currentWirkung = Wirkung[quality_];
                     currentMerkmale = Merkmale;
                 }
                 else
@@ -30,65 +50,73 @@ namespace DSA_Alchemie.common
                     currentWirkung = String.Empty;
                     currentMerkmale = String.Empty;
                 }
-                RaisePropertyChange("Quality");
-                RaisePropertyChange("CurrentWirkung");
-                RaisePropertyChange("CurrentMerkmale");
             }
         }
-        public DiceContainer RollEign { get; set; }
-        public DiceContainer RollQual { get; set; }
+        public ExtendedObserableCollection<int> EigenschaftDice { get; private set; }
+        public ExtendedObserableCollection<int> QualityDice { get; private set; }
         public string CurrentWirkung { get => currentWirkung; }
         public string CurrentMerkmale { get => currentMerkmale; }
 
-        public Trank() {}
-        public Trank(Rezept rezept) : base(rezept)
-        {
-            RollEign = new DiceContainer("3W20", new Dice(1, 20), 3);
-            RollQual = new DiceContainer("2W6", new Dice(1, 6), 2);
-        }
-        public Trank(Rezept rezept, DiceContainer rollEign, DiceContainer rollQual) : base(rezept)
-        {
-            RollEign = new DiceContainer(rollEign);
-            RollQual = new DiceContainer(rollQual);
-        }
+        
 
         public bool IsSameBase(Rezept rezept)
         {
-            return ID == rezept.ID;
+            if (rezept != null)
+            {
+                return ID == rezept.ID;
+            }
+            return false;
         }
 
         private int TalentProbe(int TaW, int mod, (int, int, int) stats)
         {
-            if (RNG) RollEign.Roll();
+            if (RNG) 
+            {
+                EigenschaftDice.ReplaceRange(0, D20.Roll(3));
+                //EigenschaftDice[0] = D20.Roll();
+                //EigenschaftDice[1] = D20.Roll();
+                //EigenschaftDice[2] = D20.Roll();
+            }
             int c1 = 0, c20 = 0;
-            foreach (int num in RollEign.DiceList)
+            foreach (int num in EigenschaftDice)
             {
                 if (num == 20) { c20++; }
                 else if (num == 1) { c1++; }
             }
             if (c1 >= 2) { return TaW; }
             if (c20 >= 2) { return -99; }
-            return Math.Min(TaW, TaW - mod - (Math.Max(RollEign.DiceList[0] - stats.Item1, 0) + Math.Max(RollEign.DiceList[1] - stats.Item2, 0) + Math.Max(RollEign.DiceList[2] - stats.Item3, 0)));
+            return Math.Min(TaW,
+                TaW - mod 
+                - (Math.Max(EigenschaftDice[0] - stats.Item1, 0)
+                + Math.Max(EigenschaftDice[1] - stats.Item2, 0)
+                + Math.Max(EigenschaftDice[2] - stats.Item3, 0))
+                );
         }
         public char Brauen(int mod, (int rckHalten, int astralAuf, int misc) qualmod, Character character)
         {
             if (!isValid) return '?';
-            int chym = (character.ChymischeHochzeit) ? -1 : 0;
-            int totalMod = mod + base.Probe.Item1 + qualmod.rckHalten + Helper.CalcLaborMod(Labor.Item1, character.Labor) + chym;
+            if (character == null) return '?';
+            int chym = character.ChymischeHochzeit ? -1 : 0;
+            int totalMod = mod + base.Probe.BrauenMod + qualmod.rckHalten + Helper.CalcLaborMod(Labor.ID, character.Labor) + chym;
             int rest = TalentProbe(character.Alchemie, totalMod, (character.MU, character.KL, character.FF));
             if (rest < 0)
             {
                 Quality = 'M';
                 return Quality;
             }
-            if (RNG) RollQual.Roll();
-            int qual = RollQual.DiceList[0] + RollQual.DiceList[1] + rest + (qualmod.rckHalten * 2) + qualmod.astralAuf + qualmod.misc + (chym * -2);
+            if (RNG)
+            {
+                QualityDice.ReplaceRange(0, D6.Roll(2));
+            }
+            int qual = QualityDice[0] + QualityDice[1] + rest + (qualmod.rckHalten * 2) + qualmod.astralAuf + qualmod.misc + (chym * -2);
+
             if (qual <= 6) { Quality = 'A'; }
             else if (qual <= 12) { Quality = 'B'; }
             else if (qual <= 18) { Quality = 'C'; }
             else if (qual <= 24) { Quality = 'D'; }
             else if (qual <= 30) { Quality = 'E'; }
             else { Quality = 'F'; }
+
             return Quality;
         }
     }

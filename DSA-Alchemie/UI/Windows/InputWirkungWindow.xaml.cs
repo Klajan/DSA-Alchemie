@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Alchemie.common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +13,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DSA_Alchemie.window
+namespace Alchemie.UI.Windows
 {
     /// <summary>
     /// Interaktionslogik für InputWirkung.xaml
     /// </summary>
     public partial class InputWirkungWindow : Window
     {
-        public string[] Wirkung { private set; get; } = new string[7];
+        public Wirkung Wirkung { private set; get; }
         public InputWirkungWindow()
         {
             InitializeComponent();
@@ -31,13 +32,7 @@ namespace DSA_Alchemie.window
         }
         private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Wirkung[0] = M_IN.Text;
-            Wirkung[1] = A_IN.Text;
-            Wirkung[2] = B_IN.Text;
-            Wirkung[3] = C_IN.Text;
-            Wirkung[4] = D_IN.Text;
-            Wirkung[5] = E_IN.Text;
-            Wirkung[6] = F_IN.Text;
+            Wirkung = new Wirkung(M_IN.Text, A_IN.Text, B_IN.Text, C_IN.Text, D_IN.Text, E_IN.Text, F_IN.Text);
             this.Close();
         }
     }
