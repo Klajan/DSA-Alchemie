@@ -72,23 +72,31 @@ namespace Alchemie.common
             Properties.CharacterSave.Default.UsingAlchemie = UsingAlchemie;
             Properties.CharacterSave.Default.LaborStufe = (int)Labor;
             Properties.CharacterSave.Default.LaborQuality = (int)LaborQuality;
+            Properties.CharacterSave.Default.AllegorischeAnalyse = AllegorischeAnalyse;
+            Properties.CharacterSave.Default.ChymischeHochzeit = ChymischeHochzeit;
+            Properties.CharacterSave.Default.MandriconsBindung = MandriconsBindung;
         }
         #endregion Methods
 
         #region Factory
         public static Character LoadCharacterFromSettings()
         {
-            return new Character(
-                    Properties.CharacterSave.Default.MU,
-                    Properties.CharacterSave.Default.KL,
-                    Properties.CharacterSave.Default.FF,
-                    Properties.CharacterSave.Default.IN,
-                    Properties.CharacterSave.Default.Alchemie,
-                    Properties.CharacterSave.Default.Kochen,
-                    (LabLvl)Properties.CharacterSave.Default.LaborStufe,
-                    (LabQual)Properties.CharacterSave.Default.LaborQuality,
-                    Properties.CharacterSave.Default.UsingAlchemie
-                );
+            return new Character()
+            {
+                MU = Properties.CharacterSave.Default.MU,
+                KL = Properties.CharacterSave.Default.KL,
+                FF = Properties.CharacterSave.Default.FF,
+                IN = Properties.CharacterSave.Default.IN,
+                Alchemie = Properties.CharacterSave.Default.Alchemie,
+                Kochen = Properties.CharacterSave.Default.Kochen,
+                Labor = (LabLvl)Properties.CharacterSave.Default.LaborStufe,
+                LaborQuality = (LabQual)Properties.CharacterSave.Default.LaborQuality,
+                UsingAlchemie = Properties.CharacterSave.Default.UsingAlchemie,
+                AllegorischeAnalyse = Properties.CharacterSave.Default.AllegorischeAnalyse,
+                ChymischeHochzeit = Properties.CharacterSave.Default.ChymischeHochzeit,
+                MandriconsBindung = Properties.CharacterSave.Default.MandriconsBindung
+            };
+
         }
         #endregion Factory
     }

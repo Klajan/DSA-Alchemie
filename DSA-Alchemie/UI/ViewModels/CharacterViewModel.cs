@@ -27,6 +27,12 @@ namespace Alchemie.UI.ViewModels
 
         private Character character_;
 
+        private bool usingMhAlchemie_ = false;
+        private bool usingMhKochen_ = false;
+
+        private int mhAlchemie_ = 0;
+        private int mhKochen_ = 0;
+
         #endregion Members
 
         #region Properties
@@ -223,6 +229,45 @@ namespace Alchemie.UI.ViewModels
             {
                 Character.MandriconsBindung = value;
                 RaisePropertyChange(nameof(MandriconsBindung));
+            }
+        }
+
+        public bool UsingMHAlchemie
+        {
+            get => usingMhAlchemie_;
+
+            set
+            {
+                usingMhAlchemie_ = value;
+                if(value)
+                {
+                    Character.AlchemieMH = mhAlchemie_;
+                } else
+                {
+                    mhAlchemie_ = Character.AlchemieMH;
+                    Character.AlchemieMH = 0;
+                }
+                RaisePropertyChange(nameof(UsingMHAlchemie));
+            }
+        }
+
+        public bool UsingMHKochen
+        {
+            get => usingMhKochen_;
+
+            set
+            {
+                usingMhKochen_ = value;
+                if (value)
+                {
+                    Character.KochenMH = mhKochen_;
+                }
+                else
+                {
+                    mhKochen_ = Character.KochenMH;
+                    Character.KochenMH = 0;
+                }
+                RaisePropertyChange(nameof(UsingMHKochen));
             }
         }
         #endregion Properties

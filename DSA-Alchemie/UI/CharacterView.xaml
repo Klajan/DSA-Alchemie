@@ -89,7 +89,8 @@
                 <RadioButton x:Name="AlchemieRadio" Content="Alchemie" GroupName="Talent" IsChecked="{Binding UsingAlchemie, FallbackValue=true}" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
                 <local:NumericUpDown x:Name="AlchemieTaW" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" MinHeight="25" MaxHeight="32"
                                      Value="{Binding Alchemie, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"/>
-                <CheckBox x:Name="MHAlchemie" Content="MH" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="0" Margin="2" />
+                <CheckBox x:Name="MHAlchemie" Content="MH" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="0" Margin="2"
+                          IsChecked="{Binding UsingMHAlchemie}"/>
                 <local:NumericUpDown x:Name="AlchemieMH" Grid.Column="3" Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" MinHeight="25" MaxHeight="32"
                                      IsEnabled="{Binding IsChecked, ElementName=MHAlchemie}"
                                      Max="{Binding Alchemie}" Min="0"
@@ -98,7 +99,8 @@
                 <RadioButton x:Name="KochenRadio" Content="Kochen" GroupName="Talent" IsChecked="{Binding UsingAlchemie, Converter={StaticResource BoolInverterConverter}}" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
                 <local:NumericUpDown x:Name="KochenTaW" Grid.Column="1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" MinHeight="25" MaxHeight="32"
                                      Value="{Binding Kochen, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"/>
-                <CheckBox x:Name="MHKochen" Content="MH" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="1" Margin="2" />
+                <CheckBox x:Name="MHKochen" Content="MH" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.Column="2" Grid.Row="1" Margin="2"
+                          IsChecked="{Binding UsingMHKochen}"/>
                 <local:NumericUpDown x:Name="KochenMH" Grid.Column="3" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="auto" Width="auto" MinHeight="25" MaxHeight="32"
                                      IsEnabled="{Binding IsChecked, ElementName=MHKochen}"
                                      Max="{Binding Kochen}" Min="0"
