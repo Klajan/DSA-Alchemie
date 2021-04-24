@@ -8,8 +8,16 @@ using System.ComponentModel;
 
 namespace Alchemie.common
 {
-    public class Trank : Rezept
+    public class Trank : Rezept, INotifyPropertyChanged
     {
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void RaisePropertyChange(string propertyname)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
+
         private static readonly Dice D20 = new Dice(1, 20);
         private static readonly Dice D6 = new Dice(1, 6);
         #region Construction
@@ -51,6 +59,9 @@ namespace Alchemie.common
                     currentWirkung = String.Empty;
                     currentMerkmale = String.Empty;
                 }
+                RaisePropertyChange("Quality");
+                RaisePropertyChange("CurrentWirkung");
+                RaisePropertyChange("CurrentMerkmale");
             }
         }
         public ExtendedObserableCollection<int> EigenschaftDice { get; private set; }

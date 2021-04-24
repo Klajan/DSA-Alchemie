@@ -32,6 +32,7 @@ namespace Alchemie
         public  App CurrentApp { get { return CurrentApp_; } }
         RezeptViewModel _rezeptModel = new RezeptViewModel();
         public RezeptViewModel RezeptModel { get { return _rezeptModel; } }
+        public TrankViewModel TrankModel { get { return TrankViewModel; } }
         public MainWindow()
         {
             CurrentApp_ = Application.Current as App;
@@ -66,12 +67,12 @@ namespace Alchemie
             else
             {
                 CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept);
-                trankViewModel_.Trank = CurrentApp.Trank;
+                TrankViewModel.Trank = CurrentApp.Trank;
             }
             CurrentApp.Trank.RNG = !ManDice.IsChecked;
             int mod = ((Tuple<int, string>)brauen_combo_substi.SelectedItem).Item1 + (int)CharacterViewMain.CharacterViewModel.LaborQuality;
-            var quality = trankViewModel_.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), CharacterViewMain.CharacterViewModel.Character);
-            brauen_txtBox_quality.Text = quality.ToString(CultureInfo.CurrentCulture);
+            var quality = TrankViewModel.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), CharacterViewMain.CharacterViewModel.Character);
+            //brauen_txtBox_quality.Text = quality.ToString(CultureInfo.CurrentCulture);
         }
 
         private void ComboBoxRezepteGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -91,7 +92,7 @@ namespace Alchemie
             if (!((CurrentApp.Trank != null) && CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept))) {
                 CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept);
                  _rezeptModel.Rezept = CurrentApp.Rezepte[rezepte_combo_rezept.SelectedItem.ToString()];
-                trankViewModel_.Trank = CurrentApp.Trank;
+                TrankViewModel.Trank = CurrentApp.Trank;
             }
             brauen_txtBox_quality.Text = "";
         }
@@ -114,7 +115,7 @@ namespace Alchemie
             {
                 CurrentApp.Trank = new common.Trank(CurrentApp.CurrentRezept);
             }
-            trankViewModel_.Quality = match.Success ? match.Value[0] : '-';
+            TrankViewModel.Quality = match.Success ? match.Value[0] : '-';
             origin.TextChanged -= BrauenQuality_TextChanged;
             origin.Text = match.Value.ToUpper(CultureInfo.CurrentCulture);
             origin.TextChanged += BrauenQuality_TextChanged;

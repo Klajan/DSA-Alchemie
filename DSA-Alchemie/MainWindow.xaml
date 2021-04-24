@@ -82,7 +82,7 @@
                         <TabItem Header="Brauen">
                             <Grid x:Name="BrauenGrid" Background="#FFE5E5E5">
                                 <Grid.DataContext>
-                                    <models:TrankViewModel x:Name="trankViewModel_" />
+                                    <models:TrankViewModel x:Name="TrankViewModel" />
                                 </Grid.DataContext>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -254,13 +254,13 @@
                                         </Border>
 
                                         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="26" Margin="85,2,0,0" VerticalAlignment="Top" Width="113">
-                                            <TextBox x:Name="brauen_txtBox_quality" Text="" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Margin="2.2,0,0,0" VerticalContentAlignment="Center" Width="103" FontWeight="Bold" Background="#FFEFEFEF"
+                                            <TextBox x:Name="brauen_txtBox_quality" Text="{Binding Quality, Mode=TwoWay}" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Margin="2.2,0,0,0" VerticalContentAlignment="Center" Width="103" FontWeight="Bold" Background="#FFEFEFEF"
                                                  TextChanged="BrauenQuality_TextChanged"/>
                                         </Border>
 
                                         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="0,33,0,0" VerticalAlignment="Top" Width="198">
                                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                                <TextBlock x:Name="brauen_txt_wirkung" TextWrapping="Wrap" Margin="3.2,0.2,3.4,-1" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding CurrentApp.Trank.CurrentWirkung, ElementName=AlchemieMain}"/>
+                                                <TextBlock x:Name="brauen_txt_wirkung" TextWrapping="Wrap" Margin="3.2,0.2,3.4,-1" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding TrankModel.CurrentWirkung, ElementName=AlchemieMain}"/>
                                             </ScrollViewer>
                                         </Border>
                                     </Grid>

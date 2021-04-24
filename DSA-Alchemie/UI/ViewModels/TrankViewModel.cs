@@ -1,4 +1,5 @@
-﻿using Alchemie.common;
+﻿using System.ComponentModel;
+using Alchemie.common;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -17,6 +18,15 @@ namespace Alchemie.UI.ViewModels
 
         #endregion Construction
 
+        #region Functions
+
+        private void TrankModel_PropertyChanged (object sender, PropertyChangedEventArgs e)
+        {
+            RaisePropertyChange(e.PropertyName);
+        }
+
+        #endregion Functions
+
         #region Members
 
         private Trank trank_ = new Trank();
@@ -31,6 +41,10 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 trank_ = value;
+                if (trank_ != null)
+                {
+                    trank_.PropertyChanged += TrankModel_PropertyChanged;
+                }
                 RaisePropertyChange(null);
             }
         }
@@ -53,6 +67,11 @@ namespace Alchemie.UI.ViewModels
                 trank_.Quality = value;
                 RaisePropertyChange(nameof(Quality));
             }
+        }
+
+        public string CurrentWirkung
+        {
+            get => trank_.CurrentWirkung;
         }
 
         #endregion Properties
