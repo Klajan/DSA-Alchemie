@@ -2,49 +2,94 @@
 
 namespace Alchemie.common
 {
-    public class Character : NotifyPropertyChanged
+    public enum LabLvl : int
     {
-        private int MU_ = 10;
-        private int KL_ = 10;
-        private int FF_ = 10;
-        private int IN_ = 10;
-        private int alchemie_ = 5;
-        private int kochen_ = 5;
-        private int labor_ = 5;
-        private int laborQuality_ = 0;
-        private bool allegorischeAnalyse_ = false;
-        private bool chymischeHochzeit_ = false;
-        private bool mandriconsBindung_ = false;
+        ArchaischesLabor = 0,
+        Hexenküche = 1,
+        Alchemielabor = 2,
+    }
 
-        //Properties begin here
+    public enum LabQual : int
+    {
+        Fehlend = 3,
+        Normal = 0,
+        Gut = -3,
+        SehrGut = -7
+    }
 
-        public int MU { get { return MU_; } set { MU_ = Math.Max(value, 1); RaisePropertyChange("MU"); } }
-        
-        public int KL { get { return KL_; } set { KL_ = Math.Max(value, 1); RaisePropertyChange("KL"); } }
-        
-        public int FF { get { return FF_; } set { FF_ = Math.Max(value, 1); RaisePropertyChange("FF"); } }
-        
-        public int IN { get { return IN_; } set { IN_ = Math.Max(value, 1); RaisePropertyChange("IN"); } }
-        
-        public int Alchemie { get { return alchemie_; } set { alchemie_ = value; RaisePropertyChange("Alchemie"); } }
-        
-        public int Kochen { get { return kochen_; } set { kochen_ = value; RaisePropertyChange("Kochen"); } }
-        
-        public int Labor { get { return labor_; } set { labor_ = Math.Max(Math.Min(value, 2), 0); RaisePropertyChange("Labor"); } }
-        
-        public int LaborQuality { get { return laborQuality_; } set { laborQuality_ = Math.Max(Math.Min(value, +3), -7); RaisePropertyChange("LaborQuality"); } }
-        
-        public bool AllegorischeAnalyse { get => allegorischeAnalyse_; set { allegorischeAnalyse_ = value; RaisePropertyChange("AllegorischeAnalyse"); } }
-        
-        public bool ChymischeHochzeit { get => chymischeHochzeit_; set { chymischeHochzeit_ = value; RaisePropertyChange("ChymischeHochzeit"); } }
-        
-        public bool MandriconsBindung { get => mandriconsBindung_; set { mandriconsBindung_ = value; RaisePropertyChange("MandriconsBindung"); } }
-        
-        //Functions begin here
+    public class Character
+    {
+        #region Members
+        public int MU { set; get; } = 10;
+        public int KL { set; get; } = 10;
+        public int FF { set; get; } = 10;
+        public int IN { set; get; } = 10;
+        public int Alchemie { set; get; } = 5;
+        public int Kochen { set; get; } = 5;
+        public LabLvl Labor { set; get; } = LabLvl.ArchaischesLabor;
+        public LabQual LaborQuality { set; get; } = LabQual.Normal;
+        public bool AllegorischeAnalyse { set; get; } = false;
+        public bool ChymischeHochzeit { set; get; } = false;
+        public bool MandriconsBindung { set; get; } = false;
+        public bool UsingAlchemie { set; get; } = true;
 
+        public int AlchemieMH { set; get; } = 0;
+        public int KochenMH { set; get; } = 0;
+        #endregion Members
+        public int TaW { set { }
+            get
+            {
+                if (UsingAlchemie)
+                {
+                    return Alchemie + AlchemieMH;
+                } else
+                {
+                    return Kochen + KochenMH;
+                }
+            }
+        }
+        #region Construction
         public Character()
         {
             
         }
+
+        public Character(int mu1, int kl1, int ff1, int in1, int alchemie, int kochen, LabLvl lab = LabLvl.ArchaischesLabor, LabQual labqual = LabQual.Normal, bool usingAlch = true)
+        {
+            MU = mu1; KL = kl1; FF = ff1; IN = in1; Alchemie = alchemie; Kochen = kochen; Labor = lab; LaborQuality = labqual; UsingAlchemie = usingAlch;
+        }
+        #endregion Construction
+
+        #region Methods
+        public void SaveCharacterToSettings()
+        {
+            Properties.CharacterSave.Default.MU = MU;
+            Properties.CharacterSave.Default.KL = KL;
+            Properties.CharacterSave.Default.FF = FF;
+            Properties.CharacterSave.Default.IN = IN;
+            Properties.CharacterSave.Default.Alchemie = Alchemie;
+            Properties.CharacterSave.Default.Kochen = Kochen;
+            Properties.CharacterSave.Default.UsingAlchemie = UsingAlchemie;
+            Properties.CharacterSave.Default.LaborStufe = (int)Labor;
+            Properties.CharacterSave.Default.LaborQuality = (int)LaborQuality;
+        }
+        #endregion Methods
+
+        #region Factory
+        public static Character LoadCharacterFromSettings()
+        {
+            return new Character(
+                    Properties.CharacterSave.Default.MU,
+                    Properties.CharacterSave.Default.KL,
+                    Properties.CharacterSave.Default.FF,
+                    Properties.CharacterSave.Default.IN,
+                    Properties.CharacterSave.Default.Alchemie,
+                    Properties.CharacterSave.Default.Kochen,
+                    (LabLvl)Properties.CharacterSave.Default.LaborStufe,
+                    (LabQual)Properties.CharacterSave.Default.LaborQuality,
+                    Properties.CharacterSave.Default.UsingAlchemie
+                );
+        }
+        #endregion Factory
     }
 }

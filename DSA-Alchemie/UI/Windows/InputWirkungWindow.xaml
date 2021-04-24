@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Wirkung" Height="399.6" Width="257.6" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
-        <CommandBinding Command="{x:Static local:InputWirkungWindow.Exit_RoutedCommand}" CanExecute="Exit_CanExecute" Executed="Exit_Executed" />
+        <CommandBinding Command="{x:Static local:InputWirkungWindow.ExitCommand}" CanExecute="Exit_CanExecute" Executed="Exit_Executed" />
     </Window.CommandBindings>
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="5">
@@ -48,7 +48,7 @@
                 </Border>
                 <TextBox x:Name="F_IN" x:FieldModifier="private" Height="40" TextWrapping="Wrap" Text="" Width="175"/>
             </WrapPanel>
-            <Button Content="Fertig" Margin="5" Width="50" Height="20" HorizontalAlignment="Center" Command="{x:Static local:InputWirkungWindow.Exit_RoutedCommand}"/>
+            <Button Content="Fertig" Margin="5" Width="50" Height="20" HorizontalAlignment="Center" Command="{x:Static local:InputWirkungWindow.ExitCommand}"/>
         </StackPanel>
 
     </Grid>

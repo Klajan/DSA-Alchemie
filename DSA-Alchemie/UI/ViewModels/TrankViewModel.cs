@@ -1,34 +1,30 @@
 ﻿using Alchemie.common;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
 
 namespace Alchemie.UI.ViewModels
 {
     public class TrankViewModel : BaseViewModel
     {
         #region Construction
+
         public TrankViewModel()
         {
         }
+
         public TrankViewModel(Trank trank) : this()
         {
             trank_ = trank;
         }
-        #endregion
 
+        #endregion Construction
 
         #region Members
+
         private Trank trank_ = new Trank();
-        #endregion
+
+        #endregion Members
 
         #region Properties
+
         public Trank Trank
         {
             get => trank_;
@@ -38,14 +34,17 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(null);
             }
         }
+
         public ExtendedObserableCollection<int> EigenschaftDice
         {
             get => trank_.EigenschaftDice;
         }
+
         public ExtendedObserableCollection<int> QualityDice
         {
             get => trank_.QualityDice;
         }
+
         public char Quality
         {
             get => trank_.Quality;
@@ -55,7 +54,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Quality));
             }
         }
-        #endregion
-        
+
+        #endregion Properties
     }
 }

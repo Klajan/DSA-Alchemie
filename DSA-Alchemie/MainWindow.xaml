@@ -1,14 +1,14 @@
 ﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Alchemie"
-        xmlns:commons="clr-namespace:Alchemie.common"
-        xmlns:UI="clr-namespace:Alchemie.UI"
-        xmlns:models="clr-namespace:Alchemie.UI.ViewModels"
-        xmlns:convert="clr-namespace:Alchemie.UI.Converters"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" xmlns:Generic="clr-namespace:System.Collections.Generic;assembly=mscorlib" x:Name="AlchemieMain" x:Class="Alchemie.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Alchemie"
+    xmlns:commons="clr-namespace:Alchemie.common"
+    xmlns:UI="clr-namespace:Alchemie.UI"
+    xmlns:convert="clr-namespace:Alchemie.UI.Converters"
+    xmlns:models="clr-namespace:Alchemie.UI.ViewModels"
+    x:Name="AlchemieMain" x:Class="Alchemie.MainWindow"
         mc:Ignorable="d"
         Title="DSA Alchemie" Height="600" Width="950" SnapsToDevicePixels="False" ResizeMode="CanResize" WindowStartupLocation="CenterOwner">
     <Window.Resources>
@@ -21,7 +21,7 @@
         <commons:Trank x:Key="Substitution"/>
     </Window.Resources>
     <Window.CommandBindings>
-        <CommandBinding Command="{x:Static local:MainWindow.AddRezept_RoutedCommand}"
+        <CommandBinding Command="{x:Static local:MainWindow.AddRezeptRoutedCommand}"
                     Executed="AddRezeptCommand_Executed"
                     CanExecute="AddRezeptCommand_CanExecute" />
     </Window.CommandBindings>
@@ -29,19 +29,20 @@
         <Menu DockPanel.Dock="Top" Height="22" Margin="0,0,-0.4,0">
             <MenuItem Header="_Data" Margin="0" Height="22">
                 <MenuItem Header="_Refresh"></MenuItem>
-                <MenuItem Header="_Add Rezept" Command="{x:Static local:MainWindow.AddRezept_RoutedCommand}"></MenuItem>
+                <MenuItem Header="_Add Rezept" Command="{x:Static local:MainWindow.AddRezeptRoutedCommand}"></MenuItem>
             </MenuItem>
             <MenuItem Header="_File" Height="22">
                 <MenuItem Header="_Import Helden XML"></MenuItem>
             </MenuItem>
             <MenuItem Header="_Settings" Height="22">
                 <MenuItem x:Name="ManDice" Header="Manuell Würfeln" IsCheckable="True" IsChecked="False" StaysOpenOnClick="True"></MenuItem>
+                <MenuItem x:Name="SaveChar" Header="Bei beenden speichern" IsCheckable="True" IsChecked="True" StaysOpenOnClick="True"></MenuItem>
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom" Height="22" Margin="0,0,-0.4,0"/>
         <Grid DockPanel.Dock="Bottom" Margin="2,0,1.6,0" MinWidth="790" MinHeight="435" Background="Azure">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition MinWidth="325" Width="0.72222*"/>
+                <ColumnDefinition MinWidth="200" MaxWidth="300" Width="0.33*"/>
                 <ColumnDefinition MinWidth="450" Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -67,7 +68,7 @@
                             <ComboBox Grid.Column="0" x:Name="rezepte_combo_group" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ComboBoxRezepteGroup_SelectionChanged" IsSynchronizedWithCurrentItem="True" />
                             <ComboBox Grid.Column="1"  x:Name="rezepte_combo_rezept" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ComboBoxRezepteRezept_SelectionChanged" IsSynchronizedWithCurrentItem="True" IsEditable="True"/>
                             <Border Grid.Column="3" BorderBrush="Black"  BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <TextBlock x:Name="rezept_text_seite" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="1" Text="{Binding Path=CurrentApp.CurrentRezept.Seite, ElementName=AlchemieMain, Mode=OneWay}"/>
+                                <TextBlock x:Name="rezept_text_seite" TextWrapping="NoWrap" VerticalAlignment="Center" Margin="1" Text="{Binding Path=RezeptModel.Seite, ElementName=AlchemieMain, Mode=OneWay, NotifyOnSourceUpdated=True}"/>
                             </Border>
                             <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <TextBlock TextWrapping="Wrap" FontWeight="Bold" Margin="1" VerticalAlignment="Center"><Run Text="Seite"/><Run Text=" WdA"/><Run Text=":"/></TextBlock>
@@ -115,10 +116,10 @@
                                                 </Grid.RowDefinitions>
                                                 <UI:NumericUpDown Grid.Column="0" Grid.Row="0" x:Name="brauen_input_rckHalten" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="auto" MinHeight="25" Min="0" BorderBrush="Black" Loaded="Brauen_input_rckHalten_Loaded">
                                                     <UI:NumericUpDown.Max>
-                                                        <MultiBinding Converter="{StaticResource RuckhaltenCalculator}">
-                                                            <Binding Path="CurrentApp.CurrentRezept.Probe.BrauenMod" ElementName="AlchemieMain"/>
-                                                            <Binding Path="CurrentApp.CurrentRezept.Labor.ID" ElementName="AlchemieMain" />
-                                                            <Binding Path="CurrentApp.Character.Labor" ElementName="AlchemieMain" />
+                                                        <MultiBinding Converter="{StaticResource RuckhaltenCalculator}" NotifyOnSourceUpdated="True" Mode="OneWay">
+                                                            <Binding Path="CurrentApp.CurrentRezept.Probe.BrauenMod" ElementName="AlchemieMain" Mode="OneWay"/>
+                                                            <Binding Path="CurrentApp.CurrentRezept.Labor.ID" ElementName="AlchemieMain" Mode="OneWay" />
+                                                            <Binding Path="CharacterModel.Labor" ElementName="CharacterViewMain" Mode="OneWay" />
                                                         </MultiBinding>
                                                     </UI:NumericUpDown.Max>
                                                 </UI:NumericUpDown>
@@ -128,11 +129,11 @@
                                             </Grid>
                                         </Viewbox>
                                         <Label Grid.Column="0" Grid.Row="1" Content="Astrales Aufladen:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontWeight="Bold"/>
-                                        
+
                                         <Viewbox Grid.Column="1" Grid.Row="1" StretchDirection="UpOnly" Stretch="Uniform" HorizontalAlignment="Left">
-                                            
+
                                         </Viewbox>
-                                        
+
                                         <ComboBox Grid.ColumnSpan="2" Grid.Row="2" x:Name="brauen_combo_substi" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsReadOnly="True" ItemsSource="{x:Static local:App.SubstitutionList}" DisplayMemberPath="Item2" SelectedIndex="1"/>
 
                                         <Button Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="100" Click="Button_Click" MaxHeight="75" Background="White">
@@ -181,7 +182,7 @@
                                                     </CroppedBitmap>
                                                 </Image.Source>
                                             </Image>
-                                            </Grid>
+                                        </Grid>
                                         <Grid Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
@@ -191,15 +192,15 @@
                                             <UI:NumericUpDown Grid.Column="0" x:Name="d20_brauen_1" Min="1" Max="20" Width="40" Margin="2,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                                               ButtonVisibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=ManDice}"
                                                               IsReadOnly="{Binding IsChecked, Converter={StaticResource BoolInverterConverter}, ElementName=ManDice}"
-                                                              Value="{Binding EigenschaftDice[0], NotifyOnSourceUpdated=True, Mode=TwoWay}"/>
+                                                              Value="{Binding EigenschaftDice[0], NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"/>
                                             <UI:NumericUpDown Grid.Column="1" x:Name="d20_brauen_2" Min="1" Max="20" Width="40" Margin="2,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                                               ButtonVisibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=ManDice}"
                                                               IsReadOnly="{Binding IsChecked, Converter={StaticResource BoolInverterConverter}, ElementName=ManDice}"
-                                                              Value="{Binding EigenschaftDice[1], NotifyOnSourceUpdated=True, Mode=TwoWay}"/>
+                                                              Value="{Binding EigenschaftDice[1], NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"/>
                                             <UI:NumericUpDown Grid.Column="2" x:Name="d20_brauen_3" Min="1" Max="20" Width="40" Margin="2,0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                                               ButtonVisibility="{Binding IsChecked, Converter={StaticResource BooleanToVisibilityConverter}, ElementName=ManDice}"
                                                               IsReadOnly="{Binding IsChecked, Converter={StaticResource BoolInverterConverter}, ElementName=ManDice}"
-                                                              Value="{Binding EigenschaftDice[2], NotifyOnSourceUpdated=True, Mode=TwoWay}"/>
+                                                              Value="{Binding EigenschaftDice[2], NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"/>
                                         </Grid>
                                         <Grid Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
@@ -209,7 +210,7 @@
                                             </Grid.ColumnDefinitions>
                                             <Image Grid.Column="0" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" Margin="2">
                                                 <Image.Source>
-                                                    <CroppedBitmap Source="resources/img/Dicesheet_flat_300p.png">
+                                                    <CroppedBitmap Source="resources/img/dicesheet_flat_300p.png">
                                                         <CroppedBitmap.SourceRect>
                                                             <Int32Rect Width="300" Height="300" X="300" Y="0"/>
                                                         </CroppedBitmap.SourceRect>
@@ -218,14 +219,14 @@
                                             </Image>
                                             <Image Grid.Column="1" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" Margin="2">
                                                 <Image.Source>
-                                                    <CroppedBitmap Source="resources/img/Dicesheet_flat_300p.png">
+                                                    <CroppedBitmap Source="resources/img/dicesheet_flat_300p.png">
                                                         <CroppedBitmap.SourceRect>
                                                             <Int32Rect Width="300" Height="300" X="300" Y="0"/>
                                                         </CroppedBitmap.SourceRect>
                                                     </CroppedBitmap>
                                                 </Image.Source>
                                             </Image>
-                                            </Grid>
+                                        </Grid>
                                         <Grid Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition />
@@ -251,12 +252,12 @@
                                             </Border.Background>
                                             <TextBlock Text="Qualität:" VerticalAlignment="Center" Margin="2,0,0,0" FontWeight="Bold" />
                                         </Border>
-                                        
+
                                         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="26" Margin="85,2,0,0" VerticalAlignment="Top" Width="113">
                                             <TextBox x:Name="brauen_txtBox_quality" Text="" HorizontalAlignment="Left" VerticalAlignment="Center" Height="20" Margin="2.2,0,0,0" VerticalContentAlignment="Center" Width="103" FontWeight="Bold" Background="#FFEFEFEF"
                                                  TextChanged="BrauenQuality_TextChanged"/>
                                         </Border>
-                                        
+
                                         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="85" Margin="0,33,0,0" VerticalAlignment="Top" Width="198">
                                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                                 <TextBlock x:Name="brauen_txt_wirkung" TextWrapping="Wrap" Margin="3.2,0.2,3.4,-1" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding CurrentApp.Trank.CurrentWirkung, ElementName=AlchemieMain}"/>
@@ -279,125 +280,18 @@
                 </Border>
             </Grid>
 
-            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Stretch" MinHeight="425" Margin="5,5,2.5,5" VerticalAlignment="Stretch" CornerRadius="5" MinWidth="325">
+
+            <Border Grid.Column="0" BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Stretch" MinHeight="425" Margin="5,5,2.5,5" VerticalAlignment="Stretch" CornerRadius="5">
                 <Border.Background>
                     <SolidColorBrush Color="#FFEEEEEE"/>
                 </Border.Background>
-                
-                <Grid>
-                    <Grid x:Name="TestGrid">
-                    </Grid>
-                    <StackPanel HorizontalAlignment="Left" MinHeight="270" VerticalAlignment="Top" Margin="5" MinWidth="314">
-                        <WrapPanel Margin="5">
-                            <StackPanel HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="36" Background="#7FABABAB" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" Text="MU" Height="20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center" RenderTransformOrigin="9.587,5.712"/>
-                                <UI:NumericUpDown x:Name="MUbox" Height="20" FontSize="14" Min="1" Max="99" BorderBrush="#7FABABAB" HorizontalAlignment="Center" Width="36" Value="{Binding Path=CurrentApp.Character.MU, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
-                            </StackPanel>
-                            <StackPanel HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="36" Background="#7FABABAB" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" Text="KL" Height="20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                <UI:NumericUpDown x:Name="KLbox" Height="20" FontSize="14" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center" Value="{Binding Path=CurrentApp.Character.KL, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
-                            </StackPanel>
-                            <StackPanel HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="36" Background="#7FABABAB" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" Text="IN" Height="20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                <UI:NumericUpDown x:Name="INbox" Height="20" FontSize="14" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center" Value="{Binding Path=CurrentApp.Character.IN, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
-                            </StackPanel>
-                            <StackPanel HorizontalAlignment="Left" Height="40" VerticalAlignment="Top" Width="36" Background="#7FABABAB" Margin="5,0,0,0">
-                                <TextBlock TextWrapping="Wrap" Text="FF" Height="20" FontSize="14" FontWeight="Bold" HorizontalAlignment="Center"/>
-                                <UI:NumericUpDown x:Name="FFbox" Height="20"  FontSize="14" Min="1" Max="99" BorderBrush="#7FABABAB" Width="36" HorizontalAlignment="Center" Value="{Binding Path=CurrentApp.Character.FF, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
-                            </StackPanel>
-                        </WrapPanel>
-                        <GroupBox Header="Talente" HorizontalAlignment="Left" Width="300" Margin="5">
-                            <GroupBox.BorderBrush>
-                                <SolidColorBrush Color="Black"/>
-                            </GroupBox.BorderBrush>
-                            <StackPanel HorizontalAlignment="Left">
-                                <WrapPanel Height="24" Margin="0" Width="262" HorizontalAlignment="Right">
-                                    <RadioButton x:Name="Radio_Alchemie" GroupName="Talent" Content="Alchemie" FontSize="14" FontWeight="Bold" IsChecked="True" Height="20" Width="80" VerticalContentAlignment="Center" Margin="0,2,4,0"/>
-                                    <UI:NumericUpDown x:Name="txtBox_AlchemieTaW" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" FontSize="14" Margin="0,2,4,0" Value="{Binding Path=CurrentApp.Character.Alchemie, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
-                                    <CheckBox x:Name="MHchkAlch" Content="MH" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Margin="0,2,4,0">
-                                        <CheckBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform Y="2"/>
-                                            </TransformGroup>
-                                        </CheckBox.RenderTransform>
-                                    </CheckBox>
-                                    <UI:NumericUpDown x:Name="txtBox_AlchemieMH" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" FontSize="14" IsEnabled="{Binding IsChecked, ElementName=MHchkAlch}" Margin="0,2,4,0"/>
-                                </WrapPanel>
-                                <WrapPanel Height="24" Margin="0,0,0.4,0">
-                                    <RadioButton x:Name="Radio_Kochen" GroupName="Talent" Content="Kochen" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold" Height="20" Width="80" VerticalContentAlignment="Center" Margin="0,2,4,0"/>
-                                    <UI:NumericUpDown x:Name="txtBox_KochenTaW" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" FontSize="14" Margin="0,2,4,0" Value="{Binding Path=CurrentApp.Character.Kochen, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=1}"/>
-                                    <CheckBox x:Name="MHchkKoch" Content="MH" HorizontalAlignment="Left" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Margin="0,2,4,0">
-                                        <CheckBox.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform Y="2"/>
-                                            </TransformGroup>
-                                        </CheckBox.RenderTransform>
-                                    </CheckBox>
-                                    <UI:NumericUpDown x:Name="txtBox_KochenMH" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="40" FontSize="14" IsEnabled="{Binding IsChecked, ElementName=MHchkKoch}" Margin="0,2,4,0"/>
-                                </WrapPanel>
-                            </StackPanel>
-                        </GroupBox>
-                        <GroupBox Header="Sonderfertigkeiten / Alchemieschalen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" Margin="5">
-                            <GroupBox.BorderBrush>
-                                <SolidColorBrush Color="Black"/>
-                            </GroupBox.BorderBrush>
-                            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="260">
-                                <CheckBox x:Name="chkBox_AllgAnalyse" Content="Allegorische Analyse" Height="18" RenderTransformOrigin="0.5,0.5" IsChecked="{Binding Path=CurrentApp.Character.AllegorischeAnalyse, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=false}">
-                                    <CheckBox.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="2"/>
-                                        </TransformGroup>
-                                    </CheckBox.RenderTransform>
-                                </CheckBox>
-                                <CheckBox x:Name="chkBox_ChymHoch" Content="Chymische Hochzeit" Height="18" RenderTransformOrigin="0.5,0.5" IsChecked="{Binding Path=CurrentApp.Character.ChymischeHochzeit, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=false}">
-                                    <CheckBox.ToolTip>
-                                        <TextBlock MaxWidth="250" TextWrapping="Wrap" Text="Mit der Chymischen Hochzeit sind Talentproben zur Herstellung von Elixieren um 1 Punkt erleichtert und die Qualitätszahl um 2 Punkte erhöht. Außerdem spart man beim Astralen Aufladen die Hälfte der AsP."/>
-                                    </CheckBox.ToolTip>
-                                    <CheckBox.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="2"/>
-                                        </TransformGroup>
-                                    </CheckBox.RenderTransform>
-                                </CheckBox>
-                                <CheckBox x:Name="chkBox_MandBind" Content="Mandricons Bindung" Height="18" RenderTransformOrigin="0.5,0.5" IsChecked="{Binding Path=CurrentApp.Character.MandriconsBindung, ElementName=AlchemieMain, Mode=TwoWay, FallbackValue=false}">
-                                    <CheckBox.RenderTransform>
-                                        <TransformGroup>
-                                            <ScaleTransform/>
-                                            <SkewTransform/>
-                                            <RotateTransform/>
-                                            <TranslateTransform Y="2"/>
-                                        </TransformGroup>
-                                    </CheckBox.RenderTransform>
-                                </CheckBox>
-                            </StackPanel>
-                        </GroupBox>
-                        <WrapPanel>
-                            <StackPanel Width="147">
-                                <TextBlock TextWrapping="Wrap" Text="Laborstufe"/>
-                                <ComboBox x:Name="LaborStufe" IsReadOnly="True" IsSynchronizedWithCurrentItem="True" SelectedIndex="{Binding CurrentApp.Character.Labor, ElementName=AlchemieMain, FallbackValue=0, Mode=OneWayToSource}">
-                                    <ComboBoxItem Content="Archaisches Labor" IsSelected="True"/>
-                                    <ComboBoxItem Content="Hexenküche"/>
-                                    <ComboBoxItem Content="Alchimistenlabor"/>
-                                </ComboBox>
-                            </StackPanel>
-                            <StackPanel Width="147">
-                                <TextBlock TextWrapping="Wrap" Text="Laborausrüstung"/>
-                                <ComboBox x:Name="LaborQuality" IsReadOnly="True" ItemsSource="{x:Static local:App.LabQualityList}" DisplayMemberPath="Item2" SelectedIndex="1" SelectedValue="{Binding CurrentApp.Character.LaborQuality, ElementName=AlchemieMain, FallbackValue=0, Mode=OneWayToSource}" IsSynchronizedWithCurrentItem="True" SelectedValuePath="Item1"/>
-                            </StackPanel>
-                        </WrapPanel>
-                    </StackPanel>
+
+                <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="auto" Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="4*" MaxHeight="600" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <UI:CharacterView x:Name="CharacterViewMain" Visibility="Visible" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Grid>
             </Border>
 

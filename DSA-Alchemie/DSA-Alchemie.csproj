@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PostSharp.6.9.4\build\PostSharp.props" Condition="Exists('..\packages\PostSharp.6.9.4\build\PostSharp.props')" />
   <Import Project="..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
   <Import Project="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" />
   <Import Project="..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" />
@@ -20,6 +21,8 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -34,8 +37,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +48,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <PostSharpTargetProcessor>x64</PostSharpTargetProcessor>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -60,9 +62,41 @@
   <PropertyGroup>
     <StartupObject>Alchemie.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Optimize>false</Optimize>
+    <SkipPostSharp>True</SkipPostSharp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <SkipPostSharp>True</SkipPostSharp>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>resources\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PostSharp, Version=6.9.4.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
+      <HintPath>..\packages\PostSharp.Redist.6.9.4\lib\net45\PostSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -87,14 +121,34 @@
     <Compile Include="logging\Logger.cs" />
     <Compile Include="common\Rezept.cs" />
     <Compile Include="common\Trank.cs" />
+    <Compile Include="Properties\CharacterSave.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>CharacterSave.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\ErrorStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UI\BrauenView.xaml.cs">
+      <DependentUpon>BrauenView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\CharacterView.xaml.cs">
+      <DependentUpon>CharacterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Converters\BoolInverterConverter.cs" />
     <Compile Include="UI\Converters\DictionaryItemConverter.cs" />
     <Compile Include="UI\RezeptView.xaml.cs">
       <DependentUpon>RezeptView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\ViewModels\BaseViewModel.cs" />
+    <Compile Include="UI\ViewModels\CharacterViewModel.cs" />
     <Compile Include="UI\ViewModels\RezeptViewModel.cs" />
     <Compile Include="UI\ViewModels\TrankViewModel.cs" />
+    <Compile Include="UI\Windows\ImportCharWindow.xaml.cs">
+      <DependentUpon>ImportCharWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\Windows\InputRezeptWindow.xaml.cs">
       <DependentUpon>InputRezeptWindow.xaml</DependentUpon>
     </Compile>
@@ -108,7 +162,19 @@
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="XmlHandler.cs" />
+    <Page Include="UI\BrauenView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\CharacterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\RezeptView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Windows\ImportCharWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -157,16 +223,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="resources\data\rezepte.xsd.deflate" />
+    <EmbeddedResource Include="Properties\ErrorStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="resources\data\rezepte.xsd.deflate" />
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </None>
     <None Include="packages.config" />
     <Resource Include="resources\img\iconmonstr-flask-17-240.png" />
-    <Resource Include="resources\img\iconmonstr-flask-5-240.png" />
+    <None Include="Properties\CharacterSave.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>CharacterSave.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="resources\img\iconmonstr-flask-5-240.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="resources\data\rezepte.xml.deflate" />
     <None Include="resources\data\rezepte.xsd">
@@ -200,8 +275,8 @@
     <None Include="resources\img\Dice-Icon Sheet.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\img\Dice-Sheet_full.png" />
-    <Resource Include="resources\img\Dice-Sheet_half.png" />
+    <None Include="resources\img\dicesheet_t_600p.png" />
+    <Resource Include="resources\img\dicesheet_t_300p.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\img\dicesheet_flat_600p.png" />
@@ -220,12 +295,18 @@
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
     <Analyzer Include="..\packages\Microsoft.NetFramework.Analyzers.2.9.6\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="resources\Icon.ico" />
+    <Resource Include="resources\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\Dice_Sheet_half.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>cd $(ProjectDir)..\Compress\bin\Release\netcoreapp3.1\
-Compress.exe $(ProjectDir)resources\data\rezepte.xml
-Compress.exe $(ProjectDir)resources\data\rezepte.xsd</PreBuildEvent>
+if $(ConfigurationName) == Release (Compress.exe $(ProjectDir)resources\data\rezepte.xml)
+if $(ConfigurationName) == Release (Compress.exe $(ProjectDir)resources\data\rezepte.xsd)</PreBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -236,5 +317,8 @@ Compress.exe $(ProjectDir)resources\data\rezepte.xsd</PreBuildEvent>
     <Error Condition="!Exists('..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetCore.Analyzers.2.9.6\build\Microsoft.NetCore.Analyzers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NetFramework.Analyzers.2.9.6\build\Microsoft.NetFramework.Analyzers.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.2.9.6\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
+    <Error Condition="!Exists('..\packages\PostSharp.6.9.4\build\PostSharp.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PostSharp.6.9.4\build\PostSharp.props'))" />
+    <Error Condition="!Exists('..\packages\PostSharp.6.9.4\build\PostSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PostSharp.6.9.4\build\PostSharp.targets'))" />
   </Target>
+  <Import Project="..\packages\PostSharp.6.9.4\build\PostSharp.targets" Condition="Exists('..\packages\PostSharp.6.9.4\build\PostSharp.targets')" />
 </Project>

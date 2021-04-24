@@ -5,7 +5,7 @@ using System.Windows.Data;
 
 namespace Alchemie.UI.Converters
 {
-    class DictionaryItemConverter : IMultiValueConverter
+    public class DictionaryItemConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type type, object paramater, CultureInfo culture)
         {

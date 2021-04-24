@@ -19,7 +19,7 @@ namespace Alchemie
     /// </summary>
     public partial class App : Application, INotifyPropertyChanged
     {
-        public static List<Tuple<Exception, Type>> Exceptions = new List<Tuple<Exception, Type>>();
+        public static List<Tuple<Exception, Type>> Exceptions { private set; get; } = new List<Tuple<Exception, Type>>();
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChange(string propertyname)
         {
@@ -32,13 +32,6 @@ namespace Alchemie
             Tuple.Create(+3, "(+3) Sinnvolle Substitution"),
             Tuple.Create(+3, "(+6) Mögliche Substitution"),
             Tuple.Create(+99, "Unsinnige Substitution")
-        };
-        public static readonly Tuple<Int32, string>[] LabQualityList = new Tuple<int, string>[]
-        {
-            Tuple.Create(+3, "(+3) Fehlende/beschädigte Gerätschaften"),
-            Tuple.Create(0, "(+0) Normales Labor"),
-            Tuple.Create(-3, "(-3) Hochwertiges Labor"),
-            Tuple.Create(-7, "(-7) Außergewöhnlich hochwertiges Labor")
         };
         public static readonly Random rnd = new Random();
 
@@ -68,19 +61,27 @@ namespace Alchemie
         private void Initialize()
         {
             List<Rezept> rezepte = null;
-            using (System.IO.Stream xml = EmbeddedHandling.GetEmbeddedRecourceStream("Alchemie.resources.data.rezepte.xml.deflate"),
-                xsd = EmbeddedHandling.GetEmbeddedRecourceStream("Alchemie.resources.data.rezepte.xsd.deflate"))
-            { using (System.IO.Stream xmlstream = new DeflateStream(xml, CompressionMode.Decompress), xsdstream = new DeflateStream(xsd, CompressionMode.Decompress)) {
+            using (System.IO.Stream compressedXml = new System.IO.MemoryStream(Alchemie.Properties.Resources.rezepte_xml),
+                compressedXsd = new System.IO.MemoryStream(Alchemie.Properties.Resources.rezepte_xsd))
+            {
+                using (System.IO.Stream xmlstream = new DeflateStream(compressedXml, CompressionMode.Decompress), xsdstream = new DeflateStream(compressedXsd, CompressionMode.Decompress))
+                {
                     rezepte = XmlHandler.ImportRezepteXml(xmlstream, xsdstream);
                 }
             }
             rezepte_ = new Database(rezepte);
+
+            if (!Alchemie.Properties.CharacterSave.Default.IsDefault)
+            {
+                Character = Character.LoadCharacterFromSettings();
+            }
         }
 
         
 
         public App()
         {
+            
             main = new MainWindow();
             MainWindow = main;
             main.Activate();
@@ -91,11 +92,9 @@ namespace Alchemie
                 Current.Dispatcher.BeginInvoke(
                     System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate {
                         main.AttachRezepte(rezepte_);
-#if DEBUG
-                        XmlHandler.ExportRezepteToXml(rezepte_.GetList(), $"resources/data/export.xml");
-#endif
+                        main.AttachCharacter(Character);
                     }));
-            });
+            }, TaskScheduler.Current);
         }
         public bool OpenAddRezeptWindow()
         {
@@ -109,6 +108,13 @@ namespace Alchemie
                 return true;
             }
             return false;
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            Character.SaveCharacterToSettings();
+            Alchemie.Properties.CharacterSave.Default.IsDefault = false;
+            Alchemie.Properties.CharacterSave.Default.Save();
         }
     }
 }

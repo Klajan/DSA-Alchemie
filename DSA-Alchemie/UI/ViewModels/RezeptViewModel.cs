@@ -1,30 +1,31 @@
 ﻿using Alchemie.common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Alchemie.UI.ViewModels
 {
     public class RezeptViewModel : BaseViewModel
     {
         #region Construction
+
         public RezeptViewModel()
         {
             rezept_ = new Rezept();
         }
+
         public RezeptViewModel(Rezept rezept)
         {
             rezept_ = rezept;
         }
-        #endregion
+
+        #endregion Construction
 
         #region Members
+
         private Rezept rezept_;
-        #endregion
+
+        #endregion Members
 
         #region Properties
+
         public Rezept Rezept
         {
             get
@@ -37,6 +38,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(null);
             }
         }
+
         public string Name
         {
             get
@@ -44,6 +46,7 @@ namespace Alchemie.UI.ViewModels
                 return Rezept.Name;
             }
         }
+
         public string Gruppe
         {
             get
@@ -51,6 +54,7 @@ namespace Alchemie.UI.ViewModels
                 return Rezept.Gruppe;
             }
         }
+
         public Labor Labor
         {
             get
@@ -58,6 +62,7 @@ namespace Alchemie.UI.ViewModels
                 return Rezept.Labor;
             }
         }
+
         public Probe Probe
         {
             get
@@ -65,6 +70,7 @@ namespace Alchemie.UI.ViewModels
                 return Rezept.Probe;
             }
         }
+
         public Beschaffung Beschaffung
         {
             get
@@ -77,6 +83,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Beschaffung));
             }
         }
+
         public string Verbreitung
         {
             get
@@ -102,6 +109,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Haltbarkeit));
             }
         }
+
         public string Preis
         {
             get
@@ -114,6 +122,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Preis));
             }
         }
+
         public string Rezeptur
         {
             get
@@ -126,6 +135,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Rezeptur));
             }
         }
+
         public int Seite
         {
             get
@@ -138,6 +148,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Seite));
             }
         }
+
         public string Merkmale
         {
             get
@@ -150,6 +161,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Merkmale));
             }
         }
+
         public string Beschreibung
         {
             get
@@ -162,6 +174,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Beschreibung));
             }
         }
+
         public string Meisterhinweise
         {
             get
@@ -187,6 +200,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(Wirkung));
             }
         }
-        #endregion
+
+        #endregion Properties
     }
 }

@@ -39,6 +39,7 @@ namespace Alchemie
         {
             try
             {
+                if (rezept == null) throw new ArgumentNullException(nameof(rezept));
                 Rezepte.Add(rezept.Name, rezept);
             }
             catch(ArgumentException e)

@@ -22,14 +22,14 @@ namespace Alchemie.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class ErrorStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal ErrorStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Alchemie.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Alchemie.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Alchemie.Properties.ErrorStrings", typeof(ErrorStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,40 +61,47 @@ namespace Alchemie.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Alchemie.resources.data.rezepte.xml.deflate ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die FileNotFoundException ähnelt.
         /// </summary>
-        internal static string embeddedRezepteXml {
+        internal static string FileNotFoundException {
             get {
-                return ResourceManager.GetString("embeddedRezepteXml", resourceCulture);
+                return ResourceManager.GetString("FileNotFoundException", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Alchemie.resources.data.rezepte.xsd.deflate ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die XmlException ähnelt.
         /// </summary>
-        internal static string embeddedRezepteXsd {
+        internal static string XmlException {
             get {
-                return ResourceManager.GetString("embeddedRezepteXsd", resourceCulture);
+                return ResourceManager.GetString("XmlException", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        ///   Sucht eine lokalisierte Zeichenfolge, die XmlSchemaException ähnelt.
         /// </summary>
-        internal static byte[] rezepte_xml {
+        internal static string XsdException {
             get {
-                object obj = ResourceManager.GetObject("rezepte_xml", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("XsdException", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        ///   Sucht eine lokalisierte Zeichenfolge, die \nline ähnelt.
         /// </summary>
-        internal static byte[] rezepte_xsd {
+        internal static string XsdExceptionMsg1 {
             get {
-                object obj = ResourceManager.GetObject("rezepte_xsd", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("XsdExceptionMsg1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die , position ähnelt.
+        /// </summary>
+        internal static string XsdExceptionMsg2 {
+            get {
+                return ResourceManager.GetString("XsdExceptionMsg2", resourceCulture);
             }
         }
     }

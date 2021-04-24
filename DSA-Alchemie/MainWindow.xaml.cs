@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,6 +17,7 @@ using System.Text.RegularExpressions;
 using System.Collections.ObjectModel;
 using System.Threading;
 using Alchemie.UI.ViewModels;
+using Alchemie.common;
 
 namespace Alchemie
 {
@@ -24,11 +26,12 @@ namespace Alchemie
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ObservableCollection<string> groups;
-        public ObservableCollection<string> rezepte;
+        internal ObservableCollection<string> groups;
+        internal ObservableCollection<string> rezepte;
         private readonly App CurrentApp_;
         public  App CurrentApp { get { return CurrentApp_; } }
         RezeptViewModel _rezeptModel = new RezeptViewModel();
+        public RezeptViewModel RezeptModel { get { return _rezeptModel; } }
         public MainWindow()
         {
             CurrentApp_ = Application.Current as App;
@@ -37,11 +40,17 @@ namespace Alchemie
 
         public void AttachRezepte(Database data)
         {
+            if (data == null) throw new ArgumentNullException(nameof(data));
             groups = new ObservableCollection<string>(data.Gruppen);
             rezepte = new ObservableCollection<string>(data.RezepteGruppen["Alle"]);
             rezepte_combo_group.ItemsSource = groups;
             rezepte_combo_rezept.ItemsSource = rezepte;
             RezeptView.DataContext = _rezeptModel;
+        }
+
+        public void AttachCharacter(Character character)
+        {
+            CharacterViewMain.CharacterViewModel.Character = character;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -60,9 +69,9 @@ namespace Alchemie
                 trankViewModel_.Trank = CurrentApp.Trank;
             }
             CurrentApp.Trank.RNG = !ManDice.IsChecked;
-            int mod = ((Tuple<int, string>)brauen_combo_substi.SelectedItem).Item1 + ((Tuple<int, string>)LaborQuality.SelectedItem).Item1;
-            var quality = trankViewModel_.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), CurrentApp.Character);
-            brauen_txtBox_quality.Text = quality.ToString();
+            int mod = ((Tuple<int, string>)brauen_combo_substi.SelectedItem).Item1 + (int)CharacterViewMain.CharacterViewModel.LaborQuality;
+            var quality = trankViewModel_.Trank.Brauen(mod, (brauen_input_rckHalten.Value, brauen_input_astralAuf.Value, 0), CharacterViewMain.CharacterViewModel.Character);
+            brauen_txtBox_quality.Text = quality.ToString(CultureInfo.CurrentCulture);
         }
 
         private void ComboBoxRezepteGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,10 +116,10 @@ namespace Alchemie
             }
             trankViewModel_.Quality = match.Success ? match.Value[0] : '-';
             origin.TextChanged -= BrauenQuality_TextChanged;
-            origin.Text = match.Value.ToUpper();
+            origin.Text = match.Value.ToUpper(CultureInfo.CurrentCulture);
             origin.TextChanged += BrauenQuality_TextChanged;
         }
-        public static RoutedCommand AddRezept_RoutedCommand = new RoutedCommand();
+        public static RoutedCommand AddRezeptRoutedCommand { set; get; } = new RoutedCommand();
         private void AddRezeptCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;

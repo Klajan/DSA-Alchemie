@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,7 +46,7 @@ namespace Alchemie.UI.Windows
             zutatenIN.Text = NewRezept.Rezeptur ?? String.Empty;
             seiteIN.Value = NewRezept.Seite;
             beschIN_T.Text = NewRezept.Beschaffung.Preis;
-            beschIN_V.Value = Int32.Parse(NewRezept.Beschaffung.Verbreitung);
+            beschIN_V.Value = Int32.Parse(NewRezept.Beschaffung.Verbreitung, CultureInfo.CurrentCulture);
             preisIN.Text = NewRezept.Preis ?? String.Empty;
             wirkung = NewRezept.Wirkung;
         }
@@ -57,19 +58,19 @@ namespace Alchemie.UI.Windows
                 NewRezept = null;
                 return false;
             }
-            NewRezept = new common.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(), (propeIN_B.Value, propeIN_A.Value));
+            NewRezept = new common.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(CultureInfo.CurrentCulture), (propeIN_B.Value, propeIN_A.Value));
             NewRezept.Verbreitung = verbrIN.Text.Length != 0 ? verbrIN.Text : null;
             NewRezept.Haltbarkeit = haltbIN.Text.Length != 0 ? haltbIN.Text : null;
             NewRezept.Merkmale = merkmIN.Text.Length != 0 ? merkmIN.Text : null;
             NewRezept.Rezeptur = zutatenIN.Text.Length != 0 ? zutatenIN.Text : null;
             NewRezept.Seite = seiteIN.Value;
-            NewRezept.Beschaffung = new Beschaffung(beschIN_T.Text, beschIN_V.Value.ToString());
+            NewRezept.Beschaffung = new Beschaffung(beschIN_T.Text, beschIN_V.Value.ToString(CultureInfo.CurrentCulture));
             NewRezept.Preis = preisIN.Text.Length != 0 ? preisIN.Text : null;
             NewRezept.Wirkung = wirkung;
             return true;
         }
 
-        public static RoutedCommand Exit_RoutedCommand = new RoutedCommand();
+        public static RoutedCommand ExitCommand { private set; get; } = new RoutedCommand();
         private void ExitCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -79,7 +80,7 @@ namespace Alchemie.UI.Windows
             Get();
             this.Close();
         }
-        public static RoutedCommand WirkungInput_RoutedCommand = new RoutedCommand();
+        public static RoutedCommand OpenWirkungInputCommand { private set; get; } = new RoutedCommand();
         private void WirkungInputCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;

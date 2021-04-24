@@ -16,7 +16,7 @@ namespace Alchemie.logging
 
     class UILogger : ILogger, INotifyPropertyChanged
     {
-        private static Mutex lock_;
+        private static object Locker { set; get; } = new object();
         static Queue<string> messageQueue;
         string currentLog;
 
@@ -29,7 +29,7 @@ namespace Alchemie.logging
 
         public void Log(string message)
         {
-            lock(lock_){
+            lock(Locker){
                 currentLog = message;
                 PropertyChanged(this, new PropertyChangedEventArgs("currentLog"));
             }

@@ -110,7 +110,9 @@ namespace Alchemie.common
         public string E { get; private set; }
         public string F { get; private set; }
 
+#pragma warning disable CA1043 // Integrales oder Zeichenfolgenargument für Indizierer verwenden
         public string this[char index] {
+#pragma warning restore CA1043 // Integrales oder Zeichenfolgenargument für Indizierer verwenden
             get
             {
                 switch (index)
@@ -137,11 +139,11 @@ namespace Alchemie.common
     }
 #pragma warning restore CA1815 // Equals und Gleichheitsoperator für Werttypen außer Kraft setzen
 
-    public class Rezept : NotifyPropertyChanged
+    public class Rezept
     {
         private static uint lastID = 0; 
-        public readonly uint ID;
-        protected readonly bool isValid;
+        internal uint ID { private set;  get; }
+        internal bool isValid { private set; get; }
         public string Name { private set; get; }
         public string Gruppe { private set; get; }
         public Labor Labor { private set; get; }

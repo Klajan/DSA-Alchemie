@@ -17,6 +17,7 @@ namespace Alchemie.common
 
         public void AddRange(IEnumerable<T> collection)
         {
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
             CheckReentrancy();
             int startIndex = this.Count;
             foreach(var item in collection)
@@ -29,7 +30,8 @@ namespace Alchemie.common
         }
         public void ReplaceRange(int startIndex, IEnumerable<T> collection)
         {
-            if(startIndex + collection.Count() > Count)
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+            if (startIndex + collection.Count() > Count)
             {
                 throw new IndexOutOfRangeException();
             }

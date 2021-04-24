@@ -11,6 +11,7 @@ using System.Xml.XPath;
 using System.Xml.Schema;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
+using System.Globalization;
 using Alchemie.common;
 
 namespace Alchemie
@@ -94,7 +95,7 @@ namespace Alchemie
                                 string[] wirk = new string[7];
                                 for (int i = 0; i < 7; i++)
                                 {
-                                    wirk[i] = (currentNode != null) ? XmlHandler.NormalizeStr(currentNode.SelectSingleNode(arr[i].ToString()).Value) : null;
+                                    wirk[i] = (currentNode != null) ? XmlHandler.NormalizeStr(currentNode.SelectSingleNode(arr[i].ToString(CultureInfo.CurrentCulture)).Value) : null;
                                 }
                                 rezept.Wirkung = new Wirkung(wirk);
                             }
@@ -107,19 +108,19 @@ namespace Alchemie
                 {
 
                     App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
-                    System.Windows.MessageBox.Show(e.Message, "XmlException");
+                    System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.XmlException);
                     return null;
                 }
                 catch (XmlSchemaException e)
                 {
                     App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
-                    System.Windows.MessageBox.Show(e.Message + "\nZeile " + e.LineNumber + ", Position " + e.LinePosition, "XmlSchemaException");
+                    System.Windows.MessageBox.Show(e.Message + Properties.ErrorStrings.XsdExceptionMsg1 + e.LineNumber + Properties.ErrorStrings.XsdExceptionMsg2 + e.LinePosition, Properties.ErrorStrings.XsdException);
                     return null;
                 }
                 catch (FileNotFoundException e)
                 {
                     App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
-                    System.Windows.MessageBox.Show(e.Message, "File not Found");
+                    System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.FileNotFoundException);
                     return null;
                 }
                 return rezepte;
@@ -148,14 +149,17 @@ namespace Alchemie
               catch (FileNotFoundException e)
             {
                 App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
-                System.Windows.MessageBox.Show(e.Message, "File not Found");
+                System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.FileNotFoundException);
                 return null;
             }
         }
-
+#if DEBUG
+#pragma warning disable
         static public void ExportRezepteToXml(List<common.Rezept> rezepte, string filepath)
         {
+
             XmlDocument document = new XmlDocument();
+
             var root = document.AppendChild(document.CreateElement("rezepte"));
             void createChild(XmlElement node, string name, string value)
             {
@@ -173,23 +177,25 @@ namespace Alchemie
                 createChild(node, "beschreibung", rezept.Beschreibung);
                 createChild(node, "labor", rezept.Labor.Name);
                 innerNode = (XmlElement)node.AppendChild(document.CreateElement("probe"));
-                createChild(innerNode, "brauen", rezept.Probe.BrauenMod.ToString());
-                createChild(innerNode, "analyse", rezept.Probe.AnalyseMod.ToString());
+                createChild(innerNode, "brauen", rezept.Probe.BrauenMod.ToString(CultureInfo.CurrentCulture));
+                createChild(innerNode, "analyse", rezept.Probe.AnalyseMod.ToString(CultureInfo.CurrentCulture));
                 innerNode = (XmlElement)node.AppendChild(document.CreateElement("wirkung"));
                 char[] arr = { 'M', 'A', 'B', 'C', 'D', 'E', 'F' };
                 foreach (char c in arr)
                 {
-                    createChild(innerNode, c.ToString(), rezept.Wirkung[c]);
+                    createChild(innerNode, c.ToString(CultureInfo.CurrentCulture), rezept.Wirkung[c]);
                 }
                 createChild(node, "verbreitung", rezept.Verbreitung);
                 createChild(node, "merkmale", rezept.Merkmale);
                 createChild(node, "haltbarkeit", rezept.Haltbarkeit);
                 createChild(node, "preis", rezept.Preis);
-                createChild(node, "seite", rezept.Seite.ToString());
+                createChild(node, "seite", rezept.Seite.ToString(CultureInfo.CurrentCulture));
                 createChild(node, "meisterhinweise", rezept.Meisterhinweise);
             }
             document.Normalize();
             document.Save(filepath);
         }
+#pragma warning restore
+#endif
     }
 }

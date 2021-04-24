@@ -56,7 +56,7 @@ namespace Alchemie.UI
             NumericUpDown s = sender as NumericUpDown;
             s.value_ = Math.Max(s.Min, Math.Min(s.Max, (int)e.NewValue));
             s.textBox.TextChanged -= s.TextBox_TextChanged;
-            s.textBox.Text = s.value_.ToString();
+            s.textBox.Text = s.value_.ToString(CultureInfo.CurrentCulture);
             s.textBox.TextChanged += s.TextBox_TextChanged;
             s.textBox.CaretIndex = s.textBox.Text.Length;
             if (s != null) { s.OnChanged(e); }
@@ -93,7 +93,7 @@ namespace Alchemie.UI
             DependencyProperty.Register("Min", typeof(int), typeof(NumericUpDown), new PropertyMetadata(Int32.MinValue, MinMaxPropertyChangedCallback_));
         public Func<int, int> IncreaseFunc { set; get; } = (value) => value + 1;
         public Func<int, int> DecreaseFunc { set; get; } = (value) => value - 1;
-        public bool AllowCopyPaste = true;
+        public bool AllowCopyPaste { set; get; } = true;
         private readonly Regex regexFull = new Regex("([-]?[0-9]+)");
         private readonly Regex regexQuick = new Regex("^[-+]");
         bool success = false;
@@ -148,18 +148,19 @@ namespace Alchemie.UI
                 var matchFull = regexFull.Match(text);
                 if (matchFull.Success)
                 {
-                    value = Int64.Parse(matchFull.Value);
-                    textBox.Text = value_.ToString();
+                    value = Int64.Parse(matchFull.Value, CultureInfo.CurrentCulture);
+                    textBox.Text = value_.ToString(CultureInfo.CurrentCulture);
                     origin.TextChanged += TextBox_TextChanged;
                     Value = (int)Math.Max(Math.Min(value, Max), Min);
                 }
-                else { origin.Text = value_.ToString(); }
+                else { origin.Text = value_.ToString(CultureInfo.CurrentCulture); }
             }
             origin.TextChanged += TextBox_TextChanged;
         }
     }
 
-    internal class VisibilityToColumnConverter : IValueConverter
+    #region Converters
+    public class VisibilityToColumnConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)
         {
@@ -171,7 +172,7 @@ namespace Alchemie.UI
             throw new NotImplementedException();
         }
     }
-    internal class VisibilityToWidthConverter : IValueConverter
+    public class VisibilityToWidthConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)
         {
@@ -184,9 +185,10 @@ namespace Alchemie.UI
         }
     }
 
-    internal class BoolInverterConverter : IValueConverter
+    public class BoolInverterConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture) { return !(bool)value; }
         public object ConvertBack(object value, Type type, object paramater, CultureInfo culture) { return !(bool)value; }
     }
+    #endregion Converters
 }

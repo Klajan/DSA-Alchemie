@@ -25,7 +25,7 @@ namespace Alchemie.UI.Windows
         {
             InitializeComponent();
         }
-        public static RoutedCommand Exit_RoutedCommand = new RoutedCommand();
+        public static RoutedCommand ExitCommand { private set; get; } = new RoutedCommand();
         private void Exit_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;

@@ -117,17 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="embeddedRezepteXml" xml:space="preserve">
-    <value>Alchemie.resources.data.rezepte.xml.deflate</value>
+  <data name="FileNotFoundException" xml:space="preserve">
+    <value>FileNotFoundException</value>
   </data>
-  <data name="embeddedRezepteXsd" xml:space="preserve">
-    <value>Alchemie.resources.data.rezepte.xsd.deflate</value>
+  <data name="XmlException" xml:space="preserve">
+    <value>XmlException</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="rezepte_xml" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\data\rezepte.xml.deflate;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="XsdException" xml:space="preserve">
+    <value>XmlSchemaException</value>
   </data>
-  <data name="rezepte_xsd" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\data\rezepte.xsd.deflate;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="XsdExceptionMsg1" xml:space="preserve">
+    <value>\nline</value>
+  </data>
+  <data name="XsdExceptionMsg2" xml:space="preserve">
+    <value>, position</value>
   </data>
 </root>
