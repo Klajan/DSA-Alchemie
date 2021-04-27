@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
-using Alchemie.common;
+using Alchemie.Models;
+using Alchemie.Core;
 
 namespace Alchemie.UI.ViewModels
 {
-    public class TrankViewModel : BaseViewModel
+    public class TrankViewModel : ObservableObject
     {
         #region Construction
 

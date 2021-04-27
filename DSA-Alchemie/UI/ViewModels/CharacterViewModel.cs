@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Alchemie.common;
+﻿using Alchemie.Core;
+using Alchemie.Models;
 
 namespace Alchemie.UI.ViewModels
 {
-    public class CharacterViewModel: BaseViewModel
+    public class CharacterViewModel: ObservableObject
     {
         #region Construction
 
@@ -128,7 +124,7 @@ namespace Alchemie.UI.ViewModels
             }
         }
 
-        public LabLvl Labor
+        public LaborID Labor
         {
             get
             {
@@ -141,7 +137,7 @@ namespace Alchemie.UI.ViewModels
             }
         }
 
-        public LabQual LaborQuality
+        public LaborQL LaborQuality
         {
             get
             {

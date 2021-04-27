@@ -1,8 +1,9 @@
-﻿using Alchemie.common;
+﻿using Alchemie.Models;
+using Alchemie.Core;
 
 namespace Alchemie.UI.ViewModels
 {
-    public class RezeptViewModel : BaseViewModel
+    public class RezeptViewModel : ObservableObject
     {
         #region Construction
 
