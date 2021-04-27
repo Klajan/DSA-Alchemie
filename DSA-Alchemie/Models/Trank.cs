@@ -5,43 +5,73 @@ using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Alchemie.Core;
 
-namespace Alchemie.common
+namespace Alchemie.Models
 {
-    public class Trank : Rezept, INotifyPropertyChanged
+    public class Trank : ObservableObject
     {
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void RaisePropertyChange(string propertyname)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
-        }
 
         private static readonly Dice D20 = new Dice(1, 20);
         private static readonly Dice D6 = new Dice(1, 6);
+
         #region Construction
         public Trank()
         {
-            EigenschaftDice = new ExtendedObserableCollection<int>(new int[3] { 1, 1, 1 });
-            QualityDice = new ExtendedObserableCollection<int>(new int[2] { 1, 1 });
+
         }
-        public Trank(Rezept rezept) : base(rezept)
+        public Trank(Rezept rezept)
         {
-            EigenschaftDice = new ExtendedObserableCollection<int>(new int[3] { 1, 1, 1 });
-            QualityDice = new ExtendedObserableCollection<int>(new int[2] { 1, 1 });
+            _rezept = rezept;
         }
-        public Trank(Rezept rezept, List<int> rollEign, List<int> rollQual) : base(rezept)
+        public Trank(Character character)
+        {
+            _character = character;
+        }
+        public Trank(Rezept rezept, Character character) : this (rezept)
+        {
+            _character = character;
+        }
+        public Trank(Rezept rezept, List<int> rollEign, List<int> rollQual) : this (rezept)
         {
             EigenschaftDice = new ExtendedObserableCollection<int>(rollEign);
             QualityDice = new ExtendedObserableCollection<int>(rollQual);
         }
+        public Trank(Rezept rezept, Character character, List<int> rollEign, List<int> rollQual) : this (rezept, rollEign, rollQual)
+        {
+            _character = Character;
+        }
         #endregion
+
+        private Rezept _rezept = new Rezept();
+
+        public Rezept Rezept
+        {
+            get => _rezept;
+            set
+            {
+                _rezept = value;
+                RaisePropertyChange(null);
+            }
+        }
+
+        private Character _character = new Character();
+
+        public Character Character
+        {
+            get => _character;
+            set
+            {
+                _character = value;
+                RaisePropertyChange(null);
+            }
+        }
+
 
         private char quality_;
         private string currentWirkung;
         private string currentMerkmale;
-        public bool RNG { get; set; } = true;
+        public bool UseRNG { get; set; } = true;
         public char Quality
         {
             get { return quality_; }
@@ -50,12 +80,12 @@ namespace Alchemie.common
                 if ("MABCDEF".Contains(char.ToUpper(value, CultureInfo.CurrentCulture)))
                 {
                     quality_ = char.ToUpper(value, CultureInfo.CurrentCulture);
-                    currentWirkung = Wirkung[quality_];
-                    currentMerkmale = Merkmale;
+                    currentWirkung = _rezept.Wirkung[quality_];
+                    currentMerkmale = _rezept.Merkmale;
                 }
                 else
                 {
-                    quality_ = '-';
+                    quality_ = '?';
                     currentWirkung = String.Empty;
                     currentMerkmale = String.Empty;
                 }
@@ -64,8 +94,8 @@ namespace Alchemie.common
                 RaisePropertyChange("CurrentMerkmale");
             }
         }
-        public ExtendedObserableCollection<int> EigenschaftDice { get; private set; }
-        public ExtendedObserableCollection<int> QualityDice { get; private set; }
+        public ExtendedObserableCollection<int> EigenschaftDice { get; private set; } = new ExtendedObserableCollection<int>(new int[3] { 1, 1, 1 });
+        public ExtendedObserableCollection<int> QualityDice { get; private set; } = new ExtendedObserableCollection<int>(new int[2] { 1, 1 });
         public string CurrentWirkung { get => currentWirkung; }
         public string CurrentMerkmale { get => currentMerkmale; }
 
@@ -75,7 +105,7 @@ namespace Alchemie.common
         {
             if (rezept != null)
             {
-                return ID == rezept.ID;
+                return _rezept.ID == rezept.ID;
             }
             return false;
         }
@@ -89,7 +119,7 @@ namespace Alchemie.common
                 else if (num <= 1) { c1++; }
             }
             if (c1 >= 2) { return TaW; }
-            if (c20 >= 2) { return int.MinValue; }
+            if (c20 >= 2) { return Int16.MinValue; }
             if(TaW - mod >= 0)
             {
                 return Math.Min(TaW,
@@ -109,18 +139,18 @@ namespace Alchemie.common
             }
             
         }
-        public char Brauen(int mod, (int rckHalten, int astralAuf, int misc) qualmod, Character character)
+        public char Brauen(int mod, (int rckHalten, int astralAuf, int misc) qualmod)
         {
-            if (!isValid) return '?';
-            if (character == null) return '?';
-            if (RNG)
+            if (!_rezept.isValid) return '?';
+            if (_character == null) return '?';
+            if (UseRNG)
             {
                 EigenschaftDice.ReplaceRange(0, D20.Roll(3));
                 QualityDice.ReplaceRange(0, D6.Roll(2));
             }
-            int chym = character.ChymischeHochzeit ? -1 : 0;
-            int totalMod = mod + base.Probe.BrauenMod + qualmod.rckHalten + Helper.CalcLaborMod(Labor.ID, (int)character.Labor) + chym;
-            int rest = TalentProbe(character.TaW, totalMod, character.UsingAlchemie ? (character.MU, character.KL, character.FF) : (character.KL, character.IN, character.FF));
+            int chym = _character.ChymischeHochzeit ? -1 : 0;
+            int totalMod = mod + _rezept.Probe.BrauenMod + qualmod.rckHalten + Trank.CalculateLaborMod(_rezept.Labor.ID, _character.Labor) + chym + (int)_character.LaborQuality;
+            int rest = TalentProbe(_character.TaW, totalMod, _character.UsingAlchemie ? (_character.MU, _character.KL, _character.FF) : (_character.KL, _character.IN, _character.FF));
             if (rest < 0)
             {
                 Quality = 'M';
@@ -136,6 +166,23 @@ namespace Alchemie.common
             else { Quality = 'F'; }
 
             return Quality;
+        }
+
+        public static int CalculateLaborMod(LaborID RezeptLabor, LaborID CharLabor)
+        {
+            switch (RezeptLabor - CharLabor)
+            {
+                case -2:
+                    return -3;
+                case -1:
+                    return 0;
+                case 0:
+                    return 0;
+                case +1:
+                    return +7;
+                default:
+                    return Int16.MaxValue;
+            }
         }
     }
 }

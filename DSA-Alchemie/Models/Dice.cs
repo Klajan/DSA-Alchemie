@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Alchemie.common
+namespace Alchemie.Models
 {
     public class Dice
     {

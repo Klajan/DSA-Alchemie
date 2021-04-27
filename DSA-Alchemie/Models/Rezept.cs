@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace Alchemie.common
+namespace Alchemie.Models
 {
 #pragma warning disable CA1815 // Equals und Gleichheitsoperator für Werttypen außer Kraft setzen
     public struct Labor
@@ -17,27 +17,27 @@ namespace Alchemie.common
             {
                 case "0":
                 case "archaisches Labor":
-                    ID = 0;
+                    ID = LaborID.ArchaischesLabor;
                     Name = "archaisches Labor";
                     break;
                 case "1":
                 case "Hexenküche":
-                    ID = 1;
+                    ID = LaborID.Hexenküche;
                     Name = "Hexenküche";
                     break;
                 case "2":
                 case "Alchimistenlabor":
-                    ID = 2;
+                    ID = LaborID.Alchemielabor;
                     Name = "Alchimistenlabor";
                     break;
                 default:
-                    ID = -1;
+                    ID = LaborID.ArchaischesLabor;
                     Name = "Unbekannt";
                     break;
             }
         }
         public string Name { get; private set; }
-        public int ID { get; private set; }
+        public LaborID ID { get; private set; }
     }
 
     public struct Probe

@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Globalization;
+using Alchemie.Models;
 
 namespace Alchemie
 {
     public static class Helper
     {
-        public static int CalcLaborMod(int requLab, int currentLab)
+        public static int CalcLaborMod(LaborID requLab, LaborID currentLab)
         {
             var diff = requLab - currentLab;
             switch (requLab - currentLab)

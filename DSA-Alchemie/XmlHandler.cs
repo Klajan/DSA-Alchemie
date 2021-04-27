@@ -12,7 +12,7 @@ using System.Xml.Schema;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using System.Globalization;
-using Alchemie.common;
+using Alchemie.Models;
 
 namespace Alchemie
 {
@@ -35,11 +35,11 @@ namespace Alchemie
                 return XmlSchema.Read(reader, ValidationCallBack);
             }
         }
-        static public List<common.Rezept> ImportRezepteXml(Stream xmlStream, Stream xsdStream = null)
+        static public List<Models.Rezept> ImportRezepteXml(Stream xmlStream, Stream xsdStream = null)
         {
             lock (normalize1)
             {
-                List<common.Rezept> rezepte = new List<common.Rezept>();
+                List<Models.Rezept> rezepte = new List<Models.Rezept>();
                 XmlSchemaSet schemaSet = new XmlSchemaSet();
                 XmlReaderSettings readerSettings = new XmlReaderSettings();
 
@@ -69,7 +69,7 @@ namespace Alchemie
                                 NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("brauen").ValueAsInt,
                                 NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("analyse").ValueAsInt
                                 );
-                            var rezept = new common.Rezept(name, gruppe, labor, probe)
+                            var rezept = new Models.Rezept(name, gruppe, labor, probe)
                             {
                                 Preis = NormalizeStr(NodeIterator.Current.SelectSingleNode("preis")?.Value),
                                 Haltbarkeit = NormalizeStr(NodeIterator.Current.SelectSingleNode("haltbarkeit")?.Value),
@@ -126,7 +126,7 @@ namespace Alchemie
                 return rezepte;
             }
         }
-        static public List<common.Rezept> ImportRezepteXml(string xmlLocation, string xsdLocation = null)
+        static public List<Models.Rezept> ImportRezepteXml(string xmlLocation, string xsdLocation = null)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace Alchemie
         }
 #if DEBUG
 #pragma warning disable
-        static public void ExportRezepteToXml(List<common.Rezept> rezepte, string filepath)
+        static public void ExportRezepteToXml(List<Models.Rezept> rezepte, string filepath)
         {
 
             XmlDocument document = new XmlDocument();

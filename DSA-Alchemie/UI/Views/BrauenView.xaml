@@ -1,0 +1,458 @@
+﻿<UserControl
+    x:Class="Alchemie.UI.Views.BrauenView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UI="clr-namespace:Alchemie.UI"
+    xmlns:converters="clr-namespace:Alchemie.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Alchemie.UI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:Alchemie.UI.ViewModels"
+    d:DesignHeight="800"
+    d:DesignWidth="700"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <local:ZurückhaltenCalculator x:Key="RückhaltenCalculator" />
+        <local:AstralAufladenConverter x:Key="AstralAufladenConverter" />
+        <local:TotalModCalculator x:Key="TotalModCalculator" />
+        <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:CombiningConverter
+            x:Key="NegatedBooleanToVisibilityConverter"
+            Converter1="{StaticResource BoolInverterConverter}"
+            Converter2="{StaticResource BooleanToVisibilityConverter}" />
+        <Style TargetType="UI:NumericUpDown">
+            <Setter Property="MinHeight" Value="22" />
+            <Setter Property="MaxHeight" Value="32" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="2,0" />
+            <Setter Property="MaxWidth" Value="200" />
+        </Style>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <viewmodels:BrauenViewModel x:Name="BrauenViewModel" />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <GroupBox
+            Grid.Column="0"
+            Margin="3,0"
+            Header="Brauen des Elixiers">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" MaxHeight="50" />
+                    <RowDefinition Height="1*" MaxHeight="50" />
+                    <RowDefinition Height="1*" MaxHeight="50" />
+                    <RowDefinition Height="1*" MaxHeight="35" />
+                    <RowDefinition Height="2*" MaxHeight="150" />
+                    <RowDefinition Height="0*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" MinWidth="115" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Content="Zurückhalten:"
+                    FontWeight="Bold" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Content="Astrales aufladen:"
+                    FontWeight="Bold" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Content="Mod:"
+                    FontWeight="Bold" />
+                <Grid
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <UI:NumericUpDown
+                        x:Name="Zurückhalten"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Margin="2,0"
+                        Min="0"
+                        Value="{Binding Zurückhalten, Mode=TwoWay, FallbackValue=0}">
+                        <UI:NumericUpDown.Max>
+                            <MultiBinding
+                                Converter="{StaticResource RückhaltenCalculator}"
+                                Mode="OneWay"
+                                NotifyOnSourceUpdated="True">
+                                <Binding
+                                    FallbackValue="0"
+                                    Mode="OneWay"
+                                    Path="RezeptBrauenMod" />
+                                <Binding
+                                    FallbackValue="0"
+                                    Mode="OneWay"
+                                    Path="RezeptLabor" />
+                                <Binding
+                                    FallbackValue="0"
+                                    Mode="OneWay"
+                                    Path="Labor" />
+                            </MultiBinding>
+                        </UI:NumericUpDown.Max>
+                    </UI:NumericUpDown>
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Content="Misc"
+                        FontWeight="Bold" />
+                    <UI:NumericUpDown
+                        x:Name="ModQL"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ToolTip="Andere Boni/Mali auf die Qualität"
+                        Value="{Binding MiscQMod, Mode=TwoWay, FallbackValue=0}" />
+                    <UI:NumericUpDown
+                        x:Name="AstralAufladen"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="2,0"
+                        Min="0"
+                        Value="{Binding AstralAufladen, Mode=TwoWay, FallbackValue=0}" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Content="AsP"
+                        FontWeight="Bold" />
+                    <UI:NumericUpDown
+                        x:Name="AstralAufladenAsP"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ButtonVisibility="Collapsed"
+                        IsReadOnly="True">
+                        <UI:NumericUpDown.Value>
+                            <MultiBinding
+                                Converter="{StaticResource AstralAufladenConverter}"
+                                Mode="OneWay"
+                                NotifyOnSourceUpdated="True">
+                                <Binding
+                                    ElementName="AstralAufladen"
+                                    Mode="OneWay"
+                                    Path="Value" />
+                                <Binding
+                                    Mode="OneWay"
+                                    Path="ChymischeHochzeit"
+                                    UpdateSourceTrigger="PropertyChanged" />
+                            </MultiBinding>
+                        </UI:NumericUpDown.Value>
+                    </UI:NumericUpDown>
+                    <UI:NumericUpDown
+                        x:Name="Mod"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ToolTip="Andere Boni/Mali auf die Probe"
+                        Value="{Binding MiscMod, Mode=TwoWay, FallbackValue=0}" />
+                </Grid>
+                <ComboBox
+                    x:Name="SubstitutionBox"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    VerticalContentAlignment="Center"
+                    DisplayMemberPath="Item2"
+                    IsReadOnly="True"
+                    ItemsSource="{x:Static local:BrauenView.SubstitutionTemplate}"
+                    SelectedIndex="1"
+                    SelectedValue="{Binding Subsitution, Mode=OneWayToSource, FallbackValue=0}"
+                    SelectedValuePath="Item1" />
+                <Grid
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="0.2*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="0.2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*" />
+                        <RowDefinition MaxHeight="90" />
+                        <RowDefinition Height="0.2*" MaxHeight="10" />
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        VerticalContentAlignment="Center"
+                        Content="Total Mod:"
+                        FontWeight="Bold" />
+                    <UI:NumericUpDown
+                        x:Name="TotalMod"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ButtonVisibility="Collapsed"
+                        IsReadOnly="True">
+                        <UI:NumericUpDown.Value>
+                            <MultiBinding Converter="{StaticResource TotalModCalculator}">
+                                <Binding FallbackValue="0" Path="RezeptLabor" />
+                                <Binding FallbackValue="0" Path="Labor" />
+                                <Binding FallbackValue="0" Path="ChymischeHochzeit" />
+                                <Binding FallbackValue="0" Path="LaborQuality" />
+                                <Binding FallbackValue="0" Path="RezeptBrauenMod" />
+                                <Binding FallbackValue="0" Path="Zurückhalten" />
+                                <Binding FallbackValue="0" Path="Subsitution" />
+                                <Binding FallbackValue="0" Path="MiscMod" />
+                            </MultiBinding>
+                        </UI:NumericUpDown.Value>
+                    </UI:NumericUpDown>
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        MaxHeight="55"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="White"
+                        Command="{Binding BrauenCommand}">
+                        <Button.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="0.5" />
+                        </Button.Effect>
+                        <StackPanel
+                            Width="auto"
+                            Height="auto"
+                            Orientation="Horizontal">
+                            <Image
+                                Height="22"
+                                Margin="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                RenderOptions.BitmapScalingMode="HighQuality"
+                                Source="/resources/img/flask_1_240p.png"
+                                Stretch="Uniform" />
+                            <TextBlock
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="Brauen"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <GroupBox
+            Grid.Column="1"
+            Margin="3,0"
+            Header="Ergebnis">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" MaxHeight="35" />
+                    <RowDefinition MaxHeight="200" />
+                    <RowDefinition MaxHeight="100" />
+                    <RowDefinition Height="0*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="0.75*" />
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="2,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    Content="Qualität:"
+                    FontWeight="Bold" />
+                <ComboBox
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="1"
+                    VerticalContentAlignment="Center"
+                    IsEditable="False"
+                    ItemsSource="{x:Static local:BrauenView.QualityTemplate}"
+                    SelectedValue="{Binding Quality}" />
+
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="Black"
+                    BorderThickness="1">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <TextBlock
+                            Margin="3.2,0.2,3.4,-1"
+                            VerticalAlignment="Top"
+                            ScrollViewer.CanContentScroll="True"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto"
+                            Text="{Binding CurrentWirkung}"
+                            TextWrapping="Wrap" />
+                    </ScrollViewer>
+                </Border>
+
+                <Grid
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.1*" />
+                        <ColumnDefinition Width="auto" MaxWidth="60" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="0.1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition MaxHeight="60" />
+                        <RowDefinition MaxHeight="60" />
+                    </Grid.RowDefinitions>
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Stretch="Uniform">
+                        <Image.Source>
+                            <CroppedBitmap Source="/resources/img/Dicesheet_flat_300p.png">
+                                <CroppedBitmap.SourceRect>
+                                    <Int32Rect
+                                        Width="300"
+                                        Height="300"
+                                        X="1800"
+                                        Y="0" />
+                                </CroppedBitmap.SourceRect>
+                            </CroppedBitmap>
+                        </Image.Source>
+                    </Image>
+                    <Image
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="2"
+                        RenderOptions.BitmapScalingMode="HighQuality"
+                        Stretch="Uniform">
+                        <Image.Source>
+                            <CroppedBitmap Source="/resources/img/dicesheet_flat_300p.png">
+                                <CroppedBitmap.SourceRect>
+                                    <Int32Rect
+                                        Width="300"
+                                        Height="300"
+                                        X="300"
+                                        Y="0" />
+                                </CroppedBitmap.SourceRect>
+                            </CroppedBitmap>
+                        </Image.Source>
+                    </Image>
+
+                    <UI:NumericUpDown
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
+                        IsReadOnly="{Binding UseRNG}"
+                        Max="20"
+                        Min="1"
+                        Value="{Binding EigenschaftDice[0], Mode=TwoWay, FallbackValue=1}" />
+                    <UI:NumericUpDown
+                        Grid.Row="0"
+                        Grid.Column="3"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
+                        IsReadOnly="{Binding UseRNG}"
+                        Max="20"
+                        Min="1"
+                        Value="{Binding EigenschaftDice[1], Mode=TwoWay, FallbackValue=1}" />
+                    <UI:NumericUpDown
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
+                        IsReadOnly="{Binding UseRNG}"
+                        Max="20"
+                        Min="1"
+                        Value="{Binding EigenschaftDice[2], Mode=TwoWay, FallbackValue=1}" />
+                    <UI:NumericUpDown
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
+                        IsReadOnly="{Binding UseRNG}"
+                        Max="6"
+                        Min="1"
+                        Value="{Binding QualityDice[0], Mode=TwoWay, FallbackValue=1}" />
+                    <UI:NumericUpDown
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        Margin="2,0"
+                        BorderBrush="Black"
+                        ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
+                        IsReadOnly="{Binding UseRNG}"
+                        Max="6"
+                        Min="1"
+                        Value="{Binding QualityDice[1], Mode=TwoWay, FallbackValue=1}" />
+                    <CheckBox
+                        Grid.Row="1"
+                        Grid.Column="4"
+                        HorizontalAlignment="Right"
+                        VerticalContentAlignment="Center"
+                        IsChecked="{Binding UseRNG, FallbackValue=true}">
+                        <StackPanel>
+                            <TextBlock>Automatisch</TextBlock>
+                            <TextBlock>Würfeln</TextBlock>
+                        </StackPanel>
+                    </CheckBox>
+                </Grid>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel;
-using Alchemie.common;
+using Alchemie.Models;
 using Alchemie.FileHandling;
 using System.IO.Compression;
 
@@ -39,20 +39,20 @@ namespace Alchemie
 
         private Database rezepte_ = new Database();
         public Database Rezepte { get { return rezepte_; } }
-        private common.Character character_ = new Character();
+        private Character character_ = new Character();
         public Character Character
         {
             get => character_;
             set { character_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Character))); }
         }
-        private common.Rezept currentRezept_;
-        public common.Rezept CurrentRezept
+        private Rezept currentRezept_ = new Rezept();
+        public Rezept CurrentRezept
         {
             get { return currentRezept_; }
             set { currentRezept_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentRezept))); }
         }
-        private common.Trank trank_;
-        public common.Trank Trank
+        private Trank trank_ = new Trank();
+        public Trank Trank
         {
             get { return trank_; }
             set { trank_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Trank))); }
@@ -73,8 +73,10 @@ namespace Alchemie
 
             if (!Alchemie.Properties.CharacterSave.Default.IsDefault)
             {
-                Character = Character.LoadCharacterFromSettings();
+                character_ = Character.LoadCharacterFromSettings();
             }
+            currentRezept_ = rezepte_.Rezepte.First().Value;
+            trank_ = new Trank(currentRezept_, character_);
         }
 
         
@@ -92,7 +94,7 @@ namespace Alchemie
                 Current.Dispatcher.BeginInvoke(
                     System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate {
                         main.AttachRezepte(rezepte_);
-                        main.AttachCharacter(Character);
+                        main.AttachCharacter(character_);
                     }));
             }, TaskScheduler.Current);
         }

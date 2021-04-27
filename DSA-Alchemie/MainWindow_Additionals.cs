@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using Alchemie.common;
+using Alchemie.Models;
 
 namespace Alchemie
 {
@@ -12,13 +12,13 @@ namespace Alchemie
         {
             if (value == null) throw new ArgumentNullException(nameof(value));
             int mod = 0;
-            int lab1 = 0;
-            int lab2 = 0;
-            if (value.Length >= 3 && value[0] is int && value[1] is int && value[2] is LabLvl)
+            LaborID lab1 = 0;
+            LaborID lab2 = 0;
+            if (value.Length >= 3 && value[0] is int && value[1] is LaborID && value[2] is LaborID)
             {
                 mod = System.Convert.ToInt32(value[0], CultureInfo.CurrentCulture);
-                lab1 = (int)value[1];
-                lab2 = (int)value[2];
+                lab1 = (LaborID)value[1];
+                lab2 = (LaborID)value[2];
             }
             //return 3
             return (int)Math.Max(0, Math.Ceiling(System.Convert.ToDouble(mod) * 1.5) - Helper.CalcLaborMod(lab1, lab2));

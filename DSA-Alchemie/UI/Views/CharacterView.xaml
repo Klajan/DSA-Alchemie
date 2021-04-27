@@ -1,0 +1,378 @@
+﻿<UserControl
+    x:Class="Alchemie.UI.Views.CharacterView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:UI="clr-namespace:Alchemie.UI"
+    xmlns:converters="clr-namespace:Alchemie.UI.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Alchemie.UI.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:Alchemie.UI.ViewModels"
+    MinWidth="180"
+    MinHeight="240"
+    MaxWidth="400"
+    MaxHeight="600"
+    d:DesignHeight="400"
+    d:DesignWidth="350"
+    mc:Ignorable="d">
+    <UserControl.DataContext>
+        <viewmodels:CharacterViewModel x:Name="CharacterViewModel" />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
+        <local:LabLevelIndexConverter x:Key="LabLevelIndexConverter" />
+        <local:LabQualityIndexConverter x:Key="LabQualityIndexConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition
+                Height="0.32*"
+                MinHeight="40"
+                MaxHeight="120" />
+            <RowDefinition Height="1*" MaxHeight="200" />
+            <RowDefinition Height="1*" MaxHeight="200" />
+            <RowDefinition
+                Height="0.32*"
+                MinHeight="40"
+                MaxHeight="120" />
+        </Grid.RowDefinitions>
+        <Grid
+            x:Name="EigenschaftenGrid"
+            Grid.Row="0"
+            Grid.Column="0"
+            MaxHeight="70">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" MinHeight="25" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Grid.Column="0"
+                MaxHeight="35"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock
+                    Margin="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="MU"
+                    TextWrapping="Wrap" />
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="1"
+                MaxHeight="35"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock
+                    Margin="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="KL"
+                    TextWrapping="Wrap" />
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="2"
+                MaxHeight="35"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock
+                    Margin="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="FF"
+                    TextWrapping="Wrap" />
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.Column="3"
+                MaxHeight="35"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="Black"
+                BorderThickness="1">
+                <TextBlock
+                    Margin="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="IN"
+                    TextWrapping="Wrap" />
+            </Border>
+            <UI:NumericUpDown
+                x:Name="MU_input"
+                Grid.Row="1"
+                Grid.Column="0"
+                Width="auto"
+                Height="auto"
+                MinHeight="25"
+                MaxHeight="30"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="Black"
+                Max="99"
+                Min="0"
+                Value="{Binding MU, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+            <UI:NumericUpDown
+                x:Name="KL_input"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="auto"
+                Height="auto"
+                MinHeight="25"
+                MaxHeight="30"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="Black"
+                Max="99"
+                Min="0"
+                Value="{Binding KL, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+            <UI:NumericUpDown
+                x:Name="FF_input"
+                Grid.Row="1"
+                Grid.Column="2"
+                Width="auto"
+                Height="auto"
+                MinHeight="25"
+                MaxHeight="30"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="Black"
+                Max="99"
+                Min="0"
+                Value="{Binding FF, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+            <UI:NumericUpDown
+                x:Name="IN_input"
+                Grid.Row="1"
+                Grid.Column="3"
+                Width="auto"
+                Height="auto"
+                MinHeight="25"
+                MaxHeight="30"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                BorderBrush="Black"
+                Max="99"
+                Min="0"
+                Value="{Binding IN, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+        </Grid>
+        <GroupBox
+            x:Name="TalenteGrid"
+            Grid.Row="1"
+            Grid.Column="0"
+            MaxHeight="130"
+            Margin="0,4"
+            Header="Talente">
+            <GroupBox.BorderBrush>
+                <SolidColorBrush Color="Black" />
+            </GroupBox.BorderBrush>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+                        Width="1.1*"
+                        MinWidth="72"
+                        MaxWidth="92" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <RadioButton
+                    x:Name="AlchemieRadio"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0,0,3,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Content="Alchemie"
+                    GroupName="Talent"
+                    IsChecked="{Binding UsingAlchemie, FallbackValue=true}" />
+                <UI:NumericUpDown
+                    x:Name="AlchemieTaW"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Width="auto"
+                    Height="auto"
+                    MinHeight="25"
+                    MaxHeight="30"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Value="{Binding Alchemie, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                <CheckBox
+                    x:Name="MHAlchemie"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Margin="1,0,1,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    IsChecked="{Binding UsingMHAlchemie}"
+                    ToolTip="Meisterhandwerk" />
+                <UI:NumericUpDown
+                    x:Name="AlchemieMH"
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    Width="auto"
+                    Height="auto"
+                    MinHeight="25"
+                    MaxHeight="30"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    IsEnabled="{Binding IsChecked, ElementName=MHAlchemie}"
+                    Max="{Binding Alchemie}"
+                    Min="0"
+                    ToolTip="Meisterhandwerk"
+                    Value="{Binding AlchemieMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+
+                <RadioButton
+                    x:Name="KochenRadio"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,0,3,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Content="Kochen"
+                    GroupName="Talent"
+                    IsChecked="{Binding UsingAlchemie, Converter={StaticResource BoolInverterConverter}}" />
+                <UI:NumericUpDown
+                    x:Name="KochenTaW"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Width="auto"
+                    Height="auto"
+                    MinHeight="25"
+                    MaxHeight="30"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    Value="{Binding Kochen, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                <CheckBox
+                    x:Name="MHKochen"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Margin="1,0,1,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    VerticalContentAlignment="Center"
+                    IsChecked="{Binding UsingMHKochen}"
+                    ToolTip="Meisterhandwerk" />
+                <UI:NumericUpDown
+                    x:Name="KochenMH"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Width="auto"
+                    Height="auto"
+                    MinHeight="25"
+                    MaxHeight="30"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    IsEnabled="{Binding IsChecked, ElementName=MHKochen}"
+                    Max="{Binding Kochen}"
+                    Min="0"
+                    ToolTip="Meisterhandwerk"
+                    Value="{Binding KochenMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox
+            x:Name="SFGrid"
+            Grid.Row="2"
+            Grid.Column="0"
+            MaxHeight="160"
+            Margin="0,4"
+            Header="Objektrituale / SF">
+            <GroupBox.BorderBrush>
+                <SolidColorBrush Color="Black" />
+            </GroupBox.BorderBrush>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <CheckBox
+                    x:Name="SFAllgAnalyse"
+                    Grid.Row="0"
+                    MinHeight="15"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    Content="Allegorische Analyse"
+                    IsChecked="{Binding AllegorischeAnalyse, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                <CheckBox
+                    x:Name="SFChymHoch"
+                    Grid.Row="1"
+                    MinHeight="15"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    Content="Chymische Hochzeit"
+                    IsChecked="{Binding ChymischeHochzeit, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                <CheckBox
+                    x:Name="SFMandBind"
+                    Grid.Row="2"
+                    MinHeight="15"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    Content="Mandricons Bindung"
+                    IsChecked="{Binding MandriconsBindung, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+            </Grid>
+        </GroupBox>
+        <Grid
+            x:Name="LaborGrid"
+            Grid.Row="3"
+            Grid.Column="0"
+            MaxHeight="80">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" MaxHeight="35" />
+                <RowDefinition Height="1*" MaxHeight="35" />
+            </Grid.RowDefinitions>
+            <ComboBox
+                x:Name="LaborStufe"
+                Grid.Row="0"
+                MinHeight="20"
+                MaxHeight="35"
+                VerticalContentAlignment="Center"
+                DisplayMemberPath="Item2"
+                IsReadOnly="True"
+                IsSynchronizedWithCurrentItem="True"
+                ItemsSource="{x:Static local:CharacterView.LabLevelList}"
+                SelectedIndex="{Binding Labor, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=0, Converter={StaticResource LabLevelIndexConverter}}" />
+            <ComboBox
+                x:Name="LaborQuality"
+                Grid.Row="1"
+                MinHeight="20"
+                MaxHeight="35"
+                VerticalContentAlignment="Center"
+                DisplayMemberPath="Item2"
+                IsReadOnly="True"
+                IsSynchronizedWithCurrentItem="True"
+                ItemsSource="{x:Static local:CharacterView.LabQualityList}"
+                SelectedIndex="{Binding LaborQuality, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1, Converter={StaticResource LabQualityIndexConverter}}" />
+        </Grid>
+    </Grid>
+</UserControl>

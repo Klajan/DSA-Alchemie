@@ -115,12 +115,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="common\Character.cs" />
-    <Compile Include="common\ExtendedObserableCollection.cs" />
+    <Compile Include="Core\ObservableObject.cs" />
+    <Compile Include="Core\RelayCommand.cs" />
+    <Compile Include="Models\Character.cs" />
+    <Compile Include="Core\ExtendedObserableCollection.cs" />
     <Compile Include="filehandling\ResourceReader.cs" />
     <Compile Include="logging\Logger.cs" />
-    <Compile Include="common\Rezept.cs" />
-    <Compile Include="common\Trank.cs" />
+    <Compile Include="Models\Enums.cs" />
+    <Compile Include="Models\Rezept.cs" />
+    <Compile Include="Models\Trank.cs" />
     <Compile Include="Properties\CharacterSave.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -131,18 +134,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ErrorStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="UI\BrauenView.xaml.cs">
+    <Compile Include="UI\Converters\CombiningConverter.cs" />
+    <Compile Include="UI\ViewModels\BrauenViewModel.cs" />
+    <Compile Include="UI\Views\BrauenView.xaml.cs">
       <DependentUpon>BrauenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\CharacterView.xaml.cs">
+    <Compile Include="UI\Views\CharacterView.xaml.cs">
       <DependentUpon>CharacterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\Converters\BoolInverterConverter.cs" />
     <Compile Include="UI\Converters\DictionaryItemConverter.cs" />
-    <Compile Include="UI\RezeptView.xaml.cs">
+    <Compile Include="UI\Views\RezeptView.xaml.cs">
       <DependentUpon>RezeptView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ViewModels\BaseViewModel.cs" />
     <Compile Include="UI\ViewModels\CharacterViewModel.cs" />
     <Compile Include="UI\ViewModels\RezeptViewModel.cs" />
     <Compile Include="UI\ViewModels\TrankViewModel.cs" />
@@ -152,7 +156,7 @@
     <Compile Include="UI\Windows\InputRezeptWindow.xaml.cs">
       <DependentUpon>InputRezeptWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="common\Dice.cs" />
+    <Compile Include="Models\Dice.cs" />
     <Compile Include="MainWindow_Additionals.cs" />
     <Compile Include="UI\Windows\InputWirkungWindow.xaml.cs">
       <DependentUpon>InputWirkungWindow.xaml</DependentUpon>
@@ -162,15 +166,15 @@
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="XmlHandler.cs" />
-    <Page Include="UI\BrauenView.xaml">
+    <Page Include="UI\Views\BrauenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\CharacterView.xaml">
+    <Page Include="UI\Views\CharacterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UI\RezeptView.xaml">
+    <Page Include="UI\Views\RezeptView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -232,7 +236,7 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="packages.config" />
-    <Resource Include="resources\img\iconmonstr-flask-17-240.png" />
+    <Resource Include="resources\img\flask_1_240p.png" />
     <None Include="Properties\CharacterSave.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>CharacterSave.Designer.cs</LastGenOutput>

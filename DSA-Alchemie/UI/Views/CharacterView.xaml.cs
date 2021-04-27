@@ -13,10 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
-using Alchemie.common;
+using Alchemie.Models;
 using Alchemie.UI.ViewModels;
 
-namespace Alchemie.UI
+namespace Alchemie.UI.Views
 {
     /// <summary>
     /// Interaktionslogik für CharacterView.xaml
@@ -31,19 +31,19 @@ namespace Alchemie.UI
         }
 
 
-        public static readonly Tuple<LabQual, string>[] LabQualityList = new Tuple<LabQual, string>[]
+        public static readonly Tuple<LaborQL, string>[] LabQualityList = new Tuple<LaborQL, string>[]
         {
-            Tuple.Create(LabQual.Fehlend, "(+3) Fehlende/beschädigte Gerätschaften"),
-            Tuple.Create(LabQual.Normal, "(+0) Normales Labor"),
-            Tuple.Create(LabQual.Gut, "(-3) Hochwertiges Labor"),
-            Tuple.Create(LabQual.SehrGut, "(-7) Außergewöhnlich hochwertiges Labor")
+            Tuple.Create(LaborQL.Fehlend, "(+3) Fehlende/beschädigte Gerätschaften"),
+            Tuple.Create(LaborQL.Normal, "(+0) Normales Labor"),
+            Tuple.Create(LaborQL.Gut, "(-3) Hochwertiges Labor"),
+            Tuple.Create(LaborQL.SehrGut, "(-7) Außergewöhnlich hochwertiges Labor")
         };
 
-        public static readonly Tuple<LabLvl, string>[] LabLevelList = new Tuple<LabLvl, string>[]
+        public static readonly Tuple<LaborID, string>[] LabLevelList = new Tuple<LaborID, string>[]
         {
-            Tuple.Create(LabLvl.ArchaischesLabor, "Archaisches Labor"),
-            Tuple.Create(LabLvl.Hexenküche, "Hexenküche"),
-            Tuple.Create(LabLvl.Alchemielabor, "Alchimistenlabor")
+            Tuple.Create(LaborID.ArchaischesLabor, "Archaisches Labor"),
+            Tuple.Create(LaborID.Hexenküche, "Hexenküche"),
+            Tuple.Create(LaborID.Alchemielabor, "Alchimistenlabor")
         };
     }
 
@@ -51,15 +51,15 @@ namespace Alchemie.UI
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)
         {
-            switch ((LabQual)value)
+            switch ((LaborQL)value)
             {
-                case LabQual.Fehlend:
+                case LaborQL.Fehlend:
                     return 0;
-                case LabQual.Normal:
+                case LaborQL.Normal:
                     return 1;
-                case LabQual.Gut:
+                case LaborQL.Gut:
                     return 2;
-                case LabQual.SehrGut:
+                case LaborQL.SehrGut:
                     return 3;
                 default:
                     return 1;
@@ -70,15 +70,15 @@ namespace Alchemie.UI
             switch ((int)value)
             {
                 case 0:
-                    return LabQual.Fehlend;
+                    return LaborQL.Fehlend;
                 case 1:
-                    return LabQual.Normal;
+                    return LaborQL.Normal;
                 case 2:
-                    return LabQual.Gut;
+                    return LaborQL.Gut;
                 case 3:
-                    return LabQual.SehrGut;
+                    return LaborQL.SehrGut;
                 default:
-                    return LabQual.Normal;
+                    return LaborQL.Normal;
             }
         }
     }
@@ -91,7 +91,7 @@ namespace Alchemie.UI
         }
         public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
         {
-            return (LabLvl)value;
+            return (LaborID)value;
         }
     }
 }
