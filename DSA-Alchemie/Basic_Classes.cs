@@ -35,20 +35,4 @@ namespace Alchemie
         }
         public static int GetLabQuality() { return 0; }
     }
-    public class AstralAufladenConverter : IValueConverter
-    {
-        public object Convert (object value, Type type, object paramater, CultureInfo culture)
-        {
-            if (!(value is int)) { return ""; }
-            if ((int)value <= 0) { return "0"; }
-            return (Math.Pow(2, (int)value-1)).ToString(CultureInfo.CurrentCulture);
-        }
-        public object ConvertBack (object value, Type type, object paramater, CultureInfo culture)
-        {
-            if (!(value is string)) { return 0; }
-            int z;
-            if (Int32.TryParse((string)value, out z)) { return Math.Log(z, 2); }
-            return 0;
-        }
-    }
 }

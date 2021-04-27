@@ -14,7 +14,7 @@ namespace Alchemie.Models
         public int Kochen { set; get; } = 5;
 
         private LaborID _labor = LaborID.ArchaischesLabor;
-        public LaborQL _laborQuality = LaborQL.Normal;
+        private LaborQL _laborQuality = LaborQL.Normal;
         public bool AllegorischeAnalyse { set; get; } = false;
 
         private bool _chymischeHochzeit = false;
@@ -52,7 +52,6 @@ namespace Alchemie.Models
 
         public int TaW
         {
-            set { }
             get
             {
                 if (UsingAlchemie)

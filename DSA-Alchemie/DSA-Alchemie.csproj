@@ -157,11 +157,9 @@
       <DependentUpon>InputRezeptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Dice.cs" />
-    <Compile Include="MainWindow_Additionals.cs" />
     <Compile Include="UI\Windows\InputWirkungWindow.xaml.cs">
       <DependentUpon>InputWirkungWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NotifyPropertyChanged.cs" />
     <Compile Include="UI\NumericUpDown.xaml.cs">
       <DependentUpon>NumericUpDown.xaml</DependentUpon>
     </Compile>

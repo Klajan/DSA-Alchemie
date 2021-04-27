@@ -25,14 +25,6 @@ namespace Alchemie
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
-        public static readonly Tuple<Int32, string>[] SubstitutionList = new Tuple<int, string>[]
-        {
-            Tuple.Create(-3, "(-3) Optimierende Substitution" ),
-            Tuple.Create(0, "(+0) Gleichwertige Substitution"),
-            Tuple.Create(+3, "(+3) Sinnvolle Substitution"),
-            Tuple.Create(+3, "(+6) Mögliche Substitution"),
-            Tuple.Create(+99, "Unsinnige Substitution")
-        };
         public static readonly Random rnd = new Random();
 
         private MainWindow main;
