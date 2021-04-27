@@ -1,4 +1,4 @@
-﻿using Alchemie.common;
+﻿using Alchemie.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +21,15 @@ namespace Alchemie.UI.Windows
     /// </summary>
     public partial class InputRezeptWindow : Window
     {
-        public common.Rezept NewRezept { private set; get; }
+        public Models.Rezept NewRezept { private set; get; }
         private Wirkung wirkung;
         public InputRezeptWindow()
         {
             InitializeComponent();
         }
-        public InputRezeptWindow(common.Rezept rezept)
+        public InputRezeptWindow(Models.Rezept rezept)
         {
-            NewRezept = new common.Rezept(rezept);
+            NewRezept = new Models.Rezept(rezept);
             Set();
             InitializeComponent();
         }
@@ -38,7 +38,7 @@ namespace Alchemie.UI.Windows
         {
             nameIN.Text = NewRezept.Name;
             gruppeIN.Text = NewRezept.Gruppe;
-            laborIN.SelectedIndex = NewRezept.Labor.ID;
+            laborIN.SelectedIndex = (int)NewRezept.Labor.ID;
             propeIN_B.Value = NewRezept.Probe.BrauenMod; propeIN_A.Value = NewRezept.Probe.AnalyseMod;
             verbrIN.Text = NewRezept.Verbreitung ?? String.Empty;
             haltbIN.Text = NewRezept.Haltbarkeit ?? String.Empty;
@@ -58,7 +58,7 @@ namespace Alchemie.UI.Windows
                 NewRezept = null;
                 return false;
             }
-            NewRezept = new common.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(CultureInfo.CurrentCulture), (propeIN_B.Value, propeIN_A.Value));
+            NewRezept = new Models.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(CultureInfo.CurrentCulture), (propeIN_B.Value, propeIN_A.Value));
             NewRezept.Verbreitung = verbrIN.Text.Length != 0 ? verbrIN.Text : null;
             NewRezept.Haltbarkeit = haltbIN.Text.Length != 0 ? haltbIN.Text : null;
             NewRezept.Merkmale = merkmIN.Text.Length != 0 ? merkmIN.Text : null;
