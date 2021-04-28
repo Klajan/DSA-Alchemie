@@ -25,12 +25,25 @@ namespace Alchemie.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection Einstellung {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool SaveCharacterOnExit {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["Einstellung"]));
+                return ((bool)(this["SaveCharacterOnExit"]));
             }
             set {
-                this["Einstellung"] = value;
+                this["SaveCharacterOnExit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LoadCharacterOnStart {
+            get {
+                return ((bool)(this["LoadCharacterOnStart"]));
+            }
+            set {
+                this["LoadCharacterOnStart"] = value;
             }
         }
     }

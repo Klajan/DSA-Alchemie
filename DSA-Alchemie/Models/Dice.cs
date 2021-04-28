@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Alchemie.Models
 {
@@ -21,7 +16,7 @@ namespace Alchemie.Models
         {
             this.min = min; this.max = max;
         }
-        
+
         public int Roll()
         {
             return rnd.Next(Min, Max + 1);
@@ -37,7 +32,7 @@ namespace Alchemie.Models
         public int[] Roll(int amount)
         {
             int[] arr = new int[amount];
-            for(int i = 0; i < amount; i++)
+            for (int i = 0; i < amount; i++)
             {
                 arr[i] = Roll();
             }

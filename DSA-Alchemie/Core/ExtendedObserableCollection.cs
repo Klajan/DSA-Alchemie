@@ -4,8 +4,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Alchemie.Core
 {
@@ -20,7 +18,7 @@ namespace Alchemie.Core
             if (collection == null) throw new ArgumentNullException(nameof(collection));
             CheckReentrancy();
             int startIndex = this.Count;
-            foreach(var item in collection)
+            foreach (var item in collection)
             {
                 Items.Add(item);
             }
@@ -37,7 +35,7 @@ namespace Alchemie.Core
             }
             CheckReentrancy();
             var oldItems = Items.ToList().GetRange(startIndex, collection.Count() - 1);
-            for(int i = startIndex ; i < Items.Count; i++)
+            for (int i = startIndex; i < Items.Count; i++)
             {
                 Items[i] = collection.ElementAt(i - startIndex);
             }
@@ -53,7 +51,7 @@ namespace Alchemie.Core
             }
             CheckReentrancy();
             var oldItems = Items.ToList().GetRange(startIndex, count);
-            for(int i = startIndex; i <= startIndex + count; i++)
+            for (int i = startIndex; i <= startIndex + count; i++)
             {
                 Items.RemoveAt(i);
             }

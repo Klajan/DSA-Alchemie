@@ -29,7 +29,7 @@
             x:Name="textBox"
             Grid.Column="1"
             VerticalContentAlignment="Center"
-            CommandManager.PreviewExecuted="textBox_PreviewExecuted"
+            CommandManager.PreviewExecuted="TextBox_PreviewExecuted"
             IsReadOnly="{Binding IsReadOnly, ElementName=userControl, FallbackValue=False, Mode=OneWay}"
             Text="0"
             TextChanged="TextBox_TextChanged"

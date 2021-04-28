@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace Alchemie.Models
 {
-#pragma warning disable CA1815 // Equals und Gleichheitsoperator für Werttypen außer Kraft setzen
     public struct Labor
     {
-        public Labor (string labor)
+        public Labor(string labor)
         {
             switch (labor)
             {
@@ -42,7 +35,7 @@ namespace Alchemie.Models
 
     public struct Probe
     {
-        public Probe (int brauen, int analyse)
+        public Probe(int brauen, int analyse)
         {
             BrauenMod = brauen;
             AnalyseMod = analyse;
@@ -52,7 +45,7 @@ namespace Alchemie.Models
     }
     public struct Beschaffung
     {
-        public Beschaffung (string preis, string verbreitung)
+        public Beschaffung(string preis, string verbreitung)
         {
             Preis = preis;
             Verbreitung = verbreitung;
@@ -69,7 +62,6 @@ namespace Alchemie.Models
 
             if (init == null) return;
 
-            char[] arr = { 'M', 'A', 'B', 'C', 'D', 'E', 'F' };
             for (int i = 0; i < 7 || i < init.Length; i++)
             {
                 switch (i)
@@ -100,7 +92,7 @@ namespace Alchemie.Models
         }
         public Wirkung(string m, string a, string b, string c, string d, string e, string f)
         {
-            M = m; A = a; B = b; C = c; D = d; E = e; F = f; 
+            M = m; A = a; B = b; C = c; D = d; E = e; F = f;
         }
         public string M { get; private set; }
         public string A { get; private set; }
@@ -110,9 +102,9 @@ namespace Alchemie.Models
         public string E { get; private set; }
         public string F { get; private set; }
 
-#pragma warning disable CA1043 // Integrales oder Zeichenfolgenargument für Indizierer verwenden
-        public string this[char index] {
-#pragma warning restore CA1043 // Integrales oder Zeichenfolgenargument für Indizierer verwenden
+        public string this[char index]
+        {
+
             get
             {
                 switch (index)
@@ -137,13 +129,12 @@ namespace Alchemie.Models
             }
         }
     }
-#pragma warning restore CA1815 // Equals und Gleichheitsoperator für Werttypen außer Kraft setzen
 
     public class Rezept
     {
-        private static uint lastID = 0; 
-        internal uint ID { private set;  get; }
-        internal bool isValid { private set; get; }
+        private static uint lastID = 0;
+        internal uint ID { private set; get; }
+        internal bool IsValid { private set; get; }
         public string Name { private set; get; }
         public string Gruppe { private set; get; }
         public Labor Labor { private set; get; }
@@ -158,7 +149,7 @@ namespace Alchemie.Models
         public string Beschreibung { set; get; }
         public string Meisterhinweise { set; get; }
         public Wirkung Wirkung { set; get; }
-        public Rezept() { isValid = false; }
+        public Rezept() { IsValid = false; }
         public Rezept(string name, string group, string labor, (int brauen, int analyse) probe)
         {
             ID = lastID++;
@@ -166,7 +157,7 @@ namespace Alchemie.Models
             this.Gruppe = group;
             this.Probe = new Probe(probe.brauen, probe.analyse);
             this.Labor = new Labor(labor);
-            isValid = true;
+            IsValid = true;
         }
         public Rezept(Rezept prevRezept)
         {
@@ -184,7 +175,7 @@ namespace Alchemie.Models
                 this.Wirkung = prevRezept.Wirkung;
                 this.Merkmale = prevRezept.Merkmale;
                 this.Seite = prevRezept.Seite;
-                this.isValid = prevRezept.isValid;
+                this.IsValid = prevRezept.IsValid;
             }
         }
     }

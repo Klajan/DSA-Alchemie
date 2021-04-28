@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Alchemie.UI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resx="clr-namespace:Alchemie.Resources"
     xmlns:viewmodels="clr-namespace:Alchemie.UI.ViewModels"
     d:DesignHeight="800"
     d:DesignWidth="700"
@@ -267,7 +268,7 @@
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 RenderOptions.BitmapScalingMode="HighQuality"
-                                Source="/resources/img/flask_1_240p.png"
+                                Source="{StaticResource IMG_FLASK}"
                                 Stretch="Uniform" />
                             <TextBlock
                                 HorizontalAlignment="Right"
@@ -360,15 +361,7 @@
                         RenderOptions.BitmapScalingMode="HighQuality"
                         Stretch="Uniform">
                         <Image.Source>
-                            <CroppedBitmap Source="/resources/img/Dicesheet_flat_300p.png">
-                                <CroppedBitmap.SourceRect>
-                                    <Int32Rect
-                                        Width="300"
-                                        Height="300"
-                                        X="1800"
-                                        Y="0" />
-                                </CroppedBitmap.SourceRect>
-                            </CroppedBitmap>
+                            <CroppedBitmap Source="{StaticResource IMG_DICE_FLAT}" SourceRect="{StaticResource D20_300p}" />
                         </Image.Source>
                     </Image>
                     <Image
@@ -378,15 +371,7 @@
                         RenderOptions.BitmapScalingMode="HighQuality"
                         Stretch="Uniform">
                         <Image.Source>
-                            <CroppedBitmap Source="/resources/img/dicesheet_flat_300p.png">
-                                <CroppedBitmap.SourceRect>
-                                    <Int32Rect
-                                        Width="300"
-                                        Height="300"
-                                        X="300"
-                                        Y="0" />
-                                </CroppedBitmap.SourceRect>
-                            </CroppedBitmap>
+                            <CroppedBitmap Source="{StaticResource IMG_DICE_FLAT}" SourceRect="{StaticResource D6_300p}" />
                         </Image.Source>
                     </Image>
 

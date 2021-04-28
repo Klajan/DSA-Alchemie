@@ -3,7 +3,7 @@ using Alchemie.Models;
 
 namespace Alchemie.UI.ViewModels
 {
-    public class CharacterViewModel: ObservableObject
+    public class CharacterViewModel : ObservableObject
     {
         #region Construction
 
@@ -235,10 +235,11 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 usingMhAlchemie_ = value;
-                if(value)
+                if (value)
                 {
                     Character.AlchemieMH = mhAlchemie_;
-                } else
+                }
+                else
                 {
                     mhAlchemie_ = Character.AlchemieMH;
                     Character.AlchemieMH = 0;

@@ -9,14 +9,12 @@ namespace Alchemie.UI.Converters
     {
         public object Convert(object[] values, Type type, object paramater, CultureInfo culture)
         {
-            if(values != null && values.Length >= 2)
+            if (values != null && values.Length >= 2)
             {
-                var myDict = values[0] as IDictionary;
-                var myKey = values[1];
-                if (myDict != null && myKey != null)
+                if (values[0] is IDictionary && !(values is null))
                 {
-                    //the automatic conversion from Uri to string doesn't work
-                    //return myDict[myKey];
+                    var myDict = values[0] as IDictionary;
+                    var myKey = values[1];
                     return myDict[myKey].ToString();
                 }
             }

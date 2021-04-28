@@ -1,18 +1,8 @@
 ﻿using Alchemie.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Globalization;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Alchemie.UI.Windows
 {
@@ -42,7 +32,7 @@ namespace Alchemie.UI.Windows
             propeIN_B.Value = NewRezept.Probe.BrauenMod; propeIN_A.Value = NewRezept.Probe.AnalyseMod;
             verbrIN.Text = NewRezept.Verbreitung ?? String.Empty;
             haltbIN.Text = NewRezept.Haltbarkeit ?? String.Empty;
-            merkmIN.Text = NewRezept.Merkmale != null ? NewRezept.Merkmale : string.Empty;
+            merkmIN.Text = NewRezept.Merkmale ?? String.Empty;
             zutatenIN.Text = NewRezept.Rezeptur ?? String.Empty;
             seiteIN.Value = NewRezept.Seite;
             beschIN_T.Text = NewRezept.Beschaffung.Preis;
@@ -58,15 +48,17 @@ namespace Alchemie.UI.Windows
                 NewRezept = null;
                 return false;
             }
-            NewRezept = new Models.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(CultureInfo.CurrentCulture), (propeIN_B.Value, propeIN_A.Value));
-            NewRezept.Verbreitung = verbrIN.Text.Length != 0 ? verbrIN.Text : null;
-            NewRezept.Haltbarkeit = haltbIN.Text.Length != 0 ? haltbIN.Text : null;
-            NewRezept.Merkmale = merkmIN.Text.Length != 0 ? merkmIN.Text : null;
-            NewRezept.Rezeptur = zutatenIN.Text.Length != 0 ? zutatenIN.Text : null;
-            NewRezept.Seite = seiteIN.Value;
-            NewRezept.Beschaffung = new Beschaffung(beschIN_T.Text, beschIN_V.Value.ToString(CultureInfo.CurrentCulture));
-            NewRezept.Preis = preisIN.Text.Length != 0 ? preisIN.Text : null;
-            NewRezept.Wirkung = wirkung;
+            NewRezept = new Models.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(CultureInfo.CurrentCulture), (propeIN_B.Value, propeIN_A.Value))
+            {
+                Verbreitung = verbrIN.Text.Length != 0 ? verbrIN.Text : null,
+                Haltbarkeit = haltbIN.Text.Length != 0 ? haltbIN.Text : null,
+                Merkmale = merkmIN.Text.Length != 0 ? merkmIN.Text : null,
+                Rezeptur = zutatenIN.Text.Length != 0 ? zutatenIN.Text : null,
+                Seite = seiteIN.Value,
+                Beschaffung = new Beschaffung(beschIN_T.Text, beschIN_V.Value.ToString(CultureInfo.CurrentCulture)),
+                Preis = preisIN.Text.Length != 0 ? preisIN.Text : null,
+                Wirkung = wirkung
+            };
             return true;
         }
 

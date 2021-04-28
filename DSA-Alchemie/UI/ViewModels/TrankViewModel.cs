@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using Alchemie.Core;
 using Alchemie.Models;
-using Alchemie.Core;
+using System.ComponentModel;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -21,7 +21,7 @@ namespace Alchemie.UI.ViewModels
 
         #region Functions
 
-        private void TrankModel_PropertyChanged (object sender, PropertyChangedEventArgs e)
+        private void TrankModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             RaisePropertyChange(e.PropertyName);
         }

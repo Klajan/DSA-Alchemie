@@ -1,12 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using Alchemie.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Schema;
-using Alchemie.Models;
 
 namespace Alchemie
 {
@@ -28,7 +23,7 @@ namespace Alchemie
             RezepteGruppen = new Dictionary<string, List<string>>();
             Rezepte = rezepte.ToDictionary((Rezept x) => x.Name, (Rezept x) => x);
             Gruppen = Rezepte.Values.Select(x => x.Gruppe).Distinct().ToList();
-            foreach(var gruppe in Gruppen)
+            foreach (var gruppe in Gruppen)
             {
                 RezepteGruppen.Add(gruppe, Rezepte.Values.Where(x => x.Gruppe == gruppe).Select(x => x.Name).ToList());
             }
@@ -42,15 +37,16 @@ namespace Alchemie
                 if (rezept == null) throw new ArgumentNullException(nameof(rezept));
                 Rezepte.Add(rezept.Name, rezept);
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
                 App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
                 return;
             }
-            if(RezepteGruppen.ContainsKey(rezept.Gruppe))
+            if (RezepteGruppen.ContainsKey(rezept.Gruppe))
             {
                 RezepteGruppen[rezept.Gruppe].Add(rezept.Name);
-            } else
+            }
+            else
             {
                 Gruppen.Add(rezept.Gruppe);
                 RezepteGruppen.Add(rezept.Gruppe, new List<string> { rezept.Name });

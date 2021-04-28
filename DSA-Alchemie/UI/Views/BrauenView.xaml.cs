@@ -32,7 +32,7 @@ namespace Alchemie.UI.Views
         {
             //int mod = (int)((Tuple<Subsitution, string>)SubstitutionBox.SelectedItem).Item1;
             int mod = (int)BrauenViewModel.Subsitution;
-            char q = BrauenViewModel.Trank.Brauen(mod, (BrauenViewModel.Zurückhalten, BrauenViewModel.AstralAufladen, BrauenViewModel.MiscMod));
+            BrauenViewModel.Trank.Brauen(mod, (BrauenViewModel.Zurückhalten, BrauenViewModel.AstralAufladen, BrauenViewModel.MiscMod));
         }
     }
 
@@ -41,16 +41,11 @@ namespace Alchemie.UI.Views
         public object Convert(object[] values, Type targetType, object paramater, CultureInfo culture)
         {
             if (values == null) throw new ArgumentNullException(nameof(values));
-            int mod = 0;
-            LaborID lab1 = 0;
-            LaborID lab2 = 0;
-            if (values.Length >= 3 && values[0] is int && values[1] is LaborID && values[2] is LaborID)
+            if (values.Length >= 3 && values[0] is int mod && values[1] is LaborID lab1 && values[2] is LaborID lab2)
             {
-                mod = (int)values[0];
-                lab1 = (LaborID)values[1];
-                lab2 = (LaborID)values[2];
+                return (int)Math.Max(0, Math.Ceiling(System.Convert.ToDouble(mod) * 1.5) - Trank.CalculateLaborMod(lab1, lab2));
             }
-            return (int)Math.Max(0, Math.Ceiling(System.Convert.ToDouble(mod) * 1.5) - Helper.CalcLaborMod(lab1, lab2));
+            return 0;
         }
 
         public object[] ConvertBack(object value, Type[] type, object paramater, CultureInfo culture)
@@ -81,9 +76,9 @@ namespace Alchemie.UI.Views
         {
             if (values == null) throw new ArgumentNullException(nameof(values));
             int mod = 0;
-            if (values.Length > 3 && values[0] is LaborID && values[1] is LaborID && values[2] is bool)
+            if (values.Length > 3 && values[0] is LaborID lab1 && values[1] is LaborID lab2 && values[2] is bool chym)
             {
-                mod = Trank.CalculateLaborMod((LaborID)values[0], (LaborID)values[1]) + ((bool)values[2] ? -1 : 0);
+                mod = Trank.CalculateLaborMod(lab1, lab2) + (chym ? -1 : 0);
                 for (int i = 3; i < values.Length; i++)
                 {
                     mod += System.Convert.ToInt32(values[i], culture);

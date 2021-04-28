@@ -9,6 +9,7 @@ using System.Windows.Input;
 
 namespace Alchemie.UI
 {
+#pragma warning disable IDE0038 // Use pattern matching
     /// <summary>
     /// Interaktionslogik für NumericUpDown.xaml
     /// </summary>
@@ -18,13 +19,15 @@ namespace Alchemie.UI
 
         private void OnChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (PropertyChanged != null) { PropertyChanged(this, new PropertyChangedEventArgs(e.Property.Name)); }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(e.Property.Name));
         }
 
         private static void PropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            NumericUpDown s = sender as NumericUpDown;
-            if (s != null) { s.OnChanged(e); }
+            if (sender is NumericUpDown)
+            {
+                ((NumericUpDown)sender).OnChanged(e);
+            }
         }
 
         #region Properties
@@ -50,10 +53,8 @@ namespace Alchemie.UI
             DependencyProperty.Register("ButtonVisibility", typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Visible, PropertyChangedCallback_));
 
         private int value_;
-#pragma warning disable CA1721 // Eigenschaftennamen dürfen nicht mit Get-Methoden übereinstimmen
 
         public int Value
-#pragma warning restore CA1721 // Eigenschaftennamen dürfen nicht mit Get-Methoden übereinstimmen
         {
             get { return (int)this.GetValue(ValueProperty); }
             set { this.SetValue(ValueProperty, value); }
@@ -135,7 +136,7 @@ namespace Alchemie.UI
             if (s != null) { s.OnChanged(e); }
         }
 
-        private void textBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
+        private void TextBox_PreviewExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             if (!AllowCopyPaste &&
                 (e.Command == ApplicationCommands.Paste ||
@@ -150,14 +151,13 @@ namespace Alchemie.UI
 
             TextBox origin = sender as TextBox;
             e.Handled = true;
-            long value;
             string text = origin.Text;
             Match _matchQuick = _regexQuick.Match(text);
             if (text.Length == 0) { origin.Text = ""; }
             else if (text.Length == 1 && _matchQuick.Success) { origin.Text = _matchQuick.Value; }
             else
             {
-                if (Int64.TryParse(text, out value))
+                if (Int64.TryParse(text, out long value))
                 {
                     textBox.Text = value_.ToString(CultureInfo.CurrentCulture);
                     Value = (int)Math.Max(Math.Min(value, Max), Min);

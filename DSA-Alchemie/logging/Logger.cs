@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using System.Threading;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
+
+#pragma warning disable // #warning directive
 
 namespace Alchemie.logging
 {
@@ -29,7 +25,8 @@ namespace Alchemie.logging
 
         public void Log(string message)
         {
-            lock(Locker){
+            lock (Locker)
+            {
                 currentLog = message;
                 PropertyChanged(this, new PropertyChangedEventArgs("currentLog"));
             }

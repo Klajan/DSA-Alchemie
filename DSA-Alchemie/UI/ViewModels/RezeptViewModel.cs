@@ -1,5 +1,5 @@
-﻿using Alchemie.Models;
-using Alchemie.Core;
+﻿using Alchemie.Core;
+using Alchemie.Models;
 
 namespace Alchemie.UI.ViewModels
 {

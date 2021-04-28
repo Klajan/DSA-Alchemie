@@ -1,25 +1,19 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using Alchemie.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.XPath;
-using System.Xml.Schema;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using System.Globalization;
-using Alchemie.Models;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.XPath;
 
 namespace Alchemie
 {
     public static class XmlHandler
     {
-        static private Regex normalize1 = new Regex(@"\r\n?|\n");
-        static private Regex normalize2 = new Regex(@"\s+");
+        static readonly private Regex normalize1 = new Regex(@"\r\n?|\n");
+        static readonly private Regex normalize2 = new Regex(@"\s+");
         static private string NormalizeStr(string input)
         {
             if (input == null) return null;
@@ -31,7 +25,8 @@ namespace Alchemie
             {
                 return;
             }
-            using (XmlReader reader = XmlReader.Create(xsdStream)){
+            using (XmlReader reader = XmlReader.Create(xsdStream))
+            {
                 return XmlSchema.Read(reader, ValidationCallBack);
             }
         }
@@ -144,9 +139,9 @@ namespace Alchemie
                         }
                     }
                 }
-                
+
             }
-              catch (FileNotFoundException e)
+            catch (FileNotFoundException e)
             {
                 App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
                 System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.FileNotFoundException);

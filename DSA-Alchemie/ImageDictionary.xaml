@@ -1,0 +1,53 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ice="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+
+
+
+    <BitmapSource x:Key="IMG_DICE_FLAT">/DSA-Alchemie;component/Resources/Image/dicesheet_flat_300p.png</BitmapSource>
+    <Int32Rect
+        x:Key="D4_300p"
+        Width="300"
+        Height="300"
+        X="0"
+        Y="0" />
+    <Int32Rect
+        x:Key="D6_300p"
+        Width="300"
+        Height="300"
+        X="300"
+        Y="0" />
+    <Int32Rect
+        x:Key="D8_300p"
+        Width="300"
+        Height="300"
+        X="600"
+        Y="0" />
+    <Int32Rect
+        x:Key="D10_300p"
+        Width="300"
+        Height="300"
+        X="900"
+        Y="0" />
+    <Int32Rect
+        x:Key="D100_300p"
+        Width="300"
+        Height="300"
+        X="1200"
+        Y="0" />
+    <Int32Rect
+        x:Key="D12_300p"
+        Width="300"
+        Height="300"
+        X="1500"
+        Y="0" />
+    <Int32Rect
+        x:Key="D20_300p"
+        Width="300"
+        Height="300"
+        X="1800"
+        Y="0" />
+    <BitmapSource x:Key="IMG_FLASK">/DSA-Alchemie;component/Resources/Image/flask_1_240p.png</BitmapSource>
+
+</ResourceDictionary>

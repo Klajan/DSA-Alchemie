@@ -13,8 +13,12 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Simple Styles.xaml" />
+                <ResourceDictionary Source="ImageDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
         </ResourceDictionary>
+
+
 
 
 

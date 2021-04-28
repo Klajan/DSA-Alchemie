@@ -1,23 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Globalization;
-using System.Threading.Tasks;
+﻿using Alchemie.Models;
+using Alchemie.UI.ViewModels;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Text.RegularExpressions;
-using System.Collections.ObjectModel;
-using System.Threading;
-using Alchemie.UI.ViewModels;
-using Alchemie.Models;
 
 namespace Alchemie
 {
@@ -29,7 +16,7 @@ namespace Alchemie
         internal ObservableCollection<string> groups;
         internal ObservableCollection<string> rezepte;
         private readonly App CurrentApp_;
-        public  App CurrentApp { get { return CurrentApp_; } }
+        public App CurrentApp { get { return CurrentApp_; } }
         RezeptViewModel _rezeptModel = new RezeptViewModel();
         public RezeptViewModel RezeptModel { get { return _rezeptModel; } }
         public MainWindow()
@@ -59,7 +46,7 @@ namespace Alchemie
         {
             var grouped = CurrentApp.Rezepte.RezepteGruppen[rezepte_combo_group.SelectedItem.ToString()];
             rezepte.Clear();
-            foreach(string st in grouped)
+            foreach (string st in grouped)
             {
                 rezepte.Add(st);
             }
@@ -67,9 +54,10 @@ namespace Alchemie
         }
         private void ComboBoxRezepteRezept_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(null == rezepte_combo_rezept.SelectedItem) { return; }
+            if (null == rezepte_combo_rezept.SelectedItem) { return; }
             CurrentApp.CurrentRezept = CurrentApp.Rezepte[rezepte_combo_rezept.SelectedItem.ToString()];
-            if (CurrentApp.Trank != null && !CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept)) {
+            if (CurrentApp.Trank != null && !CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept))
+            {
                 CurrentApp.Trank.Rezept = CurrentApp.CurrentRezept;
                 RezeptView.RezeptViewModel.Rezept = CurrentApp.CurrentRezept;
                 //BrauenView.BrauenViewModel.Rezept = CurrentApp.CurrentRezept;

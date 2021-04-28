@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Alchemie.Models
+﻿namespace Alchemie.Models
 {
+    public enum Animals
+    {
+        Dog = 1,
+        Cat = 2
+    }
+
     public enum LaborID : int
     {
         ArchaischesLabor = 0,

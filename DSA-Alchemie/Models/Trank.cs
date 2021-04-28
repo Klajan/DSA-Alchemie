@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Alchemie.Core;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Globalization;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using Alchemie.Core;
+using System.Linq;
 
 namespace Alchemie.Models
 {
@@ -28,18 +25,18 @@ namespace Alchemie.Models
         {
             _character = character;
         }
-        public Trank(Rezept rezept, Character character) : this (rezept)
+        public Trank(Rezept rezept, Character character) : this(rezept)
         {
             _character = character;
         }
-        public Trank(Rezept rezept, List<int> rollEign, List<int> rollQual) : this (rezept)
+        public Trank(Rezept rezept, List<int> rollEign, List<int> rollQual) : this(rezept)
         {
             EigenschaftDice = new ExtendedObserableCollection<int>(rollEign);
             QualityDice = new ExtendedObserableCollection<int>(rollQual);
         }
-        public Trank(Rezept rezept, Character character, List<int> rollEign, List<int> rollQual) : this (rezept, rollEign, rollQual)
+        public Trank(Rezept rezept, Character character, List<int> rollEign, List<int> rollQual) : this(rezept, rollEign, rollQual)
         {
-            _character = Character;
+            _character = character;
         }
         #endregion
 
@@ -99,7 +96,7 @@ namespace Alchemie.Models
         public string CurrentWirkung { get => currentWirkung; }
         public string CurrentMerkmale { get => currentMerkmale; }
 
-        
+
 
         public bool IsSameBase(Rezept rezept)
         {
@@ -120,7 +117,7 @@ namespace Alchemie.Models
             }
             if (c1 >= 2) { return TaW; }
             if (c20 >= 2) { return Int16.MinValue; }
-            if(TaW - mod >= 0)
+            if (TaW - mod >= 0)
             {
                 return Math.Min(TaW,
                 TaW - mod
@@ -128,7 +125,8 @@ namespace Alchemie.Models
                 + Math.Max(EigenschaftDice[1] - stats.Item2, 0)
                 + Math.Max(EigenschaftDice[2] - stats.Item3, 0))
                 );
-            } else
+            }
+            else
             {
                 return Math.Min(TaW,
                 0
@@ -137,11 +135,11 @@ namespace Alchemie.Models
                 + Math.Max(EigenschaftDice[2] - stats.Item3 + (mod - TaW), 0))
                 );
             }
-            
+
         }
         public char Brauen(int mod, (int rckHalten, int astralAuf, int misc) qualmod)
         {
-            if (!_rezept.isValid) return '?';
+            if (!_rezept.IsValid) return '?';
             if (_character == null) return '?';
             if (UseRNG)
             {

@@ -1,60 +1,50 @@
 ﻿
 
+using Alchemie.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.ComponentModel;
-using Alchemie.Models;
-using Alchemie.FileHandling;
-using System.IO.Compression;
 
 namespace Alchemie
 {
     /// <summary>
     /// Interaktionslogik für "App.xaml"
     /// </summary>
-    public partial class App : Application, INotifyPropertyChanged
+    public partial class App : Application
     {
         public static List<Tuple<Exception, Type>> Exceptions { private set; get; } = new List<Tuple<Exception, Type>>();
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void RaisePropertyChange(string propertyname)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
-        }
-        public static readonly Random rnd = new Random();
 
-        private MainWindow main;
+        private readonly MainWindow main;
 
-        private Database rezepte_ = new Database();
+       private Database rezepte_ = new Database();
         public Database Rezepte { get { return rezepte_; } }
         private Character character_ = new Character();
         public Character Character
         {
             get => character_;
-            set { character_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Character))); }
+            set { character_ = value; }
         }
         private Rezept currentRezept_ = new Rezept();
         public Rezept CurrentRezept
         {
             get { return currentRezept_; }
-            set { currentRezept_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentRezept))); }
+            set { currentRezept_ = value; }
         }
         private Trank trank_ = new Trank();
         public Trank Trank
         {
             get { return trank_; }
-            set { trank_ = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Trank))); }
+            set { trank_ = value; }
         }
 
         private void Initialize()
         {
             List<Rezept> rezepte = null;
-            using (System.IO.Stream compressedXml = new System.IO.MemoryStream(Alchemie.Properties.Resources.rezepte_xml),
-                compressedXsd = new System.IO.MemoryStream(Alchemie.Properties.Resources.rezepte_xsd))
+            using (System.IO.Stream compressedXml = new System.IO.MemoryStream(Alchemie.Resources.Data.rezepte_xml),
+                compressedXsd = new System.IO.MemoryStream(Alchemie.Resources.Data.rezepte_xsd))
             {
                 using (System.IO.Stream xmlstream = new DeflateStream(compressedXml, CompressionMode.Decompress), xsdstream = new DeflateStream(compressedXsd, CompressionMode.Decompress))
                 {
@@ -71,11 +61,11 @@ namespace Alchemie
             trank_ = new Trank(currentRezept_, character_);
         }
 
-        
+
 
         public App()
         {
-            
+            InitializeComponent();
             main = new MainWindow();
             MainWindow = main;
             main.Activate();
@@ -84,7 +74,8 @@ namespace Alchemie
             var uiTask = initTask.ContinueWith(delegate
             {
                 Current.Dispatcher.BeginInvoke(
-                    System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate {
+                    System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate
+                    {
                         main.AttachRezepte(rezepte_);
                         main.AttachCharacter(character_);
                     }));
@@ -92,8 +83,10 @@ namespace Alchemie
         }
         public bool OpenAddRezeptWindow()
         {
-            UI.Windows.InputRezeptWindow popup = new UI.Windows.InputRezeptWindow();
-            popup.DataContext = main;
+            UI.Windows.InputRezeptWindow popup = new UI.Windows.InputRezeptWindow()
+            {
+                DataContext = main
+            };
             popup.ShowDialog();
             var rezept = popup.NewRezept;
             if (rezept != null)
