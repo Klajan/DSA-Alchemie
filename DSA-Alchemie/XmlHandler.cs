@@ -14,11 +14,13 @@ namespace Alchemie
     {
         static readonly private Regex normalize1 = new Regex(@"\r\n?|\n");
         static readonly private Regex normalize2 = new Regex(@"\s+");
+
         static private string NormalizeStr(string input)
         {
             if (input == null) return null;
             return normalize2.Replace(normalize1.Replace(input, ""), " ").Trim();
         }
+
         static private XmlSchema GetSchema(Stream xsdStream)
         {
             void ValidationCallBack(object sender, ValidationEventArgs args)
@@ -30,9 +32,10 @@ namespace Alchemie
                 return XmlSchema.Read(reader, ValidationCallBack);
             }
         }
+
         static public List<Rezept> ImportRezepteXml(Stream xmlStream, Stream xsdStream = null)
         {
-            lock (normalize1)
+            lock (xmlStream)
             {
                 List<Rezept> rezepte = new List<Rezept>();
                 XmlSchemaSet schemaSet = new XmlSchemaSet();
@@ -47,24 +50,20 @@ namespace Alchemie
                         schemaSet.Compile();
                         readerSettings.ValidationType = ValidationType.Schema;
                         readerSettings.Schemas = schemaSet;
-
                     }
                     using (XmlReader reader = XmlReader.Create(xmlStream, readerSettings))
                     {
                         doc = new XPathDocument(reader, XmlSpace.Preserve);
 
-                        var NodeIterator = doc.CreateNavigator().Select("rezepte/rezept");
+                        XPathNodeIterator NodeIterator = doc.CreateNavigator().Select("rezepte/rezept");
                         while (NodeIterator.MoveNext())
                         {
-                            //var name = XmlHandler.NormalizeStr(navIT.Current.SelectSingleNode("name").Value);
-                            var name = NormalizeStr(NodeIterator.Current.GetAttribute("name", ""));
-                            var gruppe = NormalizeStr(NodeIterator.Current.SelectSingleNode("gruppe").Value);
-                            var labor = NodeIterator.Current.SelectSingleNode("labor").Value;
-                            var probe = (
-                                NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("brauen").ValueAsInt,
-                                NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("analyse").ValueAsInt
-                                );
-                            var rezept = new Rezept(name, gruppe, labor, probe)
+                            Rezept rezept = new Rezept(
+                                NormalizeStr(NodeIterator.Current.GetAttribute("name", "")),
+                                NormalizeStr(NodeIterator.Current.SelectSingleNode("gruppe").Value),
+                                NodeIterator.Current.SelectSingleNode("labor").Value,
+                                (NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("brauen").ValueAsInt,
+                                NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("analyse").ValueAsInt))
                             {
                                 Preis = NormalizeStr(NodeIterator.Current.SelectSingleNode("preis")?.Value),
                                 Haltbarkeit = NormalizeStr(NodeIterator.Current.SelectSingleNode("haltbarkeit")?.Value),
@@ -101,7 +100,6 @@ namespace Alchemie
                 }
                 catch (XmlException e)
                 {
-
                     App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
                     System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.XmlException);
                     return null;
@@ -121,6 +119,7 @@ namespace Alchemie
                 return rezepte;
             }
         }
+
         static public List<Rezept> ImportRezepteXml(string xmlLocation, string xsdLocation = null)
         {
             try
@@ -139,7 +138,6 @@ namespace Alchemie
                         }
                     }
                 }
-
             }
             catch (FileNotFoundException e)
             {
@@ -148,11 +146,12 @@ namespace Alchemie
                 return null;
             }
         }
+
 #if DEBUG
 #pragma warning disable
+
         static public void ExportRezepteToXml(List<Rezept> rezepte, string filepath)
         {
-
             XmlDocument document = new XmlDocument();
 
             var root = document.AppendChild(document.CreateElement("rezepte"));
@@ -190,6 +189,7 @@ namespace Alchemie
             document.Normalize();
             document.Save(filepath);
         }
+
 #pragma warning restore
 #endif
     }

@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Alchemie"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewmodels="clr-namespace:Alchemie.UI.ViewModels"
     xmlns:views="clr-namespace:Alchemie.UI.Views"
     x:Name="AlchemieMain"
     Title="DSA Alchemie"
@@ -29,6 +30,9 @@
             Command="{x:Static local:MainWindow.AddRezeptRoutedCommand}"
             Executed="AddRezeptCommand_Executed" />
     </Window.CommandBindings>
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel />
+    </Window.DataContext>
     <DockPanel Margin="0,0,0,0" LastChildFill="True">
         <Menu
             Height="22"
@@ -118,7 +122,8 @@
                                 VerticalAlignment="Stretch"
                                 VerticalContentAlignment="Center"
                                 IsSynchronizedWithCurrentItem="True"
-                                SelectionChanged="ComboBoxRezepteGroup_SelectionChanged" />
+                                ItemsSource="{Binding Gruppen}"
+                                SelectedValue="{Binding SelectedGruppe}" />
                             <ComboBox
                                 x:Name="rezepte_combo_rezept"
                                 Grid.Column="1"
@@ -127,7 +132,8 @@
                                 VerticalContentAlignment="Center"
                                 IsEditable="True"
                                 IsSynchronizedWithCurrentItem="True"
-                                SelectionChanged="ComboBoxRezepteRezept_SelectionChanged" />
+                                ItemsSource="{Binding Rezepte}"
+                                SelectedValue="{Binding SelectedRezept}" />
                             <Border
                                 Grid.Column="3"
                                 HorizontalAlignment="Stretch"
@@ -138,7 +144,7 @@
                                     x:Name="rezept_text_seite"
                                     Margin="1"
                                     VerticalAlignment="Center"
-                                    Text="{Binding Path=RezeptModel.Seite, ElementName=AlchemieMain, Mode=OneWay, NotifyOnSourceUpdated=True}"
+                                    Text="{Binding Seite, Mode=OneWay, Delay=1}"
                                     TextWrapping="NoWrap" />
                             </Border>
                             <Border

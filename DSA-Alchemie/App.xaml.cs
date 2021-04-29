@@ -1,6 +1,4 @@
-﻿
-
-using Alchemie.Models;
+﻿using Alchemie.Models;
 using System;
 using System.Collections.Generic;
 using System.IO.Compression;
@@ -17,23 +15,18 @@ namespace Alchemie
     {
         public static List<Tuple<Exception, Type>> Exceptions { private set; get; } = new List<Tuple<Exception, Type>>();
 
-        private readonly MainWindow main;
-
-       private Database rezepte_ = new Database();
-        public Database Rezepte { get { return rezepte_; } }
+        private Database rezepteDB_ = new Database();
+        public Database RezepteDB { get { return rezepteDB_; } }
         private Character character_ = new Character();
+
         public Character Character
         {
             get => character_;
             set { character_ = value; }
         }
-        private Rezept currentRezept_ = new Rezept();
-        public Rezept CurrentRezept
-        {
-            get { return currentRezept_; }
-            set { currentRezept_ = value; }
-        }
+
         private Trank trank_ = new Trank();
+
         public Trank Trank
         {
             get { return trank_; }
@@ -51,47 +44,44 @@ namespace Alchemie
                     rezepte = XmlHandler.ImportRezepteXml(xmlstream, xsdstream);
                 }
             }
-            rezepte_ = new Database(rezepte);
+            rezepteDB_ = new Database(rezepte);
 
-            if (!Alchemie.Properties.CharacterSave.Default.IsDefault)
+            if (Alchemie.Properties.Settings.Default.LoadCharacterOnStart)
             {
                 character_ = Character.LoadCharacterFromSettings();
             }
-            currentRezept_ = rezepte_.Rezepte.First().Value;
-            trank_ = new Trank(currentRezept_, character_);
+            trank_ = new Trank(rezepteDB_.Rezepte.First().Value, character_);
         }
-
-
 
         public App()
         {
             InitializeComponent();
-            main = new MainWindow();
-            MainWindow = main;
-            main.Activate();
-            main.Show();
+            MainWindow = new MainWindow();
+            MainWindow.Activate();
+            MainWindow.Show();
             var initTask = Task.Run(Initialize);
             var uiTask = initTask.ContinueWith(delegate
             {
                 Current.Dispatcher.BeginInvoke(
                     System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate
                     {
-                        main.AttachRezepte(rezepte_);
-                        main.AttachCharacter(character_);
+                        (MainWindow as MainWindow).AttachRezepte(rezepteDB_);
+                        (MainWindow as MainWindow).AttachCharacter(character_);
                     }));
             }, TaskScheduler.Current);
         }
+
         public bool OpenAddRezeptWindow()
         {
             UI.Windows.InputRezeptWindow popup = new UI.Windows.InputRezeptWindow()
             {
-                DataContext = main
+                DataContext = (MainWindow as MainWindow)
             };
             popup.ShowDialog();
             var rezept = popup.NewRezept;
             if (rezept != null)
             {
-                rezepte_.AddRezept(rezept);
+                rezepteDB_.AddRezept(rezept);
                 return true;
             }
             return false;
@@ -99,9 +89,12 @@ namespace Alchemie
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            Character.SaveCharacterToSettings();
-            Alchemie.Properties.CharacterSave.Default.IsDefault = false;
-            Alchemie.Properties.CharacterSave.Default.Save();
+            if (Alchemie.Properties.Settings.Default.SaveCharacterOnExit)
+            {
+                Character.SaveCharacterToSettings();
+                Alchemie.Properties.CharacterSave.Default.IsDefault = false;
+                Alchemie.Properties.CharacterSave.Default.Save();
+            }
         }
     }
 }

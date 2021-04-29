@@ -122,7 +122,6 @@
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Core\ExtendedObserableCollection.cs" />
-    <Compile Include="filehandling\ResourceReader.cs" />
     <Compile Include="logging\Logger.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Rezept.cs" />
@@ -158,7 +157,6 @@
     </Compile>
     <Compile Include="UI\ViewModels\CharacterViewModel.cs" />
     <Compile Include="UI\ViewModels\RezeptViewModel.cs" />
-    <Compile Include="UI\ViewModels\TrankViewModel.cs" />
     <Compile Include="UI\Windows\ImportCharWindow.xaml.cs">
       <DependentUpon>ImportCharWindow.xaml</DependentUpon>
     </Compile>

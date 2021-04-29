@@ -48,7 +48,7 @@ namespace Alchemie.Models
             set
             {
                 _rezept = value;
-                RaisePropertyChange(null);
+                RaisePropertyChange();
             }
         }
 
@@ -60,7 +60,7 @@ namespace Alchemie.Models
             set
             {
                 _character = value;
-                RaisePropertyChange(null);
+                RaisePropertyChange();
             }
         }
 

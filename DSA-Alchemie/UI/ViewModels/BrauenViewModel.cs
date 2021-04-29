@@ -30,7 +30,18 @@ namespace Alchemie.UI.ViewModels
 
         private void BrauenViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChange(e.PropertyName);
+            switch (e.PropertyName)
+            {
+                case "Rezept":
+                    RaisePropertyChange(null);
+                    break;
+                case "Character":
+                    RaisePropertyChange(null);
+                    break;
+                default:
+                    RaisePropertyChange(e.PropertyName);
+                    break;
+            }
         }
 
         private Trank _trank = new Trank();

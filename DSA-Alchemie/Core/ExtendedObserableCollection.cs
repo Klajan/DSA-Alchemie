@@ -18,11 +18,12 @@ namespace Alchemie.Core
             if (collection == null) throw new ArgumentNullException(nameof(collection));
             CheckReentrancy();
             int startIndex = this.Count;
-            foreach (var item in collection)
+            foreach (T item in collection)
             {
                 Items.Add(item);
             }
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>(), startIndex));
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+            //OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection.ToList()));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Items)));
         }
@@ -34,7 +35,7 @@ namespace Alchemie.Core
                 throw new IndexOutOfRangeException();
             }
             CheckReentrancy();
-            var oldItems = Items.ToList().GetRange(startIndex, collection.Count() - 1);
+            List<T> oldItems = Items.ToList().GetRange(startIndex, collection.Count() - 1);
             for (int i = startIndex; i < Items.Count; i++)
             {
                 Items[i] = collection.ElementAt(i - startIndex);

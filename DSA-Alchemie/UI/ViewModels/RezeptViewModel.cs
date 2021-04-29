@@ -1,5 +1,6 @@
 ﻿using Alchemie.Core;
 using Alchemie.Models;
+using System.ComponentModel;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -17,7 +18,25 @@ namespace Alchemie.UI.ViewModels
             rezept_ = rezept;
         }
 
+        public RezeptViewModel(Trank trank)
+        {
+            rezept_ = trank.Rezept;
+        }
+
         #endregion Construction
+
+        private void RezeptViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "Rezept":
+                    RaisePropertyChange(null);
+                    break;
+                default:
+                    RaisePropertyChange(e.PropertyName);
+                    break;
+            }
+        }
 
         #region Members
 
@@ -81,7 +100,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Beschaffung = value;
-                RaisePropertyChange(nameof(Beschaffung));
+                RaisePropertyChange();
             }
         }
 
@@ -94,7 +113,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Verbreitung = value;
-                RaisePropertyChange(nameof(Verbreitung));
+                RaisePropertyChange();
             }
         }
 
@@ -107,7 +126,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Haltbarkeit = value;
-                RaisePropertyChange(nameof(Haltbarkeit));
+                RaisePropertyChange();
             }
         }
 
@@ -120,7 +139,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Preis = value;
-                RaisePropertyChange(nameof(Preis));
+                RaisePropertyChange();
             }
         }
 
@@ -133,7 +152,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Rezeptur = value;
-                RaisePropertyChange(nameof(Rezeptur));
+                RaisePropertyChange();
             }
         }
 
@@ -146,7 +165,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Seite = value;
-                RaisePropertyChange(nameof(Seite));
+                RaisePropertyChange();
             }
         }
 
@@ -159,7 +178,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Merkmale = value;
-                RaisePropertyChange(nameof(Merkmale));
+                RaisePropertyChange();
             }
         }
 
@@ -172,7 +191,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Beschreibung = value;
-                RaisePropertyChange(nameof(Beschreibung));
+                RaisePropertyChange();
             }
         }
 
@@ -185,7 +204,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Meisterhinweise = value;
-                RaisePropertyChange(nameof(Meisterhinweise));
+                RaisePropertyChange();
             }
         }
 
@@ -198,10 +217,15 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 Rezept.Wirkung = value;
-                RaisePropertyChange(nameof(Wirkung));
+                RaisePropertyChange();
             }
         }
 
         #endregion Properties
+
+        public void ChangeRezept(object sender, Rezept newRezept)
+        {
+            Rezept = newRezept;
+        }
     }
 }

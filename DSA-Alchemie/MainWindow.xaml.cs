@@ -13,8 +13,8 @@ namespace Alchemie
     /// </summary>
     public partial class MainWindow : Window
     {
-        internal ObservableCollection<string> groups;
-        internal ObservableCollection<string> rezepte;
+        //internal ObservableCollection<string> groups;
+        //internal ObservableCollection<string> rezepte;
         private readonly App CurrentApp_;
         public App CurrentApp { get { return CurrentApp_; } }
         RezeptViewModel _rezeptModel = new RezeptViewModel();
@@ -27,13 +27,22 @@ namespace Alchemie
 
         public void AttachRezepte(Database data)
         {
+            RezeptViewModel rezeptViewModel = new RezeptViewModel(CurrentApp.Trank);
+            RezeptView.DataContext = rezeptViewModel;
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+            DataContext = mainWindowViewModel;
+            mainWindowViewModel.Attach_Rezepte(data);
+            mainWindowViewModel.OnRezeptChanged += rezeptViewModel.ChangeRezept;
+            BrauenView.BrauenViewModel.Trank = CurrentApp.Trank;
+            
+            /*
             if (data == null) throw new ArgumentNullException(nameof(data));
             groups = new ObservableCollection<string>(data.Gruppen);
             rezepte = new ObservableCollection<string>(data.RezepteGruppen["Alle"]);
             rezepte_combo_group.ItemsSource = groups;
             rezepte_combo_rezept.ItemsSource = rezepte;
-            RezeptView.RezeptViewModel.Rezept = CurrentApp.CurrentRezept;
             BrauenView.BrauenViewModel.Trank = CurrentApp.Trank;
+            */
         }
 
         public void AttachCharacter(Character character)
@@ -41,10 +50,10 @@ namespace Alchemie
             CharacterViewMain.CharacterViewModel.Character = character;
             BrauenView.BrauenViewModel.Character = CurrentApp.Character;
         }
-
+        /*
         private void ComboBoxRezepteGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var grouped = CurrentApp.Rezepte.RezepteGruppen[rezepte_combo_group.SelectedItem.ToString()];
+            var grouped = CurrentApp.RezepteDB.RezepteGruppen[rezepte_combo_group.SelectedItem.ToString()];
             rezepte.Clear();
             foreach (string st in grouped)
             {
@@ -55,15 +64,13 @@ namespace Alchemie
         private void ComboBoxRezepteRezept_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (null == rezepte_combo_rezept.SelectedItem) { return; }
-            CurrentApp.CurrentRezept = CurrentApp.Rezepte[rezepte_combo_rezept.SelectedItem.ToString()];
-            if (CurrentApp.Trank != null && !CurrentApp.Trank.IsSameBase(CurrentApp.CurrentRezept))
+            Rezept rezept = CurrentApp.RezepteDB[rezepte_combo_rezept.SelectedItem.ToString()];
+            if (CurrentApp.Trank != null && !CurrentApp.Trank.IsSameBase(rezept))
             {
-                CurrentApp.Trank.Rezept = CurrentApp.CurrentRezept;
-                RezeptView.RezeptViewModel.Rezept = CurrentApp.CurrentRezept;
-                //BrauenView.BrauenViewModel.Rezept = CurrentApp.CurrentRezept;
+                CurrentApp.Trank.Rezept = rezept;
             }
         }
-
+        */
         public static RoutedCommand AddRezeptRoutedCommand { set; get; } = new RoutedCommand();
         private void AddRezeptCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -72,7 +79,7 @@ namespace Alchemie
         private void AddRezeptCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             CurrentApp.OpenAddRezeptWindow();
-            AttachRezepte(CurrentApp.Rezepte);
+            AttachRezepte(CurrentApp.RezepteDB);
         }
     }
 }

@@ -143,7 +143,7 @@
                         Margin="2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Text="{Binding Labor.Name}"
+                        Text="{Binding Labor.Name, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </ScrollViewer>
             </Border>
@@ -205,7 +205,7 @@
                         Margin="2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Text="{Binding Preis}"
+                        Text="{Binding Preis, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </ScrollViewer>
             </Border>
@@ -221,7 +221,7 @@
                         Margin="2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Text="{Binding Verbreitung}"
+                        Text="{Binding Verbreitung, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </ScrollViewer>
             </Border>
@@ -237,7 +237,7 @@
                         Margin="2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Text="{Binding Haltbarkeit}"
+                        Text="{Binding Haltbarkeit, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </ScrollViewer>
             </Border>
@@ -254,7 +254,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Text="{Binding Merkmale}"
+                        Text="{Binding Merkmale, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </ScrollViewer>
             </Border>
@@ -275,7 +275,7 @@
                     <TextBlock
                         Margin="2"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Text="{Binding Rezeptur}"
+                        Text="{Binding Rezeptur, Mode=OneWay}"
                         TextWrapping="Wrap"
                         ToolTip="Rezeptur" />
                 </ScrollViewer>
@@ -290,7 +290,7 @@
                     <TextBlock
                         Margin="2"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Text="{Binding Beschreibung}"
+                        Text="{Binding Beschreibung, Mode=OneWay}"
                         TextWrapping="Wrap"
                         ToolTip="Beschreibung" />
                 </ScrollViewer>
@@ -305,7 +305,7 @@
                     <TextBlock
                         Margin="2"
                         ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Text="{Binding Meisterhinweise}"
+                        Text="{Binding Meisterhinweise, Mode=OneWay}"
                         TextWrapping="Wrap"
                         ToolTip="Meisterhinweise" />
                 </ScrollViewer>

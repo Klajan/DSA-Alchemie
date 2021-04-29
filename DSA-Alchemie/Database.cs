@@ -10,7 +10,7 @@ namespace Alchemie
         public List<string> Gruppen { private set; get; }
         public Dictionary<string, List<string>> RezepteGruppen { private set; get; }
         public Dictionary<string, Rezept> Rezepte { private set; get; }
-        private const string allKey = "Alle";
+        public string AllKey { get; } = "Alle";
 
         public Database()
         {
@@ -18,6 +18,7 @@ namespace Alchemie
             RezepteGruppen = new Dictionary<string, List<string>>();
             Rezepte = new Dictionary<string, Rezept>();
         }
+
         public Database(List<Rezept> rezepte)
         {
             RezepteGruppen = new Dictionary<string, List<string>>();
@@ -27,9 +28,10 @@ namespace Alchemie
             {
                 RezepteGruppen.Add(gruppe, Rezepte.Values.Where(x => x.Gruppe == gruppe).Select(x => x.Name).ToList());
             }
-            Gruppen.Insert(0, allKey);
-            RezepteGruppen.Add(allKey, Rezepte.Values.Select(x => x.Name).ToList());
+            Gruppen.Insert(0, AllKey);
+            RezepteGruppen.Add(AllKey, Rezepte.Values.Select(x => x.Name).ToList());
         }
+
         public void AddRezept(Rezept rezept)
         {
             try
@@ -51,12 +53,14 @@ namespace Alchemie
                 Gruppen.Add(rezept.Gruppe);
                 RezepteGruppen.Add(rezept.Gruppe, new List<string> { rezept.Name });
             }
-            RezepteGruppen[allKey].Add(rezept.Name);
+            RezepteGruppen[AllKey].Add(rezept.Name);
         }
+
         public List<Rezept> GetList()
         {
             return Rezepte.Values.ToList();
         }
+
         public Rezept this[string key]
         {
             get
