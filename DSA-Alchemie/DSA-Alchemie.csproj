@@ -32,6 +32,7 @@
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <AnalysisLevel>latest</AnalysisLevel>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Alchemie.App</StartupObject>
@@ -49,10 +50,17 @@
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
+    <Authors>Klajan</Authors>
+    <RepositoryUrl>https://github.com/Klajan/DSA-Alchemie</RepositoryUrl>
+    <PackageIcon>Icon.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\.editorconfig">
       <Link>.editorconfig</Link>
+    </None>
+    <None Include="Resources\Icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
     </None>
     <Resource Include="Resources\Image\flask_1_240p.png" />
     <None Update="Properties\CharacterSave.settings">
