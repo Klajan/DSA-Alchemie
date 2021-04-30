@@ -222,8 +222,8 @@
                                 Height="25"
                                 x:FieldModifier="private"
                                 ButtonVisibility="Collapsed"
-                                Min="-1"
-                                Value="-1" />
+                                IntValue="-1"
+                                Min="-1" />
                             <Border
                                 Width="70"
                                 Height="50"

@@ -36,6 +36,7 @@ namespace Alchemie.UI.Views
         };
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class LabQualityIndexConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)
@@ -72,6 +73,7 @@ namespace Alchemie.UI.Views
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class LabLevelIndexConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)

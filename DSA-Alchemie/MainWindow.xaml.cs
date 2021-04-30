@@ -1,9 +1,7 @@
 ﻿using Alchemie.Models;
 using Alchemie.UI.ViewModels;
 using System;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Alchemie
@@ -27,6 +25,8 @@ namespace Alchemie
 
         public void AttachRezepte(Database data)
         {
+            if (data == null) throw new ArgumentNullException(nameof(data));
+
             RezeptViewModel rezeptViewModel = new RezeptViewModel(CurrentApp.Trank);
             RezeptView.DataContext = rezeptViewModel;
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
@@ -34,7 +34,7 @@ namespace Alchemie
             mainWindowViewModel.Attach_Rezepte(data);
             mainWindowViewModel.OnRezeptChanged += rezeptViewModel.ChangeRezept;
             BrauenView.BrauenViewModel.Trank = CurrentApp.Trank;
-            
+
             /*
             if (data == null) throw new ArgumentNullException(nameof(data));
             groups = new ObservableCollection<string>(data.Gruppen);

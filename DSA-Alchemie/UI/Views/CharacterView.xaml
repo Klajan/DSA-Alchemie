@@ -129,9 +129,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="Black"
+                IntValue="{Binding MU, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                 Max="99"
-                Min="0"
-                Value="{Binding MU, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                Min="0" />
             <UI:NumericUpDown
                 x:Name="KL_input"
                 Grid.Row="1"
@@ -143,9 +143,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="Black"
+                IntValue="{Binding KL, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                 Max="99"
-                Min="0"
-                Value="{Binding KL, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                Min="0" />
             <UI:NumericUpDown
                 x:Name="FF_input"
                 Grid.Row="1"
@@ -157,9 +157,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="Black"
+                IntValue="{Binding FF, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                 Max="99"
-                Min="0"
-                Value="{Binding FF, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                Min="0" />
             <UI:NumericUpDown
                 x:Name="IN_input"
                 Grid.Row="1"
@@ -171,9 +171,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="Black"
+                IntValue="{Binding IN, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                 Max="99"
-                Min="0"
-                Value="{Binding IN, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                Min="0" />
         </Grid>
         <GroupBox
             x:Name="TalenteGrid"
@@ -219,7 +219,7 @@
                     MaxHeight="30"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Value="{Binding Alchemie, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                    IntValue="{Binding Alchemie, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
                 <CheckBox
                     x:Name="MHAlchemie"
                     Grid.Row="0"
@@ -243,8 +243,8 @@
                     IsEnabled="{Binding IsChecked, ElementName=MHAlchemie}"
                     Max="{Binding Alchemie}"
                     Min="0"
-                    ToolTip="Meisterhandwerk"
-                    Value="{Binding AlchemieMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                    IntValue="{Binding AlchemieMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
+                    ToolTip="Meisterhandwerk" />
 
                 <RadioButton
                     x:Name="KochenRadio"
@@ -266,7 +266,7 @@
                     MaxHeight="30"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Value="{Binding Kochen, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                    IntValue="{Binding Kochen, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
                 <CheckBox
                     x:Name="MHKochen"
                     Grid.Row="1"
@@ -290,8 +290,8 @@
                     IsEnabled="{Binding IsChecked, ElementName=MHKochen}"
                     Max="{Binding Kochen}"
                     Min="0"
-                    ToolTip="Meisterhandwerk"
-                    Value="{Binding KochenMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                    IntValue="{Binding KochenMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
+                    ToolTip="Meisterhandwerk" />
             </Grid>
         </GroupBox>
         <GroupBox

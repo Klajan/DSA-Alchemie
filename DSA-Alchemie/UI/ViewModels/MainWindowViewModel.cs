@@ -1,11 +1,7 @@
 ﻿using Alchemie.Core;
 using Alchemie.Models;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -65,7 +61,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 selectedGruppe_ = value;
-                List<string> filtered = app_.RezepteDB.RezepteGruppen[selectedGruppe_];
+                var filtered = app_.RezepteDB.RezepteGruppen[selectedGruppe_];
                 rezepte_.Clear();
                 rezepte_.AddRange(filtered);
                 SelectedRezept = filtered[0];
@@ -108,7 +104,7 @@ namespace Alchemie.UI.ViewModels
             Attach_Rezepte(DB.Gruppen, DB.RezepteGruppen[DB.AllKey]);
         }
 
-        public void Attach_Rezepte(List<string> gruppen, List<string> rezepte)
+        public void Attach_Rezepte(IReadOnlyList<string> gruppen, IReadOnlyList<string> rezepte)
         {
             gruppen_.AddRange(gruppen);
             rezepte_.AddRange(rezepte);

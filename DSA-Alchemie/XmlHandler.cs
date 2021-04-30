@@ -33,10 +33,8 @@ namespace Alchemie
             }
         }
 
-        static public List<Rezept> ImportRezepteXml(Stream xmlStream, Stream xsdStream = null)
+        static public IList<Rezept> ImportRezepteXml(Stream xmlStream, Stream xsdStream = null)
         {
-            lock (xmlStream)
-            {
                 List<Rezept> rezepte = new List<Rezept>();
                 XmlSchemaSet schemaSet = new XmlSchemaSet();
                 XmlReaderSettings readerSettings = new XmlReaderSettings();
@@ -89,7 +87,7 @@ namespace Alchemie
                                 string[] wirk = new string[7];
                                 for (int i = 0; i < 7; i++)
                                 {
-                                    wirk[i] = (currentNode != null) ? XmlHandler.NormalizeStr(currentNode.SelectSingleNode(arr[i].ToString(CultureInfo.CurrentCulture)).Value) : null;
+                                    wirk[i] = XmlHandler.NormalizeStr(currentNode.SelectSingleNode(arr[i].ToString(CultureInfo.CurrentCulture)).Value);
                                 }
                                 rezept.Wirkung = new Wirkung(wirk);
                             }
@@ -118,9 +116,8 @@ namespace Alchemie
                 }
                 return rezepte;
             }
-        }
 
-        static public List<Rezept> ImportRezepteXml(string xmlLocation, string xsdLocation = null)
+        static public IList<Rezept> ImportRezepteXml(string xmlLocation, string xsdLocation = null)
         {
             try
             {

@@ -7,29 +7,49 @@ namespace Alchemie
 {
     public class Database
     {
-        public List<string> Gruppen { private set; get; }
-        public Dictionary<string, List<string>> RezepteGruppen { private set; get; }
-        public Dictionary<string, Rezept> Rezepte { private set; get; }
+        private readonly List<string> _gruppen;
+
+        public IReadOnlyList<string> Gruppen
+        {
+            get { return _gruppen; }
+        }
+
+        //public List<string> Gruppen { private set; get; }
+
+        private readonly Dictionary<string, IReadOnlyList<string>> _rezepteGruppen;
+
+        public IReadOnlyDictionary<string, IReadOnlyList<string>> RezepteGruppen
+        {
+            get { return _rezepteGruppen; }
+        }
+
+        private readonly Dictionary<string, Rezept> _rezepte;
+
+        public IReadOnlyDictionary<string, Rezept> Rezepte
+        {
+            get { return _rezepte; }
+        }
+
         public string AllKey { get; } = "Alle";
 
         public Database()
         {
-            Gruppen = new List<string>();
-            RezepteGruppen = new Dictionary<string, List<string>>();
-            Rezepte = new Dictionary<string, Rezept>();
+            _gruppen = new List<string>();
+            _rezepteGruppen = new Dictionary<string, IReadOnlyList<string>>();
+            _rezepte = new Dictionary<string, Rezept>();
         }
 
-        public Database(List<Rezept> rezepte)
+        public Database(IList<Rezept> rezepte)
         {
-            RezepteGruppen = new Dictionary<string, List<string>>();
-            Rezepte = rezepte.ToDictionary((Rezept x) => x.Name, (Rezept x) => x);
-            Gruppen = Rezepte.Values.Select(x => x.Gruppe).Distinct().ToList();
+            _rezepteGruppen = new Dictionary<string, IReadOnlyList<string>>();
+            _rezepte = rezepte.ToDictionary((Rezept x) => x.Name, (Rezept x) => x);
+            _gruppen = Rezepte.Values.Select(x => x.Gruppe).Distinct().ToList();
             foreach (var gruppe in Gruppen)
             {
-                RezepteGruppen.Add(gruppe, Rezepte.Values.Where(x => x.Gruppe == gruppe).Select(x => x.Name).ToList());
+                _rezepteGruppen.Add(gruppe, Rezepte.Values.Where(x => x.Gruppe == gruppe).Select(x => x.Name).ToList());
             }
-            Gruppen.Insert(0, AllKey);
-            RezepteGruppen.Add(AllKey, Rezepte.Values.Select(x => x.Name).ToList());
+            _gruppen.Insert(0, AllKey);
+            _rezepteGruppen.Add(AllKey, Rezepte.Values.Select(x => x.Name).ToList());
         }
 
         public void AddRezept(Rezept rezept)
@@ -37,7 +57,7 @@ namespace Alchemie
             try
             {
                 if (rezept == null) throw new ArgumentNullException(nameof(rezept));
-                Rezepte.Add(rezept.Name, rezept);
+                _rezepte.Add(rezept.Name, rezept);
             }
             catch (ArgumentException e)
             {
@@ -46,17 +66,17 @@ namespace Alchemie
             }
             if (RezepteGruppen.ContainsKey(rezept.Gruppe))
             {
-                RezepteGruppen[rezept.Gruppe].Add(rezept.Name);
+                (RezepteGruppen[rezept.Gruppe] as IList<string>).Add(rezept.Name);
             }
             else
             {
-                Gruppen.Add(rezept.Gruppe);
-                RezepteGruppen.Add(rezept.Gruppe, new List<string> { rezept.Name });
+                _gruppen.Add(rezept.Gruppe);
+                _rezepteGruppen.Add(rezept.Gruppe, new List<string> { rezept.Name });
             }
-            RezepteGruppen[AllKey].Add(rezept.Name);
+            (RezepteGruppen[AllKey] as IList<string>).Add(rezept.Name);
         }
 
-        public List<Rezept> GetList()
+        public IList<Rezept> GetList()
         {
             return Rezepte.Values.ToList();
         }

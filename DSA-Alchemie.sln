@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DSA-Alchemie", "DSA-Alchemie\DSA-Alchemie.csproj", "{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DSA-Alchemie", "DSA-Alchemie\DSA-Alchemie.csproj", "{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}"
 	ProjectSection(ProjectDependencies) = postProject
 		{559F05EC-9E1C-4B76-9721-537C5D42D4C4} = {559F05EC-9E1C-4B76-9721-537C5D42D4C4}
 	EndProjectSection
@@ -28,16 +28,16 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Debug|x64.ActiveCfg = Debug|x64
-		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Debug|x64.Build.0 = Debug|x64
+		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Debug|x64.Build.0 = Debug|Any CPU
 		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Release|x64.ActiveCfg = Release|x64
-		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Release|x64.Build.0 = Release|x64
+		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Release|x64.ActiveCfg = Release|Any CPU
+		{9C4CAE8D-7BE6-4521-B5F9-C83B9F94A920}.Release|x64.Build.0 = Release|Any CPU
 		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Debug|Any CPU.ActiveCfg = Release|Any CPU
 		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Debug|Any CPU.Build.0 = Release|Any CPU
-		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Debug|x64.ActiveCfg = Debug|x64
-		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Debug|x64.Build.0 = Debug|x64
+		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Debug|x64.ActiveCfg = Release|Any CPU
+		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Debug|x64.Build.0 = Release|Any CPU
 		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{559F05EC-9E1C-4B76-9721-537C5D42D4C4}.Release|x64.ActiveCfg = Release|x64

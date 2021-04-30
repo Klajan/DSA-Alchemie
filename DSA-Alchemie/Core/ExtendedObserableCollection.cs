@@ -11,7 +11,7 @@ namespace Alchemie.Core
     {
         public ExtendedObserableCollection() : base() { }
         public ExtendedObserableCollection(IEnumerable<T> collection) : base(collection) { }
-        public ExtendedObserableCollection(List<T> list) : base(list) { }
+        public ExtendedObserableCollection(IList<T> list) : base(list) { }
 
         public void AddRange(IEnumerable<T> collection)
         {
@@ -32,7 +32,7 @@ namespace Alchemie.Core
             if (collection == null) throw new ArgumentNullException(nameof(collection));
             if (startIndex + collection.Count() > Count)
             {
-                throw new IndexOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(collection));
             }
             CheckReentrancy();
             List<T> oldItems = Items.ToList().GetRange(startIndex, collection.Count() - 1);
@@ -48,7 +48,7 @@ namespace Alchemie.Core
         {
             if (startIndex + count >= Count)
             {
-                throw new IndexOutOfRangeException();
+                throw new ArgumentOutOfRangeException(nameof(count));
             }
             CheckReentrancy();
             var oldItems = Items.ToList().GetRange(startIndex, count);

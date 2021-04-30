@@ -1,11 +1,14 @@
 ﻿using Alchemie.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+
+[assembly: CLSCompliant(true)]
 namespace Alchemie
 {
     /// <summary>
@@ -13,7 +16,7 @@ namespace Alchemie
     /// </summary>
     public partial class App : Application
     {
-        public static List<Tuple<Exception, Type>> Exceptions { private set; get; } = new List<Tuple<Exception, Type>>();
+        public static Collection<Tuple<Exception, Type>> Exceptions { private set; get; } = new Collection<Tuple<Exception, Type>>();
 
         private Database rezepteDB_ = new Database();
         public Database RezepteDB { get { return rezepteDB_; } }
@@ -41,7 +44,7 @@ namespace Alchemie
             {
                 using (System.IO.Stream xmlstream = new DeflateStream(compressedXml, CompressionMode.Decompress), xsdstream = new DeflateStream(compressedXsd, CompressionMode.Decompress))
                 {
-                    rezepte = XmlHandler.ImportRezepteXml(xmlstream, xsdstream);
+                    rezepte = XmlHandler.ImportRezepteXml(xmlstream, xsdstream) as List<Rezept>;
                 }
             }
             rezepteDB_ = new Database(rezepte);
