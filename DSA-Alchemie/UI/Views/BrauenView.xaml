@@ -173,7 +173,7 @@
                                 <Binding
                                     ElementName="AstralAufladen"
                                     Mode="OneWay"
-                                    Path="Value" />
+                                    Path="IntValue" />
                                 <Binding
                                     Mode="OneWay"
                                     Path="ChymischeHochzeit"

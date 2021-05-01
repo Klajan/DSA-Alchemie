@@ -144,7 +144,7 @@
                                     x:Name="rezept_text_seite"
                                     Margin="1"
                                     VerticalAlignment="Center"
-                                    Text="{Binding Seite, Mode=OneWay, Delay=1}"
+                                    Text="{Binding Seite, Mode=TwoWay}"
                                     TextWrapping="NoWrap" />
                             </Border>
                             <Border

@@ -240,10 +240,10 @@
                     MaxHeight="30"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
+                    IntValue="{Binding AlchemieMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                     IsEnabled="{Binding IsChecked, ElementName=MHAlchemie}"
                     Max="{Binding Alchemie}"
                     Min="0"
-                    IntValue="{Binding AlchemieMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                     ToolTip="Meisterhandwerk" />
 
                 <RadioButton
@@ -287,10 +287,10 @@
                     MaxHeight="30"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
+                    IntValue="{Binding KochenMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                     IsEnabled="{Binding IsChecked, ElementName=MHKochen}"
                     Max="{Binding Kochen}"
                     Min="0"
-                    IntValue="{Binding KochenMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                     ToolTip="Meisterhandwerk" />
             </Grid>
         </GroupBox>

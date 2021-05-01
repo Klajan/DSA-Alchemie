@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Alchemie.UI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="UserControl"
     d:DesignHeight="20"
     d:DesignWidth="60"
     mc:Ignorable="d">
@@ -15,12 +14,12 @@
         <local:VisibilityToColumnConverter x:Key="VisibilityToColumnConverter" />
         <local:VisibilityToWidthConverter x:Key="VisibilityToWidthConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition
                 x:Name="ButtonColumn"
-                Width="{Binding ButtonVisibility, BindsDirectlyToSource=True, Converter={StaticResource VisibilityToColumnConverter}, ElementName=userControl}"
-                MinWidth="{Binding ButtonVisibility, Converter={StaticResource VisibilityToWidthConverter}, ElementName=userControl, FallbackValue=10}"
+                Width="{Binding ButtonVisibility, Converter={StaticResource VisibilityToColumnConverter}}"
+                MinWidth="{Binding ButtonVisibility, Converter={StaticResource VisibilityToWidthConverter}, FallbackValue=10}"
                 MaxWidth="25"
                 x:FieldModifier="public" />
             <ColumnDefinition Width="3*" />
@@ -30,7 +29,7 @@
             Grid.Column="1"
             VerticalContentAlignment="Center"
             CommandManager.PreviewExecuted="TextBox_PreviewExecuted"
-            IsReadOnly="{Binding IsReadOnly, ElementName=userControl, FallbackValue=False, Mode=OneWay}"
+            IsReadOnly="{Binding IsReadOnly, FallbackValue=False, Mode=OneWay}"
             Text="0"
             TextChanged="TextBox_TextChanged"
             TextWrapping="NoWrap"
@@ -39,7 +38,7 @@
             x:Name="ButtonGrid"
             Grid.Column="0"
             x:FieldModifier="public"
-            Visibility="{Binding ButtonVisibility, BindsDirectlyToSource=True, ElementName=userControl, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
+            Visibility="{Binding ButtonVisibility, BindsDirectlyToSource=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
@@ -53,7 +52,7 @@
                 Delay="500"
                 Focusable="False"
                 Interval="25"
-                IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, ElementName=userControl, FallbackValue=True}">
+                IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, FallbackValue=True}">
                 <Path
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
@@ -76,7 +75,7 @@
                 Delay="500"
                 Focusable="False"
                 Interval="25"
-                IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, ElementName=userControl, FallbackValue=True}">
+                IsEnabled="{Binding IsReadOnly, Converter={StaticResource BoolInverterConverter}, FallbackValue=True}">
                 <Path
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"

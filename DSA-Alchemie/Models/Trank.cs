@@ -99,7 +99,7 @@ namespace Alchemie.Models
 
         public bool IsSameBase(Rezept rezept)
         {
-            if (rezept != null)
+            if (rezept != null && _rezept.IsValid)
             {
                 return _rezept.ID == rezept.ID;
             }
