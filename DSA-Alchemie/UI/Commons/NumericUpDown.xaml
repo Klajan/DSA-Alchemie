@@ -1,10 +1,9 @@
 ﻿<UserControl
-    x:Class="Alchemie.UI.NumericUpDown"
+    x:Class="Alchemie.UI.Commons.NumericUpDown"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:Properties="clr-namespace:Alchemie.Properties"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Alchemie.UI"
+    xmlns:local="clr-namespace:Alchemie.UI.Commons"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="20"
     d:DesignWidth="60"
@@ -25,10 +24,11 @@
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
         <TextBox
-            x:Name="textBox"
+            x:Name="TextBox"
             Grid.Column="1"
             VerticalContentAlignment="Center"
             CommandManager.PreviewExecuted="TextBox_PreviewExecuted"
+            Focusable="True"
             IsReadOnly="{Binding IsReadOnly, FallbackValue=False, Mode=OneWay}"
             Text="0"
             TextChanged="TextBox_TextChanged"
@@ -38,6 +38,7 @@
             x:Name="ButtonGrid"
             Grid.Column="0"
             x:FieldModifier="public"
+            Focusable="False"
             Visibility="{Binding ButtonVisibility, BindsDirectlyToSource=True, NotifyOnTargetUpdated=True, NotifyOnSourceUpdated=True}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />

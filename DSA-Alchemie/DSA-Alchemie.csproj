@@ -77,8 +77,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Image\dicesheet_flat_300p.png" />
   </ItemGroup>
   <ItemGroup>

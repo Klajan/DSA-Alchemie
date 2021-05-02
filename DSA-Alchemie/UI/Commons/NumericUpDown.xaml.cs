@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace Alchemie.UI
+namespace Alchemie.UI.Commons
 {
 #pragma warning disable IDE0038 // Use pattern matching
 
@@ -123,11 +123,11 @@ namespace Alchemie.UI
             //var carret = s.textBox.CaretIndex;
 
             s._handleTextChanged = false;
-            s.textBox.Text = s.intvalue_.ToString(CultureInfo.CurrentCulture);
+            s.TextBox.Text = s.intvalue_.ToString(CultureInfo.CurrentCulture);
             s._handleTextChanged = true;
 
             //s.textBox.CaretIndex = carret;
-            s.textBox.CaretIndex = s.textBox.Text.Length;
+            s.TextBox.CaretIndex = s.TextBox.Text.Length;
             if (s != null) { s.OnChanged(e); }
         }
 
@@ -149,24 +149,22 @@ namespace Alchemie.UI
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!_handleTextChanged) return;
-            _handleTextChanged = false;
 
+            _handleTextChanged = false;
             TextBox origin = sender as TextBox;
             e.Handled = true;
             string text = origin.Text;
-            Match _matchQuick = _regexQuick.Match(text);
             if (text.Length == 0) { origin.Text = ""; }
-            else if (text.Length == 1 && _matchQuick.Success) { origin.Text = _matchQuick.Value; }
             else
             {
-                if (Int64.TryParse(text, out long value))
+                Match _matchQuick = _regexQuick.Match(text);
+                if (text.Length == 1 && _matchQuick.Success) { origin.Text = _matchQuick.Value; }
+                else if (Int32.TryParse(text, out int value))
                 {
-                    textBox.Text = intvalue_.ToString(CultureInfo.CurrentCulture);
-                    IntValue = (int)Math.Max(Math.Min(value, Max), Min);
+                    IntValue = value;
                 }
                 else { origin.Text = intvalue_.ToString(CultureInfo.CurrentCulture); }
             }
-
             _handleTextChanged = true;
         }
 
@@ -187,6 +185,10 @@ namespace Alchemie.UI
                 IntValue = DecreaseFunc(intvalue_);
             }
         }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+        }
     }
 
     #region Converters
@@ -194,13 +196,13 @@ namespace Alchemie.UI
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class VisibilityToColumnConverter : IValueConverter
     {
-        public object Convert(object value, Type type, object paramater, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((Visibility)value == Visibility.Collapsed) { return new GridLength(0); }
             else { return new GridLength(1, GridUnitType.Star); }
         }
 
-        public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -209,13 +211,13 @@ namespace Alchemie.UI
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class VisibilityToWidthConverter : IValueConverter
     {
-        public object Convert(object value, Type type, object paramater, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((Visibility)value == Visibility.Collapsed) { return (double)0; }
             else { return (double)10; }
         }
 
-        public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
@@ -224,12 +226,12 @@ namespace Alchemie.UI
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class BoolInverterConverter : IValueConverter
     {
-        public object Convert(object value, Type type, object paramater, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return !(bool)value;
         }
 
-        public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return !(bool)value;
         }
