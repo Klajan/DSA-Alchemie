@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-
 [assembly: CLSCompliant(true)]
+
 namespace Alchemie
 {
     /// <summary>
@@ -18,9 +19,9 @@ namespace Alchemie
     {
         public static Collection<Tuple<Exception, Type>> Exceptions { private set; get; } = new Collection<Tuple<Exception, Type>>();
 
-        private Database rezepteDB_ = new Database();
+        private Database rezepteDB_ = new ();
         public Database RezepteDB { get { return rezepteDB_; } }
-        private Character character_ = new Character();
+        private Character character_ = new ();
 
         public Character Character
         {
@@ -28,7 +29,7 @@ namespace Alchemie
             set { character_ = value; }
         }
 
-        private Trank trank_ = new Trank();
+        private Trank trank_ = new ();
 
         public Trank Trank
         {
@@ -42,10 +43,8 @@ namespace Alchemie
             using (System.IO.Stream compressedXml = new System.IO.MemoryStream(Alchemie.Resources.Data.rezepte_xml),
                 compressedXsd = new System.IO.MemoryStream(Alchemie.Resources.Data.rezepte_xsd))
             {
-                using (System.IO.Stream xmlstream = new DeflateStream(compressedXml, CompressionMode.Decompress), xsdstream = new DeflateStream(compressedXsd, CompressionMode.Decompress))
-                {
-                    rezepte = XmlHandler.ImportRezepteXml(xmlstream, xsdstream) as List<Rezept>;
-                }
+                using System.IO.Stream xmlstream = new DeflateStream(compressedXml, CompressionMode.Decompress), xsdstream = new DeflateStream(compressedXsd, CompressionMode.Decompress);
+                rezepte = XmlHandler.ImportRezepteXml(xmlstream, xsdstream) as List<Rezept>;
             }
             rezepteDB_ = new Database(rezepte);
 
@@ -59,11 +58,19 @@ namespace Alchemie
         public App()
         {
             InitializeComponent();
+            if (Alchemie.Properties.Settings.Default.UpgradeRequired)
+            {
+                Alchemie.Properties.Settings.Default.Upgrade();
+                Alchemie.Properties.CharacterSave.Default.Upgrade();
+                Alchemie.Properties.Settings.Default.UpgradeRequired = false;
+                Alchemie.Properties.Settings.Default.Save();
+            }
             MainWindow = new MainWindow();
             MainWindow.Activate();
             MainWindow.Show();
+
             var initTask = Task.Run(Initialize);
-            var uiTask = initTask.ContinueWith(delegate
+            initTask.ContinueWith(delegate
             {
                 Current.Dispatcher.BeginInvoke(
                     System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate
@@ -72,11 +79,26 @@ namespace Alchemie
                         (MainWindow as MainWindow).AttachCharacter(character_);
                     }));
             }, TaskScheduler.Current);
+
+            var updateChecker = Task.Run(UpdateChecker.CheckUpdateAvailable);
+            updateChecker.ContinueWith(UpdaterWindow, TaskScheduler.Current);
+        }
+
+        private static void UpdaterWindow(Task<Release> release)
+        {
+            var result = release.Result;
+            if (result == null) return;
+            Current.Dispatcher.BeginInvoke(
+                    System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(delegate
+                    {
+                        UI.Windows.UpdateWindow UpdateWindow = new(result);
+                        UpdateWindow.Show();
+                    }));
         }
 
         public bool OpenAddRezeptWindow()
         {
-            UI.Windows.InputRezeptWindow popup = new UI.Windows.InputRezeptWindow()
+            UI.Windows.InputRezeptWindow popup = new()
             {
                 DataContext = (MainWindow as MainWindow)
             };
@@ -98,6 +120,7 @@ namespace Alchemie
                 Alchemie.Properties.CharacterSave.Default.IsDefault = false;
                 Alchemie.Properties.CharacterSave.Default.Save();
             }
+            Alchemie.Properties.Settings.Default.Save();
         }
     }
 }

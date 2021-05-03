@@ -30,14 +30,14 @@
             Command="{x:Static local:MainWindow.AddRezeptRoutedCommand}"
             Executed="AddRezeptCommand_Executed" />
     </Window.CommandBindings>
-    <Window.DataContext>
-        <viewmodels:MainWindowViewModel />
-    </Window.DataContext>
     <DockPanel Margin="0,0,0,0" LastChildFill="True">
         <Menu
             Height="22"
             Margin="0,0,-0.4,0"
             DockPanel.Dock="Top">
+            <Menu.DataContext>
+                <viewmodels:MainMenuViewModel />
+            </Menu.DataContext>
             <MenuItem
                 Height="22"
                 Margin="0"
@@ -49,13 +49,32 @@
                 <MenuItem Header="_Import Helden XML" />
             </MenuItem>
             <MenuItem Height="22" Header="_Settings">
-                <MenuItem
-                    x:Name="SaveChar"
-                    Header="Bei beenden speichern"
-                    IsCheckable="True"
-                    IsChecked="True"
-                    StaysOpenOnClick="True" />
-                <UI:NumericUpDown />
+                <MenuItem Header="_Load/Save">
+                    <MenuItem
+                        x:Name="SaveChar"
+                        Header="_Save on Exit"
+                        IsCheckable="True"
+                        IsChecked="{Binding SaveChar}"
+                        StaysOpenOnClick="True" />
+                    <MenuItem
+                        x:Name="LoadChar"
+                        Header="_Load on Start"
+                        IsCheckable="True"
+                        IsChecked="{Binding LoadChar}"
+                        StaysOpenOnClick="True" />
+                </MenuItem>
+                <MenuItem Header="_Updates">
+                    <MenuItem
+                        Header="Check for _Updates"
+                        IsCheckable="True"
+                        IsChecked="{Binding CheckUpdates}"
+                        StaysOpenOnClick="True" />
+                    <MenuItem
+                        Header="Use _Prerelease Versions"
+                        IsCheckable="True"
+                        IsChecked="{Binding CheckPrerelease}"
+                        StaysOpenOnClick="True" />
+                </MenuItem>
             </MenuItem>
         </Menu>
         <StatusBar
@@ -63,11 +82,15 @@
             Margin="0,0,-0.4,0"
             DockPanel.Dock="Bottom" />
         <Grid
+            x:Name="MainGrid"
             MinWidth="790"
             MinHeight="460"
             Margin="2,0,1.6,0"
             Background="Azure"
             DockPanel.Dock="Bottom">
+            <Grid.DataContext>
+                <viewmodels:MainWindowViewModel />
+            </Grid.DataContext>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition
                     Width="0.36*"
