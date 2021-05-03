@@ -35,16 +35,18 @@ namespace Alchemie.UI.ViewModels
                 case "Rezept":
                     RaisePropertyChange(null);
                     break;
+
                 case "Character":
                     RaisePropertyChange(null);
                     break;
+
                 default:
                     RaisePropertyChange(e.PropertyName);
                     break;
             }
         }
 
-        private Trank _trank = new ();
+        private Trank _trank = new();
 
         public Trank Trank
         {

@@ -7,37 +7,42 @@ namespace Alchemie.Models
 {
     public class Trank : ObservableObject
     {
-
         private static readonly Dice D20 = new(1, 20);
         private static readonly Dice D6 = new(1, 6);
 
         #region Construction
+
         public Trank()
         {
-
         }
+
         public Trank(Rezept rezept)
         {
             _rezept = rezept;
         }
+
         public Trank(Character character)
         {
             _character = character;
         }
+
         public Trank(Rezept rezept, Character character) : this(rezept)
         {
             _character = character;
         }
+
         public Trank(Rezept rezept, IList<int> rollEign, IList<int> rollQual) : this(rezept)
         {
             EigenschaftDice = new ExtendedObserableCollection<int>(rollEign);
             QualityDice = new ExtendedObserableCollection<int>(rollQual);
         }
+
         public Trank(Rezept rezept, Character character, IList<int> rollEign, IList<int> rollQual) : this(rezept, rollEign, rollQual)
         {
             _character = character;
         }
-        #endregion
+
+        #endregion Construction
 
         private Rezept _rezept = new();
 
@@ -63,11 +68,11 @@ namespace Alchemie.Models
             }
         }
 
-
         private char quality_;
         private string currentWirkung;
         private string currentMerkmale;
         public bool UseRNG { get; set; } = true;
+
         public char Quality
         {
             get { return quality_; }
@@ -90,12 +95,11 @@ namespace Alchemie.Models
                 RaisePropertyChange("CurrentMerkmale");
             }
         }
+
         public ExtendedObserableCollection<int> EigenschaftDice { get; private set; } = new ExtendedObserableCollection<int>(new int[3] { 1, 1, 1 });
         public ExtendedObserableCollection<int> QualityDice { get; private set; } = new ExtendedObserableCollection<int>(new int[2] { 1, 1 });
         public string CurrentWirkung { get => currentWirkung; }
         public string CurrentMerkmale { get => currentMerkmale; }
-
-
 
         public bool IsSameBase(Rezept rezept)
         {
@@ -134,8 +138,8 @@ namespace Alchemie.Models
                 + Math.Max(EigenschaftDice[2] - stats.Item3 + (mod - TaW), 0))
                 );
             }
-
         }
+
         public char Brauen(int mod, (int rckHalten, int astralAuf, int misc) qualmod)
         {
             if (!_rezept.IsValid) return '?';

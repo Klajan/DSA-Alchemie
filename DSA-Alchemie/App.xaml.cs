@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO.Compression;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -19,9 +18,9 @@ namespace Alchemie
     {
         public static Collection<Tuple<Exception, Type>> Exceptions { private set; get; } = new Collection<Tuple<Exception, Type>>();
 
-        private Database rezepteDB_ = new ();
+        private Database rezepteDB_ = new();
         public Database RezepteDB { get { return rezepteDB_; } }
-        private Character character_ = new ();
+        private Character character_ = new();
 
         public Character Character
         {
@@ -29,7 +28,7 @@ namespace Alchemie
             set { character_ = value; }
         }
 
-        private Trank trank_ = new ();
+        private Trank trank_ = new();
 
         public Trank Trank
         {
@@ -114,13 +113,13 @@ namespace Alchemie
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            Alchemie.Properties.Settings.Default.Save();
             if (Alchemie.Properties.Settings.Default.SaveCharacterOnExit)
             {
                 Character.SaveCharacterToSettings();
                 Alchemie.Properties.CharacterSave.Default.IsDefault = false;
                 Alchemie.Properties.CharacterSave.Default.Save();
             }
-            Alchemie.Properties.Settings.Default.Save();
         }
     }
 }

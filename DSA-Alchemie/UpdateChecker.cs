@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Alchemie
 {
-    class UpdateChecker
+    internal class UpdateChecker
     {
-        private static readonly HttpClient _client = new ();
+        private static readonly HttpClient _client = new();
         private static readonly Version _version = Assembly.GetExecutingAssembly().GetName().Version;
         public static string CurrentVersion { get => _version.ToString(); }
         private const string _owner = "Klajan";
         private const string _repo = "DSA-Alchemie";
-        private static readonly Uri _gitAPIuri = new ($"https://api.github.com/repos/{_owner}/{_repo}/releases", UriKind.Absolute);
+        private static readonly Uri _gitAPIuri = new($"https://api.github.com/repos/{_owner}/{_repo}/releases", UriKind.Absolute);
 
         public static async Task<Release> CheckUpdateAvailable()
         {
@@ -32,7 +30,7 @@ namespace Alchemie
                     if (_version.CompareTo(version) < 0)
                     {
                         return release;
-                    } 
+                    }
                 }
             }
             return null;
@@ -55,22 +53,28 @@ namespace Alchemie
     {
         [JsonPropertyName("id")]
         public int ID { get; set; }
+
         [JsonPropertyName("html_url")]
         public Uri Url { get; set; }
+
         [JsonPropertyName("tag_name")]
         public string Tag { get; set; }
+
         [JsonPropertyName("name")]
         public string Name { get; set; }
+
         [JsonPropertyName("body")]
         public string Body { get; set; }
+
         [JsonPropertyName("prerelease")]
         public bool Prerelease { get; set; }
+
         [JsonPropertyName("published_at")]
         public DateTime PublishedAt { get; set; }
 
         public static Version ParseVersion(string version)
         {
-            Regex regex = new ("([0-9]+.){2,3}([0-9]+)?");
+            Regex regex = new("([0-9]+.){2,3}([0-9]+)?");
             var match = regex.Match(version);
             if (match.Success)
             {

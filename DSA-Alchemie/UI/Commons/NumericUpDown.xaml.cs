@@ -93,7 +93,7 @@ namespace Alchemie.UI.Commons
         #endregion Properties
 
         //private readonly Regex _regexFull = new Regex("([-]?[0-9]+)");
-        private readonly Regex _regexQuick = new ("^[-+]");
+        private readonly Regex _regexQuick = new("^[-+]");
 
         private bool _handleTextChanged = true;
 
@@ -187,7 +187,6 @@ namespace Alchemie.UI.Commons
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
-
         }
     }
 

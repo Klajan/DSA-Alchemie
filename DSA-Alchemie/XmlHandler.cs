@@ -12,8 +12,8 @@ namespace Alchemie
 {
     public static class XmlHandler
     {
-        static readonly private Regex normalize1 = new (@"\r\n?|\n");
-        static readonly private Regex normalize2 = new (@"\s+");
+        static readonly private Regex normalize1 = new(@"\r\n?|\n");
+        static readonly private Regex normalize2 = new(@"\s+");
 
         static private string NormalizeStr(string input)
         {
@@ -33,27 +33,27 @@ namespace Alchemie
 
         static public IList<Rezept> ImportRezepteXml(Stream xmlStream, Stream xsdStream = null)
         {
-                List<Rezept> rezepte = new ();
-                XmlSchemaSet schemaSet = new ();
-                XmlReaderSettings readerSettings = new ();
+            List<Rezept> rezepte = new();
+            XmlSchemaSet schemaSet = new();
+            XmlReaderSettings readerSettings = new();
 
-                XPathDocument doc;
-                try
+            XPathDocument doc;
+            try
+            {
+                if (xsdStream != null)
                 {
-                    if (xsdStream != null)
-                    {
-                        schemaSet.Add(GetSchema(xsdStream));
-                        schemaSet.Compile();
-                        readerSettings.ValidationType = ValidationType.Schema;
-                        readerSettings.Schemas = schemaSet;
-                    }
+                    schemaSet.Add(GetSchema(xsdStream));
+                    schemaSet.Compile();
+                    readerSettings.ValidationType = ValidationType.Schema;
+                    readerSettings.Schemas = schemaSet;
+                }
                 using XmlReader reader = XmlReader.Create(xmlStream, readerSettings);
                 doc = new XPathDocument(reader, XmlSpace.Preserve);
 
                 XPathNodeIterator NodeIterator = doc.CreateNavigator().Select("rezepte/rezept");
                 while (NodeIterator.MoveNext())
                 {
-                    Rezept rezept = new (
+                    Rezept rezept = new(
                         NormalizeStr(NodeIterator.Current.GetAttribute("name", "")),
                         NormalizeStr(NodeIterator.Current.SelectSingleNode("gruppe").Value),
                         NodeIterator.Current.SelectSingleNode("labor").Value,
@@ -92,26 +92,26 @@ namespace Alchemie
                     rezepte.Add(rezept);
                 }
             }
-                catch (XmlException e)
-                {
-                    App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
-                    System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.XmlException);
-                    return null;
-                }
-                catch (XmlSchemaException e)
-                {
-                    App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
-                    System.Windows.MessageBox.Show(e.Message + Properties.ErrorStrings.XsdExceptionMsg1 + e.LineNumber + Properties.ErrorStrings.XsdExceptionMsg2 + e.LinePosition, Properties.ErrorStrings.XsdException);
-                    return null;
-                }
-                catch (FileNotFoundException e)
-                {
-                    App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
-                    System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.FileNotFoundException);
-                    return null;
-                }
-                return rezepte;
+            catch (XmlException e)
+            {
+                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
+                System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.XmlException);
+                return null;
             }
+            catch (XmlSchemaException e)
+            {
+                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
+                System.Windows.MessageBox.Show(e.Message + Properties.ErrorStrings.XsdExceptionMsg1 + e.LineNumber + Properties.ErrorStrings.XsdExceptionMsg2 + e.LinePosition, Properties.ErrorStrings.XsdException);
+                return null;
+            }
+            catch (FileNotFoundException e)
+            {
+                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
+                System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.FileNotFoundException);
+                return null;
+            }
+            return rezepte;
+        }
 
         static public IList<Rezept> ImportRezepteXml(string xmlLocation, string xsdLocation = null)
         {

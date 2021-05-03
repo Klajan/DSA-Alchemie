@@ -316,7 +316,6 @@
                     ItemsSource="{x:Static local:BrauenView.QualityTemplate}"
                     SelectedValue="{Binding Quality}" />
 
-
                 <Border
                     Grid.Row="1"
                     Grid.Column="0"

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Alchemie.Core;
 using System.Windows;
-using Alchemie.Core;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -51,8 +46,6 @@ namespace Alchemie.UI.ViewModels
             set { Alchemie.Properties.Settings.Default.CheckForPrerelease = value; RaisePropertyChange(); }
         }
 
-
         #endregion Properties
-
     }
 }

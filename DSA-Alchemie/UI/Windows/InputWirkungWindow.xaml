@@ -194,6 +194,5 @@
                 Command="{x:Static local:InputWirkungWindow.ExitCommand}"
                 Content="Fertig" />
         </StackPanel>
-
     </Grid>
 </Window>

@@ -19,7 +19,6 @@ namespace Alchemie.UI.Views
             InitializeComponent();
         }
 
-
         public static readonly Tuple<LaborQL, string>[] LabQualityList = new Tuple<LaborQL, string>[]
         {
             Tuple.Create(LaborQL.Fehlend, "(+3) Fehlende/beschädigte Gerätschaften"),
@@ -50,6 +49,7 @@ namespace Alchemie.UI.Views
                 _ => 1,
             };
         }
+
         public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
         {
             return (int)value switch
@@ -70,6 +70,7 @@ namespace Alchemie.UI.Views
         {
             return (int)value;
         }
+
         public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
         {
             return (LaborID)value;

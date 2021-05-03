@@ -1,7 +1,7 @@
 ﻿using Alchemie.Core;
 using Alchemie.Models;
-using System.ComponentModel;
 using System;
+using System.ComponentModel;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -34,6 +34,7 @@ namespace Alchemie.UI.ViewModels
                 case "Rezept":
                     RaisePropertyChange(null);
                     break;
+
                 default:
                     RaisePropertyChange(e.PropertyName);
                     break;

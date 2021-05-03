@@ -13,8 +13,9 @@ namespace Alchemie
     {
         private readonly App CurrentApp_;
         public App CurrentApp { get { return CurrentApp_; } }
-        private readonly RezeptViewModel _rezeptModel = new ();
+        private readonly RezeptViewModel _rezeptModel = new();
         public RezeptViewModel RezeptModel { get { return _rezeptModel; } }
+
         public MainWindow()
         {
             CurrentApp_ = Application.Current as App;
@@ -25,9 +26,9 @@ namespace Alchemie
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            RezeptViewModel rezeptViewModel = new (CurrentApp.Trank);
+            RezeptViewModel rezeptViewModel = new(CurrentApp.Trank);
             RezeptView.DataContext = rezeptViewModel;
-            MainWindowViewModel mainWindowViewModel = new ();
+            MainWindowViewModel mainWindowViewModel = new();
             MainGrid.DataContext = mainWindowViewModel;
             mainWindowViewModel.Attach_Rezepte(data);
             mainWindowViewModel.OnRezeptChanged += rezeptViewModel.ChangeRezept;
@@ -41,10 +42,12 @@ namespace Alchemie
         }
 
         public static RoutedCommand AddRezeptRoutedCommand { set; get; } = new RoutedCommand();
+
         private void AddRezeptCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
+
         private void AddRezeptCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             CurrentApp.OpenAddRezeptWindow();

@@ -10,17 +10,16 @@ namespace Alchemie.logging
         void Log(string message);
     }
 
-    class UILogger : ILogger, INotifyPropertyChanged
+    internal class UILogger : ILogger, INotifyPropertyChanged
     {
         private static object Locker { set; get; } = new object();
-        static Queue<string> messageQueue;
-        string currentLog;
+        private static Queue<string> messageQueue;
+        private string currentLog;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public UILogger()
         {
-
         }
 
         public void Log(string message)
@@ -33,5 +32,3 @@ namespace Alchemie.logging
         }
     }
 }
-
-

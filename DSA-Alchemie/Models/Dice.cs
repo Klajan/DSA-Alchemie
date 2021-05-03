@@ -6,7 +6,7 @@ namespace Alchemie.Models
     {
         private readonly int min;
         private readonly int max;
-        private static readonly Random rnd = new ();
+        private static readonly Random rnd = new();
 
         public int Min => min;
 
@@ -21,6 +21,7 @@ namespace Alchemie.Models
         {
             return rnd.Next(Min, Max + 1);
         }
+
         public void Roll(ref int[] array)
         {
             if (array == null) return;
@@ -29,6 +30,7 @@ namespace Alchemie.Models
                 array[i] = Roll();
             }
         }
+
         public int[] Roll(int amount)
         {
             int[] arr = new int[amount];

@@ -267,6 +267,7 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange(nameof(UsingMHKochen));
             }
         }
+
         #endregion Properties
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Alchemie.Models
 {
-    public class Rezept
+    public class Rezept : IEquatable<Rezept>
     {
-        private static uint lastID;
+        private static uint lastID = 1;
         internal uint ID { private set; get; }
-        internal bool IsValid { private set; get; }
+        internal bool IsValid { get => ID != 0; }
         public string Name { private set; get; }
         public string Gruppe { private set; get; }
         public Labor Labor { private set; get; }
@@ -21,34 +21,57 @@ namespace Alchemie.Models
         public string Beschreibung { set; get; }
         public string Meisterhinweise { set; get; }
         public Wirkung Wirkung { set; get; }
-        public Rezept() { IsValid = false; }
+
+        public Rezept()
+        {
+        }
+
         public Rezept(string name, string group, string labor, (int brauen, int analyse) probe)
         {
             ID = lastID++;
-            this.Name = name;
-            this.Gruppe = group;
-            this.Probe = new Probe(probe.brauen, probe.analyse);
-            this.Labor = new Labor(labor);
-            IsValid = true;
+            Name = name;
+            Gruppe = group;
+            Probe = new Probe(probe.brauen, probe.analyse);
+            Labor = new Labor(labor);
         }
+
         public Rezept(Rezept prevRezept)
         {
-            if (prevRezept != null)
+            if (prevRezept != null && prevRezept.IsValid)
             {
-                this.ID = prevRezept.ID;
-                this.Name = prevRezept.Name;
-                this.Gruppe = prevRezept.Gruppe;
-                this.Labor = prevRezept.Labor;
-                this.Probe = prevRezept.Probe;
-                this.Verbreitung = prevRezept.Verbreitung;
-                this.Haltbarkeit = prevRezept.Haltbarkeit;
-                this.Beschaffung = prevRezept.Beschaffung;
-                this.Preis = prevRezept.Preis;
-                this.Wirkung = prevRezept.Wirkung;
-                this.Merkmale = prevRezept.Merkmale;
-                this.Seite = prevRezept.Seite;
-                this.IsValid = prevRezept.IsValid;
+                ID = lastID++;
+                Name = prevRezept.Name;
+                Gruppe = prevRezept.Gruppe;
+                Labor = prevRezept.Labor;
+                Probe = prevRezept.Probe;
+                Verbreitung = prevRezept.Verbreitung;
+                Haltbarkeit = prevRezept.Haltbarkeit;
+                Beschaffung = prevRezept.Beschaffung;
+                Preis = prevRezept.Preis;
+                Wirkung = prevRezept.Wirkung;
+                Merkmale = prevRezept.Merkmale;
+                Seite = prevRezept.Seite;
+                Rezeptur = prevRezept.Rezeptur;
+                Beschreibung = prevRezept.Beschreibung;
+                Meisterhinweise = prevRezept.Meisterhinweise;
             }
+        }
+
+        public bool Equals(Rezept other)
+        {
+            return other != null &&
+                   IsValid & other.IsValid &&
+                   ID == other.ID;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Rezept rezept && Equals(rezept);
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
         }
     }
 
@@ -59,10 +82,12 @@ namespace Alchemie.Models
             BrauenMod = brauen;
             AnalyseMod = analyse;
         }
+
         public int BrauenMod { get; private set; }
         public int AnalyseMod { get; private set; }
 
         #region IEquatable
+
         public override bool Equals(object obj)
         {
             return obj is Probe probe && Equals(probe);
@@ -86,9 +111,9 @@ namespace Alchemie.Models
 
         public override int GetHashCode()
         {
-
             return HashCode.Combine(BrauenMod, AnalyseMod);
         }
+
         #endregion IEquatable
     }
 
@@ -99,10 +124,12 @@ namespace Alchemie.Models
             Preis = preis;
             Verbreitung = verbreitung;
         }
+
         public string Preis { get; private set; }
         public string Verbreitung { get; private set; }
 
         #region IEquatable
+
         public override bool Equals(object obj)
         {
             return obj is Beschaffung beschaffung && Equals(beschaffung);
@@ -130,6 +157,7 @@ namespace Alchemie.Models
         {
             return !(left == right);
         }
+
         #endregion IEquatable
     }
 
@@ -144,26 +172,31 @@ namespace Alchemie.Models
                     ID = LaborID.ArchaischesLabor;
                     Name = "archaisches Labor";
                     break;
+
                 case "1":
                 case "Hexenküche":
                     ID = LaborID.Hexenküche;
                     Name = "Hexenküche";
                     break;
+
                 case "2":
                 case "Alchimistenlabor":
                     ID = LaborID.Alchemielabor;
                     Name = "Alchimistenlabor";
                     break;
+
                 default:
                     ID = LaborID.ArchaischesLabor;
                     Name = "Unbekannt";
                     break;
             }
         }
+
         public string Name { get; private set; }
         public LaborID ID { get; private set; }
 
         #region IEquatable
+
         public override bool Equals(object obj)
         {
             return obj is Labor labor && Equals(labor);
@@ -189,6 +222,7 @@ namespace Alchemie.Models
         {
             return !(left == right);
         }
+
         #endregion IEquatable
     }
 
@@ -207,31 +241,39 @@ namespace Alchemie.Models
                     case 0:
                         M = init[i];
                         break;
+
                     case 1:
                         A = init[i];
                         break;
+
                     case 2:
                         B = init[i];
                         break;
+
                     case 3:
                         C = init[i];
                         break;
+
                     case 4:
                         D = init[i];
                         break;
+
                     case 5:
                         E = init[i];
                         break;
+
                     case 6:
                         F = init[i];
                         break;
                 }
             }
         }
+
         public Wirkung(string m, string a, string b, string c, string d, string e, string f)
         {
             M = m; A = a; B = b; C = c; D = d; E = e; F = f;
         }
+
         public string M { get; private set; }
         public string A { get; private set; }
         public string B { get; private set; }
@@ -243,7 +285,6 @@ namespace Alchemie.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1043:Use Integral Or String Argument For Indexers", Justification = "Intended char Indexer")]
         public string this[char index]
         {
-
             get
             {
                 return index switch
@@ -261,6 +302,7 @@ namespace Alchemie.Models
         }
 
         #region IEquatable
+
         public bool Equals(Wirkung other)
         {
             return M == other.M &&
@@ -291,6 +333,7 @@ namespace Alchemie.Models
         {
             return obj is Wirkung wirkung && Equals(wirkung);
         }
+
         #endregion IEquatable
     }
 }

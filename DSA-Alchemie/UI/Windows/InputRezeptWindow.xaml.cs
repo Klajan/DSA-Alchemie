@@ -13,10 +13,12 @@ namespace Alchemie.UI.Windows
     {
         public Models.Rezept NewRezept { private set; get; }
         private Wirkung wirkung;
+
         public InputRezeptWindow()
         {
             InitializeComponent();
         }
+
         public InputRezeptWindow(Models.Rezept rezept)
         {
             NewRezept = new Models.Rezept(rezept);
@@ -40,6 +42,7 @@ namespace Alchemie.UI.Windows
             preisIN.Text = NewRezept.Preis ?? String.Empty;
             wirkung = NewRezept.Wirkung;
         }
+
         private bool Get()
         {
             if (nameIN.Text.Length == 0 || gruppeIN.Text.Length == 0 || laborIN.SelectedIndex == -1)
@@ -63,20 +66,25 @@ namespace Alchemie.UI.Windows
         }
 
         public static RoutedCommand ExitCommand { private set; get; } = new RoutedCommand();
+
         private void ExitCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
+
         private void ExitCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Get();
             this.Close();
         }
+
         public static RoutedCommand OpenWirkungInputCommand { private set; get; } = new RoutedCommand();
+
         private void WirkungInputCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
+
         private void WirkungInputCommand_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var window = new InputWirkungWindow();

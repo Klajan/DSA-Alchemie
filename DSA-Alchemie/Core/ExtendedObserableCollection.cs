@@ -9,9 +9,17 @@ namespace Alchemie.Core
 {
     public class ExtendedObserableCollection<T> : ObservableCollection<T>
     {
-        public ExtendedObserableCollection() : base() { }
-        public ExtendedObserableCollection(IEnumerable<T> collection) : base(collection) { }
-        public ExtendedObserableCollection(IList<T> list) : base(list) { }
+        public ExtendedObserableCollection() : base()
+        {
+        }
+
+        public ExtendedObserableCollection(IEnumerable<T> collection) : base(collection)
+        {
+        }
+
+        public ExtendedObserableCollection(IList<T> list) : base(list)
+        {
+        }
 
         public void AddRange(IEnumerable<T> collection)
         {
@@ -25,6 +33,7 @@ namespace Alchemie.Core
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Items)));
         }
+
         public void ReplaceRange(int startIndex, IEnumerable<T> collection)
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));
@@ -41,6 +50,7 @@ namespace Alchemie.Core
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItems, collection, startIndex));
             OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
         }
+
         public void RemoveRange(int startIndex, int count)
         {
             if (startIndex + count >= Count)
