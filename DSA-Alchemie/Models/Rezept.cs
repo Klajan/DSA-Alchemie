@@ -4,7 +4,7 @@ namespace Alchemie.Models
 {
     public class Rezept
     {
-        private static uint lastID = 0;
+        private static uint lastID;
         internal uint ID { private set; get; }
         internal bool IsValid { private set; get; }
         public string Name { private set; get; }
@@ -246,25 +246,17 @@ namespace Alchemie.Models
 
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case 'M':
-                        return M;
-                    case 'A':
-                        return A;
-                    case 'B':
-                        return B;
-                    case 'C':
-                        return C;
-                    case 'D':
-                        return D;
-                    case 'E':
-                        return E;
-                    case 'F':
-                        return F;
-                    default:
-                        return String.Empty;
-                }
+                    'M' => M,
+                    'A' => A,
+                    'B' => B,
+                    'C' => C,
+                    'D' => D,
+                    'E' => E,
+                    'F' => F,
+                    _ => String.Empty,
+                };
             }
         }
 
@@ -297,7 +289,7 @@ namespace Alchemie.Models
 
         public override bool Equals(object obj)
         {
-            return obj is Wirkung && Equals((Wirkung)obj);
+            return obj is Wirkung wirkung && Equals(wirkung);
         }
         #endregion IEquatable
     }

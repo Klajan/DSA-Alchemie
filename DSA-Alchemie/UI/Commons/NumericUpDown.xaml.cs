@@ -88,12 +88,12 @@ namespace Alchemie.UI.Commons
         public Func<int, int> IncreaseFunc { set; get; } = (value) => value + 1;
         public Func<int, int> DecreaseFunc { set; get; } = (value) => value - 1;
         public bool AllowCopyPaste { set; get; } = true;
-        public bool NotifyOnValueChanged { set; get; } = false;
+        public bool NotifyOnValueChanged { set; get; }
 
         #endregion Properties
 
         //private readonly Regex _regexFull = new Regex("([-]?[0-9]+)");
-        private readonly Regex _regexQuick = new Regex("^[-+]");
+        private readonly Regex _regexQuick = new ("^[-+]");
 
         private bool _handleTextChanged = true;
 
@@ -153,13 +153,12 @@ namespace Alchemie.UI.Commons
             _handleTextChanged = false;
             TextBox origin = sender as TextBox;
             e.Handled = true;
-            string text = origin.Text;
-            if (text.Length == 0) { origin.Text = ""; }
+            if (origin.Text.Length == 0) { origin.Text = ""; }
             else
             {
-                Match _matchQuick = _regexQuick.Match(text);
-                if (text.Length == 1 && _matchQuick.Success) { origin.Text = _matchQuick.Value; }
-                else if (Int32.TryParse(text, out int value))
+                Match _matchQuick = _regexQuick.Match(origin.Text);
+                if (origin.Text.Length == 1 && _matchQuick.Success) { origin.Text = _matchQuick.Value; }
+                else if (Int32.TryParse(origin.Text, out int value))
                 {
                     IntValue = value;
                 }
@@ -188,6 +187,7 @@ namespace Alchemie.UI.Commons
 
         private void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
+
         }
     }
 

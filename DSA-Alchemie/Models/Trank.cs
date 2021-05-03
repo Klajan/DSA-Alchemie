@@ -167,19 +167,14 @@ namespace Alchemie.Models
 
         public static int CalculateLaborMod(LaborID RezeptLabor, LaborID CharLabor)
         {
-            switch (RezeptLabor - CharLabor)
+            return (RezeptLabor - CharLabor) switch
             {
-                case -2:
-                    return -3;
-                case -1:
-                    return 0;
-                case 0:
-                    return 0;
-                case +1:
-                    return +7;
-                default:
-                    return Int16.MaxValue;
-            }
+                -2 => -3,
+                -1 => 0,
+                0 => 0,
+                +1 => +7,
+                _ => Int16.MaxValue,
+            };
         }
     }
 }

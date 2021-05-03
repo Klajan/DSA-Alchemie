@@ -29,7 +29,7 @@ namespace Alchemie.UI.ViewModels
         #region Members
 
         private readonly App app_;
-        private Rezept rezept_ = new Rezept();
+        private Rezept rezept_ = new ();
 
         public delegate void RezeptChangedHandler(object sender, Rezept newRezept);
 
@@ -39,14 +39,14 @@ namespace Alchemie.UI.ViewModels
 
         public RezeptViewModel TestRezepte { get; set; }
 
-        private readonly ExtendedObserableCollection<string> rezepte_ = new ExtendedObserableCollection<string>();
+        private readonly ExtendedObserableCollection<string> rezepte_ = new ();
 
         public ExtendedObserableCollection<string> Rezepte
         {
             get { return rezepte_; }
         }
 
-        private readonly ExtendedObserableCollection<string> gruppen_ = new ExtendedObserableCollection<string>();
+        private readonly ExtendedObserableCollection<string> gruppen_ = new ();
 
         public ExtendedObserableCollection<string> Gruppen
         {

@@ -44,7 +44,7 @@ namespace Alchemie.UI.ViewModels
             }
         }
 
-        private Trank _trank = new Trank();
+        private Trank _trank = new ();
 
         public Trank Trank
         {

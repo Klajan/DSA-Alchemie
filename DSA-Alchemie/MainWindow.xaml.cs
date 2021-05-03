@@ -11,11 +11,9 @@ namespace Alchemie
     /// </summary>
     public partial class MainWindow : Window
     {
-        //internal ObservableCollection<string> groups;
-        //internal ObservableCollection<string> rezepte;
         private readonly App CurrentApp_;
         public App CurrentApp { get { return CurrentApp_; } }
-        RezeptViewModel _rezeptModel = new RezeptViewModel();
+        private readonly RezeptViewModel _rezeptModel = new ();
         public RezeptViewModel RezeptModel { get { return _rezeptModel; } }
         public MainWindow()
         {
@@ -27,50 +25,21 @@ namespace Alchemie
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            RezeptViewModel rezeptViewModel = new RezeptViewModel(CurrentApp.Trank);
+            RezeptViewModel rezeptViewModel = new (CurrentApp.Trank);
             RezeptView.DataContext = rezeptViewModel;
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
-            DataContext = mainWindowViewModel;
+            MainWindowViewModel mainWindowViewModel = new ();
+            MainGrid.DataContext = mainWindowViewModel;
             mainWindowViewModel.Attach_Rezepte(data);
             mainWindowViewModel.OnRezeptChanged += rezeptViewModel.ChangeRezept;
             BrauenView.BrauenViewModel.Trank = CurrentApp.Trank;
-
-            /*
-            if (data == null) throw new ArgumentNullException(nameof(data));
-            groups = new ObservableCollection<string>(data.Gruppen);
-            rezepte = new ObservableCollection<string>(data.RezepteGruppen["Alle"]);
-            rezepte_combo_group.ItemsSource = groups;
-            rezepte_combo_rezept.ItemsSource = rezepte;
-            BrauenView.BrauenViewModel.Trank = CurrentApp.Trank;
-            */
         }
 
         public void AttachCharacter(Character character)
         {
             CharacterViewMain.CharacterViewModel.Character = character;
-            BrauenView.BrauenViewModel.Character = CurrentApp.Character;
+            BrauenView.BrauenViewModel.Character = character;
         }
-        /*
-        private void ComboBoxRezepteGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var grouped = CurrentApp.RezepteDB.RezepteGruppen[rezepte_combo_group.SelectedItem.ToString()];
-            rezepte.Clear();
-            foreach (string st in grouped)
-            {
-                rezepte.Add(st);
-            }
-            rezepte_combo_rezept.SelectedIndex = 0;
-        }
-        private void ComboBoxRezepteRezept_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (null == rezepte_combo_rezept.SelectedItem) { return; }
-            Rezept rezept = CurrentApp.RezepteDB[rezepte_combo_rezept.SelectedItem.ToString()];
-            if (CurrentApp.Trank != null && !CurrentApp.Trank.IsSameBase(rezept))
-            {
-                CurrentApp.Trank.Rezept = rezept;
-            }
-        }
-        */
+
         public static RoutedCommand AddRezeptRoutedCommand { set; get; } = new RoutedCommand();
         private void AddRezeptCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {

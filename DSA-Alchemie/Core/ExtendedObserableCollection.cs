@@ -17,13 +17,11 @@ namespace Alchemie.Core
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));
             CheckReentrancy();
-            int startIndex = this.Count;
             foreach (T item in collection)
             {
                 Items.Add(item);
             }
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-            //OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, collection.ToList()));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Items)));
         }
@@ -41,7 +39,6 @@ namespace Alchemie.Core
                 Items[i] = collection.ElementAt(i - startIndex);
             }
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, oldItems, collection, startIndex));
-            //OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
             OnPropertyChanged(new PropertyChangedEventArgs("Item[]"));
         }
         public void RemoveRange(int startIndex, int count)
