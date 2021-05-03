@@ -12,8 +12,8 @@ namespace Alchemie
 {
     public static class XmlHandler
     {
-        static readonly private Regex normalize1 = new Regex(@"\r\n?|\n");
-        static readonly private Regex normalize2 = new Regex(@"\s+");
+        static readonly private Regex normalize1 = new (@"\r\n?|\n");
+        static readonly private Regex normalize2 = new (@"\s+");
 
         static private string NormalizeStr(string input)
         {
@@ -23,23 +23,19 @@ namespace Alchemie
 
         static private XmlSchema GetSchema(Stream xsdStream)
         {
-            void ValidationCallBack(object sender, ValidationEventArgs args)
+            static void ValidationCallBack(object sender, ValidationEventArgs args)
             {
                 return;
             }
-            using (XmlReader reader = XmlReader.Create(xsdStream))
-            {
-                return XmlSchema.Read(reader, ValidationCallBack);
-            }
+            using XmlReader reader = XmlReader.Create(xsdStream);
+            return XmlSchema.Read(reader, ValidationCallBack);
         }
 
-        static public List<Rezept> ImportRezepteXml(Stream xmlStream, Stream xsdStream = null)
+        static public IList<Rezept> ImportRezepteXml(Stream xmlStream, Stream xsdStream = null)
         {
-            lock (xmlStream)
-            {
-                List<Rezept> rezepte = new List<Rezept>();
-                XmlSchemaSet schemaSet = new XmlSchemaSet();
-                XmlReaderSettings readerSettings = new XmlReaderSettings();
+                List<Rezept> rezepte = new ();
+                XmlSchemaSet schemaSet = new ();
+                XmlReaderSettings readerSettings = new ();
 
                 XPathDocument doc;
                 try
@@ -51,53 +47,51 @@ namespace Alchemie
                         readerSettings.ValidationType = ValidationType.Schema;
                         readerSettings.Schemas = schemaSet;
                     }
-                    using (XmlReader reader = XmlReader.Create(xmlStream, readerSettings))
+                using XmlReader reader = XmlReader.Create(xmlStream, readerSettings);
+                doc = new XPathDocument(reader, XmlSpace.Preserve);
+
+                XPathNodeIterator NodeIterator = doc.CreateNavigator().Select("rezepte/rezept");
+                while (NodeIterator.MoveNext())
+                {
+                    Rezept rezept = new (
+                        NormalizeStr(NodeIterator.Current.GetAttribute("name", "")),
+                        NormalizeStr(NodeIterator.Current.SelectSingleNode("gruppe").Value),
+                        NodeIterator.Current.SelectSingleNode("labor").Value,
+                        (NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("brauen").ValueAsInt,
+                        NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("analyse").ValueAsInt))
                     {
-                        doc = new XPathDocument(reader, XmlSpace.Preserve);
+                        Preis = NormalizeStr(NodeIterator.Current.SelectSingleNode("preis")?.Value),
+                        Haltbarkeit = NormalizeStr(NodeIterator.Current.SelectSingleNode("haltbarkeit")?.Value),
+                        Verbreitung = NormalizeStr(NodeIterator.Current.SelectSingleNode("verbreitung")?.Value),
+                        Rezeptur = NormalizeStr(NodeIterator.Current.SelectSingleNode("rezeptur")?.Value),
+                        Merkmale = NormalizeStr(NodeIterator.Current.SelectSingleNode("merkmale")?.Value),
+                        Beschreibung = NormalizeStr(NodeIterator.Current.SelectSingleNode("beschreibung")?.Value),
+                        Meisterhinweise = NormalizeStr(NodeIterator.Current.SelectSingleNode("meisterhinweise")?.Value)
+                    };
 
-                        XPathNodeIterator NodeIterator = doc.CreateNavigator().Select("rezepte/rezept");
-                        while (NodeIterator.MoveNext())
+                    var currentNode = NodeIterator.Current.SelectSingleNode("beschaffung");
+                    rezept.Beschaffung = (currentNode != null) ?
+                        new Beschaffung(XmlHandler.NormalizeStr(currentNode.SelectSingleNode("kosten").Value), XmlHandler.NormalizeStr(currentNode.SelectSingleNode("seltenheit").Value)) :
+                        new Beschaffung("0", "0");
+
+                    currentNode = NodeIterator.Current.SelectSingleNode("seite");
+                    rezept.Seite = (currentNode != null) ? currentNode.ValueAsInt : -1;
+
+                    currentNode = NodeIterator.Current.SelectSingleNode("wirkung");
+                    if (currentNode != null)
+                    {
+                        char[] arr = { 'M', 'A', 'B', 'C', 'D', 'E', 'F' };
+                        string[] wirk = new string[7];
+                        for (int i = 0; i < 7; i++)
                         {
-                            Rezept rezept = new Rezept(
-                                NormalizeStr(NodeIterator.Current.GetAttribute("name", "")),
-                                NormalizeStr(NodeIterator.Current.SelectSingleNode("gruppe").Value),
-                                NodeIterator.Current.SelectSingleNode("labor").Value,
-                                (NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("brauen").ValueAsInt,
-                                NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("analyse").ValueAsInt))
-                            {
-                                Preis = NormalizeStr(NodeIterator.Current.SelectSingleNode("preis")?.Value),
-                                Haltbarkeit = NormalizeStr(NodeIterator.Current.SelectSingleNode("haltbarkeit")?.Value),
-                                Verbreitung = NormalizeStr(NodeIterator.Current.SelectSingleNode("verbreitung")?.Value),
-                                Rezeptur = NormalizeStr(NodeIterator.Current.SelectSingleNode("rezeptur")?.Value),
-                                Merkmale = NormalizeStr(NodeIterator.Current.SelectSingleNode("merkmale")?.Value),
-                                Beschreibung = NormalizeStr(NodeIterator.Current.SelectSingleNode("beschreibung")?.Value),
-                                Meisterhinweise = NormalizeStr(NodeIterator.Current.SelectSingleNode("meisterhinweise")?.Value)
-                            };
-
-                            var currentNode = NodeIterator.Current.SelectSingleNode("beschaffung");
-                            rezept.Beschaffung = (currentNode != null) ?
-                                new Beschaffung(XmlHandler.NormalizeStr(currentNode.SelectSingleNode("kosten").Value), XmlHandler.NormalizeStr(currentNode.SelectSingleNode("seltenheit").Value)) :
-                                new Beschaffung("0", "0");
-
-                            currentNode = NodeIterator.Current.SelectSingleNode("seite");
-                            rezept.Seite = (currentNode != null) ? currentNode.ValueAsInt : -1;
-
-                            currentNode = NodeIterator.Current.SelectSingleNode("wirkung");
-                            if (currentNode != null)
-                            {
-                                char[] arr = { 'M', 'A', 'B', 'C', 'D', 'E', 'F' };
-                                string[] wirk = new string[7];
-                                for (int i = 0; i < 7; i++)
-                                {
-                                    wirk[i] = (currentNode != null) ? XmlHandler.NormalizeStr(currentNode.SelectSingleNode(arr[i].ToString(CultureInfo.CurrentCulture)).Value) : null;
-                                }
-                                rezept.Wirkung = new Wirkung(wirk);
-                            }
-
-                            rezepte.Add(rezept);
+                            wirk[i] = XmlHandler.NormalizeStr(currentNode.SelectSingleNode(arr[i].ToString(CultureInfo.CurrentCulture)).Value);
                         }
+                        rezept.Wirkung = new Wirkung(wirk);
                     }
+
+                    rezepte.Add(rezept);
                 }
+            }
                 catch (XmlException e)
                 {
                     App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
@@ -118,25 +112,20 @@ namespace Alchemie
                 }
                 return rezepte;
             }
-        }
 
-        static public List<Rezept> ImportRezepteXml(string xmlLocation, string xsdLocation = null)
+        static public IList<Rezept> ImportRezepteXml(string xmlLocation, string xsdLocation = null)
         {
             try
             {
-                using (FileStream xmlstream = File.OpenRead(xmlLocation))
+                using FileStream xmlstream = File.OpenRead(xmlLocation);
+                if (xsdLocation == null)
                 {
-                    if (xsdLocation == null)
-                    {
-                        return ImportRezepteXml(xmlstream);
-                    }
-                    else
-                    {
-                        using (FileStream xsdstream = File.OpenRead(xsdLocation))
-                        {
-                            return ImportRezepteXml(xmlstream, xsdstream);
-                        }
-                    }
+                    return ImportRezepteXml(xmlstream);
+                }
+                else
+                {
+                    using FileStream xsdstream = File.OpenRead(xsdLocation);
+                    return ImportRezepteXml(xmlstream, xsdstream);
                 }
             }
             catch (FileNotFoundException e)

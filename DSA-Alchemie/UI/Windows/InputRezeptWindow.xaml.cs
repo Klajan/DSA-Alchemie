@@ -29,14 +29,14 @@ namespace Alchemie.UI.Windows
             nameIN.Text = NewRezept.Name;
             gruppeIN.Text = NewRezept.Gruppe;
             laborIN.SelectedIndex = (int)NewRezept.Labor.ID;
-            propeIN_B.Value = NewRezept.Probe.BrauenMod; propeIN_A.Value = NewRezept.Probe.AnalyseMod;
+            propeIN_B.IntValue = NewRezept.Probe.BrauenMod; propeIN_A.IntValue = NewRezept.Probe.AnalyseMod;
             verbrIN.Text = NewRezept.Verbreitung ?? String.Empty;
             haltbIN.Text = NewRezept.Haltbarkeit ?? String.Empty;
             merkmIN.Text = NewRezept.Merkmale ?? String.Empty;
             zutatenIN.Text = NewRezept.Rezeptur ?? String.Empty;
-            seiteIN.Value = NewRezept.Seite;
+            seiteIN.IntValue = NewRezept.Seite;
             beschIN_T.Text = NewRezept.Beschaffung.Preis;
-            beschIN_V.Value = Int32.Parse(NewRezept.Beschaffung.Verbreitung, CultureInfo.CurrentCulture);
+            beschIN_V.IntValue = Int32.Parse(NewRezept.Beschaffung.Verbreitung, CultureInfo.CurrentCulture);
             preisIN.Text = NewRezept.Preis ?? String.Empty;
             wirkung = NewRezept.Wirkung;
         }
@@ -48,14 +48,14 @@ namespace Alchemie.UI.Windows
                 NewRezept = null;
                 return false;
             }
-            NewRezept = new Models.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(CultureInfo.CurrentCulture), (propeIN_B.Value, propeIN_A.Value))
+            NewRezept = new Models.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(CultureInfo.CurrentCulture), (propeIN_B.IntValue, propeIN_A.IntValue))
             {
                 Verbreitung = verbrIN.Text.Length != 0 ? verbrIN.Text : null,
                 Haltbarkeit = haltbIN.Text.Length != 0 ? haltbIN.Text : null,
                 Merkmale = merkmIN.Text.Length != 0 ? merkmIN.Text : null,
                 Rezeptur = zutatenIN.Text.Length != 0 ? zutatenIN.Text : null,
-                Seite = seiteIN.Value,
-                Beschaffung = new Beschaffung(beschIN_T.Text, beschIN_V.Value.ToString(CultureInfo.CurrentCulture)),
+                Seite = seiteIN.IntValue,
+                Beschaffung = new Beschaffung(beschIN_T.Text, beschIN_V.IntValue.ToString(CultureInfo.CurrentCulture)),
                 Preis = preisIN.Text.Length != 0 ? preisIN.Text : null,
                 Wirkung = wirkung
             };

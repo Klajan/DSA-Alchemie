@@ -2,7 +2,7 @@
     x:Class="Alchemie.UI.Views.CharacterView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:UI="clr-namespace:Alchemie.UI"
+    xmlns:UI="clr-namespace:Alchemie.UI.Commons"
     xmlns:converters="clr-namespace:Alchemie.UI.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Alchemie.UI.Views"
@@ -129,9 +129,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="Black"
+                IntValue="{Binding MU, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                 Max="99"
-                Min="0"
-                Value="{Binding MU, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                Min="0" />
             <UI:NumericUpDown
                 x:Name="KL_input"
                 Grid.Row="1"
@@ -143,9 +143,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="Black"
+                IntValue="{Binding KL, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                 Max="99"
-                Min="0"
-                Value="{Binding KL, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                Min="0" />
             <UI:NumericUpDown
                 x:Name="FF_input"
                 Grid.Row="1"
@@ -157,9 +157,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="Black"
+                IntValue="{Binding FF, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                 Max="99"
-                Min="0"
-                Value="{Binding FF, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                Min="0" />
             <UI:NumericUpDown
                 x:Name="IN_input"
                 Grid.Row="1"
@@ -171,9 +171,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 BorderBrush="Black"
+                IntValue="{Binding IN, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                 Max="99"
-                Min="0"
-                Value="{Binding IN, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                Min="0" />
         </Grid>
         <GroupBox
             x:Name="TalenteGrid"
@@ -219,7 +219,7 @@
                     MaxHeight="30"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Value="{Binding Alchemie, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                    IntValue="{Binding Alchemie, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
                 <CheckBox
                     x:Name="MHAlchemie"
                     Grid.Row="0"
@@ -240,11 +240,11 @@
                     MaxHeight="30"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
+                    IntValue="{Binding AlchemieMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                     IsEnabled="{Binding IsChecked, ElementName=MHAlchemie}"
                     Max="{Binding Alchemie}"
                     Min="0"
-                    ToolTip="Meisterhandwerk"
-                    Value="{Binding AlchemieMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                    ToolTip="Meisterhandwerk" />
 
                 <RadioButton
                     x:Name="KochenRadio"
@@ -266,7 +266,7 @@
                     MaxHeight="30"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Value="{Binding Kochen, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                    IntValue="{Binding Kochen, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
                 <CheckBox
                     x:Name="MHKochen"
                     Grid.Row="1"
@@ -287,11 +287,11 @@
                     MaxHeight="30"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
+                    IntValue="{Binding KochenMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}"
                     IsEnabled="{Binding IsChecked, ElementName=MHKochen}"
                     Max="{Binding Kochen}"
                     Min="0"
-                    ToolTip="Meisterhandwerk"
-                    Value="{Binding KochenMH, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1}" />
+                    ToolTip="Meisterhandwerk" />
             </Grid>
         </GroupBox>
         <GroupBox

@@ -36,42 +36,34 @@ namespace Alchemie.UI.Views
         };
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class LabQualityIndexConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)
         {
-            switch ((LaborQL)value)
+            return (LaborQL)value switch
             {
-                case LaborQL.Fehlend:
-                    return 0;
-                case LaborQL.Normal:
-                    return 1;
-                case LaborQL.Gut:
-                    return 2;
-                case LaborQL.SehrGut:
-                    return 3;
-                default:
-                    return 1;
-            }
+                LaborQL.Fehlend => 0,
+                LaborQL.Normal => 1,
+                LaborQL.Gut => 2,
+                LaborQL.SehrGut => 3,
+                _ => 1,
+            };
         }
         public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
         {
-            switch ((int)value)
+            return (int)value switch
             {
-                case 0:
-                    return LaborQL.Fehlend;
-                case 1:
-                    return LaborQL.Normal;
-                case 2:
-                    return LaborQL.Gut;
-                case 3:
-                    return LaborQL.SehrGut;
-                default:
-                    return LaborQL.Normal;
-            }
+                0 => LaborQL.Fehlend,
+                1 => LaborQL.Normal,
+                2 => LaborQL.Gut,
+                3 => LaborQL.SehrGut,
+                _ => LaborQL.Normal,
+            };
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class LabLevelIndexConverter : IValueConverter
     {
         public object Convert(object value, Type type, object paramater, CultureInfo culture)

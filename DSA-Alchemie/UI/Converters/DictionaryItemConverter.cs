@@ -7,11 +7,11 @@ namespace Alchemie.UI.Converters
 {
     public class DictionaryItemConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type type, object paramater, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values != null && values.Length >= 2)
             {
-                if (values[0] is IDictionary && !(values is null))
+                if (values[0] is IDictionary && !(values[1] is null))
                 {
                     var myDict = values[0] as IDictionary;
                     var myKey = values[1];
@@ -20,6 +20,6 @@ namespace Alchemie.UI.Converters
             }
             return Binding.DoNothing;
         }
-        public object[] ConvertBack(object value, Type[] type, object paramater, CultureInfo culture) { throw new NotImplementedException(); }
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) { throw new NotImplementedException(); }
     }
 }

@@ -2,15 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 
 namespace Alchemie.Models
 {
     public class Trank : ObservableObject
     {
 
-        private static readonly Dice D20 = new Dice(1, 20);
-        private static readonly Dice D6 = new Dice(1, 6);
+        private static readonly Dice D20 = new(1, 20);
+        private static readonly Dice D6 = new(1, 6);
 
         #region Construction
         public Trank()
@@ -29,18 +28,18 @@ namespace Alchemie.Models
         {
             _character = character;
         }
-        public Trank(Rezept rezept, List<int> rollEign, List<int> rollQual) : this(rezept)
+        public Trank(Rezept rezept, IList<int> rollEign, IList<int> rollQual) : this(rezept)
         {
             EigenschaftDice = new ExtendedObserableCollection<int>(rollEign);
             QualityDice = new ExtendedObserableCollection<int>(rollQual);
         }
-        public Trank(Rezept rezept, Character character, List<int> rollEign, List<int> rollQual) : this(rezept, rollEign, rollQual)
+        public Trank(Rezept rezept, Character character, IList<int> rollEign, IList<int> rollQual) : this(rezept, rollEign, rollQual)
         {
             _character = character;
         }
         #endregion
 
-        private Rezept _rezept = new Rezept();
+        private Rezept _rezept = new();
 
         public Rezept Rezept
         {
@@ -52,7 +51,7 @@ namespace Alchemie.Models
             }
         }
 
-        private Character _character = new Character();
+        private Character _character = new();
 
         public Character Character
         {
@@ -74,7 +73,7 @@ namespace Alchemie.Models
             get { return quality_; }
             set
             {
-                if ("MABCDEF".Contains(char.ToUpper(value, CultureInfo.CurrentCulture)))
+                if ("MABCDEF".Contains(char.ToUpper(value, CultureInfo.CurrentCulture), StringComparison.CurrentCultureIgnoreCase))
                 {
                     quality_ = char.ToUpper(value, CultureInfo.CurrentCulture);
                     currentWirkung = _rezept.Wirkung[quality_];
@@ -100,7 +99,7 @@ namespace Alchemie.Models
 
         public bool IsSameBase(Rezept rezept)
         {
-            if (rezept != null)
+            if (rezept != null && _rezept.IsValid)
             {
                 return _rezept.ID == rezept.ID;
             }
@@ -168,19 +167,14 @@ namespace Alchemie.Models
 
         public static int CalculateLaborMod(LaborID RezeptLabor, LaborID CharLabor)
         {
-            switch (RezeptLabor - CharLabor)
+            return (RezeptLabor - CharLabor) switch
             {
-                case -2:
-                    return -3;
-                case -1:
-                    return 0;
-                case 0:
-                    return 0;
-                case +1:
-                    return +7;
-                default:
-                    return Int16.MaxValue;
-            }
+                -2 => -3,
+                -1 => 0,
+                0 => 0,
+                +1 => +7,
+                _ => Int16.MaxValue,
+            };
         }
     }
 }

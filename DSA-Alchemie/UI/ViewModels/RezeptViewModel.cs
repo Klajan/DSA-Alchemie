@@ -1,6 +1,7 @@
 ﻿using Alchemie.Core;
 using Alchemie.Models;
 using System.ComponentModel;
+using System;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -20,6 +21,7 @@ namespace Alchemie.UI.ViewModels
 
         public RezeptViewModel(Trank trank)
         {
+            if (trank == null) throw new ArgumentNullException(nameof(trank));
             rezept_ = trank.Rezept;
         }
 

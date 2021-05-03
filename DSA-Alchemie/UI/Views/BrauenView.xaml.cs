@@ -36,9 +36,10 @@ namespace Alchemie.UI.Views
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class ZurückhaltenCalculator : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object paramater, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values == null) throw new ArgumentNullException(nameof(values));
             if (values.Length >= 3 && values[0] is int mod && values[1] is LaborID lab1 && values[2] is LaborID lab2)
@@ -48,15 +49,16 @@ namespace Alchemie.UI.Views
             return 0;
         }
 
-        public object[] ConvertBack(object value, Type[] type, object paramater, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class AstralAufladenConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object paramater, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             if (values == null) throw new ArgumentNullException(nameof(values));
             if (!(values[0] is int)) { return 0; }
@@ -64,12 +66,13 @@ namespace Alchemie.UI.Views
             return Math.Max(0, System.Convert.ToInt32(Math.Min(Int32.MaxValue, Math.Round(Math.Pow(2, (int)values[0] - 1) / (values.Length > 1 ? (bool)values[1] ? 2.0 : 1.0 : 1.0), MidpointRounding.AwayFromZero))));
         }
 
-        public object[] ConvertBack(object value, Type[] type, object paramater, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class TotalModCalculator : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

@@ -1,11 +1,7 @@
 ﻿using Alchemie.Core;
 using Alchemie.Models;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -33,7 +29,7 @@ namespace Alchemie.UI.ViewModels
         #region Members
 
         private readonly App app_;
-        private Rezept rezept_ = new Rezept();
+        private Rezept rezept_ = new ();
 
         public delegate void RezeptChangedHandler(object sender, Rezept newRezept);
 
@@ -43,14 +39,14 @@ namespace Alchemie.UI.ViewModels
 
         public RezeptViewModel TestRezepte { get; set; }
 
-        private readonly ExtendedObserableCollection<string> rezepte_ = new ExtendedObserableCollection<string>();
+        private readonly ExtendedObserableCollection<string> rezepte_ = new ();
 
         public ExtendedObserableCollection<string> Rezepte
         {
             get { return rezepte_; }
         }
 
-        private readonly ExtendedObserableCollection<string> gruppen_ = new ExtendedObserableCollection<string>();
+        private readonly ExtendedObserableCollection<string> gruppen_ = new ();
 
         public ExtendedObserableCollection<string> Gruppen
         {
@@ -65,7 +61,7 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 selectedGruppe_ = value;
-                List<string> filtered = app_.RezepteDB.RezepteGruppen[selectedGruppe_];
+                var filtered = app_.RezepteDB.RezepteGruppen[selectedGruppe_];
                 rezepte_.Clear();
                 rezepte_.AddRange(filtered);
                 SelectedRezept = filtered[0];
@@ -81,14 +77,15 @@ namespace Alchemie.UI.ViewModels
             set
             {
                 selectedRezept_ = value;
-                Rezept rezept = app_.RezepteDB.Rezepte[selectedRezept_];
-                if (app_.Trank != null && !app_.Trank.IsSameBase(rezept))
+                rezept_ = app_.RezepteDB.Rezepte[selectedRezept_];
+                if (rezept_ != null && app_.Trank != null)
                 {
-                    app_.Trank.Rezept = rezept;
-                    rezept_ = rezept;
-                    Seite = rezept_.Seite;
-
-                    OnRezeptChanged.Invoke(this, rezept);
+                    if (!app_.Trank.IsSameBase(rezept_))
+                    {
+                        Seite = rezept_.Seite;
+                        app_.Trank.Rezept = rezept_;
+                        OnRezeptChanged.Invoke(this, rezept_);
+                    }
                 }
                 RaisePropertyChange();
             }
@@ -108,12 +105,13 @@ namespace Alchemie.UI.ViewModels
             Attach_Rezepte(DB.Gruppen, DB.RezepteGruppen[DB.AllKey]);
         }
 
-        public void Attach_Rezepte(List<string> gruppen, List<string> rezepte)
+        public void Attach_Rezepte(IReadOnlyList<string> gruppen, IReadOnlyList<string> rezepte)
         {
             gruppen_.AddRange(gruppen);
             rezepte_.AddRange(rezepte);
             SelectedGruppe = gruppen[0];
             SelectedRezept = rezepte[0];
+            Seite = (int)rezept_?.Seite;
         }
     }
 }

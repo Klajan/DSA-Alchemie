@@ -2,7 +2,138 @@
 
 namespace Alchemie.Models
 {
-    public struct Labor
+    public class Rezept
+    {
+        private static uint lastID;
+        internal uint ID { private set; get; }
+        internal bool IsValid { private set; get; }
+        public string Name { private set; get; }
+        public string Gruppe { private set; get; }
+        public Labor Labor { private set; get; }
+        public Probe Probe { private set; get; }
+        public string Verbreitung { set; get; }
+        public string Haltbarkeit { set; get; }
+        public Beschaffung Beschaffung { set; get; }
+        public string Preis { set; get; }
+        public string Rezeptur { set; get; }
+        public int Seite { set; get; }
+        public string Merkmale { set; get; }
+        public string Beschreibung { set; get; }
+        public string Meisterhinweise { set; get; }
+        public Wirkung Wirkung { set; get; }
+        public Rezept() { IsValid = false; }
+        public Rezept(string name, string group, string labor, (int brauen, int analyse) probe)
+        {
+            ID = lastID++;
+            this.Name = name;
+            this.Gruppe = group;
+            this.Probe = new Probe(probe.brauen, probe.analyse);
+            this.Labor = new Labor(labor);
+            IsValid = true;
+        }
+        public Rezept(Rezept prevRezept)
+        {
+            if (prevRezept != null)
+            {
+                this.ID = prevRezept.ID;
+                this.Name = prevRezept.Name;
+                this.Gruppe = prevRezept.Gruppe;
+                this.Labor = prevRezept.Labor;
+                this.Probe = prevRezept.Probe;
+                this.Verbreitung = prevRezept.Verbreitung;
+                this.Haltbarkeit = prevRezept.Haltbarkeit;
+                this.Beschaffung = prevRezept.Beschaffung;
+                this.Preis = prevRezept.Preis;
+                this.Wirkung = prevRezept.Wirkung;
+                this.Merkmale = prevRezept.Merkmale;
+                this.Seite = prevRezept.Seite;
+                this.IsValid = prevRezept.IsValid;
+            }
+        }
+    }
+
+    public struct Probe : IEquatable<Probe>
+    {
+        public Probe(int brauen, int analyse)
+        {
+            BrauenMod = brauen;
+            AnalyseMod = analyse;
+        }
+        public int BrauenMod { get; private set; }
+        public int AnalyseMod { get; private set; }
+
+        #region IEquatable
+        public override bool Equals(object obj)
+        {
+            return obj is Probe probe && Equals(probe);
+        }
+
+        public bool Equals(Probe other)
+        {
+            return BrauenMod == other.BrauenMod &&
+                   AnalyseMod == other.AnalyseMod;
+        }
+
+        public static bool operator ==(Probe left, Probe right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Probe left, Probe right)
+        {
+            return !(left == right);
+        }
+
+        public override int GetHashCode()
+        {
+
+            return HashCode.Combine(BrauenMod, AnalyseMod);
+        }
+        #endregion IEquatable
+    }
+
+    public struct Beschaffung : IEquatable<Beschaffung>
+    {
+        public Beschaffung(string preis, string verbreitung)
+        {
+            Preis = preis;
+            Verbreitung = verbreitung;
+        }
+        public string Preis { get; private set; }
+        public string Verbreitung { get; private set; }
+
+        #region IEquatable
+        public override bool Equals(object obj)
+        {
+            return obj is Beschaffung beschaffung && Equals(beschaffung);
+        }
+
+        public bool Equals(Beschaffung other)
+        {
+            return this.Preis == other.Preis &&
+                   this.Verbreitung == other.Verbreitung &&
+                   this.Preis == other.Preis &&
+                   this.Verbreitung == other.Verbreitung;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Preis, Verbreitung, Preis, Verbreitung);
+        }
+
+        public static bool operator ==(Beschaffung left, Beschaffung right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Beschaffung left, Beschaffung right)
+        {
+            return !(left == right);
+        }
+        #endregion IEquatable
+    }
+
+    public struct Labor : IEquatable<Labor>
     {
         public Labor(string labor)
         {
@@ -31,30 +162,37 @@ namespace Alchemie.Models
         }
         public string Name { get; private set; }
         public LaborID ID { get; private set; }
+
+        #region IEquatable
+        public override bool Equals(object obj)
+        {
+            return obj is Labor labor && Equals(labor);
+        }
+
+        public bool Equals(Labor other)
+        {
+            return Name == other.Name &&
+                   ID == other.ID;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Name, ID);
+        }
+
+        public static bool operator ==(Labor left, Labor right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Labor left, Labor right)
+        {
+            return !(left == right);
+        }
+        #endregion IEquatable
     }
 
-    public struct Probe
-    {
-        public Probe(int brauen, int analyse)
-        {
-            BrauenMod = brauen;
-            AnalyseMod = analyse;
-        }
-        public int BrauenMod { get; private set; }
-        public int AnalyseMod { get; private set; }
-    }
-    public struct Beschaffung
-    {
-        public Beschaffung(string preis, string verbreitung)
-        {
-            Preis = preis;
-            Verbreitung = verbreitung;
-        }
-        public string Preis { get; private set; }
-        public string Verbreitung { get; private set; }
-    }
-
-    public struct Wirkung
+    public struct Wirkung : IEquatable<Wirkung>
     {
         public Wirkung(string[] init)
         {
@@ -102,81 +240,57 @@ namespace Alchemie.Models
         public string E { get; private set; }
         public string F { get; private set; }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1043:Use Integral Or String Argument For Indexers", Justification = "Intended char Indexer")]
         public string this[char index]
         {
 
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case 'M':
-                        return M;
-                    case 'A':
-                        return A;
-                    case 'B':
-                        return B;
-                    case 'C':
-                        return C;
-                    case 'D':
-                        return D;
-                    case 'E':
-                        return E;
-                    case 'F':
-                        return F;
-                    default:
-                        return String.Empty;
-                }
+                    'M' => M,
+                    'A' => A,
+                    'B' => B,
+                    'C' => C,
+                    'D' => D,
+                    'E' => E,
+                    'F' => F,
+                    _ => String.Empty,
+                };
             }
         }
-    }
 
-    public class Rezept
-    {
-        private static uint lastID = 0;
-        internal uint ID { private set; get; }
-        internal bool IsValid { private set; get; }
-        public string Name { private set; get; }
-        public string Gruppe { private set; get; }
-        public Labor Labor { private set; get; }
-        public Probe Probe { private set; get; }
-        public string Verbreitung { set; get; }
-        public string Haltbarkeit { set; get; }
-        public Beschaffung Beschaffung { set; get; }
-        public string Preis { set; get; }
-        public string Rezeptur { set; get; }
-        public int Seite { set; get; }
-        public string Merkmale { set; get; }
-        public string Beschreibung { set; get; }
-        public string Meisterhinweise { set; get; }
-        public Wirkung Wirkung { set; get; }
-        public Rezept() { IsValid = false; }
-        public Rezept(string name, string group, string labor, (int brauen, int analyse) probe)
+        #region IEquatable
+        public bool Equals(Wirkung other)
         {
-            ID = lastID++;
-            this.Name = name;
-            this.Gruppe = group;
-            this.Probe = new Probe(probe.brauen, probe.analyse);
-            this.Labor = new Labor(labor);
-            IsValid = true;
+            return M == other.M &&
+            A == other.A &&
+            B == other.B &&
+            C == other.C &&
+            D == other.D &&
+            E == other.E &&
+            F == other.F;
         }
-        public Rezept(Rezept prevRezept)
+
+        public override int GetHashCode()
         {
-            if (prevRezept != null)
-            {
-                this.ID = prevRezept.ID;
-                this.Name = prevRezept.Name;
-                this.Gruppe = prevRezept.Gruppe;
-                this.Labor = prevRezept.Labor;
-                this.Probe = prevRezept.Probe;
-                this.Verbreitung = prevRezept.Verbreitung;
-                this.Haltbarkeit = prevRezept.Haltbarkeit;
-                this.Beschaffung = prevRezept.Beschaffung;
-                this.Preis = prevRezept.Preis;
-                this.Wirkung = prevRezept.Wirkung;
-                this.Merkmale = prevRezept.Merkmale;
-                this.Seite = prevRezept.Seite;
-                this.IsValid = prevRezept.IsValid;
-            }
+            return HashCode.Combine(M, A, B, C, D, E, F);
         }
+
+        public static bool operator ==(Wirkung left, Wirkung right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Wirkung left, Wirkung right)
+        {
+            return !(left == right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Wirkung wirkung && Equals(wirkung);
+        }
+        #endregion IEquatable
     }
 }

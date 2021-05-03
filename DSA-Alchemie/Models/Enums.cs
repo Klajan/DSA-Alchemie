@@ -1,11 +1,5 @@
 ﻿namespace Alchemie.Models
 {
-    public enum Animals
-    {
-        Dog = 1,
-        Cat = 2
-    }
-
     public enum LaborID : int
     {
         ArchaischesLabor = 0,

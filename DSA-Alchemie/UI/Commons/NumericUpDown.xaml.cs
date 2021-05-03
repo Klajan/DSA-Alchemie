@@ -7,9 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace Alchemie.UI
+namespace Alchemie.UI.Commons
 {
 #pragma warning disable IDE0038 // Use pattern matching
+
     /// <summary>
     /// Interaktionslogik für NumericUpDown.xaml
     /// </summary>
@@ -41,7 +42,7 @@ namespace Alchemie.UI
         }
 
         public static readonly DependencyProperty IsReadOnlyProperty =
-            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(NumericUpDown), new PropertyMetadata(false, PropertyChangedCallback_));
+            DependencyProperty.Register(nameof(IsReadOnly), typeof(bool), typeof(NumericUpDown), new PropertyMetadata(false, PropertyChangedCallback_));
 
         public Visibility ButtonVisibility
         {
@@ -50,18 +51,19 @@ namespace Alchemie.UI
         }
 
         public static readonly DependencyProperty ButtonVisibilityProperty =
-            DependencyProperty.Register("ButtonVisibility", typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Visible, PropertyChangedCallback_));
+            DependencyProperty.Register(nameof(ButtonVisibility), typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Visible, PropertyChangedCallback_));
 
-        private int value_;
+        private int intvalue_;
 
-        public int Value
+        [Browsable(true)]
+        public int IntValue
         {
-            get { return (int)this.GetValue(ValueProperty); }
-            set { this.SetValue(ValueProperty, value); }
+            get { return (int)this.GetValue(IntValueProperty); }
+            set { this.SetValue(IntValueProperty, value); }
         }
 
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(int), typeof(NumericUpDown), new PropertyMetadata(0, ValuePropertyChangedCallback_));
+        public static readonly DependencyProperty IntValueProperty =
+            DependencyProperty.Register(nameof(IntValue), typeof(int), typeof(NumericUpDown), new PropertyMetadata(0, IntValuePropertyChangedCallback_));
 
         public int Max
         {
@@ -70,7 +72,7 @@ namespace Alchemie.UI
         }
 
         public static readonly DependencyProperty MaxProperty =
-            DependencyProperty.Register("Max", typeof(int), typeof(NumericUpDown), new PropertyMetadata(Int32.MaxValue, MinMaxPropertyChangedCallback_));
+            DependencyProperty.Register(nameof(Max), typeof(int), typeof(NumericUpDown), new PropertyMetadata(Int32.MaxValue, MinMaxPropertyChangedCallback_));
 
         public int Min
         {
@@ -79,19 +81,19 @@ namespace Alchemie.UI
         }
 
         public static readonly DependencyProperty MinProperty =
-            DependencyProperty.Register("Min", typeof(int), typeof(NumericUpDown), new PropertyMetadata(Int32.MinValue, MinMaxPropertyChangedCallback_));
+            DependencyProperty.Register(nameof(Min), typeof(int), typeof(NumericUpDown), new PropertyMetadata(Int32.MinValue, MinMaxPropertyChangedCallback_));
 
         #endregion DependencyProperties
 
         public Func<int, int> IncreaseFunc { set; get; } = (value) => value + 1;
         public Func<int, int> DecreaseFunc { set; get; } = (value) => value - 1;
         public bool AllowCopyPaste { set; get; } = true;
-        public bool NotifyOnValueChanged { set; get; } = false;
+        public bool NotifyOnValueChanged { set; get; }
 
         #endregion Properties
 
-        private readonly Regex _regexFull = new Regex("([-]?[0-9]+)");
-        private readonly Regex _regexQuick = new Regex("^[-+]");
+        //private readonly Regex _regexFull = new Regex("([-]?[0-9]+)");
+        private readonly Regex _regexQuick = new ("^[-+]");
 
         private bool _handleTextChanged = true;
 
@@ -113,26 +115,26 @@ namespace Alchemie.UI
 
         #region CallbackMethods
 
-        private static void ValuePropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private static void IntValuePropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             NumericUpDown s = sender as NumericUpDown;
-            s.value_ = Math.Max(s.Min, Math.Min(s.Max, (int)e.NewValue));
+            s.intvalue_ = Math.Max(s.Min, Math.Min(s.Max, (int)e.NewValue));
 
             //var carret = s.textBox.CaretIndex;
 
             s._handleTextChanged = false;
-            s.textBox.Text = s.value_.ToString(CultureInfo.CurrentCulture);
+            s.TextBox.Text = s.intvalue_.ToString(CultureInfo.CurrentCulture);
             s._handleTextChanged = true;
 
             //s.textBox.CaretIndex = carret;
-            s.textBox.CaretIndex = s.textBox.Text.Length;
+            s.TextBox.CaretIndex = s.TextBox.Text.Length;
             if (s != null) { s.OnChanged(e); }
         }
 
         private static void MinMaxPropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             NumericUpDown s = sender as NumericUpDown;
-            s.Value = Math.Max(s.Min, Math.Min(s.Max, s.Value));
+            s.IntValue = Math.Max(s.Min, Math.Min(s.Max, s.IntValue));
             if (s != null) { s.OnChanged(e); }
         }
 
@@ -147,24 +149,21 @@ namespace Alchemie.UI
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!_handleTextChanged) return;
-            _handleTextChanged = false;
 
+            _handleTextChanged = false;
             TextBox origin = sender as TextBox;
             e.Handled = true;
-            string text = origin.Text;
-            Match _matchQuick = _regexQuick.Match(text);
-            if (text.Length == 0) { origin.Text = ""; }
-            else if (text.Length == 1 && _matchQuick.Success) { origin.Text = _matchQuick.Value; }
+            if (origin.Text.Length == 0) { origin.Text = ""; }
             else
             {
-                if (Int64.TryParse(text, out long value))
+                Match _matchQuick = _regexQuick.Match(origin.Text);
+                if (origin.Text.Length == 1 && _matchQuick.Success) { origin.Text = _matchQuick.Value; }
+                else if (Int32.TryParse(origin.Text, out int value))
                 {
-                    textBox.Text = value_.ToString(CultureInfo.CurrentCulture);
-                    Value = (int)Math.Max(Math.Min(value, Max), Min);
+                    IntValue = value;
                 }
-                else { origin.Text = value_.ToString(CultureInfo.CurrentCulture); }
+                else { origin.Text = intvalue_.ToString(CultureInfo.CurrentCulture); }
             }
-
             _handleTextChanged = true;
         }
 
@@ -174,7 +173,7 @@ namespace Alchemie.UI
         {
             if (IncreaseFunc != null)
             {
-                Value = IncreaseFunc(value_);
+                IntValue = IncreaseFunc(intvalue_);
             }
         }
 
@@ -182,49 +181,57 @@ namespace Alchemie.UI
         {
             if (DecreaseFunc != null)
             {
-                Value = DecreaseFunc(value_);
+                IntValue = DecreaseFunc(intvalue_);
             }
+        }
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 
     #region Converters
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class VisibilityToColumnConverter : IValueConverter
     {
-        public object Convert(object value, Type type, object paramater, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((Visibility)value == Visibility.Collapsed) { return new GridLength(0); }
             else { return new GridLength(1, GridUnitType.Star); }
         }
 
-        public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class VisibilityToWidthConverter : IValueConverter
     {
-        public object Convert(object value, Type type, object paramater, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if ((Visibility)value == Visibility.Collapsed) { return (double)0; }
             else { return (double)10; }
         }
 
-        public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]
     internal class BoolInverterConverter : IValueConverter
     {
-        public object Convert(object value, Type type, object paramater, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return !(bool)value;
         }
 
-        public object ConvertBack(object value, Type type, object paramater, CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return !(bool)value;
         }

@@ -6,7 +6,7 @@ namespace Alchemie.Models
     {
         private readonly int min;
         private readonly int max;
-        private static readonly Random rnd = new Random();
+        private static readonly Random rnd = new ();
 
         public int Min => min;
 
