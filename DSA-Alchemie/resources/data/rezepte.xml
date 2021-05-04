@@ -1194,6 +1194,15 @@
       <brauen>12</brauen>
       <analyse>18</analyse>
     </probe>
+    <wirkung>
+      <M>1, 3, 6, 7, 8, 9, 12, 13, 14, 15, 16, 17</M>
+      <A>Erzeugt Stichflamme (einmalig 2W6 SP Feuerschaden).</A>
+      <B>Siehe Hylailer Feuer. Durch höhere Brenntemperatur zusätzlich 1W6 Schaden pro Intervall. Instabil, neigt unverschlossen oder bei beschädigtem Verschluss zur Selbstentzündung (20 auf 1W20 bei Beschädigung sowie Schütteln oder Verladung des Gefäßes).</B>
+      <C>Siehe Hylailer Feuer / B. +1W6 Schaden pro Intervall. Instabil.</C>
+      <D>Siehe Hylailer Feuer / B. +1W6 Schaden pro Intervall. Instabil.</D>
+      <E>Siehe Hylailer Feuer / B. +1W6 Schaden pro Intervall. Instabil.</E>
+      <F>Siehe Hylailer Feuer / B. +1W6 Schaden pro Intervall. Instabil.</F>
+    </wirkung>
     <verbreitung>2</verbreitung>
     <merkmale>zähes, klebriges Öl mit dem Geruch von Schwefel</merkmale>
     <haltbarkeit>gut verschlossen einige Jahre</haltbarkeit>
@@ -1620,6 +1629,15 @@
       <brauen>10</brauen>
       <analyse>15</analyse>
     </probe>
+    <wirkung>
+      <M>Orientieren Sie sich an Boabungaha oder Purpurblitz.</M>
+      <A>Orientieren Sie sich an Boabungaha oder Purpurblitz.</A>
+      <B>Orientieren Sie sich an Boabungaha oder Purpurblitz.</B>
+      <C>Orientieren Sie sich an Boabungaha oder Purpurblitz.</C>
+      <D>Orientieren Sie sich an Boabungaha oder Purpurblitz.</D>
+      <E>Orientieren Sie sich an Boabungaha oder Purpurblitz.</E>
+      <F>Orientieren Sie sich an Boabungaha oder Purpurblitz.</F>
+    </wirkung>
     <verbreitung>1 (Berufsgeheimnis)</verbreitung>
     <merkmale>zwei verschiedene Substanzen, oft unscheinbare Flüssigkeiten oder Pulver, die in Mahlzeiten gerührt werden können oder mit der Haut aufgenommen.</merkmale>
     <haltbarkeit>in der Regel mehrere Jahre</haltbarkeit>
@@ -2104,6 +2122,15 @@
       <brauen>7</brauen>
       <analyse>4</analyse>
     </probe>
+    <wirkung>
+      <M>1, 5, 13, 18, 21, 35</M>
+      <A>Der Anwender verliert je nach Qualität und eigenem Alter altersbedingte Zipperlein, Schmerzen und Eigenschaftsmali, rein äußerliche Veränderungen wie Warzen, Altersflecken, Körperbehaarung, Haarfarbe, Falten und dergleichen. Der Gang wird aufrecht, die Bewegungen geschmeidiger. Die Wirkungsdauer des Elixiers beträgt 1 SR</A>
+      <B>Siehe A, Die Wirkungsdauer des Elixiers beträgt 1 Stunde</B>
+      <C>Siehe A, Die Wirkungsdauer des Elixiers beträgt 2 Stunden</C>
+      <D>Siehe A, Die Wirkungsdauer des Elixiers beträgt 3 Stunden</D>
+      <E>Siehe A, der Anwender auf dem Höhepunkt seiner körperlichen Leistungsfähigkeit, unter Beibehaltung aller im Laufe seines Lebens angeeigneten Kenntnisse und Erinnerungen. Die Wirkungsdauer des Elixiers beträgt 7 Stunden</E>
+      <F>Die hohe Dosierung bewirkt, dass der Anwender für die Dauer eines Tages in ein Kind von sieben Jahren zurückverwandelt wird – Körpergröße, Fertigkeiten und sogar Kenntnisse.</F>
+    </wirkung>
     <verbreitung>3</verbreitung>
     <merkmale>hellrosa Flüssigkeit, aromatischer Rosenduft</merkmale>
     <haltbarkeit>1W6 Jahre</haltbarkeit>
@@ -2472,6 +2499,15 @@
       <brauen>7</brauen>
       <analyse>18</analyse>
     </probe>
+    <wirkung>
+      <M>1, 3, 7, 8, 9, 10, 11, 12, 13, 14, 15, 40</M>
+      <A>An der Luft sickert das Mittel zu Boden und bildet rutschige Lachen.</A>
+      <B>Bei Luftkontakt sickert das Öl als geruchsloses, aber düsterrotes Gas in den Raum und verteilt sich, da schwerer als Luft, von oben herab gleichmäßig ausbreitend nach unten. Jeder Kontakt mit Feuer, Schwefel, Magie oder dämonischer Präsenz lässt das Gas zu einem klebrigem Rußfilm verklumpen, der das ganze Ziel einhüllt und hermetisch von der Luft abschneidet. Feuer erlöschen, Dämonen und andere fremdsphärische Wesenheiten werden von der Welt getrennt (nach Wirkungsgrad zwischen 1W6 und 5W6 KR lang je 1W6 Punkte Schaden; bei sich gerade manifestierenden Dämonen führt dies im Regelfall zur Beendigung der Manifestation) und bei Lebewesen werden alle Körperöffnungen verstopft (1W6 bis 5W6 KR lang Erstickungsschaden, siehe WdS 146).</B>
+      <C>Siehe B, 2W6 KR</C>
+      <D>Siehe B, 3W6 KR</D>
+      <E>Siehe B, 4W6 KR</E>
+      <F>Siehe B, 5W6 KR</F>
+    </wirkung>
     <verbreitung>3</verbreitung>
     <merkmale>schwarzrotes zähes Öl, stets handwarm und geruchlos</merkmale>
     <haltbarkeit>nahezu unbegrenzt</haltbarkeit>
