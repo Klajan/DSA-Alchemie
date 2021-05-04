@@ -17,7 +17,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Margin="5">
+        <Grid Grid.Column="0" Margin="0,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition MinHeight="25" />
                 <RowDefinition MinHeight="25" />
@@ -259,57 +259,266 @@
                 </ScrollViewer>
             </Border>
         </Grid>
-        <Grid Grid.Column="1" Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Border
-                Grid.Row="0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                BorderBrush="Black"
-                BorderThickness="1">
+        <TabControl Grid.Column="1" Background="Transparent">
+            <TabItem Background="Transparent" Header="Wirkungen [M-F]">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <TextBlock
-                        Margin="2"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Text="{Binding Rezeptur, Mode=OneWay}"
-                        TextWrapping="Wrap"
-                        ToolTip="Rezeptur" />
+                    <Grid
+                        Height="auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="M:"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="A:"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="B:"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="C:"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="D:"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="E:"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="6"
+                            Grid.Column="0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontWeight="Bold"
+                                Text="F:"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Wirkung.M, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Wirkung.A, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Wirkung.B, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Wirkung.C, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Wirkung.D, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Wirkung.E, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                        <Border
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Center"
+                            BorderBrush="Black"
+                            BorderThickness="1">
+                            <TextBlock
+                                Margin="2"
+                                Text="{Binding Wirkung.F, Mode=OneWay}"
+                                TextWrapping="Wrap" />
+                        </Border>
+                    </Grid>
                 </ScrollViewer>
-            </Border>
-            <Border
-                Grid.Row="1"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                BorderBrush="Black"
-                BorderThickness="1">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <TextBlock
-                        Margin="2"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Text="{Binding Beschreibung, Mode=OneWay}"
-                        TextWrapping="Wrap"
-                        ToolTip="Beschreibung" />
-                </ScrollViewer>
-            </Border>
-            <Border
-                Grid.Row="2"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                BorderBrush="Black"
-                BorderThickness="1">
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <TextBlock
-                        Margin="2"
-                        ScrollViewer.VerticalScrollBarVisibility="Auto"
-                        Text="{Binding Meisterhinweise, Mode=OneWay}"
-                        TextWrapping="Wrap"
-                        ToolTip="Meisterhinweise" />
-                </ScrollViewer>
-            </Border>
-        </Grid>
+            </TabItem>
+            <TabItem Background="Transparent" Header="Rezeptur/Meisterhinweise">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Grid.Row="0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock
+                                Margin="2"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                Text="{Binding Rezeptur, Mode=OneWay}"
+                                TextWrapping="Wrap"
+                                ToolTip="Rezeptur" />
+                        </ScrollViewer>
+                    </Border>
+                    <Border
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock
+                                Margin="2"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                Text="{Binding Beschreibung, Mode=OneWay}"
+                                TextWrapping="Wrap"
+                                ToolTip="Beschreibung" />
+                        </ScrollViewer>
+                    </Border>
+                    <Border
+                        Grid.Row="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        BorderBrush="Black"
+                        BorderThickness="1">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <TextBlock
+                                Margin="2"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                Text="{Binding Meisterhinweise, Mode=OneWay}"
+                                TextWrapping="Wrap"
+                                ToolTip="Meisterhinweise" />
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
+
+
     </Grid>
 </UserControl>

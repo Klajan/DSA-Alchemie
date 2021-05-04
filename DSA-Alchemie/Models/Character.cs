@@ -15,15 +15,14 @@ namespace Alchemie.Models
 
         private LaborID _labor = LaborID.ArchaischesLabor;
         private LaborQL _laborQuality = LaborQL.Normal;
-        public bool AllegorischeAnalyse { set; get; } = false;
+        private bool _chymischeHochzeit;
 
-        private bool _chymischeHochzeit = false;
-
-        public bool MandriconsBindung { set; get; } = false;
+        public bool AllegorischeAnalyse { set; get; }
+        public bool MandriconsBindung { set; get; }
         public bool UsingAlchemie { set; get; } = true;
 
-        public int AlchemieMH { set; get; } = 0;
-        public int KochenMH { set; get; } = 0;
+        public int AlchemieMH { set; get; }
+        public int KochenMH { set; get; }
 
         #endregion Members
 

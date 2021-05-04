@@ -1,4 +1,6 @@
-﻿namespace Alchemie.Models
+﻿using System;
+
+namespace Alchemie.Models
 {
     public enum LaborID : int
     {
@@ -21,6 +23,6 @@
         Gleichwertig = 0,
         Sinnvoll = +3,
         Möglich = +6,
-        Unsinnig = int.MaxValue
+        Unsinnig = Int16.MaxValue
     }
 }

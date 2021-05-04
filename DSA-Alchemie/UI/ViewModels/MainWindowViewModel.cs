@@ -80,7 +80,7 @@ namespace Alchemie.UI.ViewModels
             {
                 selectedRezept_ = value;
                 rezept_ = value == null ? null : app_.RezepteDB.Rezepte[selectedRezept_];
-                if (rezept_ != null && app_.Trank != null && !app_.Trank.IsSameBase(rezept_))
+                if (rezept_ != null && app_.Trank != null && !rezept_.Equals(app_.Trank.Rezept))
                 {
                     Seite = rezept_.Seite;
                     app_.Trank.Rezept = rezept_;

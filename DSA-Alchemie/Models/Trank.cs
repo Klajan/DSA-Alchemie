@@ -101,15 +101,6 @@ namespace Alchemie.Models
         public string CurrentWirkung { get => currentWirkung; }
         public string CurrentMerkmale { get => currentMerkmale; }
 
-        public bool IsSameBase(Rezept rezept)
-        {
-            if (rezept != null && _rezept.IsValid)
-            {
-                return _rezept.ID == rezept.ID;
-            }
-            return false;
-        }
-
         private int TalentProbe(int TaW, int mod, (int, int, int) stats)
         {
             int c1 = 0, c20 = 0;

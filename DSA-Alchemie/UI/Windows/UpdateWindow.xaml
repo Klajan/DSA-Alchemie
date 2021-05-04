@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Alchemie.UI.Windows"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Update Availabe!"
+    Title="Update!"
     KeyDown="Window_KeyDown"
     SizeToContent="WidthAndHeight"
     mc:Ignorable="d">
@@ -27,14 +27,14 @@
             Grid.ColumnSpan="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
-            Content="Update available!"
+            Content="Update verfügbar!"
             FontSize="20" />
         <Label
             Grid.Row="3"
             Grid.Column="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Content="Current Version:" />
+            Content="Aktuelle Version:" />
         <TextBlock
             Grid.Row="3"
             Grid.Column="1"
@@ -53,7 +53,7 @@
             Grid.Column="0"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Content="Available Version:" />
+            Content="Neuste Version:" />
         <TextBlock
             Grid.Row="2"
             Grid.Column="1"
@@ -67,7 +67,8 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <Hyperlink NavigateUri="{Binding Release.Url}" RequestNavigate="Hyperlink_RequestNavigate">
-                Get the Update here!
+                <TextBlock Text="Download " />
+                <TextBlock Text="{Binding Release.Tag}" />
             </Hyperlink>
         </TextBlock>
     </Grid>

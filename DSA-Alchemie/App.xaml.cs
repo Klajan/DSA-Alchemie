@@ -38,6 +38,13 @@ namespace Alchemie
 
         private void Initialize()
         {
+            if (Alchemie.Properties.Settings.Default.UpgradeRequired)
+            {
+                Alchemie.Properties.Settings.Default.Upgrade();
+                Alchemie.Properties.CharacterSave.Default.Upgrade();
+                Alchemie.Properties.Settings.Default.UpgradeRequired = false;
+                Alchemie.Properties.Settings.Default.Save();
+            }
             List<Rezept> rezepte = null;
             using (System.IO.Stream compressedXml = new System.IO.MemoryStream(Alchemie.Resources.Data.rezepte_xml),
                 compressedXsd = new System.IO.MemoryStream(Alchemie.Resources.Data.rezepte_xsd))
@@ -57,13 +64,6 @@ namespace Alchemie
         public App()
         {
             InitializeComponent();
-            if (Alchemie.Properties.Settings.Default.UpgradeRequired)
-            {
-                Alchemie.Properties.Settings.Default.Upgrade();
-                Alchemie.Properties.CharacterSave.Default.Upgrade();
-                Alchemie.Properties.Settings.Default.UpgradeRequired = false;
-                Alchemie.Properties.Settings.Default.Save();
-            }
             MainWindow = new MainWindow();
             MainWindow.Activate();
             MainWindow.Show();
