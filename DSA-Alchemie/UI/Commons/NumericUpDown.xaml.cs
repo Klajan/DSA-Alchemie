@@ -59,7 +59,7 @@ namespace Alchemie.UI.Commons
         public int IntValue
         {
             get { return (int)this.GetValue(IntValueProperty); }
-            set { this.SetValue(IntValueProperty, value); }
+            set { this.SetValue(IntValueProperty, Math.Clamp(value, Min, Max)); }
         }
 
         public static readonly DependencyProperty IntValueProperty =
@@ -68,7 +68,7 @@ namespace Alchemie.UI.Commons
         public int Max
         {
             get { return (int)this.GetValue(MaxProperty); }
-            set { this.SetValue(MaxProperty, value); }
+            set { this.SetValue(MaxProperty, Math.Max(Min, value)); }
         }
 
         public static readonly DependencyProperty MaxProperty =
@@ -77,7 +77,7 @@ namespace Alchemie.UI.Commons
         public int Min
         {
             get { return (int)this.GetValue(MinProperty); }
-            set { this.SetValue(MinProperty, value); }
+            set { this.SetValue(MinProperty, Math.Min(Max, value)); }
         }
 
         public static readonly DependencyProperty MinProperty =
@@ -93,7 +93,7 @@ namespace Alchemie.UI.Commons
         #endregion Properties
 
         //private readonly Regex _regexFull = new Regex("([-]?[0-9]+)");
-        private readonly Regex _regexQuick = new("^[-+]");
+        private readonly Regex _regexQuick = new("^[-+]", RegexOptions.Compiled);
 
         private bool _handleTextChanged = true;
 
@@ -118,7 +118,7 @@ namespace Alchemie.UI.Commons
         private static void IntValuePropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             NumericUpDown s = sender as NumericUpDown;
-            s.intvalue_ = Math.Max(s.Min, Math.Min(s.Max, (int)e.NewValue));
+            s.intvalue_ = Math.Clamp((int)e.NewValue, s.Min, s.Max);
 
             //var carret = s.textBox.CaretIndex;
 
@@ -134,7 +134,7 @@ namespace Alchemie.UI.Commons
         private static void MinMaxPropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             NumericUpDown s = sender as NumericUpDown;
-            s.IntValue = Math.Max(s.Min, Math.Min(s.Max, s.IntValue));
+            s.IntValue = Math.Clamp(s.IntValue, s.Min, s.Max);
             if (s != null) { s.OnChanged(e); }
         }
 
