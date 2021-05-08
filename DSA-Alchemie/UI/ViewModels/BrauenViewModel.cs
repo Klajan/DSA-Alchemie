@@ -198,6 +198,16 @@ namespace Alchemie.UI.ViewModels
             get => _trank.CurrentWirkung;
         }
 
+        public int TaPStarBrauen
+        {
+            get => _trank.TaPStarBrauen;
+        }
+
+        public string HaltbarkeitString
+        {
+            get => _trank.HaltbarkeitString;
+        }
+
         public char Quality
         {
             get => _trank.Quality;

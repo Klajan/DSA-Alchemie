@@ -262,20 +262,19 @@
         <TabControl Grid.Column="1" Background="Transparent">
             <TabItem Background="Transparent" Header="Wirkungen [M-F]">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <Grid
-                        Height="auto">
+                    <Grid Height="auto">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" MinHeight="25" />
+                            <RowDefinition Height="auto" MinHeight="25" />
+                            <RowDefinition Height="auto" MinHeight="25" />
+                            <RowDefinition Height="auto" MinHeight="25" />
+                            <RowDefinition Height="auto" MinHeight="25" />
+                            <RowDefinition Height="auto" MinHeight="25" />
+                            <RowDefinition Height="auto" MinHeight="25" />
                         </Grid.RowDefinitions>
                         <Border
                             Grid.Row="0"
@@ -379,7 +378,7 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Stretch"
                             BorderBrush="Black"
                             BorderThickness="1">
                             <TextBlock
@@ -391,7 +390,7 @@
                             Grid.Row="1"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Stretch"
                             BorderBrush="Black"
                             BorderThickness="1">
                             <TextBlock
@@ -403,7 +402,7 @@
                             Grid.Row="2"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Stretch"
                             BorderBrush="Black"
                             BorderThickness="1">
                             <TextBlock
@@ -415,7 +414,7 @@
                             Grid.Row="3"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Stretch"
                             BorderBrush="Black"
                             BorderThickness="1">
                             <TextBlock
@@ -427,7 +426,7 @@
                             Grid.Row="4"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Stretch"
                             BorderBrush="Black"
                             BorderThickness="1">
                             <TextBlock
@@ -439,7 +438,7 @@
                             Grid.Row="5"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Stretch"
                             BorderBrush="Black"
                             BorderThickness="1">
                             <TextBlock
@@ -451,7 +450,7 @@
                             Grid.Row="6"
                             Grid.Column="1"
                             HorizontalAlignment="Stretch"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Stretch"
                             BorderBrush="Black"
                             BorderThickness="1">
                             <TextBlock
