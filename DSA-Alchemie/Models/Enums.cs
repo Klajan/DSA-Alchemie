@@ -26,15 +26,15 @@ namespace Alchemie.Models
         Unsinnig = UInt16.MaxValue
     }
 
-    public enum Qualität
+    public enum Quality
     {
-        M = 'M',
-        A = 'A',
-        B = 'B',
-        C = 'C',
-        D = 'D',
-        E = 'E',
-        F = 'F',
-        None = 0
+        None = -1,
+        M = 0,
+        A = 1,
+        B = 2,
+        C = 3,
+        D = 4,
+        E = 5,
+        F = 6
     }
 }

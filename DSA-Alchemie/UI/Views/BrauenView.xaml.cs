@@ -21,7 +21,7 @@ namespace Alchemie.UI.Views
             Tuple.Create(Subsitution.Unsinnig, "Unsinnige Substitution")
         };
 
-        public static readonly char[] QualityTemplate = { 'M', 'A', 'B', 'C', 'D', 'E', 'F' };
+        public static readonly Quality[] QualityTemplate = Enum.GetValues<Quality>();
 
         public BrauenView()
         {

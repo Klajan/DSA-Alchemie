@@ -12,8 +12,8 @@ namespace Alchemie
 {
     public static class XmlHandler
     {
-        static readonly private Regex normalize1 = new(@"\r\n?|\n");
-        static readonly private Regex normalize2 = new(@"\s+");
+        static readonly private Regex normalize1 = new(@"\r\n?|\n", RegexOptions.CultureInvariant);
+        static readonly private Regex normalize2 = new(@"\s+", RegexOptions.CultureInvariant);
 
         static private string NormalizeStr(string input)
         {
@@ -80,11 +80,10 @@ namespace Alchemie
                     currentNode = NodeIterator.Current.SelectSingleNode("wirkung");
                     if (currentNode != null)
                     {
-                        char[] arr = { 'M', 'A', 'B', 'C', 'D', 'E', 'F' };
                         string[] wirk = new string[7];
                         for (int i = 0; i < 7; i++)
                         {
-                            wirk[i] = XmlHandler.NormalizeStr(currentNode.SelectSingleNode(arr[i].ToString(CultureInfo.CurrentCulture)).Value);
+                            wirk[i] = XmlHandler.NormalizeStr(currentNode.SelectSingleNode(((Quality)i).ToString()).Value);
                         }
                         rezept.Wirkung = new Wirkung(wirk);
                     }

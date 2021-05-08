@@ -392,7 +392,7 @@
                                 VerticalAlignment="Top"
                                 ScrollViewer.CanContentScroll="True"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                Text="{Binding HaltbarkeitString}"
+                                Text="{Binding ExpiryString}"
                                 TextWrapping="Wrap" />
                         </ScrollViewer>
                     </Border>

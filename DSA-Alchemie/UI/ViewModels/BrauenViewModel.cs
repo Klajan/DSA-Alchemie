@@ -203,12 +203,12 @@ namespace Alchemie.UI.ViewModels
             get => _trank.TaPStarBrauen;
         }
 
-        public string HaltbarkeitString
+        public string ExpiryString
         {
-            get => _trank.HaltbarkeitString;
+            get => _trank.ExpiryString;
         }
 
-        public char Quality
+        public Quality Quality
         {
             get => _trank.Quality;
             set

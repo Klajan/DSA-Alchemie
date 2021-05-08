@@ -70,29 +70,22 @@ namespace Alchemie.Models
             }
         }
 
-        private char _quality;
+        private Quality _quality = Quality.None;
 
-        public char Quality
+        public Quality Quality
         {
             get { return _quality; }
             set
             {
-                if ("MABCDEF".Contains(value, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    _quality = char.ToUpper(value, CultureInfo.CurrentCulture);
-                }
-                else
-                {
-                    _quality = '?';
-                }
+                _quality = value;
                 RaisePropertyChange();
                 RaisePropertyChange(nameof(CurrentWirkung));
-                RaisePropertyChange(nameof(CurrentMerkmale));
+                //RaisePropertyChange(nameof(CurrentMerkmale));
             }
         }
 
         public string CurrentWirkung { get => Rezept.Wirkung[_quality]; }
-        public string CurrentMerkmale { get => Rezept.Merkmale; }
+        //public string CurrentMerkmale { get => Rezept.Merkmale; }
 
         private int TalentProbe(int TaW, int mod, (int, int, int) stats)
         {
@@ -123,6 +116,11 @@ namespace Alchemie.Models
                 + Math.Max(EigenschaftDice[2] - stats.Item3 + (mod - TaW), 0))
                 );
             }
+        }
+
+        public static Quality ChangeQualityBy(Quality quality, int change)
+        {
+            return (Quality)Math.Clamp((int)quality + change, 0, 6);
         }
 
         public static int CalculateLaborMod(LaborID RezeptLabor, LaborID CharLabor)

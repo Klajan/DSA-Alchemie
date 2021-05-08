@@ -7,15 +7,22 @@ namespace Alchemie.Models
     {
         private int _expiryValue = -1;
 
-        public int HaltbarkeitValue
+        public int ExpiryValue
         {
             get { return _expiryValue; }
-            set { _expiryValue = value; RaisePropertyChange(); RaisePropertyChange(nameof(HaltbarkeitString)); }
+            set { _expiryValue = value; RaisePropertyChange(); RaisePropertyChange(nameof(ExpiryString)); }
         }
 
-        public string HaltbarkeitString { get => _rezept.Haltbarkeit.GetValueString(_expiryValue); }
+        public string ExpiryString { get => _rezept.Haltbarkeit.GetValueString(_expiryValue); }
 
-        public string HaltbarkeitFailedString;
+        private string _expiryFailedStr = String.Empty;
+
+        public string ExpiryFailedStr
+        {
+            get { return _expiryFailedStr; }
+            set { _expiryFailedStr = value; RaisePropertyChange(); }
+        }
+
 
         public void HaltbarkeitVerlängern()
         {
@@ -29,7 +36,8 @@ namespace Alchemie.Models
             int rest = TalentProbe(_character.AlchemieMH, 9, _character.AttributesAlchemie);
             if (rest >= 0)
             {
-                HaltbarkeitValue *= 2;
+                ExpiryValue *= 2;
+                ExpiryFailedStr = String.Empty;
             }
             else
             {
@@ -44,6 +52,9 @@ namespace Alchemie.Models
                         if (roll <= 8) return (0.0, -9, S5);
                         return (0.0, -9, S6);
                     })();
+                ExpiryValue = (int)Math.Round((double)ExpiryValue * result.Item1, MidpointRounding.AwayFromZero);
+                ExpiryFailedStr = result.Item3;
+                Quality = ChangeQualityBy(Quality, result.Item2);
             }
         }
     }
