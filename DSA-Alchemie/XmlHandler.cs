@@ -61,7 +61,7 @@ namespace Alchemie
                         NodeIterator.Current.SelectSingleNode("probe").SelectSingleNode("analyse").ValueAsInt))
                     {
                         Preis = NormalizeStr(NodeIterator.Current.SelectSingleNode("preis")?.Value),
-                        Haltbarkeit = NormalizeStr(NodeIterator.Current.SelectSingleNode("haltbarkeit")?.Value),
+                        Haltbarkeit = new(NormalizeStr(NodeIterator.Current.SelectSingleNode("haltbarkeit")?.Value)),
                         Verbreitung = NormalizeStr(NodeIterator.Current.SelectSingleNode("verbreitung")?.Value),
                         Rezeptur = NormalizeStr(NodeIterator.Current.SelectSingleNode("rezeptur")?.Value),
                         Merkmale = NormalizeStr(NodeIterator.Current.SelectSingleNode("merkmale")?.Value),
@@ -170,7 +170,7 @@ namespace Alchemie
                 }
                 createChild(node, "verbreitung", rezept.Verbreitung);
                 createChild(node, "merkmale", rezept.Merkmale);
-                createChild(node, "haltbarkeit", rezept.Haltbarkeit);
+                createChild(node, "haltbarkeit", rezept.Haltbarkeit.ToString());
                 createChild(node, "preis", rezept.Preis);
                 createChild(node, "seite", rezept.Seite.ToString(CultureInfo.CurrentCulture));
                 createChild(node, "meisterhinweise", rezept.Meisterhinweise);

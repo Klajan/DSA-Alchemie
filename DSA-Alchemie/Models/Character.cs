@@ -49,33 +49,17 @@ namespace Alchemie.Models
 
         #endregion Properties
 
-        public int TaW
-        {
-            get
-            {
-                if (UsingAlchemie)
-                {
-                    return Alchemie + AlchemieMH;
-                }
-                else
-                {
-                    return Kochen + KochenMH;
-                }
-            }
-        }
+        public int TaWAlchemie => Alchemie + AlchemieMH;
 
-        #region Construction
+        public int TaWKochen => Kochen + KochenMH;
 
-        public Character()
-        {
-        }
+        public int TaWAutomatic => UsingAlchemie ? TaWAlchemie : TaWKochen;
 
-        public Character(int mu1, int kl1, int ff1, int in1, int alchemie, int kochen, LaborID lab = LaborID.ArchaischesLabor, LaborQL labqual = LaborQL.Normal, bool usingAlch = true)
-        {
-            MU = mu1; KL = kl1; FF = ff1; IN = in1; Alchemie = alchemie; Kochen = kochen; Labor = lab; LaborQuality = labqual; UsingAlchemie = usingAlch;
-        }
+        public (int, int, int) AttributesAlchemie => (MU, KL, FF);
 
-        #endregion Construction
+        public (int, int, int) AttributesKochen => (KL, IN, FF);
+
+        public (int, int, int) AttributesAutomatic => UsingAlchemie ? AttributesAlchemie : AttributesKochen;
 
         #region Methods
 

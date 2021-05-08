@@ -33,7 +33,7 @@ namespace Alchemie.UI.Windows
             laborIN.SelectedIndex = (int)NewRezept.Labor.ID;
             propeIN_B.IntValue = NewRezept.Probe.BrauenMod; propeIN_A.IntValue = NewRezept.Probe.AnalyseMod;
             verbrIN.Text = NewRezept.Verbreitung ?? String.Empty;
-            haltbIN.Text = NewRezept.Haltbarkeit ?? String.Empty;
+            haltbIN.Text = NewRezept.Haltbarkeit.ToString() ?? String.Empty;
             merkmIN.Text = NewRezept.Merkmale ?? String.Empty;
             zutatenIN.Text = NewRezept.Rezeptur ?? String.Empty;
             seiteIN.IntValue = NewRezept.Seite;
@@ -54,7 +54,7 @@ namespace Alchemie.UI.Windows
             NewRezept = new Models.Rezept(nameIN.Text, gruppeIN.Text, laborIN.SelectedIndex.ToString(CultureInfo.CurrentCulture), (propeIN_B.IntValue, propeIN_A.IntValue))
             {
                 Verbreitung = verbrIN.Text.Length != 0 ? verbrIN.Text : null,
-                Haltbarkeit = haltbIN.Text.Length != 0 ? haltbIN.Text : null,
+                Haltbarkeit = haltbIN.Text.Length != 0 ? new(haltbIN.Text) : new(),
                 Merkmale = merkmIN.Text.Length != 0 ? merkmIN.Text : null,
                 Rezeptur = zutatenIN.Text.Length != 0 ? zutatenIN.Text : null,
                 Seite = seiteIN.IntValue,

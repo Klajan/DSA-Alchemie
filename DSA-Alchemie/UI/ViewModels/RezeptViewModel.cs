@@ -124,11 +124,11 @@ namespace Alchemie.UI.ViewModels
         {
             get
             {
-                return Rezept.Haltbarkeit;
+                return Rezept.Haltbarkeit.ToString();
             }
             set
             {
-                Rezept.Haltbarkeit = value;
+                Rezept.Haltbarkeit = new(value);
                 RaisePropertyChange();
             }
         }
