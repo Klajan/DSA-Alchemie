@@ -67,5 +67,13 @@ namespace Alchemie.Core
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Count)));
             OnPropertyChanged(new PropertyChangedEventArgs(nameof(Items)));
         }
+
+        public void RebuildWithRange(IEnumerable<T> collection)
+        {
+            if (collection == null) throw new ArgumentNullException(nameof(collection));
+            CheckReentrancy();
+            Items.Clear();
+            AddRange(collection);
+        }
     }
 }

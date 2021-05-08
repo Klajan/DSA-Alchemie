@@ -64,8 +64,7 @@ namespace Alchemie.UI.ViewModels
                 var rezeptGruppe = rezept_?.Gruppe;
                 var oldRezept = selectedRezept_;
                 var filtered = app_.RezepteDB.RezepteGruppen[selectedGruppe_];
-                rezepte_.Clear();
-                rezepte_.AddRange(filtered);
+                rezepte_.RebuildWithRange(filtered);
                 SelectedRezept = rezeptGruppe == selectedGruppe_ ? oldRezept : filtered[0];
                 RaisePropertyChange();
             }

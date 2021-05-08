@@ -59,7 +59,7 @@
             Grid.Column="1"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Text="{Binding Release.Tag, Mode=OneTime}" />
+            Text="{Binding Release.Version, Mode=OneTime}" />
         <TextBlock
             Grid.Row="4"
             Grid.Column="0"

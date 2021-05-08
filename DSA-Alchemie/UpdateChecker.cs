@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Alchemie
 {
@@ -14,7 +15,7 @@ namespace Alchemie
     {
         private static readonly HttpClient _client = new();
         private static readonly Version _version = Assembly.GetExecutingAssembly().GetName().Version;
-        public static string CurrentVersion { get => _version.ToString(); }
+        public static string CurrentVersion { get => _version.ToString(3); }
         private const string _owner = "Klajan";
         private const string _repo = "DSA-Alchemie";
         private static readonly Uri _gitAPIuri = new($"https://api.github.com/repos/{_owner}/{_repo}/releases", UriKind.Absolute);
@@ -29,6 +30,7 @@ namespace Alchemie
                     var version = Release.ParseVersion(release.Tag);
                     if (_version.CompareTo(version) < 0)
                     {
+                        release.Version = version;
                         return release;
                     }
                 }
@@ -47,10 +49,26 @@ namespace Alchemie
             var releases = await JsonSerializer.DeserializeAsync<List<Release>>(await streamTask.ConfigureAwait(false)).ConfigureAwait(false);
             return releases;
         }
+
+        public static async void ShowUpdateWindow()
+        {
+            Release release = await CheckUpdateAvailable().ConfigureAwait(false);
+            if (release != null)
+            {
+                await Application.Current.Dispatcher.BeginInvoke(
+                        System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(delegate
+                        {
+                            UI.Windows.UpdateWindow UpdateWindow = new(release);
+                            UpdateWindow.Show();
+                        }));
+            }
+        }
     }
 
     public class Release
     {
+        public Version Version { get; set; }
+
         [JsonPropertyName("id")]
         public int ID { get; set; }
 
@@ -74,8 +92,7 @@ namespace Alchemie
 
         public static Version ParseVersion(string version)
         {
-            Regex regex = new("([0-9]+.){2,3}([0-9]+)?");
-            var match = regex.Match(version);
+            var match = Regex.Match(version, "([0-9]+.){2,3}([0-9]+)?");
             if (match.Success)
             {
                 return Version.Parse(match.Value);
