@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -40,14 +41,15 @@ namespace Alchemie
         {
             InitializeComponent();
             MainWindow = new MainWindow();
+
+            var initTask = Task.Run(InitTask);
+            var updateTask = Task.Run(UpdateChecker.ShowUpdateWindow);
+
             MainWindow.Activate();
             MainWindow.Show();
-
-            var initTask = Task.Run(Initialize);
-            var updateTask = Task.Run(UpdateChecker.ShowUpdateWindow);
         }
 
-        private void Initialize()
+        private async void InitTask()
         {
             if (Alchemie.Properties.Settings.Default.UpgradeRequired)
             {
@@ -71,7 +73,7 @@ namespace Alchemie
             }
             trank_ = new Trank(rezepteDB_.Rezepte.First().Value, character_);
 
-            Application.Current.Dispatcher.BeginInvoke(
+            await Application.Current.Dispatcher.BeginInvoke(
                     System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate
                     {
                         (MainWindow as MainWindow).AttachRezepte(rezepteDB_);

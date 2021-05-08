@@ -22,7 +22,7 @@ namespace Alchemie
 
         public static async Task<Release> CheckUpdateAvailable()
         {
-            var releases = await GetReleasesAsync().ConfigureAwait(false);
+            var releases = await GetReleasesAsync().ConfigureAwait(true);
             foreach (Release release in releases)
             {
                 if (!release.Prerelease | Alchemie.Properties.Settings.Default.CheckForPrerelease)
@@ -46,13 +46,13 @@ namespace Alchemie
             _client.DefaultRequestHeaders.Add("User-Agent", ".NET DSA-Alchemie Update Checker");
 
             var streamTask = _client.GetStreamAsync(_gitAPIuri);
-            var releases = await JsonSerializer.DeserializeAsync<List<Release>>(await streamTask.ConfigureAwait(false)).ConfigureAwait(false);
+            var releases = await JsonSerializer.DeserializeAsync<List<Release>>(await streamTask.ConfigureAwait(true)).ConfigureAwait(true);
             return releases;
         }
 
         public static async void ShowUpdateWindow()
         {
-            Release release = await CheckUpdateAvailable().ConfigureAwait(false);
+            Release release = await CheckUpdateAvailable().ConfigureAwait(true);
             if (release != null)
             {
                 await Application.Current.Dispatcher.BeginInvoke(
