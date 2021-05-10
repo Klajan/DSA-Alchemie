@@ -37,14 +37,13 @@ namespace Alchemie.Models
             _character = other._character;
             _quality = other._quality;
             UseRNG = other.UseRNG;
-            EigenschaftDice = new ExtendedObserableCollection<int>(other.EigenschaftDice);
-            QualityDice = new ExtendedObserableCollection<int>(other.QualityDice);
+            BrauenEigenschaftDice = new ExtendedObserableCollection<int>(other.BrauenEigenschaftDice);
+            BrauenQualityDice = new ExtendedObserableCollection<int>(other.BrauenQualityDice);
         }
 
         #endregion Construction
 
         public bool UseRNG { get; set; } = true;
-        public ExtendedObserableCollection<int> EigenschaftDice { get; private set; } = new ExtendedObserableCollection<int>(new int[3] { 1, 1, 1 });
        
         private Rezept _rezept = new();
 
@@ -54,6 +53,7 @@ namespace Alchemie.Models
             set
             {
                 _rezept = value;
+                ResetToDefault();
                 RaisePropertyChange();
             }
         }
@@ -89,9 +89,9 @@ namespace Alchemie.Models
 
         private int TalentProbe(int TaW, int mod, (int, int, int) stats)
         {
-            if (UseRNG) EigenschaftDice.ReplaceRange(0, D20.Roll(3));
+            if (UseRNG) BrauenEigenschaftDice.ReplaceRange(0, D20.Roll(3));
             int c1 = 0, c20 = 0;
-            foreach (int num in EigenschaftDice)
+            foreach (int num in BrauenEigenschaftDice)
             {
                 if (num >= 20) { c20++; }
                 else if (num <= 1) { c1++; }
@@ -102,24 +102,32 @@ namespace Alchemie.Models
             {
                 return Math.Min(TaW,
                 TaW - mod
-                - (Math.Max(EigenschaftDice[0] - stats.Item1, 0)
-                + Math.Max(EigenschaftDice[1] - stats.Item2, 0)
-                + Math.Max(EigenschaftDice[2] - stats.Item3, 0))
+                - (Math.Max(BrauenEigenschaftDice[0] - stats.Item1, 0)
+                + Math.Max(BrauenEigenschaftDice[1] - stats.Item2, 0)
+                + Math.Max(BrauenEigenschaftDice[2] - stats.Item3, 0))
                 );
             }
             else
             {
                 return Math.Min(TaW,
                 0
-                - (Math.Max(EigenschaftDice[0] - stats.Item1 + (mod - TaW), 0)
-                + Math.Max(EigenschaftDice[1] - stats.Item2 + (mod - TaW), 0)
-                + Math.Max(EigenschaftDice[2] - stats.Item3 + (mod - TaW), 0))
+                - (Math.Max(BrauenEigenschaftDice[0] - stats.Item1 + (mod - TaW), 0)
+                + Math.Max(BrauenEigenschaftDice[1] - stats.Item2 + (mod - TaW), 0)
+                + Math.Max(BrauenEigenschaftDice[2] - stats.Item3 + (mod - TaW), 0))
                 );
             }
         }
 
+        private void ResetToDefault()
+        {
+            ResetBrauen();
+            ResetHaltbarkeit();
+            Quality = Quality.None;
+        }
+
         public static Quality ChangeQualityBy(Quality quality, int change)
         {
+            if (quality == Quality.None) return Quality.None;
             return (Quality)Math.Clamp((int)quality + change, 0, 6);
         }
 

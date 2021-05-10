@@ -124,10 +124,16 @@ namespace Alchemie.Models
             }
         }
 
-        public Labor(LaborID labor) : this(labor.ToString()) { }
+        public Labor(LaborID labor) : this(((int)labor).ToString()) { }
 
         public readonly string Name { get; }
         public readonly LaborID ID { get; }
+
+        public LaborID ToLaborID() => ID;
+        public override string ToString() => Name;
+
+        public static implicit operator LaborID(Labor labor) => labor.ID; 
+        public static implicit operator string(Labor labor) => labor.Name;
 
         #region IEquatable
 
@@ -291,10 +297,12 @@ namespace Alchemie.Models
 
     public readonly struct Haltbarkeit : IEquatable<Haltbarkeit>
     {
-        private static readonly Regex _regex = new("^(?'A'.*?)(?'dice'(?'count'\\d+)?[WD](?'sides'\\d+)(?'add'[+-]?\\d+)?)(?'B'.+?)$", RegexOptions.Compiled & RegexOptions.IgnoreCase);
+        // Regex to match a string like 2W6+6 Monate
+        private static readonly Regex _regex = new(@"^(?'first'.*?)(?:(?'count'\d+)?[wd](?'sides'\d+)(?'add'[+-]?\d+)?)(?'second'(?:.*?(?'time'(?>tag\(?e?\)?)|(?>woche\(?n?\)?)|(?>monat\(?e?\)?)|(?>jahr\(?e?\)?)).*?)|.+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
-        private readonly string A;
-        private readonly string B;
+        private readonly string _a;
+        private readonly string _b;
+        private readonly string _timeUnit;
         public readonly string FullText { get; }
         public readonly ComplexDice Dice { get; }
         private readonly bool _parsed;
@@ -302,7 +310,7 @@ namespace Alchemie.Models
         public Haltbarkeit(string input)
         {
             _parsed = false;
-            A = B = String.Empty;
+            _a = _b = _timeUnit = String.Empty;
             int count = 1;
             int sides = 1;
             int add = 0;
@@ -323,17 +331,30 @@ namespace Alchemie.Models
                 {
                     _parsed &= Int32.TryParse(group.Value, out add);
                 }
-                if (m.Groups.TryGetValue("A", out group) && group.Success)
+                if (m.Groups.TryGetValue("first", out group) && group.Success)
                 {
-                    A = group.Value;
+                    _a = group.Value;
                 }
-                if (m.Groups.TryGetValue("B", out group) && group.Success)
+                if (m.Groups.TryGetValue("second", out group) && group.Success)
                 {
-                    B = group.Value;
+                    _b = group.Value;
+                }
+                if(m.Groups.TryGetValue("time", out group) && group.Success)
+                {
+                    _timeUnit = Regex.Replace(group.Value, @"\W", String.Empty);
                 }
             }
             if (_parsed) { Dice = new ComplexDice(1, sides, count, add); }
             else { Dice = new ComplexDice(); }
+        }
+
+        public Haltbarkeit(ComplexDice dice, string timeUnit)
+        {
+            _a = _b = FullText = String.Empty;
+            _timeUnit = timeUnit;
+            Dice = dice;
+            FullText = String.Concat(dice.ToString(), ' ', timeUnit);
+            _parsed = true;
         }
 
         public int GetValue()
@@ -343,12 +364,21 @@ namespace Alchemie.Models
 
         public string GetValueStringRandom()
         {
-            return _parsed ? String.Concat(A, Dice.Roll(), B) : String.Empty;
+            return GetValueString(Dice.Roll());
         }
 
         public string GetValueString(int num)
         {
-            return _parsed && num >= 0 ? String.Concat(A, num, B) : String.Empty;
+            return _parsed && num >= 0 ? String.Concat(_a, num, _b) : String.Empty;
+        }
+
+        public string GetTimeSpanString(int num)
+        {
+            return _parsed && num >= 0 ?
+                String.Concat(num, ' ' , _timeUnit.Length == 0 ? _b :
+                num != 1 ? _timeUnit :
+                _timeUnit[0..^1]) :
+                String.Empty;
         }
 
         public bool IsParsed() => _parsed;

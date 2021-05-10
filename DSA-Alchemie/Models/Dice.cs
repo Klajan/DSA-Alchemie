@@ -50,6 +50,11 @@ namespace Alchemie.Models
             }
         }
 
+        public override string ToString()
+        {
+            return String.Concat("W", Max);
+        }
+
         #region IEquatable
 
         public bool Equals(Dice other)
@@ -111,9 +116,9 @@ namespace Alchemie.Models
         {
             values = new int[Count];
             int res = Add;
-            for (int i = 0, v = 0; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
-                v = Dice.Roll();
+                int v = Dice.Roll();
                 res += v;
                 values[i] = v;
             }
@@ -131,6 +136,11 @@ namespace Alchemie.Models
                 values.Add(t);
             }
             return res;
+        }
+
+        public override string ToString()
+        {
+            return String.Concat(Count, Dice.ToString(), Add != 0 ? Add.ToString("+#;-#") : String.Empty);
         }
 
         #region IEquatable
