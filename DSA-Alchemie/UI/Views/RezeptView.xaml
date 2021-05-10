@@ -143,7 +143,7 @@
                         Margin="2"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        Text="{Binding Labor.Name, Mode=OneWay}"
+                        Text="{Binding Labor, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </ScrollViewer>
             </Border>

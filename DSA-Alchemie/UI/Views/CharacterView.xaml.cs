@@ -29,7 +29,7 @@ namespace Alchemie.UI.Views
 
         public static readonly Tuple<LaborID, string>[] LabLevelList = new Tuple<LaborID, string>[]
         {
-            Tuple.Create(LaborID.ArchaischesLabor, "Archaisches Labor"),
+            Tuple.Create(LaborID.ArchaischesLabor, "archaisches Labor"),
             Tuple.Create(LaborID.Hexenküche, "Hexenküche"),
             Tuple.Create(LaborID.Alchemielabor, "Alchimistenlabor")
         };

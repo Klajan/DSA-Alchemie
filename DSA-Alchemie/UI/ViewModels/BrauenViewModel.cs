@@ -82,7 +82,6 @@ namespace Alchemie.UI.ViewModels
             get { return _trank.UseRNG; }
             set
             {
-                //_useRNG = value;
                 _trank.UseRNG = value;
                 RaisePropertyChange();
             }
@@ -158,14 +157,14 @@ namespace Alchemie.UI.ViewModels
             }
         }
 
-        public ExtendedObserableCollection<int> EigenschaftDice
+        public ExtendedObserableCollection<int> BrauenEigenschaftDice
         {
-            get => _trank.EigenschaftDice;
+            get => _trank.BrauenEigenschaftDice;
         }
 
-        public ExtendedObserableCollection<int> QualityDice
+        public ExtendedObserableCollection<int> BrauenQualityDice
         {
-            get => _trank.QualityDice;
+            get => _trank.BrauenQualityDice;
         }
 
         public LaborID Labor
