@@ -2,6 +2,7 @@
 using Alchemie.Models;
 using System.ComponentModel;
 using System.Windows.Input;
+using Alchemie.Models.Types;
 
 namespace Alchemie.UI.ViewModels
 {

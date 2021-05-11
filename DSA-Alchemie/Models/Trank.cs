@@ -1,6 +1,7 @@
 ﻿using Alchemie.Core;
 using System;
 using System.Globalization;
+using Alchemie.Models.Types;
 
 namespace Alchemie.Models
 {

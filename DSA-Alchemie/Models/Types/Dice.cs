@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Alchemie.Core;
 
-namespace Alchemie.Models
+namespace Alchemie.Models.Types
 {
     public readonly struct Dice : IEquatable<Dice>
     {

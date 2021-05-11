@@ -4,6 +4,7 @@ using System;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Alchemie.Models.Types;
 
 namespace Alchemie.UI.Views
 {

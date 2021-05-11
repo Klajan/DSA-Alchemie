@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Alchemie.Models
+namespace Alchemie.Models.Types
 {
     public enum LaborID
     {

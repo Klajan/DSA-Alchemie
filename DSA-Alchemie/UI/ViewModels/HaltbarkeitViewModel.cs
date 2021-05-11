@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Alchemie.Core;
 using Alchemie.Models;
+using Alchemie.Models.Types;
 
 namespace Alchemie.UI.ViewModels
 {

@@ -1,4 +1,5 @@
 ﻿using Alchemie.Core;
+using Alchemie.Models.Types;
 
 namespace Alchemie.Models
 {

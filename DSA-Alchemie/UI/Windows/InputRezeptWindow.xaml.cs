@@ -3,6 +3,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
+using Alchemie.Models.Types;
 
 namespace Alchemie.UI.Windows
 {
@@ -11,7 +12,7 @@ namespace Alchemie.UI.Windows
     /// </summary>
     public partial class InputRezeptWindow : Window
     {
-        public Models.Rezept NewRezept { private set; get; }
+        public Rezept NewRezept { private set; get; }
         private Wirkung wirkung;
 
         public InputRezeptWindow()
@@ -19,9 +20,9 @@ namespace Alchemie.UI.Windows
             InitializeComponent();
         }
 
-        public InputRezeptWindow(Models.Rezept rezept)
+        public InputRezeptWindow(Rezept rezept)
         {
-            NewRezept = new Models.Rezept(rezept);
+            NewRezept = new Rezept(rezept);
             Set();
             InitializeComponent();
         }
