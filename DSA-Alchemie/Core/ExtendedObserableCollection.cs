@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Alchemie.Core
 {
-    public class ExtendedObserableCollection<T> : ObservableCollection<T>
+    public class ExtendedObserableCollection<T> : ObservableCollection<T>, IExtendedCollection<T>
     {
         public ExtendedObserableCollection() : base()
         {
