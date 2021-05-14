@@ -91,8 +91,8 @@ namespace Alchemie.Models.Types
         public readonly int Count { get; }
         public readonly int Add { get; }
 
-        public int MinRoll { get => Dice.Min * Count + Add; }
-        public int MaxRoll { get => Dice.Max * Count + Add; }
+        public int Min { get => Dice.Min * Count + Add; }
+        public int Max { get => Dice.Max * Count + Add; }
 
         public ComplexDice(int min, int max, int count = 1, int add = 0)
         {
@@ -140,7 +140,7 @@ namespace Alchemie.Models.Types
 
         public override string ToString()
         {
-            return String.Concat(Count, Dice.ToString(), Add != 0 ? Add.ToString("+#;-#") : String.Empty);
+            return String.Concat(Count > 1 ? Count : String.Empty, Dice.ToString(), Add != 0 ? Add.ToString("+#;-#") : String.Empty);
         }
 
         #region IEquatable

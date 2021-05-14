@@ -11,11 +11,11 @@ namespace Alchemie.Models.Types
     public readonly struct Haltbarkeit : IEquatable<Haltbarkeit>
     {
         // Regex to match a string like 2W6+6 Monate
-        private static readonly Regex _regex = new(@"^(?'first'.*?)(?:(?'count'\d+)?[wd](?'sides'\d+)(?'add'[+-]?\d+)?)(?'second'(?:.*?(?'time'(?>tag\(?e?\)?)|(?>woche\(?n?\)?)|(?>monat\(?e?\)?)|(?>jahr\(?e?\)?)).*?)|.+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        private static readonly Regex _parserRegex = new(@"^(?'first'.*?)(?:(?'count'\d+)?[wd](?'sides'\d+)(?'add'[+-]?\d+)?)(?'second'(?:.*?(?'time'(?>tag\(?e?\)?)|(?>woche\(?n?\)?)|(?>monat\(?e?\)?)|(?>jahr\(?e?\)?)).*?)|.+)$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
         private readonly string _a;
         private readonly string _b;
-        private readonly string _timeUnit;
+        public readonly string TimeUnit { get; }
         public readonly string FullText { get; }
         public readonly ComplexDice Dice { get; }
         private readonly bool _parsed;
@@ -23,12 +23,12 @@ namespace Alchemie.Models.Types
         public Haltbarkeit(string input)
         {
             _parsed = false;
-            _a = _b = _timeUnit = String.Empty;
+            _a = _b = TimeUnit = String.Empty;
             int count = 1;
             int sides = 1;
             int add = 0;
             FullText = input;
-            Match m = _regex.Match(input);
+            Match m = _parserRegex.Match(input);
             if (m.Success)
             {
                 Group group;
@@ -54,7 +54,7 @@ namespace Alchemie.Models.Types
                 }
                 if(m.Groups.TryGetValue("time", out group) && group.Success)
                 {
-                    _timeUnit = Regex.Replace(group.Value, @"\W", String.Empty);
+                    TimeUnit = Regex.Replace(group.Value, @"\W", String.Empty);
                 }
             }
             if (_parsed) { Dice = new ComplexDice(1, sides, count, add); }
@@ -64,11 +64,14 @@ namespace Alchemie.Models.Types
         public Haltbarkeit(ComplexDice dice, string timeUnit)
         {
             _a = _b = FullText = String.Empty;
-            _timeUnit = timeUnit;
+            TimeUnit = timeUnit;
             Dice = dice;
             FullText = String.Concat(dice.ToString(), ' ', timeUnit);
             _parsed = true;
         }
+
+        public int MaxValue => _parsed ? Dice.Max : Int32.MaxValue;
+        public int MinValue => _parsed ? Dice.Min : Int32.MinValue;
 
         public int GetValue()
         {
@@ -88,9 +91,9 @@ namespace Alchemie.Models.Types
         public string GetTimeSpanString(int num)
         {
             return _parsed && num >= 0 ?
-                String.Concat(num, ' ' , _timeUnit.Length == 0 ? _b :
-                num != 1 ? _timeUnit :
-                _timeUnit[0..^1]) :
+                String.Concat(num, ' ' , TimeUnit.Length == 0 ? _b :
+                num != 1 ? TimeUnit :
+                TimeUnit[0..^1]) :
                 String.Empty;
         }
 

@@ -1,7 +1,6 @@
 ﻿using Alchemie.Core;
-using System;
-using System.Globalization;
 using Alchemie.Models.Types;
+using System;
 
 namespace Alchemie.Models
 {
@@ -44,8 +43,14 @@ namespace Alchemie.Models
 
         #endregion Construction
 
-        public bool UseRNG { get; set; } = true;
-       
+        private bool _useRNG = true;
+
+        public bool UseRNG
+        {
+            get => _useRNG;
+            set { _useRNG = value; RaisePropertyChange(); }
+        }
+
         private Rezept _rezept = new();
 
         public Rezept Rezept
@@ -72,7 +77,7 @@ namespace Alchemie.Models
         }
 
         private Quality _quality = Quality.None;
-
+        
         public Quality Quality
         {
             get { return _quality; }
@@ -88,11 +93,13 @@ namespace Alchemie.Models
         public string CurrentWirkung { get => Rezept.Wirkung[_quality]; }
         //public string CurrentMerkmale { get => Rezept.Merkmale; }
 
-        private int TalentProbe(int TaW, int mod, (int, int, int) stats)
+        private int TalentProbe(int TaW, int mod, (int, int, int) stats, IExtendedCollection<int> DiceCollection = null)
         {
-            if (UseRNG) BrauenEigenschaftDice.ReplaceRange(0, D20.Roll(3));
+            IExtendedCollection<int> dice = DiceCollection;
+            if (dice == null) dice = new ExtendedCollection<int>(3);
+            if (UseRNG || DiceCollection == null) dice.ReplaceRange(0, D20.Roll(3));
             int c1 = 0, c20 = 0;
-            foreach (int num in BrauenEigenschaftDice)
+            foreach (int num in dice)
             {
                 if (num >= 20) { c20++; }
                 else if (num <= 1) { c1++; }
@@ -103,20 +110,30 @@ namespace Alchemie.Models
             {
                 return Math.Min(TaW,
                 TaW - mod
-                - (Math.Max(BrauenEigenschaftDice[0] - stats.Item1, 0)
-                + Math.Max(BrauenEigenschaftDice[1] - stats.Item2, 0)
-                + Math.Max(BrauenEigenschaftDice[2] - stats.Item3, 0))
+                - (Math.Max(dice[0] - stats.Item1, 0)
+                + Math.Max(dice[1] - stats.Item2, 0)
+                + Math.Max(dice[2] - stats.Item3, 0))
                 );
             }
             else
             {
                 return Math.Min(TaW,
                 0
-                - (Math.Max(BrauenEigenschaftDice[0] - stats.Item1 + (mod - TaW), 0)
-                + Math.Max(BrauenEigenschaftDice[1] - stats.Item2 + (mod - TaW), 0)
-                + Math.Max(BrauenEigenschaftDice[2] - stats.Item3 + (mod - TaW), 0))
+                - (Math.Max(dice[0] - stats.Item1 + (mod - TaW), 0)
+                + Math.Max(dice[1] - stats.Item2 + (mod - TaW), 0)
+                + Math.Max(dice[2] - stats.Item3 + (mod - TaW), 0))
                 );
             }
+        }
+
+        private static void ResetCollection(IExtendedCollection<int> collection, int initializer = 1)
+        {
+            int[] ar = new int[collection.Count];
+            for (int i = 0; i < collection.Count; i++)
+            {
+                ar[i] = initializer;
+            }
+            collection.ReplaceRange(0, ar);
         }
 
         private void ResetToDefault()
