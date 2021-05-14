@@ -360,7 +360,7 @@
                 DisplayMemberPath="Item2"
                 IsReadOnly="True"
                 IsSynchronizedWithCurrentItem="True"
-                ItemsSource="{x:Static local:CharacterView.LabLevelList}"
+                ItemsSource="{x:Static local:Templates.LabLevelList}"
                 SelectedIndex="{Binding Labor, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=0, Converter={StaticResource LabLevelIndexConverter}}" />
             <ComboBox
                 x:Name="LaborQuality"
@@ -371,7 +371,7 @@
                 DisplayMemberPath="Item2"
                 IsReadOnly="True"
                 IsSynchronizedWithCurrentItem="True"
-                ItemsSource="{x:Static local:CharacterView.LabQualityList}"
+                ItemsSource="{x:Static local:Templates.LabQualityList}"
                 SelectedIndex="{Binding LaborQuality, NotifyOnSourceUpdated=True, Mode=TwoWay, FallbackValue=1, Converter={StaticResource LabQualityIndexConverter}}" />
         </Grid>
     </Grid>

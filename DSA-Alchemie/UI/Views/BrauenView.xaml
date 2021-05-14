@@ -198,7 +198,7 @@
                     VerticalContentAlignment="Center"
                     DisplayMemberPath="Item2"
                     IsReadOnly="True"
-                    ItemsSource="{x:Static local:BrauenView.SubstitutionTemplate}"
+                    ItemsSource="{x:Static local:Templates.SubstitutionList}"
                     SelectedIndex="1"
                     SelectedValue="{Binding Subsitution, Mode=OneWayToSource, FallbackValue=0}"
                     SelectedValuePath="Item1" />
@@ -313,7 +313,7 @@
                     Grid.Column="1"
                     VerticalContentAlignment="Center"
                     IsEditable="False"
-                    ItemsSource="{x:Static local:BrauenView.QualityTemplate}"
+                    ItemsSource="{x:Static local:Templates.QualityList}"
                     SelectedValue="{Binding Quality}" />
                 <Label
                     Grid.Row="0"
@@ -392,7 +392,7 @@
                                 VerticalAlignment="Top"
                                 ScrollViewer.CanContentScroll="True"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                Text="{Binding ExpiryString}"
+                                Text="{Binding ExpiryBaseString}"
                                 TextWrapping="Wrap" />
                         </ScrollViewer>
                     </Border>

@@ -13,17 +13,6 @@ namespace Alchemie.UI.Views
     /// </summary>
     public partial class BrauenView : UserControl
     {
-        public static readonly Tuple<Subsitution, string>[] SubstitutionTemplate = new Tuple<Subsitution, string>[]
-        {
-            Tuple.Create(Subsitution.Optimierend, "(-3) Optimierende Substitution" ),
-            Tuple.Create(Subsitution.Gleichwertig, "(+0) Gleichwertige Substitution"),
-            Tuple.Create(Subsitution.Sinnvoll, "(+3) Sinnvolle Substitution"),
-            Tuple.Create(Subsitution.Möglich, "(+6) Mögliche Substitution"),
-            Tuple.Create(Subsitution.Unsinnig, "Unsinnige Substitution")
-        };
-
-        public static readonly Quality[] QualityTemplate = Enum.GetValues<Quality>();
-
         public BrauenView()
         {
             InitializeComponent();
