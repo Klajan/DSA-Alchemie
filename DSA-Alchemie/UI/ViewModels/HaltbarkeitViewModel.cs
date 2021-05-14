@@ -13,13 +13,17 @@ namespace Alchemie.UI.ViewModels
 {
     public class HaltbarkeitViewModel : ObservableObject
     {
+        public HaltbarkeitViewModel()
+        {
+            ExtendHaltbarkeitCommand = new RelayCommand(o => _trank.HaltbarkeitVerlängern(), o => { return _trank.Quality > Quality.M; });
+        }
 
-        public HaltbarkeitViewModel(Trank trank)
+        public HaltbarkeitViewModel(Trank trank) : this()
         {
             _trank = trank;
         }
 
-        public ICommand HaltbarkeitCommand { set; get; }
+        public ICommand ExtendHaltbarkeitCommand { set; get; }
 
         private void HaltbarkeitViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -39,7 +43,7 @@ namespace Alchemie.UI.ViewModels
             }
         }
 
-        private Trank _trank;
+        private Trank _trank = new Trank();
 
         public Trank Trank
         {
@@ -56,29 +60,57 @@ namespace Alchemie.UI.ViewModels
             }
         }
 
-        public int ExpiryValue
+        private bool _expiryIsReadOnly = true;
+
+        public bool ExpiryIsReadonly
         {
-            get => _trank.ExpiryValue;
+            get { return _expiryIsReadOnly; }
+            set { _expiryIsReadOnly = value; RaisePropertyChange(); RaisePropertyChange(nameof(ExpiryValueMax)); RaisePropertyChange(nameof(ExpiryValueMin)); }
+        }
+
+        public int ExpiryFailRoll
+        {
+            get => _trank.ExpiryFailRoll;
+        }
+
+        public int ExpiryBaseValue
+        {
+            get => _trank.ExpiryBaseValue;
         }
 
         public int ExpiryValueMax
         {
-            get => _trank.Rezept.Haltbarkeit.Dice.MaxRoll;
+            get => !_expiryIsReadOnly ? _trank.Rezept.Haltbarkeit.MaxValue : Int32.MaxValue;
         }
         
         public int ExpiryValueMin
         {
-            get => _trank.Rezept.Haltbarkeit.Dice.MinRoll;
+            get => !_expiryIsReadOnly ? _trank.Rezept.Haltbarkeit.MinValue : Int32.MinValue;
         }
 
-        public string ExpiryString
+        public int TaPStarHaltbarkeit
         {
-            get => _trank.ExpiryString;
+            get => _trank.TaPStarHaltbarkeit;
         }
 
-        public string ExpiryFailedStr
+        public string ExpiryBaseString
         {
-            get => _trank.ExpiryFailedStr;
+            get => _trank.ExpiryBaseString;
+        }
+
+        public string ExpiryExtendedString
+        {
+            get => _trank.ExpiryExtendedString;
+        }
+
+        public string ExpiryResultString
+        {
+            get => _trank.ExpiryResultString;
+        }
+
+        public string TimeUnit
+        {
+            get => _trank.Rezept.Haltbarkeit.TimeUnit;
         }
 
         public ExtendedObserableCollection<int> HaltbarkeitEigenschaftDice
@@ -90,6 +122,16 @@ namespace Alchemie.UI.ViewModels
         {
             get => _trank.Quality;
             set { _trank.Quality = value; RaisePropertyChange(); }
+        }
+
+        public bool UseRNG
+        {
+            get { return _trank.UseRNG; }
+            set
+            {
+                _trank.UseRNG = value;
+                RaisePropertyChange();
+            }
         }
 
     }

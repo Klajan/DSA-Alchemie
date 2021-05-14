@@ -53,6 +53,10 @@
     <Authors>Klajan</Authors>
     <RepositoryUrl>https://github.com/Klajan/DSA-Alchemie</RepositoryUrl>
     <PackageIcon>Icon.png</PackageIcon>
+    <SignAssembly>false</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>DSA-Alchemie_KEY.snk</AssemblyOriginatorKeyFile>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\.editorconfig">

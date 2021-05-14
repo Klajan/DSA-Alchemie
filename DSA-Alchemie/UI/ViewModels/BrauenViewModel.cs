@@ -8,13 +8,13 @@ namespace Alchemie.UI.ViewModels
 {
     public class BrauenViewModel : ObservableObject
     {
-        public ICommand BrauenCommand { set; get; }
+        public ICommand HandleBrauenCommand { set; get; }
 
         #region Construction
 
         public BrauenViewModel()
         {
-            BrauenCommand = new RelayCommand(o => HandleBrauen());
+            HandleBrauenCommand = new RelayCommand(o => _trank.Brauen((int)_subsitution + _miscMod, (_zurückhalten, _astralAufladen, _miscQMod)));
         }
 
         public BrauenViewModel(Character character) : this()
@@ -203,9 +203,9 @@ namespace Alchemie.UI.ViewModels
             get => _trank.TaPStarBrauen;
         }
 
-        public string ExpiryString
+        public string ExpiryBaseString
         {
-            get => _trank.ExpiryString;
+            get => _trank.ExpiryBaseString;
         }
 
         public Quality Quality
@@ -216,11 +216,6 @@ namespace Alchemie.UI.ViewModels
                 _trank.Quality = value;
                 RaisePropertyChange();
             }
-        }
-
-        public void HandleBrauen()
-        {
-            _trank.Brauen((int)_subsitution + _miscMod, (_zurückhalten, _astralAufladen, _miscQMod));
         }
     }
 }

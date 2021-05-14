@@ -27,10 +27,10 @@ namespace Alchemie.Models
             if (UseRNG) BrauenQualityDice.ReplaceRange(0, D6.Roll(2));
             int chym = _character.ChymischeHochzeit ? -1 : 0;
             int totalMod = mod + _rezept.Probe.BrauenMod + qualmod.rckHalten + Trank.CalculateLaborMod(_rezept.Labor.ID, _character.Labor) + chym + (int)_character.LaborQuality;
-            TaPStarBrauen = TalentProbe(_character.TaWAutomatic, totalMod, _character.AttributesAutomatic);
+            TaPStarBrauen = TalentProbe(_character.TaWAutomatic, totalMod, _character.AttributesAutomatic, BrauenEigenschaftDice);
             if (TaPStarBrauen < 0)
             {
-                ExpiryValue = -1;
+                ExpiryBaseValue = -1;
                 Quality = Quality.M;
                 return Quality;
             }
@@ -45,7 +45,7 @@ namespace Alchemie.Models
 
             if (_rezept.Haltbarkeit.IsParsed())
             {
-                ExpiryValue = _rezept.Haltbarkeit.Dice.Roll();
+                ExpiryBaseValue = _rezept.Haltbarkeit.Dice.Roll();
             }
 
 
@@ -55,10 +55,11 @@ namespace Alchemie.Models
         private void ResetBrauen()
         {
             TaPStarBrauen = 0;
+            ExpiryBaseValue = -1;
             if (UseRNG)
             {
-                BrauenEigenschaftDice.ReplaceRange(0, new int[3] { 1, 1, 1 });
-                BrauenQualityDice.ReplaceRange(0, new int[2] { 1, 1 });
+                ResetCollection(BrauenEigenschaftDice);
+                ResetCollection(BrauenQualityDice);
             }
         }
     }

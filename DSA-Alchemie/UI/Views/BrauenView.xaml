@@ -254,7 +254,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="White"
-                        Command="{Binding BrauenCommand}">
+                        Command="{Binding HandleBrauenCommand}">
                         <Button.Effect>
                             <DropShadowEffect BlurRadius="2" ShadowDepth="0.5" />
                         </Button.Effect>
