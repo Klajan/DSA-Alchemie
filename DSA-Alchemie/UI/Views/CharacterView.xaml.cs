@@ -1,10 +1,9 @@
-﻿using Alchemie.Models;
+﻿using Alchemie.Models.Types;
 using Alchemie.UI.ViewModels;
 using System;
 using System.Globalization;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Alchemie.Models.Types;
 
 namespace Alchemie.UI.Views
 {

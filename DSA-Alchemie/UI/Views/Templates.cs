@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Alchemie.Models.Types;
-using Alchemie.Models;
-using Alchemie.Core;
+﻿using Alchemie.Models.Types;
+using System;
 
 namespace Alchemie.UI.Views
 {

@@ -515,9 +515,6 @@
                     </Border>
                 </Grid>
             </TabItem>
-
         </TabControl>
-
-
     </Grid>
 </UserControl>

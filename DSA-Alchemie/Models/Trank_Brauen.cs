@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Alchemie.Core;
+﻿using Alchemie.Core;
 using Alchemie.Models.Types;
 
 namespace Alchemie.Models
@@ -47,7 +42,6 @@ namespace Alchemie.Models
             {
                 ExpiryBaseValue = _rezept.Haltbarkeit.Dice.Roll();
             }
-
 
             return Quality;
         }

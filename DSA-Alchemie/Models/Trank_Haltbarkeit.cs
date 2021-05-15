@@ -1,5 +1,4 @@
 ﻿using Alchemie.Core;
-using Alchemie.Models.Types;
 using System;
 
 namespace Alchemie.Models
@@ -53,7 +52,6 @@ namespace Alchemie.Models
         }
 
         public bool ExpiryIsExtended { get; set; }
-
 
         public void HaltbarkeitVerlängern()
         {

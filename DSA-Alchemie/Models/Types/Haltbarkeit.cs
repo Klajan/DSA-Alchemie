@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Alchemie.Models.Types
 {
-
     public readonly struct Haltbarkeit : IEquatable<Haltbarkeit>
     {
         // Regex to match a string like 2W6+6 Monate
@@ -52,7 +47,7 @@ namespace Alchemie.Models.Types
                 {
                     _b = group.Value;
                 }
-                if(m.Groups.TryGetValue("time", out group) && group.Success)
+                if (m.Groups.TryGetValue("time", out group) && group.Success)
                 {
                     TimeUnit = Regex.Replace(group.Value, @"\W", String.Empty);
                 }
@@ -91,7 +86,7 @@ namespace Alchemie.Models.Types
         public string GetTimeSpanString(int num)
         {
             return _parsed && num >= 0 ?
-                String.Concat(num, ' ' , TimeUnit.Length == 0 ? _b :
+                String.Concat(num, ' ', TimeUnit.Length == 0 ? _b :
                 num != 1 ? TimeUnit :
                 TimeUnit[0..^1]) :
                 String.Empty;
@@ -134,5 +129,4 @@ namespace Alchemie.Models.Types
 
         #endregion IEquatable
     }
-
 }

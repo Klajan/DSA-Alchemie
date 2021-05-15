@@ -1,6 +1,5 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Alchemie.Models.Types;
+﻿using Alchemie.Models.Types;
+using System;
 
 namespace Alchemie.Models
 {

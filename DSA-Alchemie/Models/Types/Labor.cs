@@ -33,15 +33,19 @@ namespace Alchemie.Models.Types
             }
         }
 
-        public Labor(LaborID labor) : this(((int)labor).ToString()) { }
+        public Labor(LaborID labor) : this(((int)labor).ToString())
+        {
+        }
 
         public readonly string Name { get; }
         public readonly LaborID ID { get; }
 
         public LaborID ToLaborID() => ID;
+
         public override string ToString() => Name;
 
-        public static implicit operator LaborID(Labor labor) => labor.ID; 
+        public static implicit operator LaborID(Labor labor) => labor.ID;
+
         public static implicit operator string(Labor labor) => labor.Name;
 
         #region IEquatable
@@ -74,5 +78,4 @@ namespace Alchemie.Models.Types
 
         #endregion IEquatable
     }
-
 }

@@ -1,5 +1,4 @@
-﻿using Alchemie.Models;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 
 namespace Alchemie.UI.Windows
@@ -25,7 +24,7 @@ namespace Alchemie.UI.Windows
 
         private void Exit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Wirkung = new (M_IN.Text, A_IN.Text, B_IN.Text, C_IN.Text, D_IN.Text, E_IN.Text, F_IN.Text);
+            Wirkung = new(M_IN.Text, A_IN.Text, B_IN.Text, C_IN.Text, D_IN.Text, E_IN.Text, F_IN.Text);
             this.Close();
         }
     }

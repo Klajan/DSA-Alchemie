@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Alchemie.Core;
+﻿using Alchemie.Core;
 using Alchemie.Models;
 using Alchemie.Models.Types;
+using System;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Alchemie.UI.ViewModels
 {
@@ -82,7 +78,7 @@ namespace Alchemie.UI.ViewModels
         {
             get => !_expiryIsReadOnly ? _trank.Rezept.Haltbarkeit.MaxValue : Int32.MaxValue;
         }
-        
+
         public int ExpiryValueMin
         {
             get => !_expiryIsReadOnly ? _trank.Rezept.Haltbarkeit.MinValue : Int32.MinValue;
@@ -133,6 +129,5 @@ namespace Alchemie.UI.ViewModels
                 RaisePropertyChange();
             }
         }
-
     }
 }

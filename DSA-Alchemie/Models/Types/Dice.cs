@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Alchemie.Core;
 
 namespace Alchemie.Models.Types
 {
@@ -44,7 +43,7 @@ namespace Alchemie.Models.Types
         public void Roll(ref IList<int> vs)
         {
             if (vs == null) return;
-            for(int i = 0; i < vs.Count; i++)
+            for (int i = 0; i < vs.Count; i++)
             {
                 vs[i] = Roll();
             }
@@ -105,7 +104,7 @@ namespace Alchemie.Models.Types
         public int Roll()
         {
             int res = Add;
-            for(int i = 0; i < Count; i++)
+            for (int i = 0; i < Count; i++)
             {
                 res += Dice.Roll();
             }

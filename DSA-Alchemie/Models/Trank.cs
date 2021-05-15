@@ -77,7 +77,7 @@ namespace Alchemie.Models
         }
 
         private Quality _quality = Quality.None;
-        
+
         public Quality Quality
         {
             get { return _quality; }

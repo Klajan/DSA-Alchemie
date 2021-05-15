@@ -43,5 +43,4 @@ namespace Alchemie.Models.Types
 
         #endregion IEquatable
     }
-
 }

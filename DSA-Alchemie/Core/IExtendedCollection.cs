@@ -2,23 +2,30 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Alchemie.Core
 {
-    interface IExtendedCollection<T> : ICollection<T>, IList<T>, IEnumerable<T>
+    internal interface IExtendedCollection<T> : ICollection<T>, IList<T>, IEnumerable<T>
     {
         public void AddRange(IEnumerable<T> collection);
+
         public void ReplaceRange(int startIndex, IEnumerable<T> collection);
+
         public void RemoveRange(int startIndex, int count);
+
         public void RebuildWithRange(IEnumerable<T> collection);
     }
 
     public class ExtendedCollection<T> : Collection<T>, IExtendedCollection<T>
     {
-        public ExtendedCollection(IList<T> list) : base(list) { }
-        public ExtendedCollection(int capacity) : base(new List<T>(capacity)) { }
+        public ExtendedCollection(IList<T> list) : base(list)
+        {
+        }
+
+        public ExtendedCollection(int capacity) : base(new List<T>(capacity))
+        {
+        }
+
         public void AddRange(IEnumerable<T> collection)
         {
             if (collection == null) throw new ArgumentNullException(nameof(collection));

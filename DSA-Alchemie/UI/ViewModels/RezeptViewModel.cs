@@ -1,8 +1,8 @@
 ﻿using Alchemie.Core;
 using Alchemie.Models;
+using Alchemie.Models.Types;
 using System;
 using System.ComponentModel;
-using Alchemie.Models.Types;
 
 namespace Alchemie.UI.ViewModels
 {
