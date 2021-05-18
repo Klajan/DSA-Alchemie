@@ -1,5 +1,6 @@
 ﻿using Alchemie.Core;
 using Alchemie.Models.Types;
+using System;
 
 namespace Alchemie.Models
 {
@@ -31,21 +32,20 @@ namespace Alchemie.Models
 
         public LaborQL LaborQuality
         {
-            get { return _laborQuality; }
-            set
-            { _laborQuality = value; RaisePropertyChange(); }
+            get => _laborQuality;
+            set => SetValue(ref _laborQuality, value);
         }
 
         public LaborID Labor
         {
-            get { return _labor; }
-            set { _labor = value; RaisePropertyChange(); }
+            get => _labor;
+            set => SetValue(ref _labor, value);
         }
 
         public bool ChymischeHochzeit
         {
-            get { return _chymischeHochzeit; }
-            set { _chymischeHochzeit = value; RaisePropertyChange(); }
+            get => _chymischeHochzeit;
+            set => SetValue(ref _chymischeHochzeit, value);
         }
 
         #endregion Properties

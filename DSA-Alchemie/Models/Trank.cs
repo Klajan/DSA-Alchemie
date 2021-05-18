@@ -48,7 +48,7 @@ namespace Alchemie.Models
         public bool UseRNG
         {
             get => _useRNG;
-            set { _useRNG = value; RaisePropertyChange(); }
+            set { SetValue(ref _useRNG, value); }
         }
 
         private Rezept _rezept = new();
@@ -69,11 +69,7 @@ namespace Alchemie.Models
         public Character Character
         {
             get => _character;
-            set
-            {
-                _character = value;
-                RaisePropertyChange();
-            }
+            set => SetValue(ref _character, value);
         }
 
         private Quality _quality = Quality.None;
@@ -83,15 +79,14 @@ namespace Alchemie.Models
             get { return _quality; }
             set
             {
-                _quality = value;
-                RaisePropertyChange();
-                RaisePropertyChange(nameof(CurrentWirkung));
-                //RaisePropertyChange(nameof(CurrentMerkmale));
+                if (SetValue(ref _quality, value))
+                {
+                    RaisePropertyChange(nameof(CurrentWirkung));
+                }
             }
         }
 
         public string CurrentWirkung { get => Rezept.Wirkung[_quality]; }
-        //public string CurrentMerkmale { get => Rezept.Merkmale; }
 
         private int TalentProbe(int TaW, int mod, (int, int, int) stats, IExtendedCollection<int> DiceCollection = null)
         {
@@ -126,21 +121,22 @@ namespace Alchemie.Models
             }
         }
 
-        private static void ResetCollection(IExtendedCollection<int> collection, int initializer = 1)
+        private static void ResetCollection(IExtendedCollection<int> collection, int initValue = 1)
         {
             int[] ar = new int[collection.Count];
             for (int i = 0; i < collection.Count; i++)
             {
-                ar[i] = initializer;
+                ar[i] = initValue;
             }
             collection.ReplaceRange(0, ar);
         }
 
-        private void ResetToDefault()
+        private void ResetToDefault(bool raiseEvent = true)
         {
-            ResetBrauen();
-            ResetHaltbarkeit();
+            ResetBraueToDefault(false);
+            ResetHaltbarkeitToDefault(false);
             Quality = Quality.None;
+            if (raiseEvent) RaisePropertyChange(null);
         }
 
         public static Quality ChangeQualityBy(Quality quality, int change)

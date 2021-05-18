@@ -13,7 +13,7 @@ namespace Alchemie.Models
         public int TaPStarBrauen
         {
             get { return _TaPStarBrauen; }
-            set { _TaPStarBrauen = value; RaisePropertyChange(); }
+            set { SetValue(ref _TaPStarBrauen, value); }
         }
 
         public Quality Brauen(int mod, (int rckHalten, int astralAuf, int misc) qualmod)
@@ -38,7 +38,7 @@ namespace Alchemie.Models
             else if (qual <= 30) { Quality = Quality.E; }
             else { Quality = Quality.F; }
 
-            if (_rezept.Haltbarkeit.IsParsed())
+            if (_rezept.Haltbarkeit.IsParsed)
             {
                 ExpiryBaseValue = _rezept.Haltbarkeit.Dice.Roll();
             }
@@ -46,15 +46,16 @@ namespace Alchemie.Models
             return Quality;
         }
 
-        private void ResetBrauen()
+        private void ResetBraueToDefault(bool raiseEvent = true)
         {
-            TaPStarBrauen = 0;
-            ExpiryBaseValue = -1;
+            _TaPStarBrauen = 0;
+            _expiryBaseValue = -1;
             if (UseRNG)
             {
                 ResetCollection(BrauenEigenschaftDice);
                 ResetCollection(BrauenQualityDice);
             }
+            if (raiseEvent) RaisePropertyChange(null);
         }
     }
 }

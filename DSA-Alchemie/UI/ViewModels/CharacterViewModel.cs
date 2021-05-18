@@ -24,11 +24,11 @@ namespace Alchemie.UI.ViewModels
 
         private Character character_;
 
-        private bool usingMhAlchemie_ = false;
-        private bool usingMhKochen_ = false;
+        private bool usingMhAlchemie_;
+        private bool usingMhKochen_;
 
-        private int mhAlchemie_ = 0;
-        private int mhKochen_ = 0;
+        private int mhAlchemie_;
+        private int mhKochen_;
 
         #endregion Members
 
@@ -49,183 +49,177 @@ namespace Alchemie.UI.ViewModels
 
         public int MU
         {
-            get
+            get => Character.MU; set
             {
-                return Character.MU;
-            }
-            set
-            {
-                Character.MU = value;
-                RaisePropertyChange(nameof(MU));
+                if (Character.MU != value)
+                {
+                    Character.MU = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public int KL
         {
-            get
+            get => Character.KL; set
             {
-                return Character.KL;
-            }
-            set
-            {
-                Character.KL = value;
-                RaisePropertyChange(nameof(KL));
+                if (Character.KL != value)
+                {
+                    Character.KL = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public int FF
         {
-            get
+            get => Character.FF; set
             {
-                return Character.FF;
-            }
-            set
-            {
-                Character.FF = value;
-                RaisePropertyChange(nameof(FF));
+                if (Character.FF != value)
+                {
+                    Character.FF = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public int IN
         {
-            get
+            get => Character.IN; set
             {
-                return Character.IN;
-            }
-            set
-            {
-                Character.IN = value;
-                RaisePropertyChange(nameof(IN));
+                if (Character.IN != value)
+                {
+                    Character.IN = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public int Alchemie
         {
-            get
+            get => Character.Alchemie; set
             {
-                return Character.Alchemie;
-            }
-            set
-            {
-                Character.Alchemie = value;
-                RaisePropertyChange(nameof(Alchemie));
+                if (Character.Alchemie != value)
+                {
+                    Character.Alchemie = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public int Kochen
         {
-            get
+            get => Character.Kochen; set
             {
-                return Character.Kochen;
-            }
-            set
-            {
-                Character.Kochen = value;
-                RaisePropertyChange(nameof(Kochen));
+                if (Character.Kochen != value)
+                {
+                    Character.Kochen = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public LaborID Labor
         {
-            get
-            {
-                return Character.Labor;
-            }
+            get => Character.Labor;
             set
             {
-                Character.Labor = value;
-                RaisePropertyChange(nameof(Labor));
+                if (Character.Labor != value)
+                {
+                    Character.Labor = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public LaborQL LaborQuality
         {
-            get
-            {
-                return Character.LaborQuality;
-            }
+            get => Character.LaborQuality;
             set
             {
-                Character.LaborQuality = value;
-                RaisePropertyChange(nameof(LaborQuality));
+                if (Character.LaborQuality != value)
+                {
+                    Character.LaborQuality = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public int AlchemieMH
         {
-            get
-            {
-                return Character.AlchemieMH;
-            }
+            get => Character.AlchemieMH;
             set
             {
-                Character.AlchemieMH = value;
-                RaisePropertyChange(nameof(AlchemieMH));
+                if (Character.AlchemieMH != value)
+                {
+                    Character.AlchemieMH = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public int KochenMH
         {
-            get
-            {
-                return Character.KochenMH;
-            }
+            get => Character.KochenMH;
             set
             {
-                Character.KochenMH = value;
-                RaisePropertyChange(nameof(KochenMH));
+                if (Character.KochenMH != value)
+                {
+                    Character.KochenMH = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public bool UsingAlchemie
         {
-            get
-            {
-                return Character.UsingAlchemie;
-            }
+            get => Character.UsingAlchemie;
             set
             {
-                Character.UsingAlchemie = value;
-                RaisePropertyChange(nameof(UsingAlchemie));
+                if (Character.UsingAlchemie != value)
+                {
+                    Character.UsingAlchemie = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public bool AllegorischeAnalyse
         {
-            get
-            {
-                return Character.AllegorischeAnalyse;
-            }
+            get => Character.AllegorischeAnalyse;
             set
             {
-                Character.AllegorischeAnalyse = value;
-                RaisePropertyChange(nameof(AllegorischeAnalyse));
+                if (Character.AllegorischeAnalyse != value)
+                {
+                    Character.AllegorischeAnalyse = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public bool ChymischeHochzeit
         {
-            get
-            {
-                return Character.ChymischeHochzeit;
-            }
+            get => Character.ChymischeHochzeit;
             set
             {
-                Character.ChymischeHochzeit = value;
-                RaisePropertyChange(nameof(ChymischeHochzeit));
+                if (Character.ChymischeHochzeit != value)
+                {
+                    Character.ChymischeHochzeit = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
         public bool MandriconsBindung
         {
-            get
-            {
-                return Character.MandriconsBindung;
-            }
+            get => Character.MandriconsBindung;
             set
             {
-                Character.MandriconsBindung = value;
-                RaisePropertyChange(nameof(MandriconsBindung));
+                if (Character.MandriconsBindung != value)
+                {
+                    Character.MandriconsBindung = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
@@ -235,17 +229,18 @@ namespace Alchemie.UI.ViewModels
 
             set
             {
-                usingMhAlchemie_ = value;
-                if (value)
+                if (SetValue(ref usingMhAlchemie_, value))
                 {
-                    Character.AlchemieMH = mhAlchemie_;
+                    if (value)
+                    {
+                        Character.AlchemieMH = mhAlchemie_;
+                    }
+                    else
+                    {
+                        mhAlchemie_ = Character.AlchemieMH;
+                        Character.AlchemieMH = 0;
+                    }
                 }
-                else
-                {
-                    mhAlchemie_ = Character.AlchemieMH;
-                    Character.AlchemieMH = 0;
-                }
-                RaisePropertyChange(nameof(UsingMHAlchemie));
             }
         }
 
@@ -255,17 +250,18 @@ namespace Alchemie.UI.ViewModels
 
             set
             {
-                usingMhKochen_ = value;
-                if (value)
+                if (SetValue(ref usingMhKochen_, value))
                 {
-                    Character.KochenMH = mhKochen_;
+                    if (value)
+                    {
+                        Character.KochenMH = mhKochen_;
+                    }
+                    else
+                    {
+                        mhKochen_ = Character.KochenMH;
+                        Character.KochenMH = 0;
+                    }
                 }
-                else
-                {
-                    mhKochen_ = Character.KochenMH;
-                    Character.KochenMH = 0;
-                }
-                RaisePropertyChange(nameof(UsingMHKochen));
             }
         }
 

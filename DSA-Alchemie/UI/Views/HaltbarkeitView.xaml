@@ -83,7 +83,7 @@
                     Grid.Column="1"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Text="{Binding ExpiryBaseString}" />
+                    Text="{Binding ExpiryBaseStr}" />
                 <Grid
                     Grid.Row="4"
                     Grid.Column="0"
@@ -230,7 +230,7 @@
                                 VerticalAlignment="Top"
                                 ScrollViewer.CanContentScroll="True"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                Text="{Binding ExpiryResultString}"
+                                Text="{Binding ExpiryResultStr}"
                                 TextWrapping="Wrap" />
                         </ScrollViewer>
                     </Border>
@@ -262,7 +262,7 @@
                                 VerticalAlignment="Top"
                                 ScrollViewer.CanContentScroll="True"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                Text="{Binding ExpiryExtendedString}"
+                                Text="{Binding ExpiryExtendedStr}"
                                 TextWrapping="Wrap" />
                         </ScrollViewer>
                     </Border>
@@ -343,7 +343,7 @@
                         Margin="2,0"
                         BorderBrush="Black"
                         ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
-                        IntValue="{Binding ExpiryFailRoll, Mode=OneWay, FallbackValue=1}"
+                        IntValue="{Binding ExpiryFailRoll, Mode=TwoWay, FallbackValue=1}"
                         IsReadOnly="{Binding UseRNG}"
                         Max="6"
                         Min="1" />

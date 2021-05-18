@@ -13,11 +13,11 @@ namespace Alchemie.Models.Types
         public readonly string TimeUnit { get; }
         public readonly string FullText { get; }
         public readonly ComplexDice Dice { get; }
-        private readonly bool _parsed;
+        public readonly bool IsParsed { get; }
 
         public Haltbarkeit(string input)
         {
-            _parsed = false;
+            IsParsed = false;
             _a = _b = TimeUnit = String.Empty;
             int count = 1;
             int sides = 1;
@@ -29,15 +29,15 @@ namespace Alchemie.Models.Types
                 Group group;
                 if (m.Groups.TryGetValue("sides", out group) && group.Success)
                 {
-                    _parsed = Int32.TryParse(group.Value, out sides);
+                    IsParsed = Int32.TryParse(group.Value, out sides);
                 }
                 if (m.Groups.TryGetValue("count", out group) && group.Success)
                 {
-                    _parsed &= Int32.TryParse(group.Value, out count);
+                    IsParsed &= Int32.TryParse(group.Value, out count);
                 }
                 if (m.Groups.TryGetValue("add", out group) && group.Success)
                 {
-                    _parsed &= Int32.TryParse(group.Value, out add);
+                    IsParsed &= Int32.TryParse(group.Value, out add);
                 }
                 if (m.Groups.TryGetValue("first", out group) && group.Success)
                 {
@@ -52,7 +52,7 @@ namespace Alchemie.Models.Types
                     TimeUnit = Regex.Replace(group.Value, @"\W", String.Empty);
                 }
             }
-            if (_parsed) { Dice = new ComplexDice(1, sides, count, add); }
+            if (IsParsed) { Dice = new ComplexDice(1, sides, count, add); }
             else { Dice = new ComplexDice(); }
         }
 
@@ -62,37 +62,44 @@ namespace Alchemie.Models.Types
             TimeUnit = timeUnit;
             Dice = dice;
             FullText = String.Concat(dice.ToString(), ' ', timeUnit);
-            _parsed = true;
+            IsParsed = true;
         }
 
-        public int MaxValue => _parsed ? Dice.Max : Int32.MaxValue;
-        public int MinValue => _parsed ? Dice.Min : Int32.MinValue;
+        public int MaxValue => IsParsed ? Dice.Max : Int32.MaxValue;
+        public int MinValue => IsParsed ? Dice.Min : Int32.MinValue;
 
         public int GetValue()
         {
-            return _parsed ? Dice.Roll() : 0;
+            return IsParsed ? Dice.Roll() : 0;
         }
 
-        public string GetValueStringRandom()
+        public string GetFullHaltbarkeitStr()
         {
-            return GetValueString(Dice.Roll());
+            return GetFullHaltbarkeitStr(GetValue());
         }
 
-        public string GetValueString(int num)
+        public string GetFullHaltbarkeitStr(int num)
         {
-            return _parsed && num >= 0 ? String.Concat(_a, num, _b) : String.Empty;
+            return IsParsed && num >= 0 ? String.Concat(_a, num, _b) : String.Empty;
         }
 
-        public string GetTimeSpanString(int num)
+        public string GetHaltbarkeitStr()
         {
-            return _parsed && num >= 0 ?
-                String.Concat(num, ' ', TimeUnit.Length == 0 ? _b :
-                num != 1 ? TimeUnit :
-                TimeUnit[0..^1]) :
-                String.Empty;
+            return GetHaltbarkeitStr(GetValue());
         }
 
-        public bool IsParsed() => _parsed;
+        public string GetHaltbarkeitStr(int num)
+        {
+            if (IsParsed && num >= 0)
+            {
+                if (TimeUnit.Length != 0)
+                {
+                    return String.Concat(num, ' ', num != 1 ? TimeUnit : TimeUnit[0..^1]);
+                }
+                return String.Concat(_a, num, _b);
+            }
+            return String.Empty;
+        }
 
         public override string ToString()
         {

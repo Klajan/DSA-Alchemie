@@ -16,21 +16,29 @@ namespace Alchemie.UI.ViewModels
 
         public HaltbarkeitViewModel(Trank trank) : this()
         {
-            _trank = trank;
+            Trank = trank;
         }
 
         public ICommand ExtendHaltbarkeitCommand { set; get; }
 
-        private void HaltbarkeitViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case "Rezept":
+                case null:
+                case nameof(_trank.Rezept):
+                case nameof(_trank.Character):
                     RaisePropertyChange(null);
                     break;
 
-                case "Character":
-                    RaisePropertyChange(null);
+                case nameof(_trank.ExpiryBaseValue):
+                    RaisePropertyChange(nameof(ExpiryBaseValue));
+                    RaisePropertyChange(nameof(ExpiryBaseStr));
+                    break;
+
+                case nameof(_trank.ExpiryValue):
+                    RaisePropertyChange(nameof(ExpiryValue));
+                    RaisePropertyChange(nameof(ExpiryExtendedStr));
                     break;
 
                 default:
@@ -39,20 +47,18 @@ namespace Alchemie.UI.ViewModels
             }
         }
 
-        private Trank _trank = new Trank();
+        private Trank _trank = new();
 
         public Trank Trank
         {
             get { return _trank; }
             set
             {
-                _trank = value;
-                if (_trank != null)
+                if (SetValue(ref _trank, value, null) && value != null)
                 {
-                    _trank.PropertyChanged += HaltbarkeitViewModel_PropertyChanged;
-                    _trank.Character.PropertyChanged += HaltbarkeitViewModel_PropertyChanged;
+                    _trank.PropertyChanged += HandlePropertyChanged;
+                    _trank.Character.PropertyChanged += HandlePropertyChanged;
                 }
-                RaisePropertyChange(null);
             }
         }
 
@@ -60,18 +66,31 @@ namespace Alchemie.UI.ViewModels
 
         public bool ExpiryIsReadonly
         {
-            get { return _expiryIsReadOnly; }
-            set { _expiryIsReadOnly = value; RaisePropertyChange(); RaisePropertyChange(nameof(ExpiryValueMax)); RaisePropertyChange(nameof(ExpiryValueMin)); }
+            get => _expiryIsReadOnly;
+            set
+            {
+                if (SetValue(ref _expiryIsReadOnly, value))
+                {
+                    RaisePropertyChange(nameof(ExpiryValueMax));
+                    RaisePropertyChange(nameof(ExpiryValueMin));
+                }
+            }
         }
 
         public int ExpiryFailRoll
         {
             get => _trank.ExpiryFailRoll;
+            set => _trank.ExpiryFailRoll = value;
         }
 
         public int ExpiryBaseValue
         {
             get => _trank.ExpiryBaseValue;
+        }
+
+        public int ExpiryValue
+        {
+            get => _trank.ExpiryValue;
         }
 
         public int ExpiryValueMax
@@ -89,19 +108,19 @@ namespace Alchemie.UI.ViewModels
             get => _trank.TaPStarHaltbarkeit;
         }
 
-        public string ExpiryBaseString
+        public string ExpiryBaseStr
         {
-            get => _trank.ExpiryBaseString;
+            get => _trank.Rezept.Haltbarkeit.GetHaltbarkeitStr(ExpiryBaseValue);
         }
 
-        public string ExpiryExtendedString
+        public string ExpiryExtendedStr
         {
-            get => _trank.ExpiryExtendedString;
+            get => _trank.Rezept.Haltbarkeit.GetHaltbarkeitStr(ExpiryValue);
         }
 
-        public string ExpiryResultString
+        public string ExpiryResultStr
         {
-            get => _trank.ExpiryResultString;
+            get => _trank.ExpiryResultStr;
         }
 
         public string TimeUnit
@@ -117,17 +136,13 @@ namespace Alchemie.UI.ViewModels
         public Quality Quality
         {
             get => _trank.Quality;
-            set { _trank.Quality = value; RaisePropertyChange(); }
+            set => _trank.Quality = value;
         }
 
         public bool UseRNG
         {
-            get { return _trank.UseRNG; }
-            set
-            {
-                _trank.UseRNG = value;
-                RaisePropertyChange();
-            }
+            get => _trank.UseRNG;
+            set => _trank.UseRNG = value;
         }
     }
 }

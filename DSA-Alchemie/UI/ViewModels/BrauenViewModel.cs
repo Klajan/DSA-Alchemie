@@ -29,16 +29,18 @@ namespace Alchemie.UI.ViewModels
 
         #endregion Construction
 
-        private void BrauenViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case "Rezept":
+                case null:
+                case nameof(_trank.Rezept):
+                case nameof(_trank.Character):
                     RaisePropertyChange(null);
                     break;
 
-                case "Character":
-                    RaisePropertyChange(null);
+                case nameof(_trank.ExpiryBaseValue):
+                    RaisePropertyChange(nameof(ExpiryBaseString));
                     break;
 
                 default:
@@ -54,13 +56,11 @@ namespace Alchemie.UI.ViewModels
             get => _trank;
             set
             {
-                _trank = value;
-                if (_trank != null)
+                if (SetValue(ref _trank, value, null) && _trank != null)
                 {
-                    _trank.PropertyChanged += BrauenViewModel_PropertyChanged;
-                    _trank.Character.PropertyChanged += BrauenViewModel_PropertyChanged;
+                    _trank.PropertyChanged += HandlePropertyChanged;
+                    _trank.Character.PropertyChanged += HandlePropertyChanged;
                 }
-                RaisePropertyChange(null);
             }
         }
 
@@ -69,23 +69,22 @@ namespace Alchemie.UI.ViewModels
             get => _trank.Character;
             set
             {
-                _trank.Character = value;
-                if (_trank.Character != null)
+                if (_trank.Character != value)
                 {
-                    _trank.Character.PropertyChanged += BrauenViewModel_PropertyChanged;
+                    _trank.Character = value;
+                    if (_trank.Character != null)
+                    {
+                        _trank.Character.PropertyChanged += HandlePropertyChanged;
+                    }
+                    RaisePropertyChange(null);
                 }
-                RaisePropertyChange(null);
             }
         }
 
         public bool UseRNG
         {
-            get { return _trank.UseRNG; }
-            set
-            {
-                _trank.UseRNG = value;
-                RaisePropertyChange();
-            }
+            get => _trank.UseRNG;
+            set => _trank.UseRNG = value;
         }
 
         public Rezept Rezept
@@ -93,8 +92,11 @@ namespace Alchemie.UI.ViewModels
             get => _trank.Rezept;
             set
             {
-                _trank.Rezept = value;
-                RaisePropertyChange(null);
+                if (_trank.Rezept != value)
+                {
+                    _trank.Rezept = value;
+                    RaisePropertyChange(null);
+                }
             }
         }
 
@@ -102,60 +104,40 @@ namespace Alchemie.UI.ViewModels
 
         public Subsitution Subsitution
         {
-            get { return _subsitution; }
-            set
-            {
-                _subsitution = value;
-                RaisePropertyChange();
-            }
+            get => _subsitution;
+            set => SetValue(ref _subsitution, value);
         }
 
         private int _zurückhalten;
 
         public int Zurückhalten
         {
-            get { return _zurückhalten; }
-            set
-            {
-                _zurückhalten = value;
-                RaisePropertyChange();
-            }
+            get => _zurückhalten;
+            set => SetValue(ref _zurückhalten, value);
         }
 
         private int _astralAufladen;
 
         public int AstralAufladen
         {
-            get { return _astralAufladen; }
-            set
-            {
-                _astralAufladen = value;
-                RaisePropertyChange();
-            }
+            get => _astralAufladen;
+            set => SetValue(ref _astralAufladen, value);
         }
 
         private int _miscMod;
 
         public int MiscMod
         {
-            get { return _miscMod; }
-            set
-            {
-                _miscMod = value;
-                RaisePropertyChange();
-            }
+            get => _miscMod;
+            set => SetValue(ref _miscMod, value);
         }
 
         private int _miscQMod;
 
         public int MiscQMod
         {
-            get { return _miscQMod; }
-            set
-            {
-                _miscQMod = value;
-                RaisePropertyChange();
-            }
+            get => _miscQMod;
+            set => SetValue(ref _miscQMod, value);
         }
 
         public ExtendedObserableCollection<int> BrauenEigenschaftDice
@@ -205,17 +187,13 @@ namespace Alchemie.UI.ViewModels
 
         public string ExpiryBaseString
         {
-            get => _trank.ExpiryBaseString;
+            get => _trank.Rezept.Haltbarkeit.GetHaltbarkeitStr(_trank.ExpiryBaseValue);
         }
 
         public Quality Quality
         {
             get => _trank.Quality;
-            set
-            {
-                _trank.Quality = value;
-                RaisePropertyChange();
-            }
+            set => _trank.Quality = value;
         }
     }
 }
