@@ -19,7 +19,10 @@ namespace Alchemie.UI.ViewModels
             Trank = trank;
         }
 
-        public ICommand ExtendHaltbarkeitCommand { set; get; }
+        public ICommand ExtendHaltbarkeitCommand
+        {
+            set; get;
+        }
 
         private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -51,7 +54,10 @@ namespace Alchemie.UI.ViewModels
 
         public Trank Trank
         {
-            get { return _trank; }
+            get
+            {
+                return _trank;
+            }
             set
             {
                 if (SetValue(ref _trank, value, null) && value != null)
@@ -86,6 +92,7 @@ namespace Alchemie.UI.ViewModels
         public int ExpiryBaseValue
         {
             get => _trank.ExpiryBaseValue;
+            set => _trank.ExpiryBaseValue = value;
         }
 
         public int ExpiryValue

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Alchemie.Core;
+using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,7 +20,7 @@ namespace Alchemie.UI.Commons
 
         private void OnChanged(DependencyPropertyChangedEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(e.Property.Name));
+            if (e.OldValue != e.NewValue) PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(e.Property.Name));
         }
 
         private static void PropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -33,12 +33,28 @@ namespace Alchemie.UI.Commons
 
         #region Properties
 
+        public ICommand IncreaseCommand
+        {
+            get; private set;
+        }
+
+        public ICommand DecreaseCommand
+        {
+            get; private set;
+        }
+
         #region DependencyProperties
 
         public bool IsReadOnly
         {
-            get { return (bool)this.GetValue(IsReadOnlyProperty); }
-            set { this.SetValue(IsReadOnlyProperty, value); }
+            get
+            {
+                return (bool)this.GetValue(IsReadOnlyProperty);
+            }
+            set
+            {
+                this.SetValue(IsReadOnlyProperty, value);
+            }
         }
 
         public static readonly DependencyProperty IsReadOnlyProperty =
@@ -46,20 +62,30 @@ namespace Alchemie.UI.Commons
 
         public Visibility ButtonVisibility
         {
-            get { return (Visibility)this.GetValue(ButtonVisibilityProperty); }
-            set { this.SetValue(ButtonVisibilityProperty, value); }
+            get
+            {
+                return (Visibility)this.GetValue(ButtonVisibilityProperty);
+            }
+            set
+            {
+                this.SetValue(ButtonVisibilityProperty, value);
+            }
         }
 
         public static readonly DependencyProperty ButtonVisibilityProperty =
             DependencyProperty.Register(nameof(ButtonVisibility), typeof(Visibility), typeof(NumericUpDown), new PropertyMetadata(Visibility.Visible, PropertyChangedCallback_));
 
-        private int intvalue_;
-
         [Browsable(true)]
         public int IntValue
         {
-            get { return (int)this.GetValue(IntValueProperty); }
-            set { this.SetValue(IntValueProperty, Math.Clamp(value, Min, Max)); }
+            get
+            {
+                return (int)this.GetValue(IntValueProperty);
+            }
+            set
+            {
+                this.SetValue(IntValueProperty, Math.Clamp(value, Min, Max));
+            }
         }
 
         public static readonly DependencyProperty IntValueProperty =
@@ -67,8 +93,14 @@ namespace Alchemie.UI.Commons
 
         public int Max
         {
-            get { return (int)this.GetValue(MaxProperty); }
-            set { this.SetValue(MaxProperty, Math.Max(Min, value)); }
+            get
+            {
+                return (int)this.GetValue(MaxProperty);
+            }
+            set
+            {
+                this.SetValue(MaxProperty, Math.Max(Min, value));
+            }
         }
 
         public static readonly DependencyProperty MaxProperty =
@@ -76,8 +108,14 @@ namespace Alchemie.UI.Commons
 
         public int Min
         {
-            get { return (int)this.GetValue(MinProperty); }
-            set { this.SetValue(MinProperty, Math.Min(Max, value)); }
+            get
+            {
+                return (int)this.GetValue(MinProperty);
+            }
+            set
+            {
+                this.SetValue(MinProperty, Math.Min(Max, value));
+            }
         }
 
         public static readonly DependencyProperty MinProperty =
@@ -88,12 +126,13 @@ namespace Alchemie.UI.Commons
         public Func<int, int> IncreaseFunc { set; get; } = (value) => value + 1;
         public Func<int, int> DecreaseFunc { set; get; } = (value) => value - 1;
         public bool AllowCopyPaste { set; get; } = true;
-        public bool NotifyOnValueChanged { set; get; }
+
+        public bool NotifyOnValueChanged
+        {
+            set; get;
+        }
 
         #endregion Properties
-
-        //private readonly Regex _regexFull = new Regex("([-]?[0-9]+)");
-        private readonly Regex _regexQuick = new("^[-+]", RegexOptions.Compiled);
 
         private bool _handleTextChanged = true;
 
@@ -101,6 +140,8 @@ namespace Alchemie.UI.Commons
 
         public NumericUpDown()
         {
+            IncreaseCommand = new RelayCommand(HandleIncrease, CanHandleIncrease);
+            DecreaseCommand = new RelayCommand(HandleDecrease, CanHandleDecrease);
             InitializeComponent();
         }
 
@@ -118,16 +159,9 @@ namespace Alchemie.UI.Commons
         private static void IntValuePropertyChangedCallback_(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             NumericUpDown s = sender as NumericUpDown;
-            s.intvalue_ = Math.Clamp((int)e.NewValue, s.Min, s.Max);
-
-            //var carret = s.textBox.CaretIndex;
-
             s._handleTextChanged = false;
-            s.TextBox.Text = s.intvalue_.ToString(CultureInfo.CurrentCulture);
+            SetTextBoxText(ref s.TextBox, Math.Clamp((int)e.NewValue, s.Min, s.Max).ToString(CultureInfo.CurrentCulture));
             s._handleTextChanged = true;
-
-            //s.textBox.CaretIndex = carret;
-            s.TextBox.CaretIndex = s.TextBox.Text.Length;
             if (s != null) { s.OnChanged(e); }
         }
 
@@ -153,27 +187,54 @@ namespace Alchemie.UI.Commons
             _handleTextChanged = false;
             TextBox origin = sender as TextBox;
             e.Handled = true;
-            if (origin.Text.Length == 0) { origin.Text = ""; }
-            else
+            if (origin.Text.Length != 0)
             {
-                Match _matchQuick = _regexQuick.Match(origin.Text);
-                if (origin.Text.Length == 1 && _matchQuick.Success) { origin.Text = _matchQuick.Value; }
+                if (origin.Text.Length == 1 && (origin.Text.StartsWith('-') || origin.Text.StartsWith('+'))) { }
                 else if (Int32.TryParse(origin.Text, out int value))
                 {
                     IntValue = value;
                 }
-                else { origin.Text = intvalue_.ToString(CultureInfo.CurrentCulture); }
+                else { SetTextBoxText(ref origin, IntValue.ToString(CultureInfo.CurrentCulture)); }
             }
             _handleTextChanged = true;
         }
 
         #endregion CallbackMethods
 
+        private static void SetTextBoxText(ref TextBox textBox, string text)
+        {
+            var carret = textBox.CaretIndex;
+            textBox.Text = text;
+            textBox.CaretIndex = carret;
+        }
+
+        private void HandleIncrease(object param)
+        {
+            if (IncreaseFunc != null)
+                IntValue = IncreaseFunc(IntValue);
+        }
+
+        private bool CanHandleIncrease(object param)
+        {
+            return IntValue < Max;
+        }
+
+        private void HandleDecrease(object param)
+        {
+            if (DecreaseFunc != null)
+                IntValue = DecreaseFunc(IntValue);
+        }
+
+        private bool CanHandleDecrease(object param)
+        {
+            return IntValue > Min;
+        }
+
         private void ButtonUp_Click(object sender, RoutedEventArgs e)
         {
             if (IncreaseFunc != null)
             {
-                IntValue = IncreaseFunc(intvalue_);
+                IntValue = IncreaseFunc(IntValue);
             }
         }
 
@@ -181,7 +242,7 @@ namespace Alchemie.UI.Commons
         {
             if (DecreaseFunc != null)
             {
-                IntValue = DecreaseFunc(intvalue_);
+                IntValue = DecreaseFunc(IntValue);
             }
         }
 

@@ -83,7 +83,39 @@
                     Grid.Column="1"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Text="{Binding ExpiryBaseStr}" />
+                    Text="{Binding ExpiryBaseStr}"
+                    Visibility="{Binding ExpiryIsReadonly, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Visibility="{Binding ExpiryIsReadonly, Converter={StaticResource NegatedBooleanToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="100" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <UI:NumericUpDown
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        IntValue="{Binding ExpiryBaseValue, Mode=TwoWay}"
+                        Max="{Binding ExpiryValueMax, Mode=OneWay}"
+                        Min="0" />
+                    <TextBlock
+                        Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding TimeUnit}" />
+                </Grid>
+                <CheckBox
+                    Grid.Row="2"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    IsChecked="{Binding ExpiryIsReadonly, Converter={StaticResource BoolInverterConverter}}">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Left" Text="Haltbarkeit" />
+                        <TextBlock HorizontalAlignment="Left" Text="bearbeiten" />
+                    </StackPanel>
+                </CheckBox>
+
                 <Grid
                     Grid.Row="4"
                     Grid.Column="0"
