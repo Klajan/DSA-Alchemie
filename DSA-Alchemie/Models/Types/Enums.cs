@@ -23,7 +23,7 @@ namespace Alchemie.Models.Types
         Gleichwertig = 0,
         Sinnvoll = +3,
         Möglich = +6,
-        Unsinnig = UInt16.MaxValue
+        Unsinnig = ushort.MaxValue
     }
 
     public enum Quality

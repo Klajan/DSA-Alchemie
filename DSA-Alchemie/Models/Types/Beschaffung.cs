@@ -22,10 +22,10 @@ namespace Alchemie.Models.Types
 
         public bool Equals(Beschaffung other)
         {
-            return this.Preis == other.Preis &&
-                   this.Verbreitung == other.Verbreitung &&
-                   this.Preis == other.Preis &&
-                   this.Verbreitung == other.Verbreitung;
+            return Preis == other.Preis &&
+                   Verbreitung == other.Verbreitung &&
+                   Preis == other.Preis &&
+                   Verbreitung == other.Verbreitung;
         }
 
         public override int GetHashCode()

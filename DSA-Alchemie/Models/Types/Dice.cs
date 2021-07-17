@@ -51,7 +51,7 @@ namespace Alchemie.Models.Types
 
         public override string ToString()
         {
-            return String.Concat("W", Max);
+            return string.Concat("W", Max);
         }
 
         #region IEquatable
@@ -139,7 +139,12 @@ namespace Alchemie.Models.Types
 
         public override string ToString()
         {
-            return String.Concat(Count > 1 ? Count : String.Empty, Dice.ToString(), Add != 0 ? Add.ToString("+#;-#") : String.Empty);
+            //format Complex Dice to look like 2W6+5
+            return string.Concat(
+                Count > 1 ? Count : string.Empty,
+                Dice.ToString(),
+                Add != 0 ? Add.ToString("+#;-#") : string.Empty
+                );
         }
 
         #region IEquatable

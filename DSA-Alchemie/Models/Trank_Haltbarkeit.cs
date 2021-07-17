@@ -31,7 +31,7 @@ namespace Alchemie.Models
             set => SetValue(ref _expiryValue, value);
         }
 
-        private string _expiryResultStr = String.Empty;
+        private string _expiryResultStr = string.Empty;
 
         public string ExpiryResultStr
         {
@@ -103,7 +103,7 @@ namespace Alchemie.Models
         {
             _TaPStarHaltbarkeit = 0;
             _expiryValue = -1;
-            _expiryResultStr = String.Empty;
+            _expiryResultStr = string.Empty;
             ExpiryIsExtended = false;
             if (UseRNG)
             {

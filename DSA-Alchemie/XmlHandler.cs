@@ -17,7 +17,7 @@ namespace Alchemie
         {
             if (input is null) return null;
             return Regex.Replace(
-                Regex.Replace(input, @"\r\n?|\n", String.Empty, RegexOptions.CultureInvariant),
+                Regex.Replace(input, @"\r\n?|\n", string.Empty, RegexOptions.CultureInvariant),
                 @"\s+", " ", RegexOptions.CultureInvariant
                 ).Trim();
         }

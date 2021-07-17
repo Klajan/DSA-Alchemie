@@ -45,6 +45,47 @@ namespace Alchemie.Models.Types
             }
         }
 
+        public Wirkung(Tuple<Quality, string>[] init)
+        {
+            M = A = B = C = D = E = F = String.Empty;
+
+            if (init == null) return;
+
+            foreach (Tuple<Quality, string> tuple in init)
+            {
+                switch ((int)tuple.Item1)
+                {
+                    case 0:
+                        M = tuple.Item2;
+                        break;
+
+                    case 1:
+                        A = tuple.Item2;
+                        break;
+
+                    case 2:
+                        B = tuple.Item2;
+                        break;
+
+                    case 3:
+                        C = tuple.Item2;
+                        break;
+
+                    case 4:
+                        D = tuple.Item2;
+                        break;
+
+                    case 5:
+                        E = tuple.Item2;
+                        break;
+
+                    case 6:
+                        F = tuple.Item2;
+                        break;
+                }
+            }
+        }
+
         public Wirkung(string m, string a, string b, string c, string d, string e, string f)
         {
             M = m; A = a; B = b; C = c; D = d; E = e; F = f;

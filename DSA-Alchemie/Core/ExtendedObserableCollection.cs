@@ -58,7 +58,7 @@ namespace Alchemie.Core
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
             CheckReentrancy();
-            var oldItems = Items.ToList().GetRange(startIndex, count);
+            List<T> oldItems = Items.ToList().GetRange(startIndex, count);
             for (int i = startIndex; i <= startIndex + count; i++)
             {
                 Items.RemoveAt(i);

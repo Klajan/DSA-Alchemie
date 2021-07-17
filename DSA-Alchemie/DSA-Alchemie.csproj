@@ -88,8 +88,9 @@
     <Resource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Humanizer.Core.de" Version="2.11.10" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.2.222702">
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.2.227701">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>

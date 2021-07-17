@@ -100,7 +100,7 @@ namespace Alchemie.Models
                 else if (num <= 1) { c1++; }
             }
             if (c1 >= 2) { return Math.Max(TaW - mod, 0); }
-            if (c20 >= 2) { return -UInt16.MaxValue; }
+            if (c20 >= 2) { return -ushort.MaxValue; }
             if (TaW - mod >= 0)
             {
                 return Math.Min(TaW,
@@ -153,7 +153,7 @@ namespace Alchemie.Models
                 -1 => 0,
                 0 => 0,
                 +1 => +7,
-                _ => UInt16.MaxValue,
+                _ => ushort.MaxValue,
             };
         }
     }

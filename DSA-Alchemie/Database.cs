@@ -76,11 +76,6 @@ namespace Alchemie
             (RezepteGruppen[AllKey] as IList<string>).Add(rezept.Name);
         }
 
-        public IList<Rezept> GetList()
-        {
-            return Rezepte.Values.ToList();
-        }
-
         public Rezept this[string key]
         {
             get

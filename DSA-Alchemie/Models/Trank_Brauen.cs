@@ -21,7 +21,7 @@ namespace Alchemie.Models
             if (!_rezept.IsValid || _character == null) return Quality.None;
             if (UseRNG) BrauenQualityDice.ReplaceRange(0, D6.Roll(2));
             int chym = _character.ChymischeHochzeit ? -1 : 0;
-            int totalMod = mod + _rezept.Probe.BrauenMod + qualmod.rckHalten + Trank.CalculateLaborMod(_rezept.Labor.ID, _character.Labor) + chym + (int)_character.LaborQuality;
+            int totalMod = mod + _rezept.Probe.BrauenMod + qualmod.rckHalten + CalculateLaborMod(_rezept.Labor.ID, _character.Labor) + chym + (int)_character.LaborQuality;
             TaPStarBrauen = TalentProbe(_character.TaWAutomatic, totalMod, _character.AttributesAutomatic, BrauenEigenschaftDice);
             if (TaPStarBrauen < 0)
             {
