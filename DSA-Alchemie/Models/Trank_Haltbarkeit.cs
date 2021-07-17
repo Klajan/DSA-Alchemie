@@ -51,37 +51,50 @@ namespace Alchemie.Models
 
         public void HaltbarkeitVerlängern()
         {
-            const string S1 = "doppelte Haltbarkeit";
-            const string S2 = "3: anderthalbfache Haltbarkeit";
-            const string S3 = "4: anderthalbfache Haltbarkeit, Qualität sinkt um 1 Stufe";
-            const string S4 = "5: keine Veränderung der Haltbarkeit, Qualität sinkt um 1 Stufe";
-            const string S5 = "6-8: Trank wird vollkommen wirkungslos";
-            const string S6 = "9-10: die Wirkung des Trankes schlägt um in ein Gift (siehe Mandragora, GA 213: Stufe 2, 1W6 SP, Brechreiz/1W3 SP, +3 auf Handlungen)";
-
             TaPStarHaltbarkeit = TalentProbe(_character.TaWAlchemie, 9, _character.AttributesAlchemie, HaltbarkeitEigenschaftDice);
             if (_TaPStarHaltbarkeit >= 0)
             {
                 ExpiryValue = _expiryBaseValue * 2;
-                ExpiryResultStr = S1;
+                ExpiryResultStr = "doppelte Haltbarkeit";
             }
             else
             {
-                int roll;
-                if (UseRNG) { roll = ExpiryFailRoll = D6.Roll(); }
-                else { roll = ExpiryFailRoll; }
-                if (_TaPStarHaltbarkeit == -UInt16.MaxValue) roll += 4;
-                (double, int, string) result = new Func<(double, int, string)>(() =>
-                    {
-                        if (roll <= 2) return (2.0, 0, String.Concat("0-2: ", S1));
-                        if (roll <= 3) return (1.5, 0, S2);
-                        if (roll <= 4) return (1.5, -1, S3);
-                        if (roll <= 5) return (1.0, -1, S4);
-                        if (roll <= 8) return (-1.0, -9, S5);
-                        return (0.0, -9, S6);
-                    })();
-                ExpiryValue = (int)Math.Round((double)_expiryBaseValue * result.Item1, MidpointRounding.AwayFromZero);
-                Quality = ChangeQualityBy(Quality, result.Item2);
-                ExpiryResultStr = result.Item3;
+                int roll = UseRNG ? (ExpiryFailRoll = D6.Roll()) : ExpiryFailRoll;
+                if (_TaPStarHaltbarkeit == -ushort.MaxValue) { roll += 4; }
+
+                switch (roll)
+                {
+                    case <= 2:
+                        ExpiryValue = (int)Math.Round(_expiryBaseValue * 2.0, MidpointRounding.AwayFromZero);
+                        Quality = ChangeQualityBy(Quality, 0);
+                        ExpiryResultStr = "0-2: doppelte Haltbarkeit";
+                        break;
+                    case 3:
+                        ExpiryValue = (int)Math.Round(_expiryBaseValue * 1.5, MidpointRounding.AwayFromZero);
+                        Quality = ChangeQualityBy(Quality, 0);
+                        ExpiryResultStr = "3: anderthalbfache Haltbarkeit";
+                        break;
+                    case 4:
+                        ExpiryValue = (int)Math.Round(_expiryBaseValue * 1.5, MidpointRounding.AwayFromZero);
+                        Quality = ChangeQualityBy(Quality, -1);
+                        ExpiryResultStr = "4: anderthalbfache Haltbarkeit, Qualität sinkt um 1 Stufe";
+                        break;
+                    case 5:
+                        ExpiryValue = _expiryBaseValue;
+                        Quality = ChangeQualityBy(Quality, -1);
+                        ExpiryResultStr = "5: keine Veränderung der Haltbarkeit, Qualität sinkt um 1 Stufe";
+                        break;
+                    case <= 8:
+                        ExpiryValue = (int)Math.Round(_expiryBaseValue * -1.0, MidpointRounding.AwayFromZero);
+                        Quality = ChangeQualityBy(Quality, -9);
+                        ExpiryResultStr = "6-8: Trank wird vollkommen wirkungslos";
+                        break;
+                    default:
+                        ExpiryValue = _expiryBaseValue;
+                        Quality = ChangeQualityBy(Quality, -9);
+                        ExpiryResultStr = "9-10: die Wirkung des Trankes schlägt um in ein Gift (siehe Mandragora, GA 213: Stufe 2, 1W6 SP, Brechreiz/1W3 SP, +3 auf Handlungen)";
+                        break;
+                }
             }
             ExpiryIsExtended = true;
         }

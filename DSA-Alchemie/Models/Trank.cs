@@ -133,7 +133,7 @@ namespace Alchemie.Models
 
         private void ResetToDefault(bool raiseEvent = true)
         {
-            ResetBraueToDefault(false);
+            ResetBrauenToDefault(false);
             ResetHaltbarkeitToDefault(false);
             Quality = Quality.None;
             if (raiseEvent) RaisePropertyChange(null);

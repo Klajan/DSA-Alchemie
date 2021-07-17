@@ -46,7 +46,7 @@ namespace Alchemie.Models
             return Quality;
         }
 
-        private void ResetBraueToDefault(bool raiseEvent = true)
+        private void ResetBrauenToDefault(bool raiseEvent = true)
         {
             _TaPStarBrauen = 0;
             _expiryBaseValue = -1;
