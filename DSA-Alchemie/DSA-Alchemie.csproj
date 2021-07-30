@@ -134,6 +134,6 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cd $(ProjectDir)..\Compress\bin\net5.0&#xD;&#xA;if $(ConfigurationName) == Release (Compress.exe $(ProjectDir)resources\data\rezepte.xml)&#xD;&#xA;if $(ConfigurationName) == Release (Compress.exe $(ProjectDir)resources\data\rezepte.xsd)" />
+    <Exec Command="cd $(ProjectDir)..\Compress\bin\net5.0&#xD;&#xA;Compress.exe $(ProjectDir)resources\data\rezepte.xml&#xD;&#xA;Compress.exe $(ProjectDir)resources\data\rezepte.xsd" />
   </Target>
 </Project>
