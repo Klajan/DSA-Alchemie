@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:Alchemie.UI.ViewModels"
     xmlns:views="clr-namespace:Alchemie.UI.Views"
+    xmlns:strings="clr-namespace:Alchemie.Resources.Strings"
     x:Name="AlchemieMain"
     Title="DSA Alchemie"
     Width="1050"
@@ -41,36 +42,35 @@
             <MenuItem
                 Height="22"
                 Margin="0"
-                Header="_Data">
-                <MenuItem Header="_Refresh" IsEnabled="False" />
-                <MenuItem Command="{x:Static local:MainWindow.AddRezeptRoutedCommand}" Header="_Add Rezept" />
+                Header="{x:Static strings:MainWindow.File}">
+                <MenuItem Header="{x:Static strings:MainWindow.File_ImportRezept}" IsEnabled="False" />
+                <MenuItem Header="{x:Static strings:MainWindow.File_ImportHeld}" IsEnabled="False" />
             </MenuItem>
-            <MenuItem Height="22" Header="_File">
-                <MenuItem Header="_Import Helden XML" IsEnabled="False" />
+            <MenuItem Height="22" Header="{x:Static strings:MainWindow.Edit}">
+                <MenuItem Command="{x:Static local:MainWindow.AddRezeptRoutedCommand}" Header="{x:Static strings:MainWindow.File_AddRezept}" />
             </MenuItem>
-            <MenuItem Height="22" Header="_Settings">
-                <MenuItem Header="_Load/Save">
+            <MenuItem Height="22" Header="{x:Static strings:MainWindow.View}" />
+            <MenuItem Height="22" Header="{x:Static strings:MainWindow.Settings}">
+                <MenuItem Header="{x:Static strings:MainWindow.Settings_LoadSave}">
                     <MenuItem
-                        x:Name="SaveChar"
-                        Header="_Save on Exit"
+                        Header="{x:Static strings:MainWindow.Settings_Save}"
                         IsCheckable="True"
                         IsChecked="{Binding SaveChar}"
                         StaysOpenOnClick="True" />
                     <MenuItem
-                        x:Name="LoadChar"
-                        Header="_Load on Start"
+                        Header="{x:Static strings:MainWindow.Settings_Load}"
                         IsCheckable="True"
                         IsChecked="{Binding LoadChar}"
                         StaysOpenOnClick="True" />
                 </MenuItem>
-                <MenuItem Header="_Updates">
+                <MenuItem Header="{x:Static strings:MainWindow.Settings_Updates}">
                     <MenuItem
-                        Header="Check for _Updates"
+                        Header="{x:Static strings:MainWindow.Settings_CheckUpdates}"
                         IsCheckable="True"
                         IsChecked="{Binding CheckUpdates}"
                         StaysOpenOnClick="True" />
                     <MenuItem
-                        Header="Use _Prerelease Versions"
+                        Header="{x:Static strings:MainWindow.Settings_UsePrerelease}"
                         IsCheckable="True"
                         IsChecked="{Binding CheckPrerelease}"
                         StaysOpenOnClick="True" />

@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:Alchemie.UI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewmodels="clr-namespace:Alchemie.UI.ViewModels"
+    xmlns:strings="clr-namespace:Alchemie.Resources.Strings"
     d:DesignHeight="800"
     d:DesignWidth="700"
     mc:Ignorable="d">
@@ -42,7 +43,7 @@
         <GroupBox
             Grid.Column="0"
             Margin="3,0"
-            Header="Haltbarkeit verlängern">
+            Header="{x:Static strings:HaltbarkeitView.Header1}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" MaxHeight="50" />
@@ -62,7 +63,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Center"
-                    Content="Probe:"
+                    Content="{x:Static strings:HaltbarkeitView.Test}"
                     FontWeight="Bold" />
                 <Label
                     Grid.Row="1"
@@ -70,14 +71,14 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Center"
-                    Content="Haltbarkeit:"
+                    Content="{x:Static strings:HaltbarkeitView.Durability}"
                     FontWeight="Bold" />
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="1"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Text="Alchemie +9" />
+                    Text="{x:Static strings:HaltbarkeitView.TestText}" />
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
@@ -110,10 +111,7 @@
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
                     IsChecked="{Binding ExpiryIsReadonly, Converter={StaticResource BoolInverterConverter}}">
-                    <StackPanel>
-                        <TextBlock HorizontalAlignment="Left" Text="Haltbarkeit" />
-                        <TextBlock HorizontalAlignment="Left" Text="bearbeiten" />
-                    </StackPanel>
+                    <TextBlock Text="{x:Static strings:HaltbarkeitView.DurabilityEdit}" MaxWidth="100" TextWrapping="Wrap"/>
                 </CheckBox>
 
                 <Grid
@@ -138,7 +136,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         VerticalContentAlignment="Center"
-                        Content="Total Mod:"
+                        Content="{x:Static strings:HaltbarkeitView.TotalMod}"
                         FontWeight="Bold" />
                     <UI:NumericUpDown
                         x:Name="TotalMod"
@@ -176,7 +174,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
-                                Text="Verlängern"
+                                Text="{x:Static strings:HaltbarkeitView.ButtonExtStr}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
                     </Button>
@@ -186,7 +184,7 @@
         <GroupBox
             Grid.Column="1"
             Margin="3,0"
-            Header="Ergebnis">
+            Header="{x:Static strings:HaltbarkeitView.Header2}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*" MaxHeight="35" />
@@ -208,7 +206,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Center"
-                    Content="Qualität:"
+                    Content="{x:Static strings:HaltbarkeitView.Quality}"
                     FontWeight="Bold" />
                 <ComboBox
                     Grid.Row="0"
@@ -248,7 +246,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         VerticalContentAlignment="Center"
-                        Content="Ergebnis der Probe:"
+                        Content="{x:Static strings:HaltbarkeitView.TestResult}"
                         FontWeight="Bold" />
                     <Border
                         Grid.Row="1"
@@ -280,7 +278,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         VerticalContentAlignment="Center"
-                        Content="Neue Haltbarkeit:"
+                        Content="{x:Static strings:HaltbarkeitView.NewDurability}"
                         FontWeight="Bold" />
                     <Border
                         Grid.Row="1"
@@ -395,10 +393,7 @@
                         HorizontalAlignment="Right"
                         VerticalContentAlignment="Center"
                         IsChecked="{Binding UseRNG, FallbackValue=true}">
-                        <StackPanel>
-                            <TextBlock>Automatisch</TextBlock>
-                            <TextBlock>Würfeln</TextBlock>
-                        </StackPanel>
+                        <TextBlock Text="{x:Static strings:HaltbarkeitView.AutoDice}" TextWrapping="Wrap"/>
                     </CheckBox>
                 </Grid>
             </Grid>
