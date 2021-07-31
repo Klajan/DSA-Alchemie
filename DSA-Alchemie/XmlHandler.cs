@@ -99,19 +99,16 @@ namespace Alchemie
             }
             catch (XmlException e)
             {
-                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
                 System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.XmlException);
                 return null;
             }
             catch (XmlSchemaException e)
             {
-                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
-                System.Windows.MessageBox.Show(e.Message + Properties.ErrorStrings.XsdExceptionMsg1 + e.LineNumber + Properties.ErrorStrings.XsdExceptionMsg2 + e.LinePosition, Properties.ErrorStrings.XsdException);
+                System.Windows.MessageBox.Show(string.Format(Properties.ErrorStrings.XsdExceptionMsg, e.Message, e.LineNumber, e.LinePosition), Properties.ErrorStrings.XsdException);
                 return null;
             }
             catch (FileNotFoundException e)
             {
-                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
                 System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.FileNotFoundException);
                 return null;
             }
@@ -135,7 +132,6 @@ namespace Alchemie
             }
             catch (FileNotFoundException e)
             {
-                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
                 System.Windows.MessageBox.Show(e.Message, Properties.ErrorStrings.FileNotFoundException);
                 return null;
             }

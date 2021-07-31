@@ -16,8 +16,6 @@ namespace Alchemie
     /// </summary>
     public partial class App : Application
     {
-        public static Collection<Tuple<Exception, Type>> Exceptions { private set; get; } = new Collection<Tuple<Exception, Type>>();
-
         private Database rezepteDB_ = new();
         public Database RezepteDB { get { return rezepteDB_; } }
         private Character character_ = new();

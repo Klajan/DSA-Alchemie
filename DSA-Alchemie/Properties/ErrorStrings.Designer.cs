@@ -88,20 +88,11 @@ namespace Alchemie.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die \nline ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0}\nline {1}, position {2} ähnelt.
         /// </summary>
-        internal static string XsdExceptionMsg1 {
+        internal static string XsdExceptionMsg {
             get {
-                return ResourceManager.GetString("XsdExceptionMsg1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die , position ähnelt.
-        /// </summary>
-        internal static string XsdExceptionMsg2 {
-            get {
-                return ResourceManager.GetString("XsdExceptionMsg2", resourceCulture);
+                return ResourceManager.GetString("XsdExceptionMsg", resourceCulture);
             }
         }
     }

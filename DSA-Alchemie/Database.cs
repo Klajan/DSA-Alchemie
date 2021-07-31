@@ -61,7 +61,7 @@ namespace Alchemie
             }
             catch (ArgumentException e)
             {
-                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
+                System.Windows.MessageBox.Show(e.Message, "ArgumentNullException");
                 return;
             }
             if (RezepteGruppen.ContainsKey(rezept.Gruppe))

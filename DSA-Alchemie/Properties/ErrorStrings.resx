@@ -126,10 +126,7 @@
   <data name="XsdException" xml:space="preserve">
     <value>XmlSchemaException</value>
   </data>
-  <data name="XsdExceptionMsg1" xml:space="preserve">
-    <value>\nline</value>
-  </data>
-  <data name="XsdExceptionMsg2" xml:space="preserve">
-    <value>, position</value>
+  <data name="XsdExceptionMsg" xml:space="preserve">
+    <value>{0}\nline {1}, position {2}</value>
   </data>
 </root>
