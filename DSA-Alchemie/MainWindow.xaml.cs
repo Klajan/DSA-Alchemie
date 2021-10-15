@@ -33,6 +33,7 @@ namespace Alchemie
             mainWindowViewModel.Attach_Rezepte(data);
             mainWindowViewModel.OnRezeptChanged += rezeptViewModel.ChangeRezept;
             BrauenView.BrauenViewModel.Trank = CurrentApp.Trank;
+            HaltbarkeitView.HaltbarkeitViewModel.Trank = CurrentApp.Trank;
         }
 
         public void AttachCharacter(Character character)

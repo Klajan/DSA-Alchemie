@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Alchemie
 {
@@ -14,21 +15,24 @@ namespace Alchemie
     {
         private static readonly HttpClient _client = new();
         private static readonly Version _version = Assembly.GetExecutingAssembly().GetName().Version;
-        public static string CurrentVersion { get => _version.ToString(); }
+        public static string CurrentVersion { get => _version.ToString(3); }
         private const string _owner = "Klajan";
         private const string _repo = "DSA-Alchemie";
         private static readonly Uri _gitAPIuri = new($"https://api.github.com/repos/{_owner}/{_repo}/releases", UriKind.Absolute);
+        private const string _gitMediaType = "application/vnd.github.v3+json";
+        private const string _userAgent = ".NET DSA-Alchemie Update Checker";
 
         public static async Task<Release> CheckUpdateAvailable()
         {
-            var releases = await GetReleasesAsync().ConfigureAwait(false);
+            var releases = await GetReleasesAsync().ConfigureAwait(true);
             foreach (Release release in releases)
             {
                 if (!release.Prerelease | Alchemie.Properties.Settings.Default.CheckForPrerelease)
                 {
-                    var version = Release.ParseVersion(release.Tag);
+                    Version version = Release.ParseVersion(release.Tag);
                     if (_version.CompareTo(version) < 0)
                     {
+                        release.Version = version;
                         return release;
                     }
                 }
@@ -40,17 +44,33 @@ namespace Alchemie
         {
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-            _client.DefaultRequestHeaders.Add("User-Agent", ".NET DSA-Alchemie Update Checker");
+                new MediaTypeWithQualityHeaderValue(_gitMediaType));
+            _client.DefaultRequestHeaders.Add("User-Agent", _userAgent);
 
-            var streamTask = _client.GetStreamAsync(_gitAPIuri);
-            var releases = await JsonSerializer.DeserializeAsync<List<Release>>(await streamTask.ConfigureAwait(false)).ConfigureAwait(false);
+            Task<System.IO.Stream> streamTask = _client.GetStreamAsync(_gitAPIuri);
+            List<Release> releases = await JsonSerializer.DeserializeAsync<List<Release>>(await streamTask.ConfigureAwait(true)).ConfigureAwait(true);
             return releases;
+        }
+
+        public static async void ShowUpdateWindow()
+        {
+            Release release = await CheckUpdateAvailable().ConfigureAwait(true);
+            if (release != null)
+            {
+                await Application.Current.Dispatcher.BeginInvoke(
+                        System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(delegate
+                        {
+                            UI.Windows.UpdateWindow UpdateWindow = new(release);
+                            UpdateWindow.Show();
+                        }));
+            }
         }
     }
 
     public class Release
     {
+        public Version Version { get; set; }
+
         [JsonPropertyName("id")]
         public int ID { get; set; }
 
@@ -74,13 +94,8 @@ namespace Alchemie
 
         public static Version ParseVersion(string version)
         {
-            Regex regex = new("([0-9]+.){2,3}([0-9]+)?");
-            var match = regex.Match(version);
-            if (match.Success)
-            {
-                return Version.Parse(match.Value);
-            }
-            return null;
+            Match match = Regex.Match(version, "([0-9]+.){2,3}([0-9]+)?");
+            return match.Success ? Version.Parse(match.Value) : null;
         }
     }
 }

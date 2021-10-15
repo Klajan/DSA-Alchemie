@@ -117,16 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FileNotFoundException" xml:space="preserve">
-    <value>FileNotFoundException</value>
+  <data name="Edit" xml:space="preserve">
+    <value>_Bearbeiten</value>
   </data>
-  <data name="XmlException" xml:space="preserve">
-    <value>XmlException</value>
+  <data name="File" xml:space="preserve">
+    <value>_Datei</value>
   </data>
-  <data name="XsdException" xml:space="preserve">
-    <value>XmlSchemaException</value>
+  <data name="File_AddRezept" xml:space="preserve">
+    <value>_Rezept hinzufügen</value>
   </data>
-  <data name="XsdExceptionMsg" xml:space="preserve">
-    <value>{0}\nline {1}, position {2}</value>
+  <data name="File_ImportHeld" xml:space="preserve">
+    <value>Importiere _Helden XML</value>
+  </data>
+  <data name="File_ImportRezept" xml:space="preserve">
+    <value>_Importiere Rezepte XML</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>_Einstellungen</value>
+  </data>
+  <data name="Settings_CheckUpdates" xml:space="preserve">
+    <value>Suche nach _Updates</value>
+  </data>
+  <data name="Settings_Load" xml:space="preserve">
+    <value>_Laden bei Programmstart</value>
+  </data>
+  <data name="Settings_LoadSave" xml:space="preserve">
+    <value>_Laden/Speichern</value>
+  </data>
+  <data name="Settings_Save" xml:space="preserve">
+    <value>_Speichern bei Beenden</value>
+  </data>
+  <data name="Settings_Updates" xml:space="preserve">
+    <value>_Updates</value>
+  </data>
+  <data name="Settings_UsePrerelease" xml:space="preserve">
+    <value>Suche nach _Beta Updates</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>_Ansicht</value>
   </data>
 </root>

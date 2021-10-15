@@ -16,8 +16,6 @@ namespace Alchemie
     /// </summary>
     public partial class App : Application
     {
-        public static Collection<Tuple<Exception, Type>> Exceptions { private set; get; } = new Collection<Tuple<Exception, Type>>();
-
         private Database rezepteDB_ = new();
         public Database RezepteDB { get { return rezepteDB_; } }
         private Character character_ = new();
@@ -36,7 +34,19 @@ namespace Alchemie
             set { trank_ = value; }
         }
 
-        private void Initialize()
+        public App()
+        {
+            InitializeComponent();
+            MainWindow = new MainWindow();
+
+            var initTask = Task.Run(InitTask);
+            var updateTask = Task.Run(UpdateChecker.ShowUpdateWindow);
+
+            _ = MainWindow.Activate();
+            MainWindow.Show();
+        }
+
+        private async void InitTask()
         {
             if (Alchemie.Properties.Settings.Default.UpgradeRequired)
             {
@@ -59,39 +69,12 @@ namespace Alchemie
                 character_ = Character.LoadCharacterFromSettings();
             }
             trank_ = new Trank(rezepteDB_.Rezepte.First().Value, character_);
-        }
 
-        public App()
-        {
-            InitializeComponent();
-            MainWindow = new MainWindow();
-            MainWindow.Activate();
-            MainWindow.Show();
-
-            var initTask = Task.Run(Initialize);
-            initTask.ContinueWith(delegate
-            {
-                Current.Dispatcher.BeginInvoke(
+            await Application.Current.Dispatcher.BeginInvoke(
                     System.Windows.Threading.DispatcherPriority.Normal, new Action(delegate
                     {
                         (MainWindow as MainWindow).AttachRezepte(rezepteDB_);
                         (MainWindow as MainWindow).AttachCharacter(character_);
-                    }));
-            }, TaskScheduler.Current);
-
-            var updateChecker = Task.Run(UpdateChecker.CheckUpdateAvailable);
-            updateChecker.ContinueWith(UpdaterWindow, TaskScheduler.Current);
-        }
-
-        private static void UpdaterWindow(Task<Release> release)
-        {
-            var result = release.Result;
-            if (result == null) return;
-            Current.Dispatcher.BeginInvoke(
-                    System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(delegate
-                    {
-                        UI.Windows.UpdateWindow UpdateWindow = new(result);
-                        UpdateWindow.Show();
                     }));
         }
 

@@ -1,4 +1,4 @@
-﻿using Alchemie.Models;
+﻿using Alchemie.Models.Types;
 using Alchemie.UI.ViewModels;
 using System;
 using System.Globalization;
@@ -18,21 +18,6 @@ namespace Alchemie.UI.Views
         {
             InitializeComponent();
         }
-
-        public static readonly Tuple<LaborQL, string>[] LabQualityList = new Tuple<LaborQL, string>[]
-        {
-            Tuple.Create(LaborQL.Fehlend, "(+3) Fehlende/beschädigte Gerätschaften"),
-            Tuple.Create(LaborQL.Normal, "(+0) Normales Labor"),
-            Tuple.Create(LaborQL.Gut, "(-3) Hochwertiges Labor"),
-            Tuple.Create(LaborQL.SehrGut, "(-7) Außergewöhnlich hochwertiges Labor")
-        };
-
-        public static readonly Tuple<LaborID, string>[] LabLevelList = new Tuple<LaborID, string>[]
-        {
-            Tuple.Create(LaborID.ArchaischesLabor, "Archaisches Labor"),
-            Tuple.Create(LaborID.Hexenküche, "Hexenküche"),
-            Tuple.Create(LaborID.Alchemielabor, "Alchimistenlabor")
-        };
     }
 
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1812:Avoid uninstantiated internal classes", Justification = "instantiated in xaml")]

@@ -61,7 +61,7 @@ namespace Alchemie
             }
             catch (ArgumentException e)
             {
-                App.Exceptions.Add(Tuple.Create(e as Exception, e.GetType()));
+                System.Windows.MessageBox.Show(e.Message, "ArgumentNullException");
                 return;
             }
             if (RezepteGruppen.ContainsKey(rezept.Gruppe))
@@ -74,11 +74,6 @@ namespace Alchemie
                 _rezepteGruppen.Add(rezept.Gruppe, new List<string> { rezept.Name });
             }
             (RezepteGruppen[AllKey] as IList<string>).Add(rezept.Name);
-        }
-
-        public IList<Rezept> GetList()
-        {
-            return Rezepte.Values.ToList();
         }
 
         public Rezept this[string key]

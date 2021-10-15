@@ -11,7 +11,7 @@ namespace Alchemie.UI.ViewModels
 
         public MainWindowViewModel()
         {
-            app_ = Application.Current as App;
+            _app = Application.Current as App;
         }
 
         public MainWindowViewModel(Database DB) : this()
@@ -28,8 +28,8 @@ namespace Alchemie.UI.ViewModels
 
         #region Members
 
-        private readonly App app_;
-        private Rezept rezept_ = new();
+        private readonly App _app;
+        private Rezept _rezept = new();
 
         public delegate void RezeptChangedHandler(object sender, Rezept newRezept);
 
@@ -39,63 +39,64 @@ namespace Alchemie.UI.ViewModels
 
         public RezeptViewModel TestRezepte { get; set; }
 
-        private readonly ExtendedObserableCollection<string> rezepte_ = new();
+        private readonly ExtendedObserableCollection<string> _rezepte = new();
 
         public ExtendedObserableCollection<string> Rezepte
         {
-            get { return rezepte_; }
+            get { return _rezepte; }
         }
 
-        private readonly ExtendedObserableCollection<string> gruppen_ = new();
+        private readonly ExtendedObserableCollection<string> _gruppen = new();
 
         public ExtendedObserableCollection<string> Gruppen
         {
-            get { return gruppen_; }
+            get { return _gruppen; }
         }
 
-        private string selectedGruppe_;
+        private string _selectedGruppe;
 
         public string SelectedGruppe
         {
-            get { return selectedGruppe_; }
+            get { return _selectedGruppe; }
             set
             {
-                selectedGruppe_ = value;
-                var rezeptGruppe = rezept_?.Gruppe;
-                var oldRezept = selectedRezept_;
-                var filtered = app_.RezepteDB.RezepteGruppen[selectedGruppe_];
-                rezepte_.Clear();
-                rezepte_.AddRange(filtered);
-                SelectedRezept = rezeptGruppe == selectedGruppe_ ? oldRezept : filtered[0];
-                RaisePropertyChange();
+                if (SetValue(ref _selectedGruppe, value))
+                {
+                    var rezeptGruppe = _rezept?.Gruppe;
+                    var oldRezept = _selectedRezept;
+                    var filtered = _app.RezepteDB.RezepteGruppen[_selectedGruppe];
+                    _rezepte.RebuildWithRange(filtered);
+                    SelectedRezept = rezeptGruppe == _selectedGruppe ? oldRezept : filtered[0];
+                }
             }
         }
 
-        private string selectedRezept_;
+        private string _selectedRezept;
 
         public string SelectedRezept
         {
-            get { return selectedRezept_; }
+            get { return _selectedRezept; }
             set
             {
-                selectedRezept_ = value;
-                rezept_ = value == null ? null : app_.RezepteDB.Rezepte[selectedRezept_];
-                if (rezept_ != null && app_.Trank != null && !rezept_.Equals(app_.Trank.Rezept))
+                if (SetValue(ref _selectedRezept, value))
                 {
-                    Seite = rezept_.Seite;
-                    app_.Trank.Rezept = rezept_;
-                    OnRezeptChanged.Invoke(this, rezept_);
+                    _rezept = value == null ? null : _app.RezepteDB.Rezepte[_selectedRezept];
+                    if (_rezept != null && _app.Trank != null && !_rezept.Equals(_app.Trank.Rezept))
+                    {
+                        Seite = _rezept.Seite;
+                        _app.Trank.Rezept = _rezept;
+                        OnRezeptChanged.Invoke(this, _rezept);
+                    }
                 }
-                RaisePropertyChange();
             }
         }
 
-        private int seite_;
+        private int _seite;
 
         public int Seite
         {
-            get { return seite_; }
-            set { seite_ = value; RaisePropertyChange(); }
+            get => _seite;
+            set => SetValue(ref _seite, value);
         }
 
         public void Attach_Rezepte(Database DB)
@@ -105,11 +106,11 @@ namespace Alchemie.UI.ViewModels
 
         public void Attach_Rezepte(IReadOnlyList<string> gruppen, IReadOnlyList<string> rezepte)
         {
-            gruppen_.AddRange(gruppen);
-            rezepte_.AddRange(rezepte);
+            _gruppen.AddRange(gruppen);
+            _rezepte.AddRange(rezepte);
             SelectedGruppe = gruppen[0];
             SelectedRezept = rezepte[0];
-            Seite = (int)rezept_?.Seite;
+            Seite = (int)_rezept?.Seite;
         }
     }
 }

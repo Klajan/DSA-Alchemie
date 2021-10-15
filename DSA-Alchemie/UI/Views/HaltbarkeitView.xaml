@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Alchemie.UI.Views.BrauenView"
+    x:Class="Alchemie.UI.Views.HaltbarkeitView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:UI="clr-namespace:Alchemie.UI.Commons"
@@ -7,21 +7,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Alchemie.UI.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:resx="clr-namespace:Alchemie.Resources"
     xmlns:viewmodels="clr-namespace:Alchemie.UI.ViewModels"
+    xmlns:strings="clr-namespace:Alchemie.Resources.Strings"
     d:DesignHeight="800"
     d:DesignWidth="700"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <local:ZurückhaltenCalculator x:Key="RückhaltenCalculator" />
-        <local:AstralAufladenConverter x:Key="AstralAufladenConverter" />
-        <local:TotalModCalculator x:Key="TotalModCalculator" />
-        <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <converters:CombiningConverter
-            x:Key="NegatedBooleanToVisibilityConverter"
-            Converter1="{StaticResource BoolInverterConverter}"
-            Converter2="{StaticResource BooleanToVisibilityConverter}" />
         <Style TargetType="UI:NumericUpDown">
             <Setter Property="MinHeight" Value="22" />
             <Setter Property="MaxHeight" Value="32" />
@@ -30,9 +21,15 @@
             <Setter Property="Margin" Value="2,0" />
             <Setter Property="MaxWidth" Value="200" />
         </Style>
+        <converters:BoolInverterConverter x:Key="BoolInverterConverter" />
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:CombiningConverter
+            x:Key="NegatedBooleanToVisibilityConverter"
+            Converter1="{StaticResource BoolInverterConverter}"
+            Converter2="{StaticResource BooleanToVisibilityConverter}" />
     </UserControl.Resources>
     <UserControl.DataContext>
-        <viewmodels:BrauenViewModel x:Name="BrauenViewModel" />
+        <viewmodels:HaltbarkeitViewModel x:Name="HaltbarkeitViewModel" />
     </UserControl.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -46,7 +43,7 @@
         <GroupBox
             Grid.Column="0"
             Margin="3,0"
-            Header="Brauen des Elixiers">
+            Header="{x:Static strings:HaltbarkeitView.Header1}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*" MaxHeight="50" />
@@ -66,7 +63,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Center"
-                    Content="Zurückhalten:"
+                    Content="{x:Static strings:HaltbarkeitView.Test}"
                     FontWeight="Bold" />
                 <Label
                     Grid.Row="1"
@@ -74,134 +71,49 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Center"
-                    Content="Astrales aufladen:"
+                    Content="{x:Static strings:HaltbarkeitView.Durability}"
                     FontWeight="Bold" />
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    VerticalContentAlignment="Center"
-                    Content="Mod:"
-                    FontWeight="Bold" />
-                <Grid
+                <TextBlock
                     Grid.Row="0"
-                    Grid.RowSpan="3"
-                    Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                        <RowDefinition Height="1*" />
-                    </Grid.RowDefinitions>
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="{x:Static strings:HaltbarkeitView.TestText}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="{Binding ExpiryBaseStr}"
+                    Visibility="{Binding ExpiryIsReadonly, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <Grid
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Visibility="{Binding ExpiryIsReadonly, Converter={StaticResource NegatedBooleanToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition MaxWidth="100" />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <UI:NumericUpDown
-                        x:Name="Zurückhalten"
-                        Grid.Row="0"
                         Grid.Column="0"
-                        Margin="2,0"
-                        IntValue="{Binding Zurückhalten, Mode=TwoWay, FallbackValue=0}"
-                        Min="0">
-                        <UI:NumericUpDown.Max>
-                            <MultiBinding
-                                Converter="{StaticResource RückhaltenCalculator}"
-                                Mode="OneWay"
-                                NotifyOnSourceUpdated="True">
-                                <Binding
-                                    FallbackValue="0"
-                                    Mode="OneWay"
-                                    Path="RezeptBrauenMod" />
-                                <Binding
-                                    FallbackValue="0"
-                                    Mode="OneWay"
-                                    Path="RezeptLabor" />
-                                <Binding
-                                    FallbackValue="0"
-                                    Mode="OneWay"
-                                    Path="Labor" />
-                            </MultiBinding>
-                        </UI:NumericUpDown.Max>
-                    </UI:NumericUpDown>
-                    <Label
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="0"
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        VerticalContentAlignment="Center"
-                        Content="Misc"
-                        FontWeight="Bold" />
-                    <UI:NumericUpDown
-                        x:Name="ModQL"
-                        Grid.Row="0"
-                        Grid.Column="2"
-                        Margin="2,0"
-                        BorderBrush="Black"
-                        IntValue="{Binding MiscQMod, Mode=TwoWay, FallbackValue=0}"
-                        ToolTip="Andere Boni/Mali auf die Qualität" />
-                    <UI:NumericUpDown
-                        x:Name="AstralAufladen"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="2,0"
-                        IntValue="{Binding AstralAufladen, Mode=TwoWay, FallbackValue=0}"
+                        IntValue="{Binding ExpiryBaseValue, Mode=TwoWay}"
+                        Max="{Binding ExpiryValueMax, Mode=OneWay}"
                         Min="0" />
-                    <Label
-                        Grid.Row="1"
+                    <TextBlock
                         Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        VerticalContentAlignment="Center"
-                        Content="AsP"
-                        FontWeight="Bold" />
-                    <UI:NumericUpDown
-                        x:Name="AstralAufladenAsP"
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        Margin="2,0"
-                        BorderBrush="Black"
-                        ButtonVisibility="Collapsed"
-                        IsReadOnly="True">
-                        <UI:NumericUpDown.IntValue>
-                            <MultiBinding
-                                Converter="{StaticResource AstralAufladenConverter}"
-                                Mode="OneWay"
-                                NotifyOnSourceUpdated="True">
-                                <Binding
-                                    ElementName="AstralAufladen"
-                                    Mode="OneWay"
-                                    Path="IntValue" />
-                                <Binding
-                                    Mode="OneWay"
-                                    Path="ChymischeHochzeit"
-                                    UpdateSourceTrigger="PropertyChanged" />
-                            </MultiBinding>
-                        </UI:NumericUpDown.IntValue>
-                    </UI:NumericUpDown>
-                    <UI:NumericUpDown
-                        x:Name="Mod"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="2,0"
-                        BorderBrush="Black"
-                        IntValue="{Binding MiscMod, Mode=TwoWay, FallbackValue=0}"
-                        ToolTip="Andere Boni/Mali auf die Probe" />
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding TimeUnit}" />
                 </Grid>
-                <ComboBox
-                    x:Name="SubstitutionBox"
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="3"
+                <CheckBox
+                    Grid.Row="2"
+                    VerticalAlignment="Center"
                     VerticalContentAlignment="Center"
-                    DisplayMemberPath="Item2"
-                    IsReadOnly="True"
-                    ItemsSource="{x:Static local:Templates.SubstitutionList}"
-                    SelectedIndex="1"
-                    SelectedValue="{Binding Subsitution, Mode=OneWayToSource, FallbackValue=0}"
-                    SelectedValuePath="Item1" />
+                    IsChecked="{Binding ExpiryIsReadonly, Converter={StaticResource BoolInverterConverter}}">
+                    <TextBlock Text="{x:Static strings:HaltbarkeitView.DurabilityEdit}" MaxWidth="100" TextWrapping="Wrap"/>
+                </CheckBox>
+
                 <Grid
                     Grid.Row="4"
                     Grid.Column="0"
@@ -224,7 +136,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         VerticalContentAlignment="Center"
-                        Content="Total Mod:"
+                        Content="{x:Static strings:HaltbarkeitView.TotalMod}"
                         FontWeight="Bold" />
                     <UI:NumericUpDown
                         x:Name="TotalMod"
@@ -233,20 +145,8 @@
                         Margin="2,0"
                         BorderBrush="Black"
                         ButtonVisibility="Collapsed"
-                        IsReadOnly="True">
-                        <UI:NumericUpDown.IntValue>
-                            <MultiBinding Converter="{StaticResource TotalModCalculator}">
-                                <Binding FallbackValue="0" Path="RezeptLabor" />
-                                <Binding FallbackValue="0" Path="Labor" />
-                                <Binding FallbackValue="0" Path="ChymischeHochzeit" />
-                                <Binding FallbackValue="0" Path="LaborQuality" />
-                                <Binding FallbackValue="0" Path="RezeptBrauenMod" />
-                                <Binding FallbackValue="0" Path="Zurückhalten" />
-                                <Binding FallbackValue="0" Path="Subsitution" />
-                                <Binding FallbackValue="0" Path="MiscMod" />
-                            </MultiBinding>
-                        </UI:NumericUpDown.IntValue>
-                    </UI:NumericUpDown>
+                        IntValue="9"
+                        IsReadOnly="True" />
                     <Button
                         Grid.Row="1"
                         Grid.Column="3"
@@ -254,7 +154,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Background="White"
-                        Command="{Binding HandleBrauenCommand}">
+                        Command="{Binding ExtendHaltbarkeitCommand}">
                         <Button.Effect>
                             <DropShadowEffect BlurRadius="2" ShadowDepth="0.5" />
                         </Button.Effect>
@@ -274,7 +174,7 @@
                                 HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 FontWeight="Bold"
-                                Text="Brauen"
+                                Text="{x:Static strings:HaltbarkeitView.ButtonExtStr}"
                                 TextWrapping="Wrap" />
                         </StackPanel>
                     </Button>
@@ -284,7 +184,7 @@
         <GroupBox
             Grid.Column="1"
             Margin="3,0"
-            Header="Ergebnis">
+            Header="{x:Static strings:HaltbarkeitView.Header2}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*" MaxHeight="35" />
@@ -306,7 +206,7 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     VerticalContentAlignment="Center"
-                    Content="Qualität:"
+                    Content="{x:Static strings:HaltbarkeitView.Quality}"
                     FontWeight="Bold" />
                 <ComboBox
                     Grid.Row="0"
@@ -330,11 +230,11 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     ButtonVisibility="Collapsed"
-                    IntValue="{Binding TaPStarBrauen}"
+                    IntValue="{Binding TaPStarHaltbarkeit}"
                     IsReadOnly="True" />
                 <Grid
                     Grid.Row="1"
-                    Grid.Column="0"
+                    Grid.Column="2"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
@@ -346,7 +246,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         VerticalContentAlignment="Center"
-                        Content="Wirkung:"
+                        Content="{x:Static strings:HaltbarkeitView.TestResult}"
                         FontWeight="Bold" />
                     <Border
                         Grid.Row="1"
@@ -360,14 +260,14 @@
                                 VerticalAlignment="Top"
                                 ScrollViewer.CanContentScroll="True"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                Text="{Binding CurrentWirkung}"
+                                Text="{Binding ExpiryResultStr}"
                                 TextWrapping="Wrap" />
                         </ScrollViewer>
                     </Border>
                 </Grid>
                 <Grid
                     Grid.Row="1"
-                    Grid.Column="2"
+                    Grid.Column="0"
                     Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -378,7 +278,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         VerticalContentAlignment="Center"
-                        Content="Haltbarkeit:"
+                        Content="{x:Static strings:HaltbarkeitView.NewDurability}"
                         FontWeight="Bold" />
                     <Border
                         Grid.Row="1"
@@ -392,7 +292,7 @@
                                 VerticalAlignment="Top"
                                 ScrollViewer.CanContentScroll="True"
                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                Text="{Binding ExpiryBaseString}"
+                                Text="{Binding ExpiryExtendedStr}"
                                 TextWrapping="Wrap" />
                         </ScrollViewer>
                     </Border>
@@ -443,7 +343,7 @@
                         Margin="2,0"
                         BorderBrush="Black"
                         ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
-                        IntValue="{Binding BrauenEigenschaftDice[0], Mode=TwoWay, FallbackValue=1}"
+                        IntValue="{Binding HaltbarkeitEigenschaftDice[0], Mode=TwoWay, FallbackValue=1}"
                         IsReadOnly="{Binding UseRNG}"
                         Max="20"
                         Min="1" />
@@ -453,7 +353,7 @@
                         Margin="2,0"
                         BorderBrush="Black"
                         ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
-                        IntValue="{Binding BrauenEigenschaftDice[1], Mode=TwoWay, FallbackValue=1}"
+                        IntValue="{Binding HaltbarkeitEigenschaftDice[1], Mode=TwoWay, FallbackValue=1}"
                         IsReadOnly="{Binding UseRNG}"
                         Max="20"
                         Min="1" />
@@ -463,7 +363,7 @@
                         Margin="2,0"
                         BorderBrush="Black"
                         ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
-                        IntValue="{Binding BrauenEigenschaftDice[2], Mode=TwoWay, FallbackValue=1}"
+                        IntValue="{Binding HaltbarkeitEigenschaftDice[2], Mode=TwoWay, FallbackValue=1}"
                         IsReadOnly="{Binding UseRNG}"
                         Max="20"
                         Min="1" />
@@ -473,7 +373,7 @@
                         Margin="2,0"
                         BorderBrush="Black"
                         ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
-                        IntValue="{Binding BrauenQualityDice[0], Mode=TwoWay, FallbackValue=1}"
+                        IntValue="{Binding ExpiryFailRoll, Mode=TwoWay, FallbackValue=1}"
                         IsReadOnly="{Binding UseRNG}"
                         Max="6"
                         Min="1" />
@@ -483,20 +383,17 @@
                         Margin="2,0"
                         BorderBrush="Black"
                         ButtonVisibility="{Binding UseRNG, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
-                        IntValue="{Binding BrauenQualityDice[1], Mode=TwoWay, FallbackValue=1}"
                         IsReadOnly="{Binding UseRNG}"
                         Max="6"
-                        Min="1" />
+                        Min="1"
+                        Visibility="Hidden" />
                     <CheckBox
                         Grid.Row="1"
                         Grid.Column="4"
                         HorizontalAlignment="Right"
                         VerticalContentAlignment="Center"
                         IsChecked="{Binding UseRNG, FallbackValue=true}">
-                        <StackPanel>
-                            <TextBlock>Automatisch</TextBlock>
-                            <TextBlock>Würfeln</TextBlock>
-                        </StackPanel>
+                        <TextBlock Text="{x:Static strings:HaltbarkeitView.AutoDice}" TextWrapping="Wrap"/>
                     </CheckBox>
                 </Grid>
             </Grid>

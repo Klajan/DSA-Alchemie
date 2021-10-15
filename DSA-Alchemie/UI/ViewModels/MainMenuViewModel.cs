@@ -24,26 +24,54 @@ namespace Alchemie.UI.ViewModels
 
         public bool SaveChar
         {
-            get { return Alchemie.Properties.Settings.Default.SaveCharacterOnExit; }
-            set { Alchemie.Properties.Settings.Default.SaveCharacterOnExit = value; RaisePropertyChange(); }
+            get => Alchemie.Properties.Settings.Default.SaveCharacterOnExit;
+            set
+            {
+                if (Alchemie.Properties.Settings.Default.SaveCharacterOnExit != value)
+                {
+                    Alchemie.Properties.Settings.Default.SaveCharacterOnExit = value;
+                    RaisePropertyChange();
+                }
+            }
         }
 
         public bool LoadChar
         {
-            get { return Alchemie.Properties.Settings.Default.LoadCharacterOnStart; }
-            set { Alchemie.Properties.Settings.Default.LoadCharacterOnStart = value; RaisePropertyChange(); }
+            get => Alchemie.Properties.Settings.Default.LoadCharacterOnStart;
+            set
+            {
+                if (Alchemie.Properties.Settings.Default.LoadCharacterOnStart != value)
+                {
+                    Alchemie.Properties.Settings.Default.LoadCharacterOnStart = value;
+                    RaisePropertyChange();
+                }
+            }
         }
 
         public bool CheckUpdates
         {
-            get { return Alchemie.Properties.Settings.Default.CheckForUpdates; }
-            set { Alchemie.Properties.Settings.Default.CheckForUpdates = value; RaisePropertyChange(); }
+            get => Alchemie.Properties.Settings.Default.CheckForUpdates;
+            set
+            {
+                if (Alchemie.Properties.Settings.Default.CheckForUpdates != value)
+                {
+                    Alchemie.Properties.Settings.Default.CheckForUpdates = value;
+                    RaisePropertyChange();
+                }
+            }
         }
 
         public bool CheckPrerelease
         {
-            get { return Alchemie.Properties.Settings.Default.CheckForPrerelease; }
-            set { Alchemie.Properties.Settings.Default.CheckForPrerelease = value; RaisePropertyChange(); }
+            get => Alchemie.Properties.Settings.Default.CheckForPrerelease;
+            set
+            {
+                if (Alchemie.Properties.Settings.Default.CheckForPrerelease != value)
+                {
+                    Alchemie.Properties.Settings.Default.CheckForPrerelease = value;
+                    RaisePropertyChange();
+                }
+            }
         }
 
         #endregion Properties

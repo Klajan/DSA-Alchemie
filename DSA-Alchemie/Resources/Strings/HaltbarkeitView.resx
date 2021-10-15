@@ -117,16 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FileNotFoundException" xml:space="preserve">
-    <value>FileNotFoundException</value>
+  <data name="AutoDice" xml:space="preserve">
+    <value>Automatisch Würfeln</value>
   </data>
-  <data name="XmlException" xml:space="preserve">
-    <value>XmlException</value>
+  <data name="ButtonExtStr" xml:space="preserve">
+    <value>Verlängern</value>
   </data>
-  <data name="XsdException" xml:space="preserve">
-    <value>XmlSchemaException</value>
+  <data name="Durability" xml:space="preserve">
+    <value>Haltbarkeit:</value>
   </data>
-  <data name="XsdExceptionMsg" xml:space="preserve">
-    <value>{0}\nline {1}, position {2}</value>
+  <data name="DurabilityEdit" xml:space="preserve">
+    <value>Haltbarkeit bearbeiten</value>
+  </data>
+  <data name="Header1" xml:space="preserve">
+    <value>Haltbarkeit verlängern</value>
+  </data>
+  <data name="Header2" xml:space="preserve">
+    <value>Ergebnis</value>
+  </data>
+  <data name="NewDurability" xml:space="preserve">
+    <value>Neue Haltbarkeit:</value>
+  </data>
+  <data name="Quality" xml:space="preserve">
+    <value>Qualität:</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Probe:</value>
+  </data>
+  <data name="TestResult" xml:space="preserve">
+    <value>Ergebnis der Probe:</value>
+  </data>
+  <data name="TestText" xml:space="preserve">
+    <value>Alchemie +9</value>
+  </data>
+  <data name="TotalMod" xml:space="preserve">
+    <value>Total Mod:</value>
   </data>
 </root>

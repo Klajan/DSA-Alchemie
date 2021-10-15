@@ -1,4 +1,6 @@
 ﻿using Alchemie.Core;
+using Alchemie.Models.Types;
+using System;
 
 namespace Alchemie.Models
 {
@@ -30,52 +32,35 @@ namespace Alchemie.Models
 
         public LaborQL LaborQuality
         {
-            get { return _laborQuality; }
-            set
-            { _laborQuality = value; RaisePropertyChange(); }
+            get => _laborQuality;
+            set => SetValue(ref _laborQuality, value);
         }
 
         public LaborID Labor
         {
-            get { return _labor; }
-            set { _labor = value; RaisePropertyChange(); }
+            get => _labor;
+            set => SetValue(ref _labor, value);
         }
 
         public bool ChymischeHochzeit
         {
-            get { return _chymischeHochzeit; }
-            set { _chymischeHochzeit = value; RaisePropertyChange(); }
+            get => _chymischeHochzeit;
+            set => SetValue(ref _chymischeHochzeit, value);
         }
 
         #endregion Properties
 
-        public int TaW
-        {
-            get
-            {
-                if (UsingAlchemie)
-                {
-                    return Alchemie + AlchemieMH;
-                }
-                else
-                {
-                    return Kochen + KochenMH;
-                }
-            }
-        }
+        public int TaWAlchemie => Alchemie + AlchemieMH;
 
-        #region Construction
+        public int TaWKochen => Kochen + KochenMH;
 
-        public Character()
-        {
-        }
+        public int TaWAutomatic => UsingAlchemie ? TaWAlchemie : TaWKochen;
 
-        public Character(int mu1, int kl1, int ff1, int in1, int alchemie, int kochen, LaborID lab = LaborID.ArchaischesLabor, LaborQL labqual = LaborQL.Normal, bool usingAlch = true)
-        {
-            MU = mu1; KL = kl1; FF = ff1; IN = in1; Alchemie = alchemie; Kochen = kochen; Labor = lab; LaborQuality = labqual; UsingAlchemie = usingAlch;
-        }
+        public (int, int, int) AttributesAlchemie => (MU, KL, FF);
 
-        #endregion Construction
+        public (int, int, int) AttributesKochen => (KL, IN, FF);
+
+        public (int, int, int) AttributesAutomatic => UsingAlchemie ? AttributesAlchemie : AttributesKochen;
 
         #region Methods
 

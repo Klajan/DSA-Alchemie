@@ -1,5 +1,6 @@
 ﻿using Alchemie.Core;
 using Alchemie.Models;
+using Alchemie.Models.Types;
 using System;
 using System.ComponentModel;
 
@@ -11,27 +12,28 @@ namespace Alchemie.UI.ViewModels
 
         public RezeptViewModel()
         {
-            rezept_ = new Rezept();
+            _rezept = new Rezept();
         }
 
         public RezeptViewModel(Rezept rezept)
         {
-            rezept_ = rezept;
+            if (rezept == null) throw new ArgumentNullException(nameof(rezept));
+            _rezept = rezept;
         }
 
         public RezeptViewModel(Trank trank)
         {
             if (trank == null) throw new ArgumentNullException(nameof(trank));
-            rezept_ = trank.Rezept;
+            _rezept = trank.Rezept;
         }
 
         #endregion Construction
 
-        private void RezeptViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void HandlePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
-                case "Rezept":
+                case nameof(Rezept):
                     RaisePropertyChange(null);
                     break;
 
@@ -43,7 +45,7 @@ namespace Alchemie.UI.ViewModels
 
         #region Members
 
-        private Rezept rezept_;
+        private Rezept _rezept;
 
         #endregion Members
 
@@ -51,55 +53,33 @@ namespace Alchemie.UI.ViewModels
 
         public Rezept Rezept
         {
-            get
-            {
-                return rezept_;
-            }
-            set
-            {
-                rezept_ = value;
-                RaisePropertyChange(null);
-            }
+            get => _rezept;
+            set => SetValue(ref _rezept, value, null);
         }
 
         public string Name
         {
-            get
-            {
-                return Rezept.Name;
-            }
+            get => Rezept.Name;
         }
 
         public string Gruppe
         {
-            get
-            {
-                return Rezept.Gruppe;
-            }
+            get => Rezept.Gruppe;
         }
 
         public Labor Labor
         {
-            get
-            {
-                return Rezept.Labor;
-            }
+            get => Rezept.Labor;
         }
 
         public Probe Probe
         {
-            get
-            {
-                return Rezept.Probe;
-            }
+            get => Rezept.Probe;
         }
 
         public Beschaffung Beschaffung
         {
-            get
-            {
-                return Rezept.Beschaffung;
-            }
+            get => Rezept.Beschaffung;
             set
             {
                 Rezept.Beschaffung = value;
@@ -109,10 +89,7 @@ namespace Alchemie.UI.ViewModels
 
         public string Verbreitung
         {
-            get
-            {
-                return Rezept.Verbreitung;
-            }
+            get => Rezept.Verbreitung;
             set
             {
                 Rezept.Verbreitung = value;
@@ -122,27 +99,27 @@ namespace Alchemie.UI.ViewModels
 
         public string Haltbarkeit
         {
-            get
-            {
-                return Rezept.Haltbarkeit;
-            }
+            get => Rezept.Haltbarkeit.ToString();
             set
             {
-                Rezept.Haltbarkeit = value;
-                RaisePropertyChange();
+                if (Rezept.Haltbarkeit.ToString() != value)
+                {
+                    Rezept.Haltbarkeit = new(value);
+                    RaisePropertyChange();
+                }
             }
         }
 
         public string Preis
         {
-            get
-            {
-                return Rezept.Preis;
-            }
+            get => Rezept.Preis;
             set
             {
-                Rezept.Preis = value;
-                RaisePropertyChange();
+                if (Rezept.Preis != value)
+                {
+                    Rezept.Preis = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
@@ -154,8 +131,11 @@ namespace Alchemie.UI.ViewModels
             }
             set
             {
-                Rezept.Rezeptur = value;
-                RaisePropertyChange();
+                if (Rezept.Rezeptur != value)
+                {
+                    Rezept.Rezeptur = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
@@ -167,8 +147,11 @@ namespace Alchemie.UI.ViewModels
             }
             set
             {
-                Rezept.Seite = value;
-                RaisePropertyChange();
+                if (Rezept.Seite != value)
+                {
+                    Rezept.Seite = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
@@ -180,8 +163,11 @@ namespace Alchemie.UI.ViewModels
             }
             set
             {
-                Rezept.Merkmale = value;
-                RaisePropertyChange();
+                if (Rezept.Merkmale != value)
+                {
+                    Rezept.Merkmale = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
@@ -193,8 +179,11 @@ namespace Alchemie.UI.ViewModels
             }
             set
             {
-                Rezept.Beschreibung = value;
-                RaisePropertyChange();
+                if (Rezept.Beschreibung != value)
+                {
+                    Rezept.Beschreibung = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
@@ -206,8 +195,11 @@ namespace Alchemie.UI.ViewModels
             }
             set
             {
-                Rezept.Meisterhinweise = value;
-                RaisePropertyChange();
+                if (Rezept.Meisterhinweise != value)
+                {
+                    Rezept.Meisterhinweise = value;
+                    RaisePropertyChange();
+                }
             }
         }
 
@@ -219,8 +211,11 @@ namespace Alchemie.UI.ViewModels
             }
             set
             {
-                Rezept.Wirkung = value;
-                RaisePropertyChange();
+                if (Rezept.Wirkung != value)
+                {
+                    Rezept.Wirkung = value;
+                    RaisePropertyChange();
+                }
             }
         }
 

@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace Alchemie.Models
+namespace Alchemie.Models.Types
 {
-    public enum LaborID : int
+    public enum LaborID
     {
         ArchaischesLabor = 0,
         Hexenküche = 1,
         Alchemielabor = 2,
     }
 
-    public enum LaborQL : int
+    public enum LaborQL
     {
         Fehlend = +3,
         Normal = 0,
@@ -17,12 +17,24 @@ namespace Alchemie.Models
         SehrGut = -7
     }
 
-    public enum Subsitution : int
+    public enum Subsitution
     {
         Optimierend = -3,
         Gleichwertig = 0,
         Sinnvoll = +3,
         Möglich = +6,
-        Unsinnig = Int16.MaxValue
+        Unsinnig = ushort.MaxValue
+    }
+
+    public enum Quality
+    {
+        None = -1,
+        M = 0,
+        A = 1,
+        B = 2,
+        C = 3,
+        D = 4,
+        E = 5,
+        F = 6
     }
 }
