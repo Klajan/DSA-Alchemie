@@ -46,20 +46,24 @@ namespace Compress
 
         private static void Main(string[] args)
         {
-            if (args.Length != 0)
+            if (args.Length <= 0) return;
+            string fileIN = args[0];
+            string fileOUT = args[0] + ".deflate";
+            if (args.Length >= 2)
             {
-                if (File.Exists(args[0]))
+                fileOUT = args[1];
+            }
+            if (File.Exists(args[0]))
+            {
+                bool isSame = false;
+                if (File.Exists(fileOUT))
                 {
-                    bool isSame = false;
-                    if(File.Exists(args[0] + ".deflate"))
-                    {
-                        var task = CompareHash(args[0], args[0] + ".deflate");
-                        task.Wait();
-                        isSame = task.Result;
-                        Console.WriteLine($"File {args[0]} and {args[0]}.deflate skipped, SHA256 is equal!");
-                    }
-                    if (!isSame) WriteDeflate(args[0], args[0] + ".deflate");
+                    var task = CompareHash(fileIN, fileOUT);
+                    task.Wait();
+                    isSame = task.Result;
+                    Console.WriteLine($"File {fileIN} and {fileOUT} skipped, SHA256 is equal!");
                 }
+                if (!isSame) WriteDeflate(fileIN, fileOUT);
             }
         }
     }

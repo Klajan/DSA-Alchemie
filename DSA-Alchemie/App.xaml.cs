@@ -42,7 +42,7 @@ namespace Alchemie
             var initTask = Task.Run(InitTask);
             var updateTask = Task.Run(UpdateChecker.ShowUpdateWindow);
 
-            MainWindow.Activate();
+            _ = MainWindow.Activate();
             MainWindow.Show();
         }
 
