@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-    <TargetFramework>net5.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Alchemie</RootNamespace>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -57,6 +57,7 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>DSA-Alchemie_KEY.snk</AssemblyOriginatorKeyFile>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\.editorconfig">
@@ -161,6 +162,6 @@
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="cd $(ProjectDir)..\Compress\bin\net5.0&#xD;&#xA;Compress.exe $(ProjectDir)resources\data\rezepte.xml&#xD;&#xA;Compress.exe $(ProjectDir)resources\data\rezepte.xsd" />
+    <Exec Command="cd $(ProjectDir)..\Compress\bin\net6.0&#xD;&#xA;Compress.exe $(ProjectDir)resources\data\rezepte.xml&#xD;&#xA;Compress.exe $(ProjectDir)resources\data\rezepte.xsd" />
   </Target>
 </Project>
